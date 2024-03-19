@@ -58,7 +58,7 @@
 2. Fork repository:
 
     - Search Fork in right corner of repo and click
-    - Click Create Fork in bottom
+    - Click Create Fork in bottom, make sure you uncheck the Copy the master branch only
     - If in your repository had fork from above repository address, your fork process is success
 
 3. Clone fork repository:
