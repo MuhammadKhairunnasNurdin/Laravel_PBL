@@ -58,7 +58,7 @@
 2. Fork repository:
 
     - Search Fork in right corner of repo and click
-    - Click Create Fork in bottom
+    - Click Create Fork in bottom, make sure you uncheck the Copy the master branch only
     - If in your repository had fork from above repository address, your fork process is success
 
 3. Clone fork repository:
@@ -283,7 +283,7 @@
    git push origin Your_Role
    ```
    
-8. Do Pull Request to discussion your change with Team:
+8. Do Pull Request to discuss the change with your team:
     - [Open This Branch](https://github.com/MuhammadKhairunnasNurdin/Laravel_PBL/tree/frontend) for frontend role
     - [Open This Branch](https://github.com/MuhammadKhairunnasNurdin/Laravel_PBL/tree/backend) for backend role
     - [Open This Branch](https://github.com/MuhammadKhairunnasNurdin/Laravel_PBL/tree/Your_Role) for other role 
