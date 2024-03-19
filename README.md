@@ -294,11 +294,24 @@
    git pull origin master
    ```
 
+10. Do Push to your role branch to update your previous pull in step 9:
+    ```bash
+     git push origin Frontend
+    ```
+    or
+    ```bash
+     git push origin Backend
+    ```
+    or
+    ```bash
+     git push origin Your_Role
+    ```
+
 ### **🗒 Note :**
 
 ---
 
--   When Checkout, Push or Create Pull request in steps 2, 7 and 8 with 'Your_Role', change that to actual role like 'QA' or 'Documentary'
+-   When Checkout, Push or Create Pull request in steps 2, 7, 8, and 10 with 'Your_Role', change that to actual role like 'QA' or 'Documentary'
 -   If there are update change from master branch, you can do steps 1-3
 -   Don't push to master with 'git push origin master' when add code change to GitHub
 -   Always create Pull request like steps 8
