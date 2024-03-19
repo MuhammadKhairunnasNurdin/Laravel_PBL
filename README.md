@@ -294,7 +294,12 @@
    git pull origin master
    ```
 
-10. Do Push to your role branch to update your previous pull in step 9:
+10. (Optional) Check your git config and if there isn't config: pull.ff=only, do this:
+    ```bash
+    git config pull.ff only
+    ```
+    
+11. Do Push to your role branch to update your previous pull in step 9:
     ```bash
      git push origin Frontend
     ```
@@ -305,6 +310,11 @@
     or
     ```bash
      git push origin Your_Role
+    ```
+    
+    Note: if there is error when pull, because git config pull.ff=only, do this:
+    ```bash
+    git config pull.rebase false
     ```
 
 ### **🗒 Note :**
