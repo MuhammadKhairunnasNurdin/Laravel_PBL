@@ -288,17 +288,40 @@
     - [Open This Branch](https://github.com/MuhammadKhairunnasNurdin/Laravel_PBL/tree/backend) for backend role
     - [Open This Branch](https://github.com/MuhammadKhairunnasNurdin/Laravel_PBL/tree/Your_Role) for other role 
     - Click Contribute in middle top right and add pull request
-    
+
 9. Do Pull Origin master to update code change to your branch:
-     ```bash
+    ```bash
    git pull origin master
    ```
+
+10. (Optional) Check your git config and if there isn't config: pull.ff=only, do this:
+    ```bash
+    git config pull.ff only
+    ```
+    
+11. Do Push to your role branch to update your previous pull in step 9:
+    ```bash
+     git push origin Frontend
+    ```
+    or
+    ```bash
+     git push origin Backend
+    ```
+    or
+    ```bash
+     git push origin Your_Role
+    ```
+    
+    Note: if there is error when pull, because git config pull.ff=only, do this:
+    ```bash
+    git config pull.rebase false
+    ```
 
 ### **🗒 Note :**
 
 ---
 
--   When Checkout, Push or Create Pull request in steps 2, 7 and 8 with 'Your_Role', change that to actual role like 'QA' or 'Documentary'
+-   When Checkout, Push or Create Pull request in steps 2, 7, 8, and 10 with 'Your_Role', change that to actual role like 'QA' or 'Documentary'
 -   If there are update change from master branch, you can do steps 1-3
 -   Don't push to master with 'git push origin master' when add code change to GitHub
 -   Always create Pull request like steps 8
