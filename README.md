@@ -126,6 +126,8 @@
 
 12. Open browser and Access Localhost `http://localhost:8000` (for Laravel Server) or `http://localhost/www/Laravel_PBL` (for Laragon Server)
 
+#### note: for steps 2-11 or any of steps that using bash or command syntax, you can do those bash syntax in your terminal or IDE-integrated terminal ####
+
 ### **🕙 Project Collaboration:**
 
 ---
@@ -133,7 +135,13 @@
 1. Sync Your Fork repository:
     You can click in middle top right in Your GitHub repository: Laravel_PBL
 
-2. Change Branch related to Your Role:
+2. check your git status, specifically in branch:
+
+   ```bash
+   git status
+   ``` 
+   
+   if branch isn't relate to your role, Change Branch to the related Your Role:
    ```bash
    git checkout frontend
    ```
@@ -146,15 +154,15 @@
    git checkout Your_Role
    ```
 
-3. Pull change from master Branch that synced in your fork to designate your role branch:
+3. Pull code change, after fork synced in steps 1:
 
    ```bash
-   git pull origin master
+   git pull
    ```
    
 4. Crate your code change
    
-5. Commit your change to repository:
+5. Add to staging index your change:
 
    ```bash
    git add .
@@ -269,49 +277,20 @@
         style: remove empty line
         ```
   
-7. Push change to branch frontend or backend  or related to your role (don't push to master like 'git push origin master', or you blocked by rule):
+7. Push change to fork and don't push to master like 'git push origin master', or you blocked by rule (always check branch with steps 2, so push will hit remote branch that role rule targeted):
 
    ```bash
-   git push origin frontend
-   ```
-   or
-    ```bash
-   git push origin backend
-   ```
-   or
-    ```bash
-   git push origin Your_Role
+   git push
    ```
    
-8. Do Pull Request to discuss the change with your team:
-    - [Open This Branch](https://github.com/MuhammadKhairunnasNurdin/Laravel_PBL/tree/frontend) for frontend role
-    - [Open This Branch](https://github.com/MuhammadKhairunnasNurdin/Laravel_PBL/tree/backend) for backend role
-    - [Open This Branch](https://github.com/MuhammadKhairunnasNurdin/Laravel_PBL/tree/Your_Role) for other role 
-    - Click Contribute in middle top right and add pull request
+8. Do Pull Request from your fork to main repository to discuss the change with your team:
+    - Open your fork in your repository, if in there has notification to compare and pull request hit that button in there
+    - Create pull request from your fork to main repository branch master
 
-9. Do Pull Origin master to update code change to your branch:
-    ```bash
-   git pull origin master
-   ```
-
-10. (Optional) Check your git config and if there isn't config: pull.ff=only, do this:
-    ```bash
-    git config pull.ff only
-    ```
-    
-11. Do Push to your role branch to update your previous pull in step 9:
-    ```bash
-     git push origin Frontend
-    ```
-    or
-    ```bash
-     git push origin Backend
-    ```
-    or
-    ```bash
-     git push origin Your_Role
-    ```
-    
+9. (Optional) if when pull had problem with "merge using **ort** strategy", like merge commit with no actual changes make your work tree dirty, do this:
+   ```bash
+   git config pull.ff only
+   ``` 
     Note: if there is error when pull, because git config pull.ff=only, do this:
     ```bash
     git config pull.rebase false
@@ -321,9 +300,10 @@
 
 ---
 
--   When Checkout, Push or Create Pull request in steps 2, 7, 8, and 10 with 'Your_Role', change that to actual role like 'QA' or 'Documentary'
--   If there are update change from master branch, you can do steps 1-3
+-   If there are update change in your fork, always synced that, because you cannot push and crate pull request without that
+-   When Checkout, Push or Pull, always check your git branch is related to your Role 
 -   Don't push to master with 'git push origin master' when add code change to GitHub
 -   Always create Pull request like steps 8
+-   if in Discord that connected with webhook had notify about pull request, you can join discussion and review your teams code 
 
 
