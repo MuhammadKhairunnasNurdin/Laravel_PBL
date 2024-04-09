@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.containerSidebar {
+    @apply flex gap-3 flex-col p-4 rounded-lg cursor-pointer;
+    transition: all 1s ease-in-out;
+}
+
+.active {
+    @apply bg-blue-700 text-white
+}
