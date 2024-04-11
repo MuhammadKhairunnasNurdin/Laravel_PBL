@@ -1,4 +1,4 @@
-<aside class="flex bg-white h-screen justify-center shadow-inner">
+<aside class="flex bg-white h-full justify-center shadow-inner">
     <div class="content flex flex-col w-full gap-10 pt-10 mx-7">
         <a href="" class="containerSidebar active">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

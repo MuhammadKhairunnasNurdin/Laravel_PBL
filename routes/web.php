@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/index', function () {
-    return view('index');
+Route::get('/index', [DashboardController::class, 'index']);
+
+Route::get('/test', function () {
+    return view('ketua.test');
 });
