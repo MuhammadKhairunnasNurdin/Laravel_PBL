@@ -1,22 +1,6 @@
 @extends('kader.layouts.template')
 
 @section('content')
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-        border-radius: 10px; /* Adjust the value as needed */
-        overflow: hidden; /* Ensures rounded corners are visible */
-    }
-    th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-</style>
 <div class="grid grid-cols-3 mx-5 mt-5 mb-10 gap-5">
 
     {{-- Card Jumlah Balita --}}
@@ -122,13 +106,13 @@
                 </div>
             </div>
         </div>
-        <table class="">
-            <thead class="bg-gray-200 border text-left py-5">
-                <tr class=" text-stone-400 rounded-lg">
-                    <th class="font-normal text-sm py-2">Nama Kegiatan</th>
-                    <th class="font-normal text-sm py-2">Tanggal</th>
-                    <th class="font-normal text-sm py-2">Pukul</th>
-                    <th class="font-normal text-sm py-2">Tempat</th>
+        <table class="border-collapse w-full rounded-t-[10px] overflow-hidden">
+            <thead class="bg-gray-200 border-b text-left py-5">
+                <tr class=" text-stone-400">
+                    <th class="font-normal text-sm">Nama Kegiatan</th>
+                    <th class="font-normal text-sm">Tanggal</th>
+                    <th class="font-normal text-sm">Pukul</th>
+                    <th class="font-normal text-sm">Tempat</th>
                 </tr>
             </thead>
             <tbody>
@@ -138,25 +122,25 @@
                     <td class="font-normal text-sm">08:00 - Selesai</td>
                     <td class="font-normal text-sm">Posyandu Delima Merah</td>
                 </tr>
-                <tr class="text-neutral-950 w-full py-2 text-left">
+                <tr class="text-neutral-950 w-full text-left">
                     <td class="font-normal text-sm">Imunisasi Polio</td>
                     <td class="font-normal text-sm">1 April 2024</td>
                     <td class="font-normal text-sm">08:00 - Selesai</td>
                     <td class="font-normal text-sm">Posyandu Delima Merah</td>
                 </tr>
-                <tr class="text-neutral-950 w-full py-2 text-left">
+                <tr class="text-neutral-950 w-full text-left">
                     <td class="font-normal text-sm">Imunisasi Polio</td>
                     <td class="font-normal text-sm">1 April 2024</td>
                     <td class="font-normal text-sm">08:00 - Selesai</td>
                     <td class="font-normal text-sm">Posyandu Delima Merah</td>
                 </tr>
-                <tr class="text-neutral-950 w-full py-2 text-left">
+                <tr class="text-neutral-950 w-full text-left">
                     <td class="font-normal text-sm">Imunisasi Polio</td>
                     <td class="font-normal text-sm">1 April 2024</td>
                     <td class="font-normal text-sm">08:00 - Selesai</td>
                     <td class="font-normal text-sm">Posyandu Delima Merah</td>
                 </tr>
-                <tr class="text-neutral-950 w-full py-2 text-left">
+                <tr class="text-neutral-950 w-full text-left">
                     <td class="font-normal text-sm">Imunisasi Polio</td>
                     <td class="font-normal text-sm">1 April 2024</td>
                     <td class="font-normal text-sm">08:00 - Selesai</td>
@@ -166,7 +150,21 @@
         </table>
     </div>
 </div>
+@endsection
 
+@push('css')
+<style>
+    th, td {
+        padding-inline: 20px;
+        padding-block: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+</style>
+@endpush
+
+@push('js')
 <script src="{{ $chart->cdn() }}"></script>
 {{$chart->script() }}
-@endsection
+    
+@endpush
