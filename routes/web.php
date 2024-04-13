@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BalitaController;
+use App\Http\Controllers\LansiaController;
+use App\Http\Controllers\InfoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +17,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    Route::get('/login', function() {
+        return view('welcome');
+    });
 });
 
-Route::get('/index', function () {
-    return view('index');
+Route::get('/index', [DashboardController::class, 'index']);
+
+Route::get('/test', function () {
+    return view('ketua.test');
+});
+
+Route::group(['prefix' => 'kader'], function() {
+    Route::get('/', [DashboardController::class, 'indexKader']);
+
+    Route::group(['prefix' => 'balita'], function() {
+        Route::get('/', [BalitaController::class, 'index']);
+        Route::get('/tambah', [BalitaController::class, 'tambah']);
+    });
+
+    Route::group(['prefix' => 'lansia'], function() {
+        Route::get('/', [LansiaController::class, 'index']);
+        Route::get('/tambah', [LansiaController::class, 'tambah']);
+    });
+});
+
+Route::group(['prefix' => 'ketua'], function() {
+    Route::get('/', [DashboardController::class, 'indexKetua']);
 });
