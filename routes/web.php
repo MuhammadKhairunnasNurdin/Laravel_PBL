@@ -40,8 +40,21 @@ Route::group(['prefix' => 'kader'], function() {
         Route::get('/', [LansiaController::class, 'index']);
         Route::get('/tambah', [LansiaController::class, 'tambah']);
     });
+
+    Route::group(['prefix' => 'info'], function() {
+        Route::get('/', [InfoController::class, 'index']);
+        Route::group(['prefix' => 'artikel'], function() {
+            Route::get('/tambah', [InfoController::class, 'tambahArtikel']);
+            Route::get('/index', [InfoController::class, 'listArtikel']);
+        });
+        Route::group(['prefix' => 'kegiatan'], function(){
+            Route::get('/tambah', [InfoController::class, 'tambahKegiatan']);
+            Route::get('/index', [InfoController::class, 'listKegiatan']);
+        });
+    });
 });
 
 Route::group(['prefix' => 'ketua'], function() {
     Route::get('/', [DashboardController::class, 'indexKetua']);
 });
+
