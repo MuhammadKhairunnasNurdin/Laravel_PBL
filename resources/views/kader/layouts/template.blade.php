@@ -10,6 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     @vite('resources/css/app.css')
     <title>Sistem Informasi Posyandu</title>
+    <style>
+        *,html{
+            font-family: 'Plus Jakarta Sans'
+        }
+    </style>
     @stack('css')
 </head>
 <body class="bg-gray-200 w-full h-screen">
