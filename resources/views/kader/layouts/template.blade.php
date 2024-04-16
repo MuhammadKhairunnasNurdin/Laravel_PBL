@@ -11,7 +11,7 @@
     @vite('resources/css/app.css')
     <title>Sistem Informasi Posyandu</title>
     <style>
-        *,html{
+        *, html{
             font-family: 'Plus Jakarta Sans'
         }
     </style>
