@@ -12,19 +12,13 @@
     <title>Sistem Informasi Posyandu</title>
     @stack('css')
 </head>
-<body class="bg-gray-200 w-full h-screen">
-    @include('ketua.layouts.header')
-    {{-- @include('promosi.header') --}}
-    <div class="grid grid-cols-6 h-full">
-        <div class="col-span-1">
-            @include('ketua.layouts.sidebar')
-        </div>
-        <div class="col-span-5">
-            <div class="flex px-5 text-2xl pt-5">
-                @include('ketua.layouts.breadcrumb')
-            </div>
-            @yield('content')
-        </div>
+<body class="bg-gray-200 w-full">
+    @include('promosi.header')
+    <div class="h-full">
+        @yield('content')
+    </div>
+    <div class="flex">
+        @include('promosi.footer')
     </div>
     @stack('js')
 </body>
