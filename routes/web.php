@@ -5,6 +5,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\BalitaController;
 use App\Http\Controllers\LansiaController;
 use App\Http\Controllers\InfoController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,10 +20,9 @@ use App\Http\Controllers\InfoController;
 */
 
 Route::get('/', function () {
-    Route::get('/login', function() {
-        return view('welcome');
-    });
 });
+Route::get('/login', [LoginController::class, 'index']);
+
 
 Route::get('/index', [DashboardController::class, 'index']);
 
@@ -28,15 +30,15 @@ Route::get('/test', function () {
     return view('ketua.test');
 });
 
-Route::group(['prefix' => 'kader'], function() {
+Route::group(['prefix' => 'kader'], function () {
     Route::get('/', [DashboardController::class, 'indexKader']);
 
-    Route::group(['prefix' => 'balita'], function() {
+    Route::group(['prefix' => 'balita'], function () {
         Route::get('/', [BalitaController::class, 'index']);
         Route::get('/tambah', [BalitaController::class, 'tambah']);
     });
 
-    Route::group(['prefix' => 'lansia'], function() {
+    Route::group(['prefix' => 'lansia'], function () {
         Route::get('/', [LansiaController::class, 'index']);
         Route::get('/tambah', [LansiaController::class, 'tambah']);
     });
@@ -52,9 +54,11 @@ Route::group(['prefix' => 'kader'], function() {
             Route::get('/index', [InfoController::class, 'listKegiatan']);
         });
     });
+  
+    Route::get('/profile', [ProfileController::class, 'indexKader']);
 });
 
-Route::group(['prefix' => 'ketua'], function() {
+Route::group(['prefix' => 'ketua'], function () {
     Route::get('/', [DashboardController::class, 'indexKetua']);
+    Route::get('/profile', [ProfileController::class, 'indexKetua']);
 });
-
