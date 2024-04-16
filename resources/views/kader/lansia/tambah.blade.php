@@ -77,7 +77,7 @@
             </div>
             <div class="col-span-1 flex justify-end items-center gap-[26px] pt-10 w-full">
                 <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
-                <a href="" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]">Back</a>
+                <a href="{{ url('kader/lansia')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]">Back</a>
                 <a href="" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]">Next</a>
             </div>
         </div>

@@ -6,7 +6,7 @@
             <p class="text-neutral-950 text-2xl font-bold">Posyandu</p class="">
         </div>
     </div>
-    <div class="flex col-span-5 justify-between align-middle px-5">
+    <div class="flex col-span-5 justify-between align-middle px-5" onmouseover="showDropdown()" onmouseout="hideDropdown()">
         <div class="flex flex-col">
             <p class="text-neutral-950 text-xs">Halo, Rizky Fauzi!</p class="">
             <p class="text-neutral-950 text-xl">27 Maret 2024</p class="">
@@ -17,6 +17,23 @@
                 <p class="text-neutral-950 text-base">Rizky Fauzi</p class="">
                 <p class="text-neutral-950 text-sm">Kader</p class="">
             </div>
+            <div class="dropdown-content hidden absolute bg-white border border-gray-200 mt-10 py-2 rounded-md shadow-md">
+                <!-- Isi dropdown content di sini -->
+                <a href="{{ url('kader/profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Atur Profil</a>
+                <a href="{{ url('login') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+              </div>
         </div>
     </div>
 </nav>
+
+@push('js')
+<script>
+function showDropdown() {
+    document.querySelector('.dropdown-content').classList.remove('hidden');
+  }
+  
+  function hideDropdown() {
+    document.querySelector('.dropdown-content').classList.add('hidden');
+  }
+</script>
+@endpush
