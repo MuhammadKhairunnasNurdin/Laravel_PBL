@@ -8,5 +8,5 @@
 }
 
 .active {
-    @apply bg-blue-700 text-white
+    @apply bg-blue-700 text-white outline-white
 }
