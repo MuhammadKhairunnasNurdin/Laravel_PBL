@@ -7,7 +7,7 @@
             <h3 class="font-bold text-[15px]">Tingkatkan Masyarakat Sehat Sejahtera, Kader Panjang Baru adakan Posyandu Balita di Polehan</h3>
             <p class="text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac sapien vel dolor pharetra dapibus. Sed ac mauris vitae ipsum varius dignissim. Integer congue nec elit sed ...</p>
             <div class="flex w-full justify-center gap-[10px] pt-[13px]">
-                <a href="" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
+                <a href="{{ url('kader/info/artikel/detail')}}" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
                 <a href="" class="bg-blue-700 text-[15px] text-white py-[10px] px-[30px] rounded-[5px]">Edit</a>
             </div>
         </div>
@@ -17,7 +17,7 @@
             <h3 class="font-bold text-[15px]">Tingkatkan Masyarakat Sehat Sejahtera, Kader Panjang Baru adakan Posyandu Balita di Polehan</h3>
             <p class="text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac sapien vel dolor pharetra dapibus. Sed ac mauris vitae ipsum varius dignissim. Integer congue nec elit sed ...</p>
             <div class="flex w-full justify-center gap-[10px] pt-[13px]">
-                <a href="" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
+                <a href="{{ url('kader/info/artikel/detail')}}" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
                 <a href="" class="bg-blue-700 text-[15px] text-white py-[10px] px-[30px] rounded-[5px]">Edit</a>
             </div>
         </div>
@@ -27,7 +27,7 @@
             <h3 class="font-bold text-[15px]">Tingkatkan Masyarakat Sehat Sejahtera, Kader Panjang Baru adakan Posyandu Balita di Polehan</h3>
             <p class="text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac sapien vel dolor pharetra dapibus. Sed ac mauris vitae ipsum varius dignissim. Integer congue nec elit sed ...</p>
             <div class="flex w-full justify-center gap-[10px] pt-[13px]">
-                <a href="" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
+                <a href="{{ url('kader/info/artikel/detail')}}" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
                 <a href="" class="bg-blue-700 text-[15px] text-white py-[10px] px-[30px] rounded-[5px]">Edit</a>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <h3 class="font-bold text-[15px]">Tingkatkan Masyarakat Sehat Sejahtera, Kader Panjang Baru adakan Posyandu Balita di Polehan</h3>
             <p class="text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac sapien vel dolor pharetra dapibus. Sed ac mauris vitae ipsum varius dignissim. Integer congue nec elit sed ...</p>
             <div class="flex w-full justify-center gap-[10px] pt-[13px]">
-                <a href="" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
+                <a href="{{ url('kader/info/artikel/detail')}}" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
                 <a href="" class="bg-blue-700 text-[15px] text-white py-[10px] px-[30px] rounded-[5px]">Edit</a>
             </div>
         </div>
@@ -47,7 +47,7 @@
             <h3 class="font-bold text-[15px]">Tingkatkan Masyarakat Sehat Sejahtera, Kader Panjang Baru adakan Posyandu Balita di Polehan</h3>
             <p class="text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac sapien vel dolor pharetra dapibus. Sed ac mauris vitae ipsum varius dignissim. Integer congue nec elit sed ...</p>
             <div class="flex w-full justify-center gap-[10px] pt-[13px]">
-                <a href="" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
+                <a href="{{ url('kader/info/artikel/detail')}}" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
                 <a href="" class="bg-blue-700 text-[15px] text-white py-[10px] px-[30px] rounded-[5px]">Edit</a>
             </div>
         </div>
@@ -57,7 +57,7 @@
             <h3 class="font-bold text-[15px]">Tingkatkan Masyarakat Sehat Sejahtera, Kader Panjang Baru adakan Posyandu Balita di Polehan</h3>
             <p class="text-[15px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac sapien vel dolor pharetra dapibus. Sed ac mauris vitae ipsum varius dignissim. Integer congue nec elit sed ...</p>
             <div class="flex w-full justify-center gap-[10px] pt-[13px]">
-                <a href="" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
+                <a href="{{ url('kader/info/artikel/detail')}}" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
                 <a href="" class="bg-blue-700 text-[15px] text-white py-[10px] px-[30px] rounded-[5px]">Edit</a>
             </div>
         </div>

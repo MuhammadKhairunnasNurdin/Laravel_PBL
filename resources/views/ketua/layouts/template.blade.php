@@ -10,18 +10,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
     @vite('resources/css/app.css')
     <title>Sistem Informasi Posyandu</title>
+    <style>
+        *, html{
+            font-family: 'Plus Jakarta Sans'
+        }
+    </style>
     @stack('css')
 </head>
 <body class="bg-gray-200 w-full h-screen">
     @include('ketua.layouts.header')
-    {{-- @include('promosi.header') --}}
-    <div class="grid grid-cols-6 h-full">
+    <div class="grid grid-cols-6 h-full mt-[88px]">
         <div class="col-span-1">
             @include('ketua.layouts.sidebar')
         </div>
         <div class="col-span-5">
             <div class="flex px-5 text-2xl pt-5">
-                @include('ketua.layouts.breadcrumb')
+                @include('kader.layouts.breadcrumb')
             </div>
             @yield('content')
         </div>

@@ -61,4 +61,15 @@ class InfoController extends Controller
 
         return view('kader.informasi.artikel.list', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
+    
+    public function lihatArtikel()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Kelola Informasi'
+        ];
+
+        $activeMenu = 'info';
+
+        return view('kader.informasi.artikel.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+    }
 }

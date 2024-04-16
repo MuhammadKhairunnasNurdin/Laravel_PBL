@@ -40,11 +40,13 @@ Route::group(['prefix' => 'kader'], function () {
     Route::group(['prefix' => 'balita'], function () {
         Route::get('/', [BalitaController::class, 'index']);
         Route::get('/tambah', [BalitaController::class, 'tambah']);
+        Route::get('/detail', [BalitaController::class, 'detail']);
     });
 
     Route::group(['prefix' => 'lansia'], function () {
         Route::get('/', [LansiaController::class, 'index']);
         Route::get('/tambah', [LansiaController::class, 'tambah']);
+        Route::get('/detail', [LansiaController::class, 'detail']);
     });
 
     Route::group(['prefix' => 'info'], function () {
@@ -52,6 +54,7 @@ Route::group(['prefix' => 'kader'], function () {
         Route::group(['prefix' => 'artikel'], function () {
             Route::get('/tambah', [InfoController::class, 'tambahArtikel']);
             Route::get('/index', [InfoController::class, 'listArtikel']);
+            Route::get('/detail', [InfoController::class, 'lihatArtikel']);
         });
         Route::group(['prefix' => 'kegiatan'], function () {
             Route::get('/tambah', [InfoController::class, 'tambahKegiatan']);

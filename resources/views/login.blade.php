@@ -27,8 +27,8 @@
                 <img src="{{ asset('img/logo_posyandu.png') }}" alt="logo Posyandu" class="w-[142px] h-[106.5px]">
                 <div class="flex flex-col w-full gap-4">
                     <div class="flex flex-col w-full gap-[30px]">
-                        <input type="text" placeholder="Email atau username" class="pl-5 py-[15px] w-full border border-stone-400 rounded">
-                        <input type="text" placeholder="Password" class="pl-5 py-[15px] w-full border border-stone-400 rounded">
+                        <input type="text" placeholder="Email atau username" class="pl-5 py-[15px] w-full border border-stone-400 rounded focus:outline-none">
+                        <input type="text" placeholder="Password" class="pl-5 py-[15px] w-full border border-stone-400 rounded focus:outline-none">
                     </div>
                     <div class="flex left w-full gap-4">
                         <input type="checkbox" name="" id="">

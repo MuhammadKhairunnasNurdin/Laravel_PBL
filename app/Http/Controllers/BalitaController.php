@@ -27,4 +27,15 @@ class BalitaController extends Controller
 
         return view('kader.balita.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
+
+    public function detail()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Pemeriksaan Balita'
+        ];
+
+        $activeMenu = 'Balita';
+
+        return view('kader.balita.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+    }
 }
