@@ -8,6 +8,9 @@
 }
 
 .active {
-    @apply bg-blue-700 text-white outline-white
+    @apply bg-blue-700 text-white outline-white;
 }
 
+.activeHeader {
+    @apply border-b-[3px] border-blue-700;
+}
