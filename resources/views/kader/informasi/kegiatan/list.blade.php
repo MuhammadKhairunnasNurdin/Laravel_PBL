@@ -42,10 +42,9 @@
                     <td class="font-normal text-sm">08:00 - Selesai</td>
                     <td class="font-normal text-sm">Posyandu Delima Merah</td>
                     <td class="font-normal text-sm">
-                        <div class="gap-[5px]">
-                            <a href="" class="bg-blue-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
-                            <a href="" class="bg-yellow-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500">Ubah</a>
-                            <a href="" class="bg-red-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</a>
+                        <div class="flex gap-2">
+                            <a href="" class="bg-yellow-400 text-xs text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500">Ubah</a>
+                            <a href="" class="bg-red-400 text-xs text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</a>
                         </div>
                     </td>
                 </tr>
@@ -55,10 +54,9 @@
                     <td class="font-normal text-sm">08:00 - Selesai</td>
                     <td class="font-normal text-sm">Posyandu Delima Merah</td>
                     <td class="font-normal text-sm">
-                        <div class="gap-[5px]">
-                            <a href="" class="bg-blue-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
-                            <a href="" class="bg-yellow-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500">Ubah</a>
-                            <a href="" class="bg-red-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</a>
+                        <div class="flex gap-2">
+                            <a href="" class="bg-yellow-400 text-xs text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500">Ubah</a>
+                            <a href="" class="bg-red-400 text-xs text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</a>
                         </div>
                     </td>
                 </tr>
@@ -68,10 +66,9 @@
                     <td class="font-normal text-sm">08:00 - Selesai</td>
                     <td class="font-normal text-sm">Posyandu Delima Merah</td>
                     <td class="font-normal text-sm">
-                        <div class="gap-[5px]">
-                            <a href="" class="bg-blue-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
-                            <a href="" class="bg-yellow-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500">Ubah</a>
-                            <a href="" class="bg-red-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</a>
+                        <div class="flex gap-2">
+                            <a href="" class="bg-yellow-400 text-xs text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500">Ubah</a>
+                            <a href="" class="bg-red-400 text-xs text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</a>
                         </div>
                     </td>
                 </tr>

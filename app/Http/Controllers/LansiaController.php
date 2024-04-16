@@ -25,4 +25,15 @@ class LansiaController extends Controller
 
         return view('kader.lansia.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
+
+    public function detail()
+    {
+        $breadcrumb = (object)[
+            'title' => 'Pemeriksaan Lansia'  
+        ];
+
+        $activeMenu = 'lansia';
+
+        return view('kader.lansia.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+    }
 }
