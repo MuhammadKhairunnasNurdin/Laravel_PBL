@@ -19,7 +19,7 @@
 </head>
 <body class="bg-gray-200 w-full h-screen">
     @include('kader.layouts.header')
-    <div class="grid grid-cols-6 h-full">
+    <div class="grid grid-cols-6 h-full mt-[88px]">
         <div class="col-span-1">
             @include('kader.layouts.sidebar')
         </div>
