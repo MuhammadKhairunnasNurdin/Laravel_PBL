@@ -10,25 +10,25 @@
             <div class="col-span-1 flex flex-col gap-[23px]">
                 <div class="flex flex-col w-full h-fill gap-[20px]">
                     <p class="text-base text-neutral-950">Nama Balita<span class="text-red-400">*</span></p>
-                    <select name="filter" id="filter" class="w-100 border border-stone-400 text-gray-300 text-sm font-normal pl-[10px] pr-[300px] py-[10px] rounded-[5px] focus:outline-none">
+                    <select name="filter" id="filter" class="w-100 border border-stone-400 text-gray-300 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
                         <option value="" class="">Masukkan nama balita</option>
                     </select>
                 </div>
                 <div class="flex flex-col w-full h-fill gap-[20px]">
                     <p class="text-base text-neutral-950">Usia<span class="text-red-400">*</span></p>
-                    <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] pr-[300px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan usia balita">
+                    <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan usia balita">
                 </div>
                 <div class="flex flex-col w-full h-fill gap-[20px]">
                     <p class="text-base text-neutral-950">Nama Ibu<span class="text-red-400">*</span></p>
-                    <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] pr-[300px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan nama ibu">
+                    <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan nama ibu">
                 </div>
                 <div class="flex flex-col w-full h-fill gap-[20px]">
                     <p class="text-base text-neutral-950 pr-[10px]">Nama Ayah<span class="text-red-400">*</span></p>
-                    <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] pr-[300px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan nama ayah">
+                    <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan nama ayah">
                 </div>
                 <div class="flex flex-col w-full h-fill gap-[20px]">
                     <p class="text-base text-neutral-950 pr-[10px]">Alamat<span class="text-red-400">*</span></p>
-                    <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] pr-[300px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan alamat">
+                    <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan alamat">
                 </div>
             </div>
            
@@ -66,13 +66,13 @@
         <div class="grid grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
             <div class="col-span-1 flex flex-col w-full h-fill gap-[20px]">
                 <p class="text-base text-neutral-950 pr-[10px]">Data KB<span class="text-red-400">*</span></p>
-                <select name="filter" id="filter" class="w-100 border border-stone-400 text-gray-300 text-sm font-normal pl-[10px] pr-[300px] py-[10px] rounded-[5px] focus:outline-none">
+                <select name="filter" id="filter" class="w-100 border border-stone-400 text-gray-300 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
                     <option value="" class="">Masukkan data KB</option>
                 </select>
             </div>
             <div class="col-span-1 flex justify-end items-center gap-[26px] pt-10 w-full">
                 <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
-                <a href="" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]">Back</a>
+                <a href="{{ url('kader/balita')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]">Back</a>
                 <a href="" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]">Next</a>
             </div>
         </div>
