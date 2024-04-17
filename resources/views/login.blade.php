@@ -26,20 +26,51 @@
             <div class="flex flex-col w-100 justify-center items-center gap-[42px]">
                 <img src="{{ asset('img/logo_posyandu.png') }}" alt="logo Posyandu" class="w-[142px] h-[106.5px]">
                 <div class="flex flex-col w-full gap-4">
-                    <div class="flex flex-col w-full gap-[30px]">
-                        <input type="text" placeholder="Email atau username" class="pl-5 py-[15px] w-full border border-stone-400 rounded focus:outline-none">
-                        <input type="text" placeholder="Password" class="pl-5 py-[15px] w-full border border-stone-400 rounded focus:outline-none">
-                    </div>
-                    <div class="flex left w-full gap-4">
-                        <input type="checkbox" name="" id="">
-                        <p>Ingat saya</p>
-                    </div>
-                    <div class="flex right w-full gap-4 justify-end">
-                        <button class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px] w-fit right-0">Login</button>
-                    </div>
+                    <form method="POST" action="#" id="login-form">
+                        <div class="flex flex-col w-full gap-[30px]">
+                            <input type="text" placeholder="Username" class="pl-5 py-[15px] w-full border border-stone-400 rounded focus:outline-none" required>
+                            <input type="password" id="password" placeholder="Password" class="pl-5 py-[15px] w-full border border-stone-400 rounded focus:outline-none" required>
+                        </div>
+                        <div class="flex left w-full">
+                            <span id="passwordError" class="text-red-500 hidden"></span>
+                        </div>
+                        <div class="flex left w-full gap-4">
+                            <input type="checkbox" name="" id="">
+                            <p>Ingat saya</p>
+                        </div>
+                        <div class="flex right w-full gap-4 justify-end">
+                            <button class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px] w-fit right-0" id="submit" type="submit">Login</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function(event){
+            let pwd = document.getElementById("password").value;
+            var passwordError = document.getElementById("passwordError");
+            let valid = true;
+            
+            if (!/[A-Z]/.test(pwd)) {
+                passwordError.textContent = "Password harus memiliki setidaknya satu huruf kapital.";
+                passwordError.classList.remove("hidden");
+                valid = false;
+            }
+            if (!/[0-9]/.test(pwd)) {
+                passwordError.textContent = "Password harus memiliki setidaknya 1 angka.";
+                passwordError.classList.remove("hidden");
+                valid = false;
+            }
+            if (pwd.length < 8) {
+                passwordError.textContent = "Password minimal 8 karakter ";
+                passwordError.classList.remove("hidden");
+                valid = false;
+            }
+            if(!valid) {
+                event.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>
