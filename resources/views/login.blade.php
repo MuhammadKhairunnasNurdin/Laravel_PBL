@@ -26,10 +26,10 @@
             <div class="flex flex-col w-100 justify-center items-center gap-[42px]">
                 <img src="{{ asset('img/logo_posyandu.png') }}" alt="logo Posyandu" class="w-[142px] h-[106.5px]">
                 @error('login_failed')
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <div class="pl-5 py-[15px] bg-red-200 w-full fade show" role="alert">
                     <span class="alert-inner-text"><strong>Warning!</strong> {{ $message }}</span>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+{{--                        <span aria-hidden="true">&times;</span>--}}
                     </button>
                 </div>
                 @enderror
@@ -43,10 +43,10 @@
                         <div class="flex left w-full">
                             <span id="passwordError" class="text-red-500 hidden"></span>
                         </div>
-                        <div class="flex left w-full gap-4">
-                            <input type="checkbox" name="remember" id="">
-                            <p>Ingat saya</p>
-                        </div>
+{{--                        <div class="flex left pt-4 w-full gap-4">--}}
+{{--                            <input type="checkbox" name="remember" id="">--}}
+{{--                            <p>Ingat saya</p>--}}
+{{--                        </div>--}}
                         <div class="flex right w-full gap-4 justify-end">
                             <button class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px] w-fit right-0" id="submit" type="submit">Login</button>
                         </div>

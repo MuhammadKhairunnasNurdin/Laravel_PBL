@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArtikelResource;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BayiResource;
 use App\Http\Controllers\InformasiController;
 use App\Http\Controllers\KegiatanResource;
@@ -22,46 +23,52 @@ use App\Http\Controllers\PromosiController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+/**
+ * Routes for non-authenticate user
+ */
 Route::get('/', [PromosiController::class, 'landingpage']);
 Route::get('/profil', [PromosiController::class, 'profil'])->name('profil');
 Route::get('/jadwal', [PromosiController::class, 'jadwal']);
-//Route::get('login', [LoginController::class, 'index'])->name('login');
-//Route::post('login', [LoginController::class, 'authenticator'])->name('login.auth');
+Route::get('/login', [AuthController::class, 'index'])->name('login');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('login.auth');
 
-//Route::group(['middleware' => ['auth']], function () {
+/**
+ * Group route for authenticate user
+ */
+Route::group(['middleware' => ['auth']], function () {
 
     /**
      * User Admin
      */
-//    Route::group(['middleware' => ['CheckUserLevel:admin']], function () {
-//        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-//    });
+    Route::group(['middleware' => ['checkLevel:admin'], 'prefix' => 'admin'], function () {
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->name('admin.logout');
+    });
 
     /**
      * User Kader
      */
-//    Route::group(['middleware' => ['CheckUserLevel:kader']], function () {
+    Route::group(['middleware' => ['checkLevel:kader'], 'prefix' => 'kader'], function () {
+        Route::get('/', [DashboardController::class, 'indexKader']);
+        Route::get('/profile', [ProfileController::class, 'indexKader'])->name('kader.profile');
+
         Route::resource('bayi', BayiResource::class);
-        Route::get('/kader', [DashboardController::class, 'indexKader'])->name('kader');
-//        Route::get('/', [DashboardController::class, 'indexKader'])->name('kader');
-        Route::get('/profile', [ProfileController::class, 'indexKader']);
         Route::resource('lansia', LansiaResource::class);
 
-        Route::group(['prefix' => 'info'], function () {
+        Route::group(['prefix' => 'informasi'], function () {
             Route::get('/', InformasiController::class);
             Route::resource('kegiatan', KegiatanResource::class)->except('show');
             Route::resource('artikel', ArtikelResource::class);
         });
 
-//        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-//    });
+        Route::post('/logout', [AuthController::class, 'logout'])->name('kader.logout');
+    });
 
     /**
      * User Ketua
      */
-//    Route::group(['middleware' => 'CheckUserLevel:ketua', 'prefix' => 'ketua'], function () {
-        Route::get('/', [DashboardController::class, 'indexKetua'])->name('ketua');
-        Route::get('/profile', [ProfileController::class, 'indexKetua']);
+    Route::group(['middleware' => 'checkLevel:ketua', 'prefix' => 'ketua'], function () {
+        Route::get('/', [DashboardController::class, 'indexKetua']);
+        Route::get('/profile', [ProfileController::class, 'indexKetua'])->name('ketua.profile');
 
         Route::group(['prefix' => 'bantuan'], function () {
             Route::get('/', [BantuanController::class, 'index']);
@@ -72,6 +79,6 @@ Route::get('/jadwal', [PromosiController::class, 'jadwal']);
             Route::get('/tambah', [PenerimaController::class, 'tambah']);
         });
 
-//        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-//    });
-//});
+        Route::post('/logout', [AuthController::class, 'logout'])->name('ketua.logout');
+    });
+});
