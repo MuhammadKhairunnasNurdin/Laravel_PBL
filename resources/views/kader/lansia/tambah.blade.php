@@ -54,11 +54,11 @@
                     <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar perut">
                 </div>
             </div>
-           
+
             <div class="col-span-1 flex flex-col gap-[23px]">
                 <div class="flex flex-col w-full h-full gap-[20px]" id="page_1">
                     <p class="text-base text-neutral-950 pr-[10px]">Respon Pengunjung<span class="text-red-400">*</span></p>
-                    <textarea type="text" id="comment" class="text-sm font-normal border border-stone-400 px-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" rows="5" maxlength="200" placeholder="Masukkan respon pengunjung"></textarea>  
+                    <textarea type="text" id="comment" class="text-sm font-normal border border-stone-400 px-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" rows="5" maxlength="200" placeholder="Masukkan respon pengunjung"></textarea>
                     <p class="text-xs font-normal text-stone-400 mt-[-10px]" id="counter">0/200</p>
                 </div>
                 <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
@@ -109,7 +109,7 @@
             </div>
             <div class="col-span-1 flex justify-end items-center gap-[26px] pt-10 w-full">
                 <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
-                <a href="{{ url('kader/lansiaE')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Back</a>
+                <a href="{{ url('kader/lansia')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Back</a>
                 <button class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden back" id="page_2">Back</button>
                 <button class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="next">Next</button>
             </div>

@@ -13,7 +13,7 @@
                 <a href="" class="bg-red-600 text-white py-[10px] px-[17px] rounded-[5px]">Hapus</a>
                 <a href="" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px]">Ubah</a>
             </div>
-            
+
         </div>
         <div class="col-span-2 w-full h-full py-10">
             <div class="flex flex-col py-[55px] mr-[51px] bg-gray-200 rounded-[15px] gap-[60px]">
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="flex justify-end col-span-3 w-full pr-[51px] pb-[30px] gap-[30px]">
-            <a href="" class="bg-gray-300 py-[10px] px-[17px] rounded-[5px]">Kembali</a>
+            <a href="{{ url('ketua/') }}" class="bg-gray-300 py-[10px] px-[17px] rounded-[5px]">Kembali</a>
             <a href="" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px]">Simpan Data</a>
         </div>
     </div>

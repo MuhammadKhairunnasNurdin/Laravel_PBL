@@ -19,15 +19,13 @@
             </div>
             <div class="dropdown-content hidden absolute bg-white border border-gray-200 mt-10 py-2 rounded-md shadow-md">
                 <!-- Isi dropdown content di sini -->
-                <a href="{{ url('kader/profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Atur Profil</a>
-                <a href="{{ url('login') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                <a href="{{ route('ketua.profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Atur Profil</a>
+                <form action="{{ route('ketua.logout') }}" method="post">
+                    @csrf
+                    <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                </form>
               </div>
         </div>
-        <div class="dropdown-content hidden absolute bg-white border border-gray-200 mt-12 rounded-md shadow-md">
-            <!-- Isi dropdown content di sini -->
-            <a href="{{ url('kader/profile') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Atur Profil</a>
-            <a href="{{ url('login') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
-          </div>
     </div>
 </nav>
 
@@ -36,7 +34,7 @@
 function showDropdown() {
     document.querySelector('.dropdown-content').classList.remove('hidden');
   }
-  
+
   function hideDropdown() {
     document.querySelector('.dropdown-content').classList.add('hidden');
   }
