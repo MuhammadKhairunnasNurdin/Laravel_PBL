@@ -3,7 +3,7 @@
 @section('content')
 <div class="flex flex-col bg-white mx-5 my-5 shadow-[0_-4px_0_0_rgba(29,78,216,1)] rounded-md">
     <div class="flex justify-between items-center w-full py-2 border-b">
-        <p class="text-lg ml-10">Detail lansia</p>    
+        <p class="text-lg ml-10">Detail lansia</p>
     </div>
     <div class="flex flex-col gap-[15px] py-10 px-[30px]">
         <table class="w-fit">
@@ -66,7 +66,7 @@
             </tbody>
         </table>
         <div class="flex justify-end">
-            <a href="{{ url('kader/balita')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]">Kembali</a>
+            <a href="{{ url('kader/lansia')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]">Kembali</a>
         </div>
     </div>
 </div>

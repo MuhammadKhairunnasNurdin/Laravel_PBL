@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\ArtikelResource;
+use App\Http\Controllers\BayiResource;
+use App\Http\Controllers\InformasiController;
+use App\Http\Controllers\KegiatanResource;
+use App\Http\Controllers\LansiaResource;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\BalitaController;
 use App\Http\Controllers\BantuanController;
-use App\Http\Controllers\LansiaController;
-use App\Http\Controllers\InfoController;
-use App\Http\Controllers\JadwalController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PenerimaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PromosiController;
@@ -22,63 +22,56 @@ use App\Http\Controllers\PromosiController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-});
-Route::get('/login', [LoginController::class, 'index']);
-
-
-Route::get('/index', [DashboardController::class, 'index']);
-
-Route::get('/test', function () {
-    return view('ketua.test');
-});
-
-Route::group(['prefix' => 'kader'], function () {
-    Route::get('/', [DashboardController::class, 'indexKader']);
-
-    Route::group(['prefix' => 'balita'], function () {
-        Route::get('/', [BalitaController::class, 'index']);
-        Route::get('/tambah', [BalitaController::class, 'tambah']);
-        Route::get('/detail', [BalitaController::class, 'detail']);
-    });
-
-    Route::group(['prefix' => 'lansia'], function () {
-        Route::get('/', [LansiaController::class, 'index']);
-        Route::get('/tambah', [LansiaController::class, 'tambah']);
-        Route::get('/detail', [LansiaController::class, 'detail']);
-    });
-
-    Route::group(['prefix' => 'info'], function () {
-        Route::get('/', [InfoController::class, 'index']);
-        Route::group(['prefix' => 'artikel'], function () {
-            Route::get('/tambah', [InfoController::class, 'tambahArtikel']);
-            Route::get('/index', [InfoController::class, 'listArtikel']);
-            Route::get('/detail', [InfoController::class, 'lihatArtikel']);
-        });
-        Route::group(['prefix' => 'kegiatan'], function () {
-            Route::get('/tambah', [InfoController::class, 'tambahKegiatan']);
-            Route::get('/index', [InfoController::class, 'listKegiatan']);
-        });
-    });
-
-    Route::get('/profile', [ProfileController::class, 'indexKader']);
-});
-
-Route::group(['prefix' => 'ketua'], function () {
-    Route::get('/', [DashboardController::class, 'indexKetua']);
-    Route::get('/profile', [ProfileController::class, 'indexKetua']);
-
-    Route::group(['prefix' => 'bantuan'], function () {
-        Route::get('/', [BantuanController::class, 'index']);
-        Route::get('/tambah', [BantuanController::class, 'tambah']);
-    });
-    Route::group(['prefix' => 'penerima'], function () {
-        Route::get('/', [PenerimaController::class, 'index']);
-        Route::get('/tambah', [PenerimaController::class, 'tambah']);
-    });
-});
-
-Route::get('/jadwal', [PromosiController::class, 'jadwal']);
-Route::get('/profil', [PromosiController::class, 'profil']);
 Route::get('/', [PromosiController::class, 'landingpage']);
+Route::get('/profil', [PromosiController::class, 'profil'])->name('profil');
+Route::get('/jadwal', [PromosiController::class, 'jadwal']);
+//Route::get('login', [LoginController::class, 'index'])->name('login');
+//Route::post('login', [LoginController::class, 'authenticator'])->name('login.auth');
+
+//Route::group(['middleware' => ['auth']], function () {
+
+    /**
+     * User Admin
+     */
+//    Route::group(['middleware' => ['CheckUserLevel:admin']], function () {
+//        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+//    });
+
+    /**
+     * User Kader
+     */
+//    Route::group(['middleware' => ['CheckUserLevel:kader']], function () {
+        Route::resource('bayi', BayiResource::class);
+        Route::get('/kader', [DashboardController::class, 'indexKader'])->name('kader');
+//        Route::get('/', [DashboardController::class, 'indexKader'])->name('kader');
+        Route::get('/profile', [ProfileController::class, 'indexKader']);
+        Route::resource('lansia', LansiaResource::class);
+
+        Route::group(['prefix' => 'info'], function () {
+            Route::get('/', InformasiController::class);
+            Route::resource('kegiatan', KegiatanResource::class)->except('show');
+            Route::resource('artikel', ArtikelResource::class);
+        });
+
+//        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+//    });
+
+    /**
+     * User Ketua
+     */
+//    Route::group(['middleware' => 'CheckUserLevel:ketua', 'prefix' => 'ketua'], function () {
+        Route::get('/', [DashboardController::class, 'indexKetua'])->name('ketua');
+        Route::get('/profile', [ProfileController::class, 'indexKetua']);
+
+        Route::group(['prefix' => 'bantuan'], function () {
+            Route::get('/', [BantuanController::class, 'index']);
+            Route::get('/tambah', [BantuanController::class, 'tambah']);
+        });
+        Route::group(['prefix' => 'penerima'], function () {
+            Route::get('/', [PenerimaController::class, 'index']);
+            Route::get('/tambah', [PenerimaController::class, 'tambah']);
+        });
+
+//        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+//    });
+//});

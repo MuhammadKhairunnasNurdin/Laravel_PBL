@@ -25,17 +25,26 @@
             </div>
             <div class="flex flex-col w-100 justify-center items-center gap-[42px]">
                 <img src="{{ asset('img/logo_posyandu.png') }}" alt="logo Posyandu" class="w-[142px] h-[106.5px]">
+                @error('login_failed')
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <span class="alert-inner-text"><strong>Warning!</strong> {{ $message }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @enderror
                 <div class="flex flex-col w-full gap-4">
-                    <form method="POST" action="#" id="login-form">
+                    <form method="post" action="{{route('login.auth')}}" id="login-form">
+                        @csrf
                         <div class="flex flex-col w-full gap-[30px]">
-                            <input type="text" placeholder="Username" class="pl-5 py-[15px] w-full border border-stone-400 rounded focus:outline-none" required>
-                            <input type="password" id="password" placeholder="Password" class="pl-5 py-[15px] w-full border border-stone-400 rounded focus:outline-none" required>
+                            <input type="text" name="username" placeholder="Username" class="pl-5 py-[15px] w-full border border-stone-400 rounded focus:outline-none" required>
+                            <input type="password" id="password" name="password" placeholder="Password" class="pl-5 py-[15px] w-full border border-stone-400 rounded focus:outline-none" required>
                         </div>
                         <div class="flex left w-full">
                             <span id="passwordError" class="text-red-500 hidden"></span>
                         </div>
                         <div class="flex left w-full gap-4">
-                            <input type="checkbox" name="" id="">
+                            <input type="checkbox" name="remember" id="">
                             <p>Ingat saya</p>
                         </div>
                         <div class="flex right w-full gap-4 justify-end">
@@ -49,9 +58,9 @@
     <script>
         document.getElementById("login-form").addEventListener("submit", function(event){
             let pwd = document.getElementById("password").value;
-            var passwordError = document.getElementById("passwordError");
+            let passwordError = document.getElementById("passwordError");
             let valid = true;
-            
+
             if (!/[A-Z]/.test(pwd)) {
                 passwordError.textContent = "Password harus memiliki setidaknya satu huruf kapital.";
                 passwordError.classList.remove("hidden");
