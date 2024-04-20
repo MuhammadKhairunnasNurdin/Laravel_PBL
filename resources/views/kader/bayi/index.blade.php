@@ -26,7 +26,7 @@
             </div>
         </div>
         <div class="mx-10 my-[30px]">
-            <table class="border-collapse w-full rounded-t-[10px] overflow-hidden">
+            <table class="border-collapse w-full rounded-t-[10px] overflow-hidden" id="bayi_table">
                 <thead class="bg-gray-200 border-b text-left py-5">
                     <tr class=" text-stone-400">
                         <th class="font-normal text-sm">Nama Bayi</th>
@@ -39,7 +39,7 @@
                         <th class="font-normal text-sm">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="">
+                {{-- <tbody class="">
                     <tr class="text-neutral-950 text-left">
                         <td class="font-normal text-sm">Alvino Hermawan</td>
                         <td class="font-normal text-sm">1 April 2024</td>
@@ -120,7 +120,7 @@
                             </div>
                         </td>
                     </tr>
-                </tbody>
+                </tbody> --}}
             </table>
         </div>
     </div>
@@ -135,4 +135,83 @@
         border-bottom: 1px solid #ddd;
     }
 </style>
+@endpush
+
+@push('js')
+<!-- Memuat jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<!-- Memuat DataTable -->
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+
+<script>
+        $(document).ready(function () {
+            var dataUser = $('#bayi_table').DataTable({
+                serverSide: true,
+                ajax: {
+                    "url": "{{ route('bayi.list') }}",
+                    "dataType": "json",
+                    "type": "POST",
+                    "data": function (d) {
+                        d._token = "{{ csrf_token() }}"
+                    }
+                },
+                columns: [
+                    {
+                        data: "penduduk.nama",    
+                        className: "font-normal text-smr",
+                        orderable: false,
+                        searchable: false
+                    },{
+                        data: "tgl_pemeriksaan",
+                        className: "font-normal text-sm",
+                        orderable: true,    
+                        searchable: true    
+                    },{
+                        data: null, 
+                        className: "font-normal text-sm",
+                        orderable: true,
+                        searchable: true,
+                        render: function(data, type, row) {
+                            // Menghitung umur dalam bulan
+                            var tglLahir = new Date(data.penduduk.tgl_lahir);
+                            var sekarang = new Date();
+                            var bulan = (sekarang.getFullYear() - tglLahir.getFullYear()) * 12;
+                            bulan -= tglLahir.getMonth();
+                            bulan += sekarang.getMonth();
+                            return bulan + " bulan";
+                        }
+                    },{
+                        data: "golongan",
+                        className: "font-normal text-sm",
+                        orderable: false,   
+                        searchable: false, 
+                    },{
+                        data: "berat_badan",
+                        className: "font-normal text-sm",
+                        orderable: false,  
+                        searchable: false, 
+                    },{
+                        data: "tinggi_badan",
+                        className: "font-normal text-sm",
+                        orderable: false,  
+                        searchable: false, 
+                    },{
+                        data: "status",
+                        className: "font-normal text-sm",
+                        orderable: false,  
+                        searchable: false, 
+                    },{
+                        data: "aksi",
+                        className: "",
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
+
+            // $('#level_id').on('change', function() {
+            //     dataUser.ajax.reload();
+            // });
+        });
+    </script>
 @endpush

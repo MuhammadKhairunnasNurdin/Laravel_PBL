@@ -47,7 +47,7 @@
 {{--                            <input type="checkbox" name="remember" id="">--}}
 {{--                            <p>Ingat saya</p>--}}
 {{--                        </div>--}}
-                        <div class="flex right w-full gap-4 justify-end">
+                        <div class="flex right w-full pt-4 gap-4 justify-end">
                             <button class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px] w-fit right-0" id="submit" type="submit">Login</button>
                         </div>
                     </form>
