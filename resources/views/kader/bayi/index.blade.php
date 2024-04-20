@@ -9,8 +9,11 @@
         <div class="flex mt-[30px] mx-10 gap-[30px]">
             <div class="flex w-fit h-full items-center align-middle">
                 <p class="text-base text-neutral-950 text-center pr-[10px]">Filter:</p>
-                <select name="filter" id="filter" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none">
+                <select name="filterValue" id="filterValue" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none">
                     <option value="" class="">Semua</option>
+                    @foreach($penduduks as $filter)
+                        <option value="{{ $filter->NIK }}">{{ $filter->penduduk->nama }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="flex w-full h-full items-center align-middle">
@@ -25,6 +28,19 @@
                 </div>
             </div>
         </div>
+
+        @php
+            $relationships = ['penduduk', 'pemeriksaanBayi'];
+        @endphp
+        @foreach($relationships as $relationship)
+            <input type="hidden" name="relationships[]" id="relationship" value="{{encrypt($relationship)}}">
+        @endforeach
+        <input type="hidden" name="model" id="model" value="{{encrypt('App\Models\Pemeriksaan')}}">
+        <input type="hidden" name="url" id="url" value="{{encrypt('/kader/bayi/')}}">
+        <input type="hidden" name="filterName" id="filterName" value="{{encrypt('NIK')}}">
+        <input type="hidden" name="where" id="whereName" value="{{encrypt('golongan')}}">
+        <input type="hidden" name="where" id="whereValue" value="{{encrypt('bayi')}}">
+
         <div class="mx-10 my-[30px]">
             <table class="border-collapse w-full rounded-t-[10px] overflow-hidden" id="bayi_table">
                 <thead class="bg-gray-200 border-b text-left py-5">
@@ -39,88 +55,6 @@
                         <th class="font-normal text-sm">Aksi</th>
                     </tr>
                 </thead>
-                {{-- <tbody class="">
-                    <tr class="text-neutral-950 text-left">
-                        <td class="font-normal text-sm">Alvino Hermawan</td>
-                        <td class="font-normal text-sm">1 April 2024</td>
-                        <td class="font-normal text-sm">14 Bulan</td>
-                        <td class="font-normal text-sm">Balita</td>
-                        <td class="font-normal text-sm">5 kg</td>
-                        <td class="font-normal text-sm">70 cm</td>
-                        <td class="font-normal text-sm">Sehat</td>
-                        <td class="font-normal text-sm">
-                            <div class="gap-[5px]">
-                                <a href="{{ url('kader/bayi/show')}}" class="bg-blue-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
-                                <a href="" class="bg-yellow-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500">Ubah</a>
-                                <a href="" class="bg-red-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="text-neutral-950 text-left">
-                        <td class="font-normal text-sm">Alvino Hermawan</td>
-                        <td class="font-normal text-sm">1 April 2024</td>
-                        <td class="font-normal text-sm">14 Bulan</td>
-                        <td class="font-normal text-sm">Balita</td>
-                        <td class="font-normal text-sm">5 kg</td>
-                        <td class="font-normal text-sm">70 cm</td>
-                        <td class="font-normal text-sm">Sehat</td>
-                        <td class="font-normal text-sm">
-                            <div class="gap-[5px]">
-                                <a href="{{ url('kader/bayi/show')}}" class="bg-blue-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
-                                <a href="" class="bg-yellow-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500">Ubah</a>
-                                <a href="" class="bg-red-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="text-neutral-950 text-left">
-                        <td class="font-normal text-sm">Alvino Hermawan</td>
-                        <td class="font-normal text-sm">17 April 2022</td>
-                        <td class="font-normal text-sm">2 Tahun</td>
-                        <td class="font-normal text-sm">Baduta</td>
-                        <td class="font-normal text-sm">5 kg</td>
-                        <td class="font-normal text-sm">70 cm</td>
-                        <td class="font-normal text-sm">Sehat</td>
-                        <td class="font-normal text-sm">
-                            <div class="gap-[5px]">
-                                <a href="{{ url('kader/bayi/show')}}" class="bg-blue-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
-                                <a href="" class="bg-yellow-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500">Ubah</a>
-                                <a href="" class="bg-red-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="text-neutral-950 text-left">
-                        <td class="font-normal text-sm">Alvino Hermawan</td>
-                        <td class="font-normal text-sm">1 April 2024</td>
-                        <td class="font-normal text-sm">14 Bulan</td>
-                        <td class="font-normal text-sm">Balita</td>
-                        <td class="font-normal text-sm">5 kg</td>
-                        <td class="font-normal text-sm">70 cm</td>
-                        <td class="font-normal text-sm">Sehat</td>
-                        <td class="font-normal text-sm">
-                            <div class="gap-[5px]">
-                                <a href="{{ url('kader/bayi/show')}}" class="bg-blue-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
-                                <a href="" class="bg-yellow-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500">Ubah</a>
-                                <a href="" class="bg-red-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="text-neutral-950 text-left">
-                        <td class="font-normal text-sm">Alvino Hermawan</td>
-                        <td class="font-normal text-sm">1 April 2024</td>
-                        <td class="font-normal text-sm">14 Bulan</td>
-                        <td class="font-normal text-sm">Balita</td>
-                        <td class="font-normal text-sm">5 kg</td>
-                        <td class="font-normal text-sm">70 cm</td>
-                        <td class="font-normal text-sm">Sehat</td>
-                        <td class="font-normal text-sm">
-                            <div class="gap-[5px]">
-                                <a href="{{ url('kader/bayi/show')}}" class="bg-blue-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
-                                <a href="" class="bg-yellow-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500">Ubah</a>
-                                <a href="" class="bg-red-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</a>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody> --}}
             </table>
         </div>
     </div>
@@ -138,69 +72,80 @@
 @endpush
 
 @push('js')
-<!-- Memuat jQuery -->
+<!-- jQuery Reload -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<!-- Memuat DataTable -->
+<!-- DataTable Reload-->
 <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
 
 <script>
         $(document).ready(function () {
-            var dataUser = $('#bayi_table').DataTable({
+            let relationships = [];
+            $('input[name="relationships[]"]').each(function() {
+                relationships.push($(this).val());
+            });
+            let dataBayi = $('#bayi_table').DataTable({
                 serverSide: true,
                 ajax: {
                     "url": "{{ route('bayi.list') }}",
                     "dataType": "json",
                     "type": "POST",
                     "data": function (d) {
-                        d._token = "{{ csrf_token() }}"
+                        d._token = "{{ csrf_token() }}";
+                        d.filterValue = $('#filterValue').val();
+                        d.model = $('#model').val();
+                        d.relationships = relationships;
+                        d.url = $('#url').val();
+                        d.filterName = $('#filterName').val();
+                        d.whereName = $('#whereName').val();
+                        d.whereValue = $('#whereValue').val();
                     }
                 },
                 columns: [
                     {
-                        data: "penduduk.nama",    
+                        data: "penduduk.nama",
                         className: "font-normal text-smr",
                         orderable: false,
                         searchable: false
-                    },{
+                    }, {
                         data: "tgl_pemeriksaan",
                         className: "font-normal text-sm",
-                        orderable: true,    
-                        searchable: true    
-                    },{
-                        data: null, 
+                        orderable: true,
+                        searchable: true
+                    }, {
+                        data: null,
                         className: "font-normal text-sm",
                         orderable: true,
                         searchable: true,
-                        render: function(data, type, row) {
+                        render: function (data) {
                             // Menghitung umur dalam bulan
-                            var tglLahir = new Date(data.penduduk.tgl_lahir);
-                            var sekarang = new Date();
-                            var bulan = (sekarang.getFullYear() - tglLahir.getFullYear()) * 12;
+                            let tglLahir = new Date(data.penduduk.tgl_lahir);
+                            let sekarang = new Date();
+                            let bulan = (sekarang.getFullYear() - tglLahir.getFullYear()) * 12;
                             bulan -= tglLahir.getMonth();
                             bulan += sekarang.getMonth();
                             return bulan + " bulan";
                         }
-                    },{
+                    }, {
                         data: "golongan",
                         className: "font-normal text-sm",
-                        orderable: false,   
-                        searchable: false, 
-                    },{
+                        orderable: false,
+                        searchable: false,
+                    }, {
                         data: "berat_badan",
                         className: "font-normal text-sm",
-                        orderable: false,  
-                        searchable: false, 
-                    },{
+                        orderable: false,
+                        searchable: false,
+                    }, {
                         data: "tinggi_badan",
                         className: "font-normal text-sm",
-                        orderable: false,  
-                        searchable: false, 
-                    },{
+                        orderable: false,
+                        searchable: false,
+                    }, {
                         data: "status",
                         className: "font-normal text-sm",
-                        orderable: false,  
-                        searchable: false, 
-                    },{
+                        orderable: false,
+                        searchable: false,
+                    }, {
                         data: "aksi",
                         className: "",
                         orderable: false,
@@ -208,10 +153,9 @@
                     }
                 ]
             });
-
-            // $('#level_id').on('change', function() {
-            //     dataUser.ajax.reload();
-            // });
+            $('#filterValue').on('change', function() {
+                dataBayi.ajax.reload();
+            });
         });
     </script>
 @endpush

@@ -11,67 +11,83 @@
                 <tr>
                     <td>Nama Bayi</td>
                     <td>:</td>
-                    <td>Alvino Hendrawan</td>
+                    <td>{{ $bayiData->penduduk->nama }}</td>
                 </tr>
                 <tr>
                     <td>Usia</td>
                     <td>:</td>
-                    <td>14 Bulan</td>
+                    <td>{{ now()->diffInMonths($bayiData->penduduk->tgl_lahir)}} bulan</td>
                 </tr>
                 <tr>
                     <td>Nama Ibu</td>
                     <td>:</td>
-                    <td>Indah Bakti</td>
+                    @foreach($parentData as $parent)
+                        @if($parent->hubungan_keluarga == 'Istri')
+                            <td>{{ $parent->nama }}</td>
+                        @elseif($parent->hubungan_keluarga == 'Kepala Keluarga')
+                            @continue
+                        @else
+                            <td>Tidak Ada Ibu</td>
+                        @endif
+                    @endforeach
                 </tr>
                 <tr>
                     <td>Nama Ayah</td>
                     <td>:</td>
-                    <td>Suryo Abdi</td>
+                    @foreach($parentData as $parent)
+                        @if($parent->hubungan_keluarga == 'Kepala Keluarga')
+                            <td>{{ $parent->nama }}</td>
+                        @elseif($parent->hubungan_keluarga == 'Istri')
+                            @continue
+                        @else
+                            <td>Tidak Ada Ayah</td>
+                        @endif
+                    @endforeach
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>Jl. Kalimosodo 12 No.6</td>
+                    <td>{{ $bayiData->penduduk->alamat }}</td>
                 </tr>
                 <tr>
                     <td>Data KB</td>
                     <td>:</td>
-                    <td>Kondom</td>
+                    <td>{{ $bayiData->pemeriksaanBayi->data_kb }}</td>
                 </tr>
                 <tr>
                     <td>Tanggal Kunjungan</td>
                     <td>:</td>
-                    <td>17 April 2024</td>
+                    <td>{{ $bayiData->tgl_pemeriksaan }}</td>
                 </tr>
                 <tr>
                     <td>Berat Badan</td>
                     <td>:</td>
-                    <td>5 kg</td>
+                    <td>{{ $bayiData->berat_badan }} kg</td>
                 </tr>
                 <tr>
                     <td>Tinggi Badan</td>
                     <td>:</td>
-                    <td>70 cm</td>
+                    <td>{{ $bayiData->tinggi_badan }} cm</td>
                 </tr>
                 <tr>
                     <td>Lingkar Lengan</td>
                     <td>:</td>
-                    <td>5 cm</td>
+                    <td>{{ $bayiData->pemeriksaanBayi->lingkar_lengan }} cm</td>
                 </tr>
                 <tr>
                     <td>Apakah Ada Kenaikan?</td>
                     <td>:</td>
-                    <td>Ya</td>
+                    <td>{{ $bayiData->pemeriksaanBayi->kenaikan }}</td>
                 </tr>
                 <tr>
                     <td>ASI Eksklusif?</td>
                     <td>:</td>
-                    <td>Ya</td>
+                    <td>{{ $bayiData->pemeriksaanBayi->asi }}</td>
                 </tr>
                 <tr>
                     <td>Status</td>
                     <td>:</td>
-                    <td>Sehat</td>
+                    <td>{{ $bayiData->status }}</td>
                 </tr>
             </tbody>
         </table>

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('no_telp', 14)->nullable();
             $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
             $table->enum('pendidikan', ['SD', 'SMP', 'SMA', 'S1'])->nullable();
+            $table->enum('hubungan_keluarga', ['Kepala Keluarga', 'Istri', 'Anak'])->nullable();
             $table->string('alamat', 200)->nullable();
             $table->timestamps();
         });
