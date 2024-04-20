@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pemeriksaan;
+use App\Models\Penduduk;
 use Illuminate\Http\Request;
 
 class BayiResource extends Controller
@@ -17,7 +19,9 @@ class BayiResource extends Controller
 
         $activeMenu = 'bayi';
 
-        return view('kader.bayi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        $penduduks = Pemeriksaan::with('penduduk')->where('golongan', 'bayi')->get();
+
+        return view('kader.bayi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);
     }
 
     /**
@@ -47,13 +51,18 @@ class BayiResource extends Controller
      */
     public function show(string $id)
     {
+        $bayiData = Pemeriksaan::with('pemeriksaanBayi', 'penduduk')->find($id);
+        $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
+            ->where('hubungan_keluarga', '!=', 'Anak')
+            ->get(['nama', 'hubungan_keluarga']);
+
         $breadcrumb = (object) [
             'title' => 'Pemeriksaan Bayi'
         ];
 
         $activeMenu = 'bayi';
 
-        return view('kader.bayi.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('kader.bayi.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayiData' => $bayiData, 'parentData' => $parentData]);
     }
 
     /**
