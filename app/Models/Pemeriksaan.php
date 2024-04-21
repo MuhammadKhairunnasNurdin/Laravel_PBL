@@ -36,11 +36,11 @@ class Pemeriksaan extends Model
     {
         return $this->belongsTo(Penduduk::class, 'NIK', 'NIK');
     }
-    public function pemeriksaanBayi(): HasOne
+    public function pemeriksaan_bayi(): HasOne
     {
         return $this->hasOne(PemeriksaanBayi::class, 'pemeriksaan_id', 'pemeriksaan_id');
     }
-    public function pemeriksaanLansia(): HasOne
+    public function pemeriksaan_lansia(): HasOne
     {
         return $this->hasOne(PemeriksaanLansia::class, 'pemeriksaan_id', 'pemeriksaan_id');
     }

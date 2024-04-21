@@ -9,8 +9,11 @@
         <div class="flex mt-[30px] mx-10 gap-[30px]">
             <div class="flex w-fit h-full items-center align-middle">
                 <p class="text-base text-neutral-950 text-center pr-[10px]">Filter:</p>
-                <select name="filter" id="filter" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none">
+                <select name="filterValue" id="filterValue" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none">
                     <option value="" class="">Semua</option>
+                    @foreach($penduduks as $filter)
+                        <option value="{{ $filter->NIK }}">{{ $filter->penduduk->nama }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="flex w-full h-full items-center align-middle">
@@ -25,8 +28,21 @@
                 </div>
             </div>
         </div>
+
+        @php
+            $relationships = ['penduduk', 'pemeriksaan_lansia'];
+        @endphp
+        @foreach($relationships as $relationship)
+            <input type="hidden" name="relationships[]" id="relationship" value="{{encrypt($relationship)}}">
+        @endforeach
+        <input type="hidden" name="model" id="model" value="{{encrypt('App\Models\Pemeriksaan')}}">
+        <input type="hidden" name="url" id="url" value="{{encrypt('/kader/lansia/')}}">
+        <input type="hidden" name="filterName" id="filterName" value="{{encrypt('NIK')}}">
+        <input type="hidden" name="where" id="whereName" value="{{encrypt('golongan')}}">
+        <input type="hidden" name="where" id="whereValue" value="{{encrypt('lansia')}}">
+
         <div class="mx-10 my-[30px]">
-            <table class=" border-collapse w-full rounded-t-[10px] overflow-hidden" id="table_lansia">
+            <table class=" border-collapse w-full rounded-t-[10px] overflow-hidden" id="lansia_table">
                 <thead class="bg-gray-200 border-b text-left py-5">
                     <tr class=" text-stone-400 rounded-lg">
                         <th class="font-normal text-sm py-2">Nama</th>
@@ -39,7 +55,7 @@
                         <th class="font-normal text-sm py-2">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="">
+                {{-- <tbody class="">
                     <tr class="text-neutral-950 text-left">
                         <td class="font-normal text-sm">Suryo Abdi</td>
                         <td class="font-normal text-sm">1 April 2024</td>
@@ -136,7 +152,7 @@
                             </div>
                         </td>
                     </tr>
-                </tbody>
+                </tbody> --}}
             </table>
         </div>
     </div>
@@ -151,4 +167,97 @@
         border-bottom: 1px solid #ddd;
     }
 </style>
+@endpush
+
+@push('js')
+<!-- jQuery Reload -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<!-- DataTable Reload-->
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+
+<script>
+        $(document).ready(function () {
+            let relationships = [];
+            $('input[name="relationships[]"]').each(function() {
+                relationships.push($(this).val());
+            });
+            let dataLansia = $('#lansia_table').DataTable({
+                serverSide: true,
+                ajax: {
+                    "url": "{{ route('lansia.list') }}",
+                    "dataType": "json",
+                    "type": "POST",
+                    "data": function (d) {
+                        d._token = "{{ csrf_token() }}";
+                        d.filterValue = $('#filterValue').val();
+                        d.model = $('#model').val();
+                        d.relationships = relationships;
+                        d.url = $('#url').val();
+                        d.filterName = $('#filterName').val();
+                        d.whereName = $('#whereName').val();
+                        d.whereValue = $('#whereValue').val();
+                    }
+                },
+                columns: [
+                    {
+                        data: "penduduk.nama",
+                        className: "font-normal text-smr",
+                        orderable: false,
+                        searchable: false
+                    }, {
+                        data: "tgl_pemeriksaan",
+                        className: "font-normal text-sm",
+                        orderable: true,
+                        searchable: true
+                    }, {
+                        data: null,
+                        className: "font-normal text-sm",
+                        orderable: true,
+                        searchable: true,
+                        render: function (data) {
+                            // Menghitung umur dalam bulan
+                            let tglLahir = new Date(data.penduduk.tgl_lahir);
+                            let sekarang = new Date();
+                            let tahun = sekarang.getFullYear() - tglLahir.getFullYear();
+                            if (sekarang.getMonth() < tglLahir.getMonth() ||
+                                (sekarang.getMonth() === tglLahir.getMonth() && sekarang.getDate() < tglLahir.getDate())) {
+                                tahun--;
+                            }
+                            return tahun + " Tahun";
+                        }
+                    }, {
+                        data: "berat_badan",
+                        className: "font-normal text-sm",
+                        orderable: false,
+                        searchable: false,
+                    }, {
+                        data: "tinggi_badan",
+                        className: "font-normal text-sm",
+                        orderable: false,
+                        searchable: false,
+                    }, {
+                        // error: can't get data pemeriksaanLansia
+                        data: "pemeriksaan_lansia.lingkar_perut",
+                        className: "font-normal text-sm",
+                        orderable: false,
+                        searchable: false,
+                    }, {
+                        data: "status",
+                        className: "font-normal text-sm",
+                        orderable: false,
+                        searchable: false,
+                    }, {
+                        data: "aksi",
+                        className: "",
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
+            console.log(dataLansia);
+            $('#filterValue').on('change', function() {
+                dataLansia.ajax.reload();
+            });
+        });
+    </script>
 @endpush

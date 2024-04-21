@@ -19,6 +19,9 @@ class BayiResource extends Controller
 
         $activeMenu = 'bayi';
 
+        /**
+         * Retrieve data for filter feature
+         */
         $penduduks = Pemeriksaan::with('penduduk')->where('golongan', 'bayi')->get();
 
         return view('kader.bayi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);
@@ -51,7 +54,7 @@ class BayiResource extends Controller
      */
     public function show(string $id)
     {
-        $bayiData = Pemeriksaan::with('pemeriksaanBayi', 'penduduk')->find($id);
+        $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->find($id);
         $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
             ->where('hubungan_keluarga', '!=', 'Anak')
             ->get(['nama', 'hubungan_keluarga']);

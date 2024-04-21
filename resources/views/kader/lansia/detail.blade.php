@@ -11,57 +11,58 @@
                 <tr>
                     <td>Nama</td>
                     <td>:</td>
-                    <td>Suryo Abdi</td>
+                    <td>{{ $lansiaData->penduduk->nama }}</td>
                 </tr>
                 <tr>
                     <td>Usia</td>
                     <td>:</td>
-                    <td>14 Bulan</td>
+                    <td>{{ now()->diffInYears($lansiaData->penduduk->tgl_lahir) }} Tahun</td>
                 </tr>
                 <tr>
                     <td>Alamat</td>
                     <td>:</td>
-                    <td>Jl. Kalimosodo 12 No.6</td>
+                    <td>{{ $lansiaData->penduduk->alamat}}</td>
                 </tr>
                 <tr>
                     <td>Tanggal Kunjungan</td>
                     <td>:</td>
-                    <td>17 April 2024</td>
+                    <td>{{ $lansiaData->tgl_pemeriksaan}}</td>
                 </tr>
                 <tr>
                     <td>Berat Badan</td>
                     <td>:</td>
-                    <td>60 kg</td>
+                    <td>{{ $lansiaData->berat_badan}} kg</td>
                 </tr>
                 <tr>
                     <td>Tinggi Badan</td>
                     <td>:</td>
-                    <td>160 cm</td>
+                    <td>{{ $lansiaData->tinggi_badan}} cm</td>
                 </tr>
                 <tr>
                     <td>Lingkar Perut</td>
                     <td>:</td>
-                    <td>70 cm</td>
+                    <td>{{ $lansiaData->pemeriksaan_lansia->lingkar_perut}} cm</td>
                 </tr>
                 <tr>
                     <td>Tensi Darah</td>
                     <td>:</td>
-                    <td>120/71</td>
+                    <td>{{ $lansiaData->pemeriksaan_lansia->tensi_darah}}</td>
+                    {{-- <td>120/71</td> --}}
                 </tr>
                 <tr>
                     <td>Gula Darah</td>
                     <td>:</td>
-                    <td>110 mg/dL</td>
+                    <td>{{ $lansiaData->pemeriksaan_lansia->gula_darah}} mg/dL</td>
                 </tr>
                 <tr>
                     <td>Asam Urat</td>
                     <td>:</td>
-                    <td>6.0mg/dL</td>
+                    <td>{{ $lansiaData->pemeriksaan_lansia->asam_urat}} mg/dL</td>
                 </tr>
                 <tr>
                     <td>Kolesterol</td>
                     <td>:</td>
-                    <td>200mg/dL</td>
+                    <td>{{ $lansiaData->pemeriksaan_lansia->kolesterol}} mg/dL</td>
                 </tr>
             </tbody>
         </table>

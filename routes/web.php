@@ -55,11 +55,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('bayi', BayiResource::class);
         Route::post('bayi/list', [DataTablesController::class, 'list'])->name('bayi.list');
         Route::resource('lansia', LansiaResource::class);
-//        Route::post('lansia/list', [DataTablesController::class, 'list'])->name('lansia.list');
+        Route::post('lansia/list', [DataTablesController::class, 'list'])->name('lansia.list');
 
         Route::group(['prefix' => 'informasi'], function () {
             Route::get('/', InformasiController::class);
+
             Route::resource('kegiatan', KegiatanResource::class)->except('show');
+            Route::post('kegiatan/list', [DataTablesController::class, 'list'])->name('kegiatan.list');
             Route::resource('artikel', ArtikelResource::class);
         });
 

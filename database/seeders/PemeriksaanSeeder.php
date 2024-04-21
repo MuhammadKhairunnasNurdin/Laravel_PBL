@@ -41,6 +41,15 @@ class PemeriksaanSeeder extends Seeder
                 'tinggi_badan' => 10.2,
                 'status' => 'sehat',
                 'respon' => 'Posyandu Bagus'
+            ],[
+                'kader_id'=> 2,
+                'NIK' => 351001150819720012,
+                'tgl_pemeriksaan' => '2024-04-15',
+                'golongan' => 'Lansia',
+                'berat_badan' => 59.5,
+                'tinggi_badan' => 165.2,
+                'status' => 'sehat',
+                'respon' => 'Posyandu Bagus'
             ],
         ];
 

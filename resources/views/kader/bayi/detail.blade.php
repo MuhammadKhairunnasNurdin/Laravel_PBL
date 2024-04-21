@@ -52,7 +52,7 @@
                 <tr>
                     <td>Data KB</td>
                     <td>:</td>
-                    <td>{{ $bayiData->pemeriksaanBayi->data_kb }}</td>
+                    <td>{{ $bayiData->pemeriksaan_bayi->data_kb }}</td>
                 </tr>
                 <tr>
                     <td>Tanggal Kunjungan</td>
@@ -72,17 +72,17 @@
                 <tr>
                     <td>Lingkar Lengan</td>
                     <td>:</td>
-                    <td>{{ $bayiData->pemeriksaanBayi->lingkar_lengan }} cm</td>
+                    <td>{{ $bayiData->pemeriksaan_bayi->lingkar_lengan }} cm</td>
                 </tr>
                 <tr>
                     <td>Apakah Ada Kenaikan?</td>
                     <td>:</td>
-                    <td>{{ $bayiData->pemeriksaanBayi->kenaikan }}</td>
+                    <td>{{ $bayiData->pemeriksaan_bayi->kenaikan }}</td>
                 </tr>
                 <tr>
                     <td>ASI Eksklusif?</td>
                     <td>:</td>
-                    <td>{{ $bayiData->pemeriksaanBayi->asi }}</td>
+                    <td>{{ $bayiData->pemeriksaan_bayi->asi }}</td>
                 </tr>
                 <tr>
                     <td>Status</td>
