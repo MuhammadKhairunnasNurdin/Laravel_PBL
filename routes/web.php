@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('bayi', BayiResource::class);
         Route::post('bayi/list', [DataTablesController::class, 'list'])->name('bayi.list');
         Route::resource('lansia', LansiaResource::class);
-//        Route::post('lansia/list', [DataTablesController::class, 'list'])->name('lansia.list');
+        Route::post('lansia/list', [DataTablesController::class, 'list'])->name('lansia.list');
 
         Route::group(['prefix' => 'informasi'], function () {
             Route::get('/', InformasiController::class);

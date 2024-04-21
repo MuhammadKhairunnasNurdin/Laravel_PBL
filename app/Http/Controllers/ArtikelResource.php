@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Artikel;
 use Illuminate\Http\Request;
 
 class ArtikelResource extends Controller
@@ -11,13 +12,15 @@ class ArtikelResource extends Controller
      */
     public function index()
     {
+        $artikels = Artikel::all();
+
         $breadcrumb = (object) [
             'title' => 'Kelola Informasi'
         ];
 
         $activeMenu = 'info';
 
-        return view('kader.informasi.artikel.list', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('kader.informasi.artikel.list', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'artikels' => $artikels]);
     }
 
     /**
@@ -47,13 +50,15 @@ class ArtikelResource extends Controller
      */
     public function show(string $id)
     {
+        $artikel = Artikel::find($id);
+
         $breadcrumb = (object) [
             'title' => 'Kelola Informasi'
         ];
 
         $activeMenu = 'info';
 
-        return view('kader.informasi.artikel.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('kader.informasi.artikel.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'artikel' => $artikel]);
     }
 
     /**

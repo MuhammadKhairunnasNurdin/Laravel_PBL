@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pemeriksaan;
+use App\Models\Penduduk;
 use Illuminate\Http\Request;
 
 class LansiaResource extends Controller
@@ -17,7 +19,9 @@ class LansiaResource extends Controller
 
         $activeMenu = 'lansia';
 
-        return view('kader.lansia.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        $penduduks = Pemeriksaan::with('penduduk')->where('golongan', 'lansia')->get();
+
+        return view('kader.lansia.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);
     }
 
     /**
@@ -47,13 +51,15 @@ class LansiaResource extends Controller
      */
     public function show(string $id)
     {
+        $lansiaData = Pemeriksaan::with('pemeriksaanLansia', 'penduduk')->find($id);
+
         $breadcrumb = (object)[
             'title' => 'Pemeriksaan Lansia'
         ];
 
         $activeMenu = 'lansia';
 
-        return view('kader.lansia.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('kader.lansia.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'lansiaData' => $lansiaData]);
     }
 
     /**
