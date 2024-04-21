@@ -19,6 +19,9 @@ class BayiResource extends Controller
 
         $activeMenu = 'bayi';
 
+        /**
+         * Retrieve data for filter feature
+         */
         $penduduks = Pemeriksaan::with('penduduk')->where('golongan', 'bayi')->get();
 
         return view('kader.bayi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);

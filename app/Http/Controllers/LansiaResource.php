@@ -19,6 +19,9 @@ class LansiaResource extends Controller
 
         $activeMenu = 'lansia';
 
+        /**
+         * Retrieve data for filter feature
+         */
         $penduduks = Pemeriksaan::with('penduduk')->where('golongan', 'lansia')->get();
 
         return view('kader.lansia.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);

@@ -59,7 +59,9 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::group(['prefix' => 'informasi'], function () {
             Route::get('/', InformasiController::class);
+
             Route::resource('kegiatan', KegiatanResource::class)->except('show');
+            Route::post('kegiatan/list', [DataTablesController::class, 'list'])->name('kegiatan.list');
             Route::resource('artikel', ArtikelResource::class);
         });
 

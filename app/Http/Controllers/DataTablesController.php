@@ -24,16 +24,22 @@ class DataTablesController extends Controller
         /**
          * make Query Builder for retrieving data
          */
-        $relationships = [];
-        foreach ($request->relationships as $item) {
-            $relationships[] = decrypt($item);
+        $builder = $class::query();
+        /**
+         * If had join with other tabel
+         */
+        if ($request->has('relationships')) {
+            $relationships = [];
+            foreach ($request->relationships as $item) {
+                $relationships[] = decrypt($item);
+            }
+            $builder = $class::with($relationships);
         }
-        $builder = $class::with($relationships);
 
         /**
          * retrieve data using Query Builder variable, and there is option for filter feature or not
          */
-        $data = $request->filterValue === null ? $builder->get() : $builder->where(decrypt($request->filterName), $request->filterValue);
+        $data = $request->filterValue !== null ?  $builder->where(decrypt($request->filterName), $request->filterValue) : $builder->get();
 
         /**
          * filter data, if 'where' condition is existing
@@ -50,19 +56,19 @@ class DataTablesController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('aksi', function ($row) use ($idModel, $url) {
-                $aksi = '
+                return '
                     <div class="gap-[5px]">
                         <form method="POST" action="' . url($url . $row->$idModel) . '">
-                            <a href="' . url($url . $row->$idModel) . '" class="bg-blue-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
-                            <a href="' . url($url . $row->$idModel . '/edit') . '" class="bg-yellow-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500">Ubah</a>'
+                            <a href="' . url($url . $row->$idModel) . '" class="bg-blue-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600" id="detail">Detail</a>
+                            <a href="' . url($url . $row->$idModel . '/edit') . '" class="bg-yellow-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500" id="ubah">Ubah</a>'
                                 . csrf_field()
                                 . method_field('DELETE')
-                                . '<a href="" class="bg-red-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</a>
+                                . '<a href="" class="bg-red-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white" id="hapus">Hapus</a>
                         </form>
-                    </div>';
-                return $aksi;
+                    </div>
+                ';
             })
             ->rawColumns(['aksi'])
-            ->make(true);
+            ->make();
     }
 }

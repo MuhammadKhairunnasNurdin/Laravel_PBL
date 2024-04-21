@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 
 class KegiatanResource extends Controller
@@ -17,7 +18,12 @@ class KegiatanResource extends Controller
 
         $activeMenu = 'info';
 
-        return view('kader.informasi.kegiatan.list', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        /**
+         * Retrieve data for filter feature
+         */
+        $kegiatans = Kegiatan::get(['kegiatan_id', 'nama']);
+
+        return view('kader.informasi.kegiatan.list', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kegiatans' => $kegiatans]);
     }
 
     /**
