@@ -51,7 +51,7 @@ class LansiaResource extends Controller
      */
     public function show(string $id)
     {
-        $lansiaData = Pemeriksaan::with('pemeriksaanLansia', 'penduduk')->find($id);
+        $lansiaData = Pemeriksaan::with('pemeriksaan_lansia', 'penduduk')->find($id);
 
         $breadcrumb = (object)[
             'title' => 'Pemeriksaan Lansia'

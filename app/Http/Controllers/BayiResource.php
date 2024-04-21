@@ -51,7 +51,7 @@ class BayiResource extends Controller
      */
     public function show(string $id)
     {
-        $bayiData = Pemeriksaan::with('pemeriksaanBayi', 'penduduk')->find($id);
+        $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->find($id);
         $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
             ->where('hubungan_keluarga', '!=', 'Anak')
             ->get(['nama', 'hubungan_keluarga']);

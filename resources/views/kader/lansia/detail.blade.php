@@ -41,28 +41,28 @@
                 <tr>
                     <td>Lingkar Perut</td>
                     <td>:</td>
-                    <td>{{ $lansiaData->pemeriksaanLansia->lingkar_perut}} cm</td>
+                    <td>{{ $lansiaData->pemeriksaan_lansia->lingkar_perut}} cm</td>
                 </tr>
                 <tr>
                     <td>Tensi Darah</td>
                     <td>:</td>
-                    <td>{{ $lansiaData->pemeriksaanLansia->tensi_darah}}</td>
+                    <td>{{ $lansiaData->pemeriksaan_lansia->tensi_darah}}</td>
                     {{-- <td>120/71</td> --}}
                 </tr>
                 <tr>
                     <td>Gula Darah</td>
                     <td>:</td>
-                    <td>{{ $lansiaData->pemeriksaanLansia->gula_darah}} mg/dL</td>
+                    <td>{{ $lansiaData->pemeriksaan_lansia->gula_darah}} mg/dL</td>
                 </tr>
                 <tr>
                     <td>Asam Urat</td>
                     <td>:</td>
-                    <td>{{ $lansiaData->pemeriksaanLansia->asam_urat}} mg/dL</td>
+                    <td>{{ $lansiaData->pemeriksaan_lansia->asam_urat}} mg/dL</td>
                 </tr>
                 <tr>
                     <td>Kolesterol</td>
                     <td>:</td>
-                    <td>{{ $lansiaData->pemeriksaanLansia->kolesterol}} mg/dL</td>
+                    <td>{{ $lansiaData->pemeriksaan_lansia->kolesterol}} mg/dL</td>
                 </tr>
             </tbody>
         </table>

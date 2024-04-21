@@ -30,7 +30,7 @@
         </div>
 
         @php
-            $relationships = ['penduduk', 'pemeriksaanLansia'];
+            $relationships = ['penduduk', 'pemeriksaan_lansia'];
         @endphp
         @foreach($relationships as $relationship)
             <input type="hidden" name="relationships[]" id="relationship" value="{{encrypt($relationship)}}">
@@ -219,7 +219,7 @@
                             let tglLahir = new Date(data.penduduk.tgl_lahir);
                             let sekarang = new Date();
                             let tahun = sekarang.getFullYear() - tglLahir.getFullYear();
-                            if (sekarang.getMonth() < tglLahir.getMonth() || 
+                            if (sekarang.getMonth() < tglLahir.getMonth() ||
                                 (sekarang.getMonth() === tglLahir.getMonth() && sekarang.getDate() < tglLahir.getDate())) {
                                 tahun--;
                             }
@@ -237,7 +237,7 @@
                         searchable: false,
                     }, {
                         // error: can't get data pemeriksaanLansia
-                        data: "pemeriksaanLansia.lingkar_perut",
+                        data: "pemeriksaan_lansia.lingkar_perut",
                         className: "font-normal text-sm",
                         orderable: false,
                         searchable: false,

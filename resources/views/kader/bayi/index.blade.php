@@ -30,7 +30,7 @@
         </div>
 
         @php
-            $relationships = ['penduduk', 'pemeriksaanBayi'];
+            $relationships = ['penduduk'];
         @endphp
         @foreach($relationships as $relationship)
             <input type="hidden" name="relationships[]" id="relationship" value="{{encrypt($relationship)}}">
