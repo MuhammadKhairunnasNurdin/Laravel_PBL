@@ -49,8 +49,9 @@ Route::group(['middleware' => ['auth']], function () {
      * User Kader
      */
     Route::group(['middleware' => ['checkLevel:kader'], 'prefix' => 'kader'], function () {
-        Route::get('/', [DashboardController::class, 'indexKader']);
+        Route::get('/', [DashboardController::class, 'indexKader'])->name('dashboard');
         Route::get('/profile', [ProfileController::class, 'indexKader'])->name('kader.profile');
+        Route::post('/profile', [ProfileController::class, 'update'])->name('kader.profile.update');
 
         Route::resource('bayi', BayiResource::class);
         Route::post('bayi/list', [DataTablesController::class, 'list'])->name('bayi.list');
@@ -72,8 +73,9 @@ Route::group(['middleware' => ['auth']], function () {
      * User Ketua
      */
     Route::group(['middleware' => 'checkLevel:ketua', 'prefix' => 'ketua'], function () {
-        Route::get('/', [DashboardController::class, 'indexKetua']);
+        Route::get('/', [DashboardController::class, 'indexKetua'])->name('dashboard');
         Route::get('/profile', [ProfileController::class, 'indexKetua'])->name('ketua.profile');
+        Route::post('/profile', [ProfileController::class, 'update'])->name('ketua.profile.update');
 
         Route::group(['prefix' => 'bantuan'], function () {
             Route::get('/', [BantuanController::class, 'index']);

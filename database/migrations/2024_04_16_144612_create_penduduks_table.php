@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('pendidikan', ['SD', 'SMP', 'SMA', 'S1'])->nullable();
             $table->enum('hubungan_keluarga', ['Kepala Keluarga', 'Istri', 'Anak'])->nullable();
             $table->string('alamat', 200)->nullable();
+            $table->enum('RT', ['RT 01', 'RT 02', 'RT 03', 'RT 04', 'RT 05', 'RT 06'])->nullable();
             $table->timestamps();
         });
     }

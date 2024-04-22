@@ -8,14 +8,14 @@
     </div>
     <div class="flex col-span-5 justify-between align-middle px-5">
         <div class="flex flex-col">
-            <p class="text-neutral-950 text-xs">Halo, Rizky Fauzi!</p class="">
-            <p class="text-neutral-950 text-xl">27 Maret 2024</p class="">
+            <p class="text-neutral-950 text-xs">{{auth()->user()->username}}</p>
+            <p class="text-neutral-950 text-xl">{{ now()->formatLocalized('%d %B %Y')}}</p>
         </div>
         <div class="flex w-fit gap-3" onmouseover="showDropdown()" onmouseout="hideDropdown()">
             <img src="{{ asset('img/profile_picture.png')}}" alt="" class="w-9 h-9 rounded-full mt-1">
             <div class="flex flex-col">
-                <p class="text-neutral-950 text-base">Rizky Fauzi</p class="">
-                <p class="text-neutral-950 text-sm">Kader</p class="">
+                <p class="text-neutral-950 text-base">{{auth()->user()->username}}</p>
+                <p class="text-neutral-950 text-sm">{{auth()->user()->level}}</p>
             </div>
             <div class="dropdown-content hidden absolute bg-white border border-gray-200 mt-10 py-2 rounded-md shadow-md">
                 <!-- Isi dropdown content di sini -->

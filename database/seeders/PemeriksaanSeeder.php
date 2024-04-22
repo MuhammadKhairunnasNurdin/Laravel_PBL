@@ -21,7 +21,7 @@ class PemeriksaanSeeder extends Seeder
                 'golongan' => 'lansia',
                 'berat_badan' => 65.2,
                 'tinggi_badan' => 168.0,
-                'status' => 'sehat',
+                'status' => 'sakit',
                 'respon' => 'Posyandu Bagus'
             ], [
                 'kader_id'=> 2,
@@ -39,16 +39,16 @@ class PemeriksaanSeeder extends Seeder
                 'golongan' => 'bayi',
                 'berat_badan' => 9.5,
                 'tinggi_badan' => 10.2,
-                'status' => 'sehat',
+                'status' => 'sakit',
                 'respon' => 'Posyandu Bagus'
             ],[
                 'kader_id'=> 2,
                 'NIK' => 351001150819720012,
-                'tgl_pemeriksaan' => '2024-04-15',
+                'tgl_pemeriksaan' => '2024-02-15',
                 'golongan' => 'Lansia',
                 'berat_badan' => 59.5,
                 'tinggi_badan' => 165.2,
-                'status' => 'sehat',
+                'status' => 'sakit',
                 'respon' => 'Posyandu Bagus'
             ],
         ];

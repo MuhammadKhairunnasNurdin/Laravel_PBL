@@ -24,7 +24,8 @@ class PendudukSeeder extends Seeder
                 'jenis_kelamin' => 'L',
                 'pendidikan' => 'S1',
                 'hubungan_keluarga' => 'Kepala Keluarga',
-                'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 08 RW 06 ',
+                'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 06 RW 06 ',
+                'RT' => 'RT 06',
             ], [
                 'NIK' => 351008251219950564,
                 'NKK' => 351008231654326548,
@@ -35,7 +36,8 @@ class PendudukSeeder extends Seeder
                 'jenis_kelamin' => 'P',
                 'pendidikan' => 'S1',
                 'hubungan_keluarga' => 'Istri',
-                'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 08 RW 06 ',
+                'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 06 RW 06 ',
+                'RT' => 'RT 06',
             ], [
                 'NIK' => 351001021019990756,
                 'NKK' => 351001231654324857,
@@ -47,6 +49,7 @@ class PendudukSeeder extends Seeder
                 'pendidikan' => 'S1',
                 'hubungan_keluarga' => 'Kepala Keluarga',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 05 RW 06 ',
+                'RT' => 'RT 05',
             ], [
                 'NIK' => 351001200819980752,
                 'NKK' => 351001231654324857,
@@ -58,6 +61,7 @@ class PendudukSeeder extends Seeder
                 'pendidikan' => 'S1',
                 'hubungan_keluarga' => 'Istri',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 05 RW 06 ',
+                'RT' => 'RT 05',
             ], [
                 'NIK' => 351001231654324856,
                 'NKK' => 351001231654324856,
@@ -68,7 +72,8 @@ class PendudukSeeder extends Seeder
                 'jenis_kelamin' => 'L',
                 'pendidikan' => 'S1',
                 'hubungan_keluarga' => 'Kepala Keluarga',
-                'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 05 RW 06 ',
+                'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06 ',
+                'RT' => 'RT 02',
             ], [
                 'NIK' => 351001231654324857,
                 'NKK' => 351001231654324856,
@@ -79,7 +84,8 @@ class PendudukSeeder extends Seeder
                 'jenis_kelamin' => 'P',
                 'pendidikan' => 'S1',
                 'hubungan_keluarga' => 'Istri',
-                'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 05 RW 06 ',
+                'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06 ',
+                'RT' => 'RT 02',
             ], [
                 'NIK' => 351001100220220011,
                 'NKK' => 351001231654324856,
@@ -90,7 +96,8 @@ class PendudukSeeder extends Seeder
                 'jenis_kelamin' => 'P',
                 'pendidikan' => null,
                 'hubungan_keluarga' => 'Anak',
-                'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 05 RW 06 ',
+                'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06 ',
+                'RT' => 'RT 02',
             ], [
                 'NIK' => 351001150820240011,
                 'NKK' => 351001231654324856,
@@ -101,7 +108,8 @@ class PendudukSeeder extends Seeder
                 'jenis_kelamin' => 'L',
                 'pendidikan' => null,
                 'hubungan_keluarga' => 'Anak',
-                'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 05 RW 06 ',
+                'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06 ',
+                'RT' => 'RT 02',
             ], [
                 'NIK' => 351001150819720011,
                 'NKK' => 351001231654324836,
@@ -113,6 +121,7 @@ class PendudukSeeder extends Seeder
                 'pendidikan' => null,
                 'hubungan_keluarga' => 'Kepala Keluarga',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 01 RW 06 ',
+                'RT' => 'RT 01',
             ], [
                 'NIK' => 351001150819720012,
                 'NKK' => 351001231654324836,
@@ -124,6 +133,7 @@ class PendudukSeeder extends Seeder
                 'pendidikan' => null,
                 'hubungan_keluarga' => 'Istri',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 01 RW 06 ',
+                'RT' => 'RT 01',
             ],
         ];
 
