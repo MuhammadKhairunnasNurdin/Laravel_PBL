@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pemeriksaan;
+use App\Models\PemeriksaanLansia;
 use App\Models\Penduduk;
 use Illuminate\Http\Request;
 
@@ -92,6 +93,20 @@ class LansiaResource extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $check = Pemeriksaan::find($id);
+        if(!$check) {
+            return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia tidak ditemukan');
+        }
+
+        try {
+            /**
+             * delete pemeriksaans column that also cascade to pemeriksaan_lansias column, because we use cascadeOnDelete() in migration
+             */
+            Pemeriksaan::destroy($id);
+
+            return redirect()->intended('kader/lansia')->with('success', 'Data pemeriksaan lansia berhasil dihapus');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        }
     }
 }
