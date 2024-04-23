@@ -71,13 +71,15 @@ class LansiaResource extends Controller
      */
     public function edit(string $id)
     {
+        $lansiaData = Pemeriksaan::with('pemeriksaan_lansia', 'penduduk')->find($id);
+
         $breadcrumb = (object)[
             'title' => 'Pemeriksaan Lansia'
         ];
 
         $activeMenu = 'lansia';
 
-        return view('kader.lansia.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('kader.lansia.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'lansiaData' => $lansiaData]);
     }
 
     /**

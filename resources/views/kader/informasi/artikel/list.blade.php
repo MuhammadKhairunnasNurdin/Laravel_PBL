@@ -9,7 +9,7 @@
             <p class="text-[15px]">{{ substr($artikel->isi, 0, 200) }} {{ strlen($artikel->isi) > 100 ? '...' : '' }}</p>
             <div class="flex w-full justify-center gap-[10px] pt-[13px]">
                 <a href="{{ url('kader/informasi/artikel/' . $artikel->artikel_id )}}" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
-                <a href="" class="bg-blue-700 text-[15px] text-white py-[10px] px-[30px] rounded-[5px]">Edit</a>
+                <a href="{{ url('kader/informasi/artikel/'. $artikel->artikel_id .'/edit')}}" class="bg-blue-700 text-[15px] text-white py-[10px] px-[30px] rounded-[5px]">Edit</a>
             </div>
         </div>
         @endforeach

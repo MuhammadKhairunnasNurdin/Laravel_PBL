@@ -75,13 +75,18 @@ class BayiResource extends Controller
      */
     public function edit(string $id)
     {
+        $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->find($id);
+        $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
+            ->where('hubungan_keluarga', '!=', 'Anak')
+            ->get(['nama', 'hubungan_keluarga']);
+        
         $breadcrumb = (object) [
             'title' => 'Pemeriksaan Bayi'
         ];
 
         $activeMenu = 'bayi';
 
-        return view('kader.bayi.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('kader.bayi.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayiData' => $bayiData, 'parentData' => $parentData]);
     }
 
     /**
