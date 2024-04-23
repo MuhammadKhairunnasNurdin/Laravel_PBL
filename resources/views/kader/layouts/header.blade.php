@@ -8,7 +8,7 @@
     </div>
     <div class="flex col-span-5 justify-between align-middle px-5">
         <div class="flex flex-col">
-            <p class="text-neutral-950 text-xl">{{auth()->user()->username}}</p>
+            <p class="text-neutral-950 text-xs">Halo, {{auth()->user()->username}}!</p>
             <p class="text-neutral-950 text-xl">{{ now()->formatLocalized('%d %B %Y') }}</p>
         </div>
         <div class="flex w-fit gap-3" onmouseover="showDropdown()" onmouseout="hideDropdown()">
