@@ -66,7 +66,15 @@ class ArtikelResource extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $artikels = Artikel::find($id);
+
+        $breadcrumb = (object) [
+            'title' => 'Kelola Informasi'
+        ];
+
+        $activeMenu = 'info';
+
+        return view('kader.informasi.artikel.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'artikels' => $artikels]);
     }
 
     /**
