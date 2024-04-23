@@ -54,7 +54,18 @@ class KegiatanResource extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $breadcrumb = (object) [
+            'title' => 'Kelola Informasi'
+        ];
+
+        $activeMenu = 'info';
+
+        /**
+         * Retrieve data for filter feature
+         */
+        $kegiatans = Kegiatan::find($id);
+
+        return view('kader.informasi.kegiatan.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kegiatans' => $kegiatans]);
     }
 
     /**

@@ -70,5 +70,6 @@ class DataTablesController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make();
-    }
+    }    
+    
 }
