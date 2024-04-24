@@ -10,7 +10,7 @@
             <div class="col-span-1 flex flex-col gap-[23px]">
                 <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                     <p class="text-base text-neutral-950">Nama Bayi<span class="text-red-400">*</span></p>
-                    <select name="filter" id="filter" class="w-100 border text-gray-300 border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
+                    <select name="filter" id="filter" class="w-100 border text-gray-300 border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none ">
                         <option value="" class="">Masukkan nama balita</option>
                         <option value="" class="text-neutral-950">Alvino Hermawan</option>
                     </select>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\KunjunganChart;
+use App\Charts\KunjunganLandingPage;
 use Illuminate\Http\Request;
 
 class PromosiController extends Controller
@@ -28,14 +30,16 @@ class PromosiController extends Controller
         return view('promosi.profil', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
 
-    public function landingpage()
+    public function landingpage(KunjunganLandingPage $chart)
     {
         $breadcrumb = (object) [
             'title' => 'Landing Page'
         ];
 
-        $activeMenu = 'promosi';
+        $imageUrl = asset('img/background1.jpg');
 
-        return view('promosi.landing', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        $activeMenu = 'berita';
+
+        return view('promosi.landing', ['chart' => $chart->build(), 'breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'imageUrl' => $imageUrl]);
     }
 }

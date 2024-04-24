@@ -42,7 +42,7 @@
     <p class="font-bold text-[30px] text-center py-[35px]">Kegiatan</p>
     <div class="mx-[55px] bg-white rounded-[10px] mb-[60px]">
         <div class="grid grid-cols-3 gap-[25px] h-full px-[49px] py-[31px]">
-            <div class="flex flex-col text-white items-center justify-center bg-blue-300 gap-[55px] py-[55px] rounded-[5px]">
+            <div class="flex flex-col text-white items-center bg-[#32A0C0] gap-[55px] py-[55px] rounded-[5px]">
                 <p class="text-[35px]">Posyandu Balita</p>
                 <div class="px-[26px]">
                     <ul class="list-disc text-justify text-lg font-semibold">
@@ -55,7 +55,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="flex flex-col items-center justify-center h-full bg-yellow-400 gap-[55px] py-[103px] rounded-[5px]">
+            <div class="flex flex-col items-center text-white h-full bg-[#5BB3CC] gap-[55px] py-[55px] rounded-[5px]">
                 <p class="text-[35px]">Posyandu Lansia</p>
                 <div class="px-[26px]">
                     <ul class="list-disc text-justify text-lg font-semibold">
@@ -66,7 +66,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="flex flex-col items-center justify-center h-full bg-red-400 gap-[55px] py-[103px] rounded-[5px]">
+            <div class="flex flex-col items-center text-white h-full bg-[#84C6D9] gap-[55px] py-[55px] rounded-[5px]">
                 <p class="text-[35px]">Kegiatan Penunjang</p>
                 <div class="px-[48px]">
                     <ul class="list-disc text-justify text-lg font-semibold">
@@ -92,6 +92,4 @@
             </div> --}}
         </div>
     </div>
-
-
 @endsection
