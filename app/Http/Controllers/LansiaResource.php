@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanLansia;
 use App\Models\Penduduk;
+use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class LansiaResource extends Controller
 {
@@ -71,27 +75,45 @@ class LansiaResource extends Controller
      */
     public function edit(string $id)
     {
+        $lansiaData = Pemeriksaan::with('pemeriksaan_lansia', 'penduduk')->find($id);
+
         $breadcrumb = (object)[
             'title' => 'Pemeriksaan Lansia'
         ];
 
         $activeMenu = 'lansia';
 
-        return view('kader.lansia.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('kader.lansia.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'lansiaData' => $lansiaData]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
-        //
+        $data = $request->except(['_token', 'date', 'month', 'year']);
+
+        $data['tgl_kegiatan'] = Carbon::create($request->year, $request->month, $request->date)->format('Y-m-d');
+
+        $validator = Validator::make($data, $this->rules());
+
+
+        if ($validator->fails()) {
+            return redirect()->intended(route('kegiatan.index'))
+                ->withErrors($validator->errors(), 'errors');
+        }
+
+
+        Kegiatan::find($id)->update($validator->getData());
+
+        return redirect()->intended(route('kegiatan.index'))
+            ->with('success', 'kegiatan berhasil diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
         $check = Pemeriksaan::find($id);
         if(!$check) {
@@ -108,5 +130,82 @@ class LansiaResource extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
+    }
+
+    private function pemeriksaanLansiaRules(): array
+    {
+        return [
+            'lingkar_perut' => [
+                'bail',
+                'required',
+                'numeric'
+            ],
+            'gula_darah' => [
+                'bail',
+                'required',
+                'integer'
+            ],
+            'kolesterol' => [
+                'bail',
+                'required',
+                'integer'
+            ],
+            'tensi_darah' => [
+                'bail',
+                'required',
+                'integer'
+            ],
+            'asam_urat' => [
+                'bail',
+                'required',
+                'numeric'
+            ],
+        ];
+    }
+
+    private function pemeriksaanRules(): array
+    {
+        return [
+            'kader_id' => [
+                'bail',
+                'required',
+                'exists:kaders'
+            ],
+            'NIK' => [
+                'bail',
+                'required',
+                'exists:penduduks'
+            ],
+            'status' => [
+                'bail',
+                'required',
+                Rule::in(['sehat', 'sakit'])
+            ],
+            'golongan' => [
+                'bail',
+                'required',
+                Rule::in(['lansia', 'bayi'])
+            ],
+            'tgl_pemeriksaan' => [
+                'bail',
+                'required',
+                'date'
+            ],
+            'tinggi_badan' => [
+                'bail',
+                'required',
+                'float'
+            ],
+            'berat_badan' => [
+                'bail',
+                'required',
+                'float'
+            ],
+            'respon' => [
+                'bail',
+                'required',
+                'text'
+            ],
+        ];
     }
 }

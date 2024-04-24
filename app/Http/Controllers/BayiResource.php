@@ -40,7 +40,12 @@ class BayiResource extends Controller
 
         $activeMenu = 'bayi';
 
-        return view('kader.bayi.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        $bayisData = Penduduk::whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) <= 5')->get(['NIK', 'nama', 'alamat', 'NKK', 'tgl_lahir']);
+
+        $parentsData = Penduduk::where('hubungan_keluarga', '!=', 'Anak')
+            ->get(['nama', 'hubungan_keluarga']);
+
+        return view('kader.bayi.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayisData' => $bayisData, 'parentsData' => $parentsData]);
     }
 
     /**
@@ -75,13 +80,18 @@ class BayiResource extends Controller
      */
     public function edit(string $id)
     {
+        $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->find($id);
+        $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
+            ->where('hubungan_keluarga', '!=', 'Anak')
+            ->get(['nama', 'hubungan_keluarga']);
+
         $breadcrumb = (object) [
             'title' => 'Pemeriksaan Bayi'
         ];
 
         $activeMenu = 'bayi';
 
-        return view('kader.bayi.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('kader.bayi.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayiData' => $bayiData, 'parentData' => $parentData]);
     }
 
     /**

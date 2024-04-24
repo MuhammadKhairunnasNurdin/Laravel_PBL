@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::resource('bayi', BayiResource::class);
         Route::post('bayi/list', [DataTablesController::class, 'list'])->name('bayi.list');
+        Route::get('bayi/{id}', [BayiResource::class, 'edit'])->name('bayi.edit');
         Route::resource('lansia', LansiaResource::class);
         Route::post('lansia/list', [DataTablesController::class, 'list'])->name('lansia.list');
 
