@@ -124,9 +124,10 @@
                 </div>
                 <div class="col-span-1 flex justify-end items-center gap-[26px] pt-10 w-full">
                     <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
-                    <a href="{{ url('kader/bayi')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Back</a>
-                    <button class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden back" id="page_2">Back</button>
-                    <button type="button" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="next">Next</button>
+                    <a href="{{ url('kader/bayi')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
+                    <button type="button" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden back" id="page_2">Kembali</button>
+                    <button type="button" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="next">Lanjut</button>
+                    <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden" id="page_2">Simpan Data</button>
 {{--                    <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden" id="save_button">Simpan Data</button>--}}
                 </div>
             </div>
@@ -166,22 +167,17 @@
         }
 
         let button = document.getElementById('next');
-        // let save = document.getElementById('save_button');
         let back = document.querySelector('.back');
         let page1 = document.querySelectorAll('#page_1');
         let page2 = document.querySelectorAll('#page_2');
 
         button.addEventListener("click", function () {
-            // save.classList.remove('hidden');
-            // button.classList.add('hidden');
-            button.type = "submit";
+            button.classList.add('hidden');
             togglePages(page1, page2);
         });
 
         back.addEventListener("click", function () {
-            // save.classList.add('hidden');
-            // button.classList.remove('hidden');
-            button.type = "button";
+            button.classList.remove('hidden');
             togglePages(page1, page2);
         });
     </script>
