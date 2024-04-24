@@ -109,9 +109,10 @@
             </div>
             <div class="col-span-1 flex justify-end items-center gap-[26px] pt-10 w-full">
                 <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
-                <a href="{{ url('kader/lansia')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Back</a>
-                <button class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden back" id="page_2">Back</button>
-                <button class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="next">Next</button>
+                <a href="{{ url('kader/lansia')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
+                <button type="button" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden back" id="page_2">Kembali</button>
+                <button type="button" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="next">Lanjut</button>
+                <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden" id="page_2">Simpan Data</button>
             </div>
         </div>
     </div>
@@ -139,14 +140,13 @@
             full();
         });
 
-        function togglePages(page1, page2, buttonText) {
+        function togglePages(page1, page2) {
             page1.forEach(function(page) {
                 page.classList.toggle('hidden');
             });
             page2.forEach(function(page) {
                 page.classList.toggle('hidden');
             });
-            button.innerText = buttonText;
         }
 
         let button = document.getElementById('next');
@@ -155,11 +155,13 @@
         let page2 = document.querySelectorAll('#page_2');
 
         button.addEventListener("click", function() {
-            togglePages(page1, page2, "Simpan Data");
+            button.classList.add('hidden')
+            togglePages(page1, page2);
         });
 
         back.addEventListener("click", function() {
-            togglePages(page1, page2, "Next");
+            button.classList.remove('hidden')
+            togglePages(page1, page2);
         });
     </script>
 @endpush
