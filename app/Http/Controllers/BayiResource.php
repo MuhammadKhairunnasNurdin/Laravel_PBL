@@ -40,7 +40,12 @@ class BayiResource extends Controller
 
         $activeMenu = 'bayi';
 
-        return view('kader.bayi.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        $bayisData = Penduduk::whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) <= 5')->get(['NIK', 'nama', 'alamat', 'NKK', 'tgl_lahir']);
+
+        $parentsData = Penduduk::where('hubungan_keluarga', '!=', 'Anak')
+            ->get(['nama', 'hubungan_keluarga']);
+
+        return view('kader.bayi.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayisData' => $bayisData, 'parentsData' => $parentsData]);
     }
 
     /**
@@ -79,7 +84,7 @@ class BayiResource extends Controller
         $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
             ->where('hubungan_keluarga', '!=', 'Anak')
             ->get(['nama', 'hubungan_keluarga']);
-        
+
         $breadcrumb = (object) [
             'title' => 'Pemeriksaan Bayi'
         ];
