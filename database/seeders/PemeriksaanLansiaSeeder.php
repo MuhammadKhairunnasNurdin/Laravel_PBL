@@ -28,6 +28,13 @@ class PemeriksaanLansiaSeeder extends Seeder
                 'kolesterol' => 160,
                 'tensi_darah' => 132,
                 'asam_urat' => 3.2
+            ],[
+                'pemeriksaan_id'=> 5,
+                'lingkar_perut' => 11.3,
+                'gula_darah' => 145,
+                'kolesterol' => 160,
+                'tensi_darah' => 132,
+                'asam_urat' => 3.2
             ],
         ];
 
