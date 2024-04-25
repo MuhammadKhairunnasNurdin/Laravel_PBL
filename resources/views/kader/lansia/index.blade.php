@@ -167,7 +167,7 @@
         border-bottom: 1px solid #ddd;
     }
 </style>
-@endpush
+@endpush    
 
 @push('js')
 <!-- jQuery Reload -->

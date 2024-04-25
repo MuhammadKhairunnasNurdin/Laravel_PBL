@@ -18,13 +18,16 @@
 </head>
 <body>
     <div class="flex bg-gray-200 w-screen h-screen justify-center items-center">
-        <div class="grid grid-cols-2 bg-white w-full px-[100px] py-[55px] rounded-[25px] gap-[100px] mx-32 ">
-            <div class="flex flex-col w-full justify-center">
-                <p class="text-[31px]">Sistem Informasi</p>
-                <p class="font-bold text-[57px]">Posyandu</p>
+        <div class="bg-white w-full flex flex-col mx-8 px-[25px] py-[22px] gap-[25px] md:grid md:grid-cols-2 md:px-[100px] md:py-[55px] md:rounded-[25px] md:gap-[100px] md:mx-32 ">
+            <div class="w-full flex flex-col md:justify-center">
+                <p class="md:text-[31px] order-2 hidden md:flex">Sistem Informasi</p>
+                <p class="font-bold md:text-[57px] order-3 hidden md:flex">Posyandu</p>
+                <p class="font-bold md:text-[57px] order-2">Login</p>
+                <p class="text-xs md:hidden order-3">Gunakan Akun Anda</p>
+                <img src="{{ asset('img/logo_posyandu.png') }}" alt="logo Posyandu" class="w-[75px] -ml-2.5 md:w-[142px] md:h-[106.5px] md:hidden  order-1">
             </div>
-            <div class="flex flex-col w-100 justify-center items-center gap-[42px]">
-                <img src="{{ asset('img/logo_posyandu.png') }}" alt="logo Posyandu" class="w-[142px] h-[106.5px]">
+            <div class="md:flex md:flex-col w-100 justify-center items-center md:gap-[42px]">
+                <img src="{{ asset('img/logo_posyandu.png') }}" alt="logo Posyandu" class="w-[75px] md:w-[142px] md:h-[106.5px] hidden md:flex">
                 @error('login_failed')
                 <div class="pl-5 py-[15px] bg-red-200 w-full fade show" role="alert">
                     <span class="alert-inner-text"><strong>Warning!</strong> {{ $message }}</span>
@@ -36,9 +39,9 @@
                 <div class="flex flex-col w-full gap-4">
                     <form method="post" action="{{route('login.auth')}}" id="login-form">
                         @csrf
-                        <div class="flex flex-col w-full gap-[30px]">
-                            <input type="text" name="username" placeholder="Username" class="pl-5 py-[15px] w-full border border-stone-400 rounded focus:outline-none" required>
-                            <input type="password" id="password" name="password" placeholder="Password" class="pl-5 py-[15px] w-full border border-stone-400 rounded focus:outline-none" required>
+                        <div class="flex flex-col w-full gap-[15px] md:gap-[30px]">
+                            <input type="text" name="username" placeholder="Username" class=" w-full border border-stone-400 pl-2.5 py-[7px] rounded text-xs placeholder:text-xs md:pl-5 md:py-[15px] focus:outline-none md:placeholder:text-base" required>
+                            <input type="password" id="password" name="password" placeholder="Password" class="w-full border border-stone-400 pl-2.5 py-[7px] rounded text-xs placeholder:text-xs md:pl-5 md:py-[15px] focus:outline-none md:placeholder:text-base" required>
                         </div>
                         <div class="flex left w-full">
                             <span id="passwordError" class="text-red-500 hidden"></span>
@@ -47,12 +50,15 @@
 {{--                            <input type="checkbox" name="remember" id="">--}}
 {{--                            <p>Ingat saya</p>--}}
 {{--                        </div>--}}
-                        <div class="flex right w-full pt-4 gap-4 justify-end">
-                            <button class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px] w-fit right-0" id="submit" type="submit">Login</button>
+                        <div class="flex right w-full pt-2 md:pt-4 gap-4 justify-end">
+                            <button class="bg-blue-700 text-white text-xs py-[8px] px-[15px] md:text-base md:py-[10px] md:px-[17px] rounded-[5px] w-fit right-0" id="submit" type="submit">Login</button>
                         </div>
                     </form>
                 </div>
             </div>
+            {{-- <div class="border-t w-full m-0 p-0">
+                <p class="text-xs text-stone-400">Sistem Informasi Posyandu</p>
+            </div> --}}
         </div>
     </div>
     <script>

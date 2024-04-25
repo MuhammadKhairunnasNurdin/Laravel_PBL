@@ -8,7 +8,7 @@
     </div>
     <div class="flex col-span-1 justify-center align-middle px-5 w-full h-full items-center">
         <div class="flex gap-[70px]">
-            <a class="text-neutral-950 text-base pb-[5px] transition ease-in-out duration-300 {{ ($activeMenu == '')? '' : 'hover:border-b-[3px] hover:border-blue-700'}}" href="">Berita</a>
+            <a class="text-neutral-950 text-base pb-[5px] transition ease-in-out duration-300 {{ ($activeMenu == 'berita')? 'activeHeader' : 'hover:border-b-[3px] hover:border-blue-700'}}" href="{{ url('') }}">Berita</a>
             <a class="text-neutral-950 text-base pb-[5px] transition ease-in-out duration-300 {{ ($activeMenu == 'profil')? 'activeHeader' : 'hover:border-b-[3px] hover:border-blue-700'}}" href="{{ url('profil')}}">Profil</a>
             <a class="text-neutral-950 text-base pb-[5px] transition ease-in-out duration-300 {{ ($activeMenu == 'jadwal')? 'activeHeader' : 'hover:border-b-[3px] hover:border-blue-700'}}" href="{{ url('jadwal')}}">Kegiatan</a>
         </div>
