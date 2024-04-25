@@ -2,62 +2,35 @@
 
 @section('content')
 <div class="grid grid-cols-3 mx-5 mt-5 mb-10 gap-5">
-    @foreach($data['golongan'] as $item)
-        @if($item->golongan === 'bayi')
-            {{-- Card Jumlah Balita --}}
-            <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
-                <div class="flex w-full justify-between pt-5">
-                    <p class="font-medium text-base">Jumlah Balita</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                      </svg>
-                </div>
-                <h1 class="text-5xl font-medium">{{$item->total}}</h1>
-                <p class="text-xs text-stone-400 pb-4">Sebulan Terakhir</p>
+    @php
+        $golongan = ['Lansia', 'Bayi'];
+    @endphp
+    @for($i = 0; $i < 2; $i++)
+        <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
+            <div class="flex w-full justify-between pt-5">
+                <p class="font-medium text-base">Jumlah {{ $data['golongan'][$i]->golongan ?? $golongan[$i] }}</p>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                </svg>
             </div>
-        @else
-            {{-- Card Jumlah Lansia --}}
-            <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
-                <div class="flex w-full justify-between pt-5">
-                    <p class="font-medium text-base">Jumlah Lansia</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                      </svg>
-                </div>
-                <h1 class="text-5xl font-medium">{{$item->total}}</h1>
-                <p class="text-xs text-stone-400 pb-4">Sebulan Terakhir</p>
+            <h1 class="text-5xl font-medium">{{ $data['golongan'][$i]->total ?? 0}}</h1>
+            <p class="text-xs text-stone-400 pb-4">Sebulan Terakhir</p>
+        </div>
+    @endfor
+    @for($i = 0; $i < 2; $i++)
+        <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
+            <div class="flex w-full justify-between pt-5">
+                <p class="font-medium text-base">Jumlah {{ $data['status'][$i]->golongan ?? $golongan[$i]}} Sakit</p>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                </svg>
             </div>
-        @endif
-    @endforeach
-
-    @foreach($data['status'] as $item)
-        @if($item->golongan === 'bayi')
-            {{-- Card Jumlah Bayi sakit--}}
-            <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
-                <div class="flex w-full justify-between pt-5">
-                    <p class="font-medium text-base">Jumlah Bayi Sakit</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                      </svg>
-                </div>
-                <h1 class="text-5xl font-medium">{{$item->total}}</h1>
-                <p class="text-xs text-stone-400 pb-4">Sebulan Terakhir</p>
-            </div>
-        @else
-            {{-- Card Jumlah Lansia sakit --}}
-            <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
-                <div class="flex w-full justify-between pt-5">
-                    <p class="font-medium text-base">Jumlah Lansia sakit</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                      </svg>
-                </div>
-                <h1 class="text-5xl font-medium">{{$item->total}}</h1>
-                <p class="text-xs text-stone-400 pb-4">Sebulan Terakhir</p>
-            </div>
-        @endif
-    @endforeach
-
+            {{-- {{ !empty($data['golongan'][$i]) ? $data['golongan'][$i]->total : 0}} --}}
+            {{-- this bellow code same above code--}}
+            <h1 class="text-5xl font-medium">{{ $data['golongan'][$i]->total ?? 0}}</h1>
+            <p class="text-xs text-stone-400 pb-4">Sebulan Terakhir</p>
+        </div>
+    @endfor
 </div>
 <div class="grid grid-cols-3 mx-5 mt-5 mb-10 gap-5">
 
@@ -102,36 +75,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="text-neutral-950 text-left">
-                    <td class="font-normal text-sm">Imunisasi Polio</td>
-                    <td class="font-normal text-sm">1 April 2024</td>
-                    <td class="font-normal text-sm">08:00 - Selesai</td>
-                    <td class="font-normal text-sm">Posyandu Delima Merah</td>
-                </tr>
-                <tr class="text-neutral-950 w-full text-left">
-                    <td class="font-normal text-sm">Imunisasi Polio</td>
-                    <td class="font-normal text-sm">1 April 2024</td>
-                    <td class="font-normal text-sm">08:00 - Selesai</td>
-                    <td class="font-normal text-sm">Posyandu Delima Merah</td>
-                </tr>
-                <tr class="text-neutral-950 w-full text-left">
-                    <td class="font-normal text-sm">Imunisasi Polio</td>
-                    <td class="font-normal text-sm">1 April 2024</td>
-                    <td class="font-normal text-sm">08:00 - Selesai</td>
-                    <td class="font-normal text-sm">Posyandu Delima Merah</td>
-                </tr>
-                <tr class="text-neutral-950 w-full text-left">
-                    <td class="font-normal text-sm">Imunisasi Polio</td>
-                    <td class="font-normal text-sm">1 April 2024</td>
-                    <td class="font-normal text-sm">08:00 - Selesai</td>
-                    <td class="font-normal text-sm">Posyandu Delima Merah</td>
-                </tr>
-                <tr class="text-neutral-950 w-full text-left">
-                    <td class="font-normal text-sm">Imunisasi Polio</td>
-                    <td class="font-normal text-sm">1 April 2024</td>
-                    <td class="font-normal text-sm">08:00 - Selesai</td>
-                    <td class="font-normal text-sm">Posyandu Delima Merah</td>
-                </tr>
+                @foreach ($data['kegiatan'] as $item)
+                    <tr class="text-neutral-950 text-left">
+                        <td class="font-normal text-sm">{{ $item->nama }}</td>
+                        <td class="font-normal text-sm">{{ date('d-M-Y', strtotime($item->tgl_kegiatan)) }}</td>
+                        <td class="font-normal text-sm">{{ date('H:i', strtotime($item->jam_mulai)) }} - Selesai</td>
+                        <td class="font-normal text-sm">{{ $item->tempat }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kegiatan;
 use App\Models\Pemeriksaan;
 use Illuminate\Http\Request;
 use App\Charts\KunjunganChart;
@@ -38,6 +39,7 @@ class DashboardController extends Controller
                 ->whereDate('tgl_pemeriksaan', '>=', now()->subMonth())
                 ->where('status', '=', 'sakit')
                 ->groupBy('golongan')->get(),
+            'kegiatan' => Kegiatan::all(),
         ];
     }
 }
