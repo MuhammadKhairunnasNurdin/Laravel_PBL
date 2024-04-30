@@ -43,9 +43,17 @@ class BayiResource extends Controller
         $bayisData = Penduduk::whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) <= 5')->get(['NIK', 'nama', 'alamat', 'NKK', 'tgl_lahir']);
 
         $parentsData = Penduduk::where('hubungan_keluarga', '!=', 'Anak')
-            ->get(['nama', 'hubungan_keluarga']);
+            ->get(['nama', 'hubungan_keluarga', 'NKK']);
 
         return view('kader.bayi.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayisData' => $bayisData, 'parentsData' => $parentsData]);
+    }
+
+    public function getData(string $id)
+    {
+        $bayiData = Penduduk::find($id);
+        $parentsData = Penduduk::where('NKK', '=', $bayiData->NKK)->get(['nama', 'hubungan_keluarga', 'NKK']);
+
+        return response()->json([$parentsData, $bayiData]);
     }
 
     /**
@@ -108,7 +116,7 @@ class BayiResource extends Controller
     public function destroy(string $id)
     {
         $check = Pemeriksaan::find($id);
-        if(!$check) {
+        if (!$check) {
             return redirect()->intended('kader/bayi')->with('error', 'Data pemeriksaan bayi tidak ditemukan');
         }
 
