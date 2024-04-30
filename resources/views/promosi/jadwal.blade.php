@@ -16,8 +16,13 @@
                 </div>
             </div>
         </div>
+
+        <input type="hidden" name="model" id="model" value="{{encrypt('App\Models\Kegiatan')}}">
+        <input type="hidden" name="url" id="url" value="{{encrypt('/jadwal/kegiatan/')}}">
+        <input type="hidden" name="filterName" id="filterName" value="{{encrypt('kegiatan_id')}}">
+
         <div class="mx-10 my-[20px]">
-            <table class=" border-collapse w-full rounded-t-[10px] overflow-hidden" id="table_lansia">
+            <table class=" border-collapse w-full rounded-t-[10px] overflow-hidden" id="kegiatan_table">
                 <thead class="bg-gray-300 border-b text-left py-5">
                     <tr class=" text-white rounded-lg">
                         <th class="font-normal text-sm py-2">Nama Kegiatan</th>
@@ -27,7 +32,7 @@
                         <th class="font-normal text-sm py-2">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="">
+                {{-- <tbody class="">
                     <tr class="text-neutral-950 text-left">
                         <td class="font-normal text-sm">Imunisasi Polio</td>
                         <td class="font-normal text-sm">1 April 2024</td>
@@ -138,7 +143,7 @@
                             </div>
                         </td>
                     </tr>              
-                </tbody>
+                </tbody> --}}
             </table>
         </div>
     </div>
@@ -152,5 +157,67 @@
         text-align: left;
         border-bottom: 1px solid #A8A29E;
     }
+    #ubah, #hapus {
+        display: none;
+    }
 </style>
+@endpush
+
+@push('js')
+    <!-- jQuery Reload -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- DataTable Reload-->
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            let dataKegiatan = $('#kegiatan_table').DataTable({
+                serverSide: true,
+                ajax: {
+                    "url": "{{ route('jadwal.list') }}",
+                    "dataType": "json",
+                    "type": "POST",
+                    "data": function (d) {
+                        d._token = "{{ csrf_token() }}";
+                        d.filterValue = $('#filterValue').val();
+                        d.model = $('#model').val();
+                        d.url = $('#url').val();
+                        d.filterName = $('#filterName').val();
+                    }
+                },
+                columns: [
+                    {
+                        data: "nama",
+                        className: "font-normal text-smr",
+                        width: 300,
+                        orderable: false,
+                        searchable: true
+                    }, {
+                        data: "tgl_kegiatan",
+                        className: "font-normal text-sm",
+                        orderable: true,
+                        searchable: true
+                    }, {
+                        data: "jam_mulai",
+                        className: "font-normal text-sm",
+                        orderable: false,
+                        searchable: false,
+                    }, {
+                        data: "tempat",
+                        className: "font-normal text-sm",
+                        orderable: false,
+                        searchable: false,
+                    }, {
+                        data: "aksi",
+                        className: "",
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
+            $('#filterValue').on('change', function() {
+                dataKegiatan.ajax.reload();
+            });
+        });
+    </script>
 @endpush

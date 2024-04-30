@@ -30,6 +30,7 @@ use App\Http\Controllers\PromosiController;
 Route::get('/', [PromosiController::class, 'landingpage']);
 Route::get('/profil', [PromosiController::class, 'profil'])->name('profil');
 Route::get('/jadwal', [PromosiController::class, 'jadwal']);
+Route::post('/jadwal', [DataTablesController::class, 'list'])->name('jadwal.list');
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login.auth');
 
@@ -55,6 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::resource('bayi', BayiResource::class);
         Route::post('bayi/list', [DataTablesController::class, 'list'])->name('bayi.list');
+        Route::get('bayi/data/{id}', [BayiResource::class, 'getData'])->name('bayi.data');
         Route::get('bayi/{id}', [BayiResource::class, 'edit'])->name('bayi.edit');
         Route::resource('lansia', LansiaResource::class);
         Route::post('lansia/list', [DataTablesController::class, 'list'])->name('lansia.list');

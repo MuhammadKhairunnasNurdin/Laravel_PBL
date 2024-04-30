@@ -44,15 +44,15 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Usia<span class="text-red-400">*</span></p>
-                        <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan usia balita" value="" disabled>
+                        <input type="text" id="usia1" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan usia balita" value="" disabled>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950">Usia<span class="text-red-400">*</span></p>
-                        <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan usia balita" disabled>
+                        <input type="text" id="usia2" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan usia balita" disabled>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Nama Ibu<span class="text-red-400">*</span></p>
-                        <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan nama ibu" disabled>
+                        <input type="text" id="ibu" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan nama ibu" disabled>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950">Berat Badan<span class="text-red-400">*</span></p>
@@ -60,11 +60,11 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Nama Ayah<span class="text-red-400">*</span></p>
-                        <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan nama ayah" disabled>
+                        <input type="text" id="ayah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan nama ayah" disabled>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Alamat<span class="text-red-400">*</span></p>
-                        <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan alamat" disabled>
+                        <input type="text" id="alamat" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan alamat" disabled>
                     </div>
                 </div>
 
@@ -72,18 +72,17 @@
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Tanggal Kunjungan<span class="text-red-400">*</span></p>
                         <div class="grid grid-cols-3 gap-5">
-                            <select name="date" id="date" class="w-100 border border-stone-400 text-gray-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none" disabled>
-                                <option value="" class="text-gray-300">Tanggal</option>
-                                    <option value="" name="" class="text-neutral-950" selected></option>
+                            <select name="date" id="date" class="w-100 border border-stone-400 text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none" disabled>
+                                {{-- <option value="" class="text-gray-300">Tanggal</option> --}}
+                                <option value="{{ now() }}" name="" class="text-neutral-950">{{ now()->day }}</option>
                             </select>
-                            <select name="month" id="month" class="w-100 border border-stone-400 text-gray-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none" disabled>
-                                <option value="">Bulan</option>
-                                    <option value="" name="" class="text-neutral-950" selected></option>
-
+                            <select name="month" id="month" class="w-100 border border-stone-400 text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none" disabled>
+                                {{-- <option value="">Bulan</option> --}}
+                                <option value="{{ $i }}" name="" class="text-neutral-950">{{ now()->month }}</option>
                             </select>
-                            <select name="year" id="year" class="w-100 border border-stone-400 text-gray-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none" disabled>
-                                <option value="">Tahun</option>
-                                    <option value="" name="" class="text-neutral-950" selected></option>
+                            <select name="year" id="year" class="w-100 border border-stone-400 text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none" disabled>
+                                {{-- <option value="">Tahun</option> --}}
+                                <option value="{{ $i }}" name="" class="text-neutral-950">{{ now()->year }}</option>
                             </select>
                         </div>
                     </div>
@@ -128,7 +127,6 @@
                     <button type="button" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden back" id="page_2">Kembali</button>
                     <button type="button" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="next">Lanjut</button>
                     <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden" id="page_2">Simpan Data</button>
-{{--                    <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden" id="save_button">Simpan Data</button>--}}
                 </div>
             </div>
         </div>
@@ -181,35 +179,42 @@
             togglePages(page1, page2);
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
-        let dataBayi = {{ json_encode($bayisData) }}
-        // Tangani peristiwa saat nilai nama balita berubah
         document.getElementById('nama').addEventListener('change', function() {
-            // Dapatkan nilai yang dipilih dari nama balita
-            var selectedName = this.value;
-
-            $bayi = dataBayi.filter(function (bayi) {
-                // return
-            })
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        // Tanggapi balik dari server
-                        var responseData = JSON.parse(xhr.responseText);
-
-                        // Update elemen-elemen formulir dengan data yang diterima
-                        document.getElementById('usia').value = responseData.usia;
-                        document.getElementById('nama_ibu').value = responseData.nama_ibu;
-                        // Update elemen-elemen formulir lainnya sesuai kebutuhan
-                    } else {
-                        // Tangani kesalahan jika terjadi
-                        console.error('Error:', xhr.status);
+            $.ajax({
+                url: 'data/' + this.value,
+                type: 'GET',
+                success: function(response) {
+                    document.getElementById('alamat').value = response[1].alamat
+                    let tglLahir = new Date(response[1].tgl_lahir);
+                    let sekarang = new Date();
+                    let bulan = (sekarang.getFullYear() - tglLahir.getFullYear()) * 12;
+                    bulan -= tglLahir.getMonth();
+                    bulan += sekarang.getMonth();
+                    document.getElementById('usia1').value = bulan + " bulan";
+                    document.getElementById('usia2').value = bulan + " bulan";
+                    for (let i = 0; i < response[0].length; i++) {
+                        if (response[0][i].hubungan_keluarga == 'Istri') {
+                            document.getElementById('ibu').value = response[0][i].nama;
+                            break;
+                        } else {
+                            document.getElementById('ibu').value = 'Tidak Punya Ibu';
+                        }
                     }
+                    for (let i = 0; i < response[0].length; i++) {
+                        if (response[0][i].hubungan_keluarga == 'Kepala Keluarga') {
+                            document.getElementById('ayah').value = response[0][i].nama;
+                            break;
+                        } else {
+                            document.getElementById('ayah').value = 'Tidak Punya Ayah'
+                        }
+                    }
+                },
+                error: function(xhr){
+                    console.log(xhr.responseText);
                 }
-            };
-
-            xhr.send();
+            });
         });
     </script>
 
