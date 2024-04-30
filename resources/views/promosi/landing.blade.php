@@ -95,7 +95,7 @@
     <div class="flex justify-between flex-col gap-5">
         <div class="flex w-full justify-between">
             <span class="text-[26px] font-bold -mt-[10px]">Kegiatan</span>
-            <a href="" class="bg-neutral-950 text-white rounded-full px-5 py-2.5 ">Lihat Semua</a>
+            <a href="{{ url('jadwal')}}" class="bg-neutral-950 text-white rounded-full px-5 py-2.5 ">Lihat Semua</a>
         </div>
 
         <p class="text-[18px]">Berita-berita seputar kegiatan</p>

@@ -22,7 +22,7 @@
             <div class="w-full flex flex-col md:justify-center">
                 <p class="md:text-[31px] order-2 hidden md:flex">Sistem Informasi</p>
                 <p class="font-bold md:text-[57px] order-3 hidden md:flex">Posyandu</p>
-                <p class="font-bold md:text-[57px] order-2">Login</p>
+                <p class="font-bold md:text-[57px] order-2 md:hidden">Login</p>
                 <p class="text-xs md:hidden order-3">Gunakan Akun Anda</p>
                 <img src="{{ asset('img/logo_posyandu.png') }}" alt="logo Posyandu" class="w-[75px] -ml-2.5 md:w-[142px] md:h-[106.5px] md:hidden  order-1">
             </div>
