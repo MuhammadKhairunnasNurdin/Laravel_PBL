@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BayiRequest;
+use App\Http\Requests\PemeriksaanRequest;
 use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanBayi;
 use App\Models\Penduduk;
@@ -59,9 +61,9 @@ class BayiResource extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BayiRequest $bayiRequest, PemeriksaanRequest $pemeriksaanRequest)
     {
-        //
+        dd($bayiRequest->all(), $pemeriksaanRequest->all());
     }
 
     /**
