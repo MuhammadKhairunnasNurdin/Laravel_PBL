@@ -160,42 +160,54 @@
             togglePages(page1, page2);
         });
     </script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script>
         document.getElementById('nama').addEventListener('change', function() {
-            $.ajax({
-                url: 'data/' + this.value,
-                type: 'GET',
-                success: function(response) {
-                    document.getElementById('alamat').value = response[1].alamat
-                    let tglLahir = new Date(response[1].tgl_lahir);
+
+            let bayis = @php
+                echo json_encode($bayisData);
+            @endphp
+
+            let parents = @php
+                echo json_encode($parentsData);
+            @endphp
+
+            let bayi;
+
+            for (let i = 0; i < bayis.length; i++) {
+                if (bayis[i].NIK == this.value) {
+                    document.getElementById('alamat').value = bayis[i].alamat;
+                    let tgl_lahir = new Date(bayis[i].tgl_lahir);
                     let sekarang = new Date();
-                    let bulan = (sekarang.getFullYear() - tglLahir.getFullYear()) * 12;
-                    bulan -= tglLahir.getMonth();
+                    let bulan = (sekarang.getFullYear() - tgl_lahir.getFullYear()) * 12;
+                    bulan -= tgl_lahir.getMonth();
                     bulan += sekarang.getMonth();
                     document.getElementById('usia1').value = bulan + " bulan";
-                    document.getElementById('usia2').value = bulan + " bulan";
-                    for (let i = 0; i < response[0].length; i++) {
-                        if (response[0][i].hubungan_keluarga == 'Istri') {
-                            document.getElementById('ibu').value = response[0][i].nama;
-                            break;
-                        } else {
-                            document.getElementById('ibu').value = 'Tidak Punya Ibu';
-                        }
-                    }
-                    for (let i = 0; i < response[0].length; i++) {
-                        if (response[0][i].hubungan_keluarga == 'Kepala Keluarga') {
-                            document.getElementById('ayah').value = response[0][i].nama;
-                            break;
-                        } else {
-                            document.getElementById('ayah').value = 'Tidak Punya Ayah'
-                        }
-                    }
-                },
-                error: function(xhr){
-                    console.log(xhr.responseText);
+                    document.getElementById('usia2').value = bulan + " bulann";
+                    bayi = bayis[i].NKK;
                 }
-            });
+            }
+
+            for (let i = 0; i < parents.length; i++) {
+                if (parents[i].NKK == bayi) {
+                    if (parents[i].hubungan_keluarga == 'Istri') {
+                        document.getElementById('ibu').value = parents[i].nama;
+                        break;
+                    } else {
+                        document.getElementById('ibu').value = "Data Ibu tidak ditemukan";
+                    }
+                }                
+            }
+            
+            for (let i = 0; i < parents.length; i++) {
+                if (parents[i].NKK == bayi) {
+                    if (parents[i].hubungan_keluarga == 'Kepala Keluarga') {
+                        document.getElementById('ayah').value = parents[i].nama;
+                        break;
+                    } else {
+                        document.getElementById('ayah').value = "Data Ayah tidak ditemukan";
+                    }
+                }                
+            }
         });
     </script>
 
