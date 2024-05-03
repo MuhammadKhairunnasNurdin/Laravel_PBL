@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Kader;
 
-use App\Http\Requests\StoreKegiatanRequest;
-use App\Http\Requests\UpdateKegiatanRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Kader\Kegiatan\StoreKegiatanRequest;
+use App\Http\Requests\Kader\Kegiatan\UpdateKegiatanRequest;
 use App\Models\Kegiatan;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;

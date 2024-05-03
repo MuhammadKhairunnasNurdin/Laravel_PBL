@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Kader\Bayi;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateKegiatanRequest extends FormRequest
+class UpdateBayiRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,17 +22,14 @@ class UpdateKegiatanRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $this->merge([
-            'tgl_kegiatan' => Carbon::create($this->input('year'), $this->input('month'), $this->input('day'))->format('Y-m-d')
-        ]);
-
-        $oldData = json_decode($this->input('kegiatan'), true);
+        $oldData = json_decode($this->input('pemeriksaan_bayi'), true);
 
         $this->request->replace($this->only([
-                'nama',
-                'tgl_kegiatan',
-                'jam_mulai',
-                'tempat',
+                'lingkar_kepala',
+                'lingkar_lengan',
+                'asi',
+                'kenaikan',
+                'data_kb',
             ])
         );
 
@@ -47,25 +44,27 @@ class UpdateKegiatanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => [
+            'lingkar_kepala' => [
+                'bail',
+                'numeric'
+            ],
+            'lingkar_lengan' => [
+                'bail',
+                'numeric'
+            ],
+            'asi' => [
+                'bail',
+                Rule::in(['iya', 'tidak'])
+            ],
+            'kenaikan' => [
+                'bail',
+                Rule::in(['iya', 'tidak'])
+            ],
+            'data_kb' => [
                 'bail',
                 'string',
-                'max:100',
-                'min:5'
+                'max:50'
             ],
-            'tgl_kegiatan' => [
-                'bail',
-                'date'
-            ],
-            'jam_mulai' => [
-                'bail',
-            ],
-            'tempat' => [
-                'bail',
-                'string',
-                'max:200',
-                'min:5'
-            ]
         ];
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shared;
 
+use App\Charts\KunjunganChart;
+use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
 use App\Models\Pemeriksaan;
-use Illuminate\Http\Request;
-use App\Charts\KunjunganChart;
 
 class DashboardController extends Controller
 {

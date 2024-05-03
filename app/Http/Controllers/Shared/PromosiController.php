@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Shared;
 
-use App\Charts\KunjunganChart;
 use App\Charts\KunjunganLandingPage;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PromosiController extends Controller
 {
