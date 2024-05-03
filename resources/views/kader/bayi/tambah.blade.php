@@ -21,11 +21,11 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950">Usia<span class="text-red-400">*</span></p>
-                        <input type="text" id="usia2" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan usia balita" disabled>
+                        <input type="text" id="usia2" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan usia bayi" disabled>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950 pr-[10px]">Lingkar Kepala<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="lingkar_kepala" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar lengan" required>
+                        <input type="number" step="any" name="lingkar_kepala" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar kepala" required>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950 pr-[10px]">Lingkar Lengan<span class="text-red-400">*</span></p>
@@ -37,7 +37,7 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Usia<span class="text-red-400">*</span></p>
-                        <input type="text" id="usia1" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan usia balita" value="" disabled>
+                        <input type="text" id="usia1" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan usia bayi" value="" disabled>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Nama Ibu<span class="text-red-400">*</span></p>
@@ -55,9 +55,9 @@
 
                 <div class="col-span-1 flex flex-col gap-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
-                        <p class="text-base text-neutral-950">Tanggal Kunjungan<span class="text-red-400">*</span></p>
+                        <p class="text-base text-neutral-950">Tanggal Pemeriksaan<span class="text-red-400">*</span></p>
                         <div class="grid grid-cols-3 gap-5">
-                            <input name="date" id="date" class="w-100 border border-stone-400 text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none" value="{{ now()->day }}">
+                            <input name="day" id="date" class="w-100 border border-stone-400 text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none" value="{{ now()->day }}">
 
                             <input name="month" id="month" class="w-100 border border-stone-400 text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none" value="{{ now()->month }}">
 
@@ -195,9 +195,9 @@
                     } else {
                         document.getElementById('ibu').value = "Data Ibu tidak ditemukan";
                     }
-                }                
+                }
             }
-            
+
             for (let i = 0; i < parents.length; i++) {
                 if (parents[i].NKK == bayi) {
                     if (parents[i].hubungan_keluarga == 'Kepala Keluarga') {
@@ -206,7 +206,7 @@
                     } else {
                         document.getElementById('ayah').value = "Data Ayah tidak ditemukan";
                     }
-                }                
+                }
             }
         });
     </script>

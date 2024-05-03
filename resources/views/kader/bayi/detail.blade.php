@@ -45,6 +45,11 @@
                     @endforeach
                 </tr>
                 <tr>
+                    <td>Tanggal Kunjungan</td>
+                    <td>:</td>
+                    <td>{{ $bayiData->tgl_pemeriksaan }}</td>
+                </tr>
+                <tr>
                     <td>Alamat</td>
                     <td>:</td>
                     <td>{{ $bayiData->penduduk->alamat }}</td>
@@ -55,9 +60,14 @@
                     <td>{{ $bayiData->pemeriksaan_bayi->data_kb }}</td>
                 </tr>
                 <tr>
-                    <td>Tanggal Kunjungan</td>
+                    <td>Lingkar Kepala</td>
                     <td>:</td>
-                    <td>{{ $bayiData->tgl_pemeriksaan }}</td>
+                    <td>{{ $bayiData->pemeriksaan_bayi->lingkar_kepala }} cm</td>
+                </tr>
+                <tr>
+                    <td>Lingkar Lengan</td>
+                    <td>:</td>
+                    <td>{{ $bayiData->pemeriksaan_bayi->lingkar_lengan }} cm</td>
                 </tr>
                 <tr>
                     <td>Berat Badan</td>
@@ -70,9 +80,9 @@
                     <td>{{ $bayiData->tinggi_badan }} cm</td>
                 </tr>
                 <tr>
-                    <td>Lingkar Lengan</td>
+                    <td>Status Kesehatan?</td>
                     <td>:</td>
-                    <td>{{ $bayiData->pemeriksaan_bayi->lingkar_lengan }} cm</td>
+                    <td>{{ $bayiData->status }}</td>
                 </tr>
                 <tr>
                     <td>Apakah Ada Kenaikan?</td>
@@ -83,11 +93,6 @@
                     <td>ASI Eksklusif?</td>
                     <td>:</td>
                     <td>{{ $bayiData->pemeriksaan_bayi->asi }}</td>
-                </tr>
-                <tr>
-                    <td>Status</td>
-                    <td>:</td>
-                    <td>{{ $bayiData->status }}</td>
                 </tr>
             </tbody>
         </table>
