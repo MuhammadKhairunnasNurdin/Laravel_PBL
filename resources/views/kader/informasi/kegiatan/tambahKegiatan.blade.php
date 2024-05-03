@@ -20,7 +20,7 @@
                     <div class="flex flex-col w-full h-fill gap-[23px]">
                         <p class="text-base text-neutral-950">Tanggal Kegiatan</p>
                         <div class="grid grid-cols-3 gap-5">
-                            <select name="date" id="date" class="w-100 border border-stone-400 text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none">
+                            <select name="day" id="day" class="w-100 border border-stone-400 text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none">
                                 <option value="" class="text-black-300">Tanggal</option>
                                 @for ($i = 1; $i <= 31; $i++)
                                     <option value="{{ $i }}" class="text-neutral-950">{{$i}}</option>
