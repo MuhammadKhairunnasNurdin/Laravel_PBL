@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Kader\Pemeriksaan;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Kader;
 
-use App\Http\Requests\StoreBayiRequest;
-use App\Http\Requests\StorePemeriksaanRequest;
-use App\Http\Requests\UpdateBayiRequest;
-use App\Http\Requests\UpdatePemeriksaanRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Kader\Bayi\StoreBayiRequest;
+use App\Http\Requests\Kader\Bayi\UpdateBayiRequest;
+use App\Http\Requests\Kader\Pemeriksaan\StorePemeriksaanRequest;
+use App\Http\Requests\Kader\Pemeriksaan\UpdatePemeriksaanRequest;
 use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanBayi;
 use App\Models\Penduduk;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class BayiResource extends Controller
 {
@@ -110,16 +110,20 @@ class BayiResource extends Controller
      */
     public function update(UpdateBayiRequest $bayiRequest, UpdatePemeriksaanRequest $pemeriksaanRequest, string $id): RedirectResponse
     {
+        $isUpdated = false;
+
         if ($pemeriksaanRequest->all() !== []) {
             Pemeriksaan::find($id)->update($pemeriksaanRequest->all());
+            $isUpdated = true;
         }
 
         if ($bayiRequest->all() !== []) {
             PemeriksaanBayi::find($id)->update($bayiRequest->all());
+            $isUpdated = true;
         }
 
         return redirect()->intended(route('bayi.index'))
-            ->with('success', 'Data Bayi berhasil diubah');
+            ->with('success', $isUpdated ? 'Data Bayi berhasil diubah' : 'Namun Data Bayi tidak diubah');
     }
 
     /**

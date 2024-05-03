@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Kader\Kegiatan;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class StoreBayiRequest extends FormRequest
+class StoreKegiatanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,17 @@ class StoreBayiRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $this->request->replace($this
-            ->only([
-                'lingkar_kepala',
-                'lingkar_lengan',
-                'asi',
-                'kenaikan',
-                'data_kb'
-            ])
-        );
+        $this->merge([
+            'kader_id' => auth()->user()->kaders[0]->kader_id,
+            'tgl_kegiatan' => Carbon::create($this->input('year'), $this->input('month'), $this->input('day'))->format('Y-m-d')
+        ]);
+        $this->request->replace($this->only([
+            'kader_id',
+            'nama',
+            'tgl_kegiatan',
+            'jam_mulai',
+            'tempat'
+        ]));
     }
 
     /**
@@ -41,32 +43,34 @@ class StoreBayiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'lingkar_kepala' => [
+            'kader_id' => [
                 'bail',
                 'required',
-                'numeric'
+                'exists:kaders',
             ],
-            'lingkar_lengan' => [
-                'bail',
-                'required',
-                'numeric'
-            ],
-            'asi' => [
-                'bail',
-                'required',
-                Rule::in(['iya', 'tidak'])
-            ],
-            'kenaikan' => [
-                'bail',
-                'required',
-                Rule::in(['iya', 'tidak'])
-            ],
-            'data_kb' => [
+            'nama' => [
                 'bail',
                 'required',
                 'string',
-                'max:50'
+                'max:100',
+                'min:5'
             ],
+            'tgl_kegiatan' => [
+                'bail',
+                'required',
+                'date'
+            ],
+            'jam_mulai' => [
+                'bail',
+                'required',
+            ],
+            'tempat' => [
+                'bail',
+                'required',
+                'string',
+                'max:200',
+                'min:5'
+            ]
         ];
     }
 }
