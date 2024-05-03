@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 
@@ -25,23 +24,14 @@ class StorePemeriksaanRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $this->replace([
-            'tgl_pemeriksaan' => Carbon::create($this->input('year'), $this->input('month'), $this->input('day'))->format('Y-m-d')
-        ] + $this->except(['year', 'month', 'day']));
-
         $routeName = Route::currentRouteName();
         $needles = collect(['bayi', 'lansia']);
         $this->merge([
             'golongan' => $needles->first(function ($needle) use ($routeName) {
-                return str_contains($routeName, $needle);
-            })
-        ]);
-
-        $this->merge([
-            'kader_id' => DB::table('kaders')
-                ->join('users', 'users.user_id', '=', 'kaders.user_id')
-                ->where('users.user_id', auth()->id())
-                ->value('kaders.kader_id')
+                    return str_contains($routeName, $needle);
+                }),
+            'kader_id' => auth()->user()->kaders[0]->kader_id,
+            'tgl_pemeriksaan' => Carbon::create($this->input('year'), $this->input('month'), $this->input('day'))->format('Y-m-d')
         ]);
 
         $this->request->replace($this->only([

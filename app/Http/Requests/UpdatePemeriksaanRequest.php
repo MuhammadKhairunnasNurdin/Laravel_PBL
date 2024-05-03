@@ -23,9 +23,9 @@ class UpdatePemeriksaanRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $this->replace([
-                'tgl_pemeriksaan' => Carbon::create($this->input('year'), $this->input('month'), $this->input('day'))->format('Y-m-d')
-            ] + $this->except(['year', 'month', 'day']));
+        $this->merge([
+            'tgl_pemeriksaan' => Carbon::create($this->input('year'), $this->input('month'), $this->input('day'))->format('Y-m-d')
+        ]);
 
         $oldData = json_decode($this->input('pemeriksaan'), true);
 
