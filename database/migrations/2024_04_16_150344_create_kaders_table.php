@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('kaders', function (Blueprint $table) {
             $table->id('kader_id');
-            $table->foreignId('user_id')->constrained('users', 'user_id');
-            $table->foreignId('NIK')->constrained('penduduks', 'NIK');
+            $table->unsignedBigInteger('user_id')->index()->nullable();
+            $table->foreign('user_id')->references('user_id')->on('users')->nullOnDelete()->cascadeOnUpdate();
+            $table->string('NIK')->index();
+            $table->foreign('NIK')->references('NIK')->on('penduduks')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

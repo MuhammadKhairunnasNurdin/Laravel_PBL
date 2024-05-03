@@ -16,7 +16,7 @@ class PemeriksaanSeeder extends Seeder
         $data = [
             [
                 'kader_id'=> 2,
-                'NIK' => 351001150819720011,
+                'NIK' => '351001150819720011',
                 'tgl_pemeriksaan' => '2024-04-15',
                 'golongan' => 'lansia',
                 'berat_badan' => 65.2,
@@ -25,7 +25,7 @@ class PemeriksaanSeeder extends Seeder
                 'respon' => 'Posyandu Bagus'
             ], [
                 'kader_id'=> 2,
-                'NIK' => 351001150820240011,
+                'NIK' => '351001150820240011',
                 'tgl_pemeriksaan' => '2024-04-15',
                 'golongan' => 'bayi',
                 'berat_badan' => 3.5,
@@ -34,7 +34,7 @@ class PemeriksaanSeeder extends Seeder
                 'respon' => 'Posyandu Bagus'
             ], [
                 'kader_id'=> 2,
-                'NIK' => 351001100220220011,
+                'NIK' => '351001100220220011',
                 'tgl_pemeriksaan' => '2024-04-15',
                 'golongan' => 'bayi',
                 'berat_badan' => 9.5,
@@ -43,7 +43,7 @@ class PemeriksaanSeeder extends Seeder
                 'respon' => 'Posyandu Bagus'
             ],[
                 'kader_id'=> 2,
-                'NIK' => 351001150819720012,
+                'NIK' => '351001150819720012',
                 'tgl_pemeriksaan' => '2024-02-15',
                 'golongan' => 'Lansia',
                 'berat_badan' => 59.5,

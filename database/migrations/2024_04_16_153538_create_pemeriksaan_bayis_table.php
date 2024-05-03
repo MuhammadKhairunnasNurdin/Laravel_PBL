@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pemeriksaan_bayis', function (Blueprint $table) {
-            $table->foreignId('pemeriksaan_id')->primary()->constrained('pemeriksaans', 'pemeriksaan_id')->cascadeOnDelete();
+            $table->foreignId('pemeriksaan_id')->primary()->constrained('pemeriksaans', 'pemeriksaan_id')->cascadeOnDelete()->cascadeOnUpdate();
             $table->float('lingkar_kepala')->nullable();
             $table->float('lingkar_lengan')->nullable();
             $table->enum('asi', ['iya', 'tidak'])->nullable();

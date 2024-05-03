@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('bantuan_pangans', function (Blueprint $table) {
             $table->id('bp_id');
-            $table->foreignId('NIK')->constrained('penduduks', 'NIK');
+            $table->string('NIK')->index()->nullable();
+            $table->foreign('NIK')->references('NIK')->on('penduduks')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('periode_bantuan')->nullable();
             $table->string('jenis_bantuan')->nullable();
             $table->timestamps();
