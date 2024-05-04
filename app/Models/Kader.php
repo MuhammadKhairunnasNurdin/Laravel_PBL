@@ -34,7 +34,7 @@ class Kader extends Model
     }
     public function penduduk(): BelongsTo
     {
-        return $this->belongsTo(Penduduk::class, 'NIK', 'NIK');
+        return $this->belongsTo(Penduduk::class, 'penduduk_id', 'penduduk_id');
     }
     public function kegiatans(): HasMany
     {
