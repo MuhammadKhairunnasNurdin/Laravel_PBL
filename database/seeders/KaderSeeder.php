@@ -16,11 +16,11 @@ class KaderSeeder extends Seeder
         $data = [
             [
                 'user_id'=> 2,
-                'NIK' => 351008251219950011,
+                'penduduk_id' => 1,
             ],
             [
                 'user_id'=> 3,
-                'NIK' => 351001200819980752,
+                'penduduk_id' => 4,
             ],
         ];
 

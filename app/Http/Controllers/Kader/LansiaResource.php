@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Kader;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Kegiatan;
+use App\Http\Requests\Kader\Lansia\StoreLansiaRequest;
+use App\Http\Requests\Kader\Lansia\UpdateLansiaRequest;
+use App\Http\Requests\Kader\Pemeriksaan\StorePemeriksaanRequest;
+use App\Http\Requests\Kader\Pemeriksaan\UpdatePemeriksaanRequest;
 use App\Models\Pemeriksaan;
-use Carbon\Carbon;
+use App\Models\PemeriksaanLansia;
+use App\Models\Penduduk;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class LansiaResource extends Controller
 {
@@ -41,17 +42,25 @@ class LansiaResource extends Controller
             'title' => 'Pemeriksaan Lansia'
         ];
 
+        $lansiasData = Penduduk::whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) >= 60')->get(['penduduk_id', 'nama', 'tgl_lahir', 'alamat']);
+
         $activeMenu = 'lansia';
 
-        return view('kader.lansia.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('kader.lansia.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'lansiasData' => $lansiasData]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreLansiaRequest $lansiaRequest, StorePemeriksaanRequest $pemeriksaanRequest): RedirectResponse
     {
-        //
+        $lansiaRequest->merge([
+            'pemeriksaan_id' => Pemeriksaan::insertGetId($pemeriksaanRequest->all())
+        ]);
+        PemeriksaanLansia::insert($lansiaRequest->all());
+
+        return redirect()->intended(route('lansia.index'))
+            ->with('success', 'Data Lansia berhasil ditambahkan');
     }
 
     /**
@@ -89,25 +98,22 @@ class LansiaResource extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(UpdateLansiaRequest $lansiaRequest, UpdatePemeriksaanRequest $pemeriksaanRequest, string $id): RedirectResponse
     {
-        $data = $request->except(['_token', 'date', 'month', 'year']);
+        $isUpdated = false;
 
-        $data['tgl_kegiatan'] = Carbon::create($request->year, $request->month, $request->date)->format('Y-m-d');
-
-        $validator = Validator::make($data, $this->rules());
-
-
-        if ($validator->fails()) {
-            return redirect()->intended(route('kegiatan.index'))
-                ->withErrors($validator->errors(), 'errors');
+        if ($pemeriksaanRequest->all() !== []) {
+            Pemeriksaan::find($id)->update($pemeriksaanRequest->all());
+            $isUpdated = true;
         }
 
+        if ($lansiaRequest->all() !== []) {
+            PemeriksaanLansia::find($id)->update($lansiaRequest->all());
+            $isUpdated = true;
+        }
 
-        Kegiatan::find($id)->update($validator->getData());
-
-        return redirect()->intended(route('kegiatan.index'))
-            ->with('success', 'kegiatan berhasil diubah');
+        return redirect()->intended(route('lansia.index'))
+            ->with('success', $isUpdated ? 'Data lansia berhasil diubah' : 'Namun Data lansia tidak diubah');
     }
 
     /**
@@ -130,82 +136,5 @@ class LansiaResource extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
-    }
-
-    private function pemeriksaanLansiaRules(): array
-    {
-        return [
-            'lingkar_perut' => [
-                'bail',
-                'required',
-                'numeric'
-            ],
-            'gula_darah' => [
-                'bail',
-                'required',
-                'integer'
-            ],
-            'kolesterol' => [
-                'bail',
-                'required',
-                'integer'
-            ],
-            'tensi_darah' => [
-                'bail',
-                'required',
-                'integer'
-            ],
-            'asam_urat' => [
-                'bail',
-                'required',
-                'numeric'
-            ],
-        ];
-    }
-
-    private function pemeriksaanRules(): array
-    {
-        return [
-            'kader_id' => [
-                'bail',
-                'required',
-                'exists:kaders'
-            ],
-            'NIK' => [
-                'bail',
-                'required',
-                'exists:penduduks'
-            ],
-            'status' => [
-                'bail',
-                'required',
-                Rule::in(['sehat', 'sakit'])
-            ],
-            'golongan' => [
-                'bail',
-                'required',
-                Rule::in(['lansia', 'bayi'])
-            ],
-            'tgl_pemeriksaan' => [
-                'bail',
-                'required',
-                'date'
-            ],
-            'tinggi_badan' => [
-                'bail',
-                'required',
-                'float'
-            ],
-            'berat_badan' => [
-                'bail',
-                'required',
-                'float'
-            ],
-            'respon' => [
-                'bail',
-                'required',
-                'text'
-            ],
-        ];
     }
 }

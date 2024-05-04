@@ -24,6 +24,7 @@ class PemeriksaanLansia extends Model
         'pemeriksaan_id',
         'lingkar_perut',
         'gula_darah',
+        'kolesterol',
         'tensi_darah',
         'asam_urat',
     ];

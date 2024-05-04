@@ -14,7 +14,7 @@ class Penduduk extends Model
     /**
      * The attribute that became primary key
      */
-    protected $primaryKey = 'NIK';
+    protected $primaryKey = 'penduduk_id';
 
     /**
      * The attributes that are not mass assignable.
@@ -22,7 +22,7 @@ class Penduduk extends Model
      * @var array<int, string>
      */
     protected $guarded = [
-        'NIK'
+        'penduduk_id'
     ];
 
     /**
@@ -30,14 +30,14 @@ class Penduduk extends Model
      */
     public function kader(): HasOne
     {
-        return $this->hasOne(Kader::class, 'NIK', 'NIK');
+        return $this->hasOne(Kader::class, 'penduduk_id', 'penduduk_id');
     }
     public function pemeriksaans(): HasMany
     {
-        return $this->hasMany(Pemeriksaan::class, 'NIK', 'NIK');
+        return $this->hasMany(Pemeriksaan::class, 'penduduk_id', 'penduduk_id');
     }
     public function bantuanPangans(): HasMany
     {
-        return $this->hasMany(BantuanPangan::class, 'NIK', 'NIK');
+        return $this->hasMany(BantuanPangan::class, 'penduduk_id', 'penduduk_id');
     }
 }

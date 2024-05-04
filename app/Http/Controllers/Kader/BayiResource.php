@@ -45,7 +45,7 @@ class BayiResource extends Controller
 
         $activeMenu = 'bayi';
 
-        $bayisData = Penduduk::whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) <= 5')->get(['NIK', 'nama', 'alamat', 'NKK', 'tgl_lahir']);
+        $bayisData = Penduduk::whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) <= 5')->get(['penduduk_id', 'nama', 'alamat', 'NKK', 'tgl_lahir']);
 
         $parentsData = Penduduk::where('hubungan_keluarga', '!=', 'Anak')
             ->get(['nama', 'hubungan_keluarga', 'NKK']);

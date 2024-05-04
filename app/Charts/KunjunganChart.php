@@ -19,11 +19,11 @@ class KunjunganChart
     {
         /** This function in laravel is same below query in mysql
          *
-         * select count(pm.NIK), RT from penduduks p join pemeriksaans pm on p.NIK = pm.NIK GROUP BY p.RT ORDER BY p.RT;
+         * select count(pm.penduduk_id), RT from penduduks p join pemeriksaans pm on p.penduduk_id = pm.penduduk_id GROUP BY p.RT ORDER BY p.RT;
          */
-        $dataRt = Penduduk::selectRaw(('count(pemeriksaans.NIK) as pemeriksaans_count'))
-            ->join('pemeriksaans', 'penduduks.NIK',
-                '=', 'pemeriksaans.NIK')
+        $dataRt = Penduduk::selectRaw(('count(pemeriksaans.penduduk_id) as pemeriksaans_count'))
+            ->join('pemeriksaans', 'penduduks.penduduk_id',
+                '=', 'pemeriksaans.penduduk_id')
             ->groupBy('RT')
             ->orderBy('RT', 'ASC')
             ->get();

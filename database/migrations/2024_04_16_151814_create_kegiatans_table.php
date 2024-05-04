@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->id('kegiatan_id');
-            $table->foreignId('kader_id')->constrained('kaders', 'kader_id');
+            $table->unsignedBigInteger('kader_id')->index()->nullable();
+            $table->foreign('kader_id')->references('kader_id')->on('kaders')->nullOnDelete()->cascadeOnUpdate();
             $table->string('nama', 100)->nullable();
             $table->date('tgl_kegiatan')->nullable();
             $table->time('jam_mulai')->nullable();

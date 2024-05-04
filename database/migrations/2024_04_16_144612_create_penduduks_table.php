@@ -11,8 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        /**
+         * if we had logic to delete data in this table, if data is used by
+         * other table, we must not delete that data, but just give null in \
+         * NKK column, else scenario like
+         * we're dealing with useless data or data that not used by other
+         * table, we can delete that
+         */
         Schema::create('penduduks', function (Blueprint $table) {
-            $table->id('NIK');
+            $table->id('penduduk_id');
+            $table->string('NIK')->unique();
             $table->string('NKK')->nullable();
             $table->string('nama', 100)->nullable();
             $table->date('tgl_lahir')->nullable();
