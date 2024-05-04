@@ -12,10 +12,10 @@
                 <div class="col-span-1 flex flex-col gap-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Nama Bayi<span class="text-red-400">*</span></p>
-                        <select name="NIK" id="nama" class="w-100 border text-gray-300 border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
+                        <select name="penduduk_id" id="penduduk_id" class="w-100 border text-gray-300 border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
                             <option value="" class="">Masukkan nama balita</option>
                             @foreach($bayisData as $bayi)
-                                <option value="{{ $bayi->NIK }}">{{ $bayi->nama }}</option>
+                                <option value="{{ $bayi->penduduk_id }}">{{ $bayi->nama }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -161,20 +161,13 @@
         });
     </script>
     <script>
-        document.getElementById('nama').addEventListener('change', function() {
-
-            let bayis = @php
-                echo json_encode($bayisData);
-            @endphp
-
-            let parents = @php
-                echo json_encode($parentsData);
-            @endphp
-
+        document.getElementById('penduduk_id').addEventListener('change', function() {
+            let bayis = @json($bayisData);
+            let parents = @json($parentsData);
             let bayi;
 
             for (let i = 0; i < bayis.length; i++) {
-                if (bayis[i].NIK == this.value) {
+                if (bayis[i].penduduk_id.toString() === this.value) {
                     document.getElementById('alamat').value = bayis[i].alamat;
                     let tgl_lahir = new Date(bayis[i].tgl_lahir);
                     let sekarang = new Date();
@@ -182,14 +175,15 @@
                     bulan -= tgl_lahir.getMonth();
                     bulan += sekarang.getMonth();
                     document.getElementById('usia1').value = bulan + " bulan";
-                    document.getElementById('usia2').value = bulan + " bulann";
+                    document.getElementById('usia2').value = bulan + " bulan";
                     bayi = bayis[i].NKK;
                 }
             }
 
             for (let i = 0; i < parents.length; i++) {
-                if (parents[i].NKK == bayi) {
-                    if (parents[i].hubungan_keluarga == 'Istri') {
+                if (parents[i].NKK === bayi) {
+                    console.log(parents[i].NKK, bayi);
+                    if (parents[i].hubungan_keluarga === 'Istri') {
                         document.getElementById('ibu').value = parents[i].nama;
                         break;
                     } else {
@@ -199,8 +193,9 @@
             }
 
             for (let i = 0; i < parents.length; i++) {
-                if (parents[i].NKK == bayi) {
-                    if (parents[i].hubungan_keluarga == 'Kepala Keluarga') {
+                if (parents[i].NKK === bayi) {
+                    console.log(parents[i].NKK, bayi);
+                    if (parents[i].hubungan_keluarga === 'Kepala Keluarga') {
                         document.getElementById('ayah').value = parents[i].nama;
                         break;
                     } else {

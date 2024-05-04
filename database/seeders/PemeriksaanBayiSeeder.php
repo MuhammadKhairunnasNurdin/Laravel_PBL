@@ -28,6 +28,13 @@ class PemeriksaanBayiSeeder extends Seeder
                 'asi' => 'iya',
                 'kenaikan' => 'iya',
                 'data_kb' => 'suntik',
+            ],[
+                'pemeriksaan_id'=> 5,
+                'lingkar_kepala' => 17.3,
+                'lingkar_lengan' => 7.3,
+                'asi' => 'tidak',
+                'kenaikan' => 'tidak',
+                'data_kb' => 'pil',
             ],
         ];
 
