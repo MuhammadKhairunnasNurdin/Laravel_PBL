@@ -1,9 +1,22 @@
 @extends('kader.layouts.template')
 
 @section('content')
-    <form action="" method="post">
+    <form action="{{url('kader/lansia/' . $lansiaData->pemeriksaan_id)}}" method="post">
         @csrf
+        <!--add 'PUT' method, because we use Route::put() for update-->
         {!! method_field('PUT') !!}
+
+        <input type="hidden" name="pemeriksaan_lansia" value="{{$lansiaData->pemeriksaan_lansia}}">
+        <input type="hidden" name="pemeriksaan" value="{{ json_encode([
+            'tgl_pemeriksaan' => $lansiaData->tgl_pemeriksaan,
+            'golongan' => $lansiaData->golongan,
+            'kader_id' => $lansiaData->kader_id,
+            'berat_badan' => $lansiaData->berat_badan,
+            'tinggi_badan' => $lansiaData->tinggi_badan,
+            'status' => $lansiaData->status,
+            'respon' => $lansiaData->respon
+            ])
+        }}">
         <div class="flex flex-col bg-white mx-5 my-5 shadow-[0_-4px_0_0_rgba(29,78,216,1)] rounded-md">
             <div class="flex justify-between items-center w-full py-2 border-b">
                 <p class="text-lg mx-10">Form Edit Pemeriksaan Lansia</p>
@@ -18,17 +31,17 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950">Berat Badan<span class="text-red-400">*</span></p>
-                        <input type="text" name="berat_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->berat_badan}}" placeholder="Masukkan berat badan">
+                        <input type="number" step="any" name="berat_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->berat_badan}}" placeholder="Masukkan berat badan">
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Usia<span class="text-red-400">*</span></p>
                         <div class="grid grid-cols-3 gap-5">
-                            <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{  now()->diffInYears($lansiaData->penduduk->tgl_lahir) }}" placeholder="Masukkan usia balita" disabled>
+                            <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{  now()->diffInYears($lansiaData->penduduk->tgl_lahir) . ' tahun'}}" placeholder="Masukkan usia balita" disabled>
                         </div>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950">Tinggi Badan<span class="text-red-400">*</span></p>
-                        <input type="text" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->tinggi_badan}}" placeholder="Masukkan tinggi badan">
+                        <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->tinggi_badan}}" placeholder="Masukkan tinggi badan">
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Alamat<span class="text-red-400">*</span></p>
@@ -36,7 +49,16 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950">Lingkar Perut<span class="text-red-400">*</span></p>
-                        <input type="text" name="lingkar_perut" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{$lansiaData->pemeriksaan_lansia->lingkar_perut}}" placeholder="Masukkan lingkar perut">
+                        <input type="number" step="any" name="lingkar_perut" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{$lansiaData->pemeriksaan_lansia->lingkar_perut}}" placeholder="Masukkan lingkar perut">
+                    </div>
+                    <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
+                        <p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
+                        <div class="flex gap-x-5 items-center me-[337px]">
+                            {{--<input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Sistolik">
+                            <span class="w-fit">/</span>
+                            <input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Diastolik">--}}
+                            <input type="number" name="tensi_darah" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="tensi_darah" value="{{$lansiaData->pemeriksaan_lansia->tensi_darah}}">
+                        </div>
                     </div>
                 </div>
 
@@ -48,15 +70,27 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950">Gula Darah<span class="text-red-400">*</span></p>
-                        <input type="text" name="gula_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->gula_darah}}" placeholder="Masukkan gula darah">
+                        <input type="number" name="gula_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->gula_darah}}" placeholder="Masukkan gula darah">
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950">Asam Urat<span class="text-red-400">*</span></p>
-                        <input type="text" name="asam_urat" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->asam_urat}}" placeholder="Masukkan asam urat">
+                        <input type="number" step="any" name="asam_urat" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->asam_urat}}" placeholder="Masukkan asam urat">
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950">Kolesterol<span class="text-red-400">*</span></p>
-                        <input type="text" name="kolesterol" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->kolesterol }}" placeholder="Masukkan kolesterol">
+                        <input type="number" name="kolesterol" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->kolesterol }}" placeholder="Masukkan kolesterol">
+                    </div>
+                    <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
+                        <p class="text-base text-neutral-950 pr-[10px]">Status Kesehatan?<span class="text-red-400">*</span></p>
+                        <div class="flex gap-10">
+                            @if($lansiaData->status === 'sehat')
+                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[20px] rounded-[5px] checked:w-4 checked:outline-2 checked:bg-red-400 checked:border-transparent -mr-[25px]" name="status"  value="sehat" id="option1" checked><span>Sehat</span>
+                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[20px] checked:w-4 checked:outline-2 -mr-[25px]" name="status" value="sakit" id="option2"><span>Sakit</span>
+                            @else
+                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[20px] rounded-[5px] checked:w-4 checked:outline-2 checked:bg-red-400 checked:border-transparent -mr-[25px]" name="status"  value="sehat" id="option1"><span>Sehat</span>
+                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[20px] checked:w-4 checked:outline-2 -mr-[25px]" name="status" value="sakit" id="option2" checked><span>Sakit</span>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -64,7 +98,7 @@
                 <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                     <p class="text-base text-neutral-950">Tanggal Pemeriksaan<span class="text-red-400">*</span></p>
                     <div class="grid grid-cols-3 gap-5">
-                        <select name="date" id="date" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none">
+                        <select name="day" id="day" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none">
                             <option value="{{ date('d', strtotime($lansiaData->tgl_pemeriksaan)) }}" class="text-black-300">{{ date('d', strtotime($lansiaData->tgl_pemeriksaan)) }}</option>
                             @for ($i = 1; $i <= 31; $i++)
                                 <option value="{{ $i }}" name="">{{$i}}</option>
@@ -85,13 +119,13 @@
                     </div>
                 </div>
                 <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
-                    <p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
+                   {{-- <p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
                     <div class="flex gap-x-5 items-center me-[337px]">
-                        {{--<input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Sistolik">
+                        --}}{{--<input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Sistolik">
                         <span class="w-fit">/</span>
-                        <input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Diastolik">--}}
-                        <input type="text" name="tensi_darah" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="tensi_darah" value="{{$lansiaData->pemeriksaan_lansia->tensi_darah}}">
-                    </div>
+                        <input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Diastolik">--}}{{--
+                        <input type="text" name="tensi_darah" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="tensi_darah" value="{{$lansiaData->pemeriksaan_lansia->tensi_darah}}">--}}
+                    {{--</div>--}}
                 </div>
                 <div class="col-span-1 flex justify-end items-center gap-[26px] pt-10 w-full">
                     <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
