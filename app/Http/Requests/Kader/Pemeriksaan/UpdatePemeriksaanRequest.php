@@ -33,7 +33,7 @@ class UpdatePemeriksaanRequest extends FormRequest
             'tgl_pemeriksaan',
             'golongan',
             'kader_id',
-            'NIK',
+            'penduduk_id',
             'berat_badan',
             'tinggi_badan',
             'status',
@@ -55,7 +55,7 @@ class UpdatePemeriksaanRequest extends FormRequest
                 'bail',
                 'exists:kaders'
             ],
-            'NIK' => [
+            'penduduk_id' => [
                 'bail',
                 'exists:penduduks'
             ],

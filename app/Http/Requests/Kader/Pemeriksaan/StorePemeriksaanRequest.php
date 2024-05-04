@@ -38,7 +38,7 @@ class StorePemeriksaanRequest extends FormRequest
             'tgl_pemeriksaan',
             'golongan',
             'kader_id',
-            'NIK',
+            'penduduk_id',
             'berat_badan',
             'tinggi_badan',
             'status',
@@ -59,7 +59,7 @@ class StorePemeriksaanRequest extends FormRequest
                 'required',
                 'exists:kaders'
             ],
-            'NIK' => [
+            'penduduk_id' => [
                 'bail',
                 'required',
                 'exists:penduduks'

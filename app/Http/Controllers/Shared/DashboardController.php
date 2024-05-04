@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Kegiatan;
 use App\Models\Pemeriksaan;
 
-class DashboardController extends Controller
+class
+DashboardController extends Controller
 {
     public function indexKader(KunjunganChart $chart){
         $breadcrumb = (object) [
@@ -32,8 +33,10 @@ class DashboardController extends Controller
     private function indexData(): array
     {
         return $data = [
-            'golongan' => Pemeriksaan::selectRaw('count(pemeriksaan_id) as total, golongan')
+            'golongan_subMonth' => Pemeriksaan::selectRaw('count(pemeriksaan_id) as total, golongan')
                 ->whereDate('tgl_pemeriksaan', '>=', now()->subMonth())
+                ->groupBy('golongan')->get(),
+            'golongan_all' => Pemeriksaan::selectRaw('count(pemeriksaan_id) as total, golongan')
                 ->groupBy('golongan')->get(),
             'status' => Pemeriksaan::selectRaw('count(pemeriksaan_id) as total, golongan')
                 ->whereDate('tgl_pemeriksaan', '>=', now()->subMonth())
