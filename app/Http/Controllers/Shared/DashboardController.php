@@ -39,7 +39,7 @@ DashboardController extends Controller
             'golongan_all' => Pemeriksaan::selectRaw('count(pemeriksaan_id) as total, golongan')
                 ->groupBy('golongan')->get(),
             'status' => Pemeriksaan::selectRaw('count(pemeriksaan_id) as total, golongan')
-                ->whereDate('tgl_pemeriksaan', '>=', now()->subMonth())
+                ->whereBetween('tgl_pemeriksaan', [now()->subMonth(), now()])
                 ->where('status', '=', 'sakit')
                 ->groupBy('golongan')->get(),
             'kegiatan' => Kegiatan::all(),

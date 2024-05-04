@@ -53,7 +53,7 @@ class ProfileController extends Controller
     {
         $user = User::with('kaders')->find(Auth::id())->only('username', 'foto_profil_path', 'kaders');
 
-        $user['nama'] = Penduduk::find($user['kaders'][0]->NIK)->only('nama')['nama'];
+        $user['nama'] = Penduduk::find($user['kaders'][0]->penduduk_id)->only('nama')['nama'];
 
         unset($user['kaders']);
 
