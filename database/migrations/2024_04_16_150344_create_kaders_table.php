@@ -11,12 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
+        /**
+         * if kader is used by pemeriksaaans table, but we like forced those
+         * kader, we simply set kader status, but not delete entire data,
+         * else scenario like in penduduk is deleted, all data related kader
+         * will deleted, so you must careful in logic if penduduks data is
+         * deleted
+         */
         Schema::create('kaders', function (Blueprint $table) {
             $table->id('kader_id');
             $table->unsignedBigInteger('user_id')->index()->nullable();
             $table->foreign('user_id')->references('user_id')->on('users')->nullOnDelete()->cascadeOnUpdate();
-            $table->string('NIK')->index();
-            $table->foreign('NIK')->references('NIK')->on('penduduks')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('penduduk_id')->constrained('penduduks', 'penduduk_id')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->enum('status', ['aktif', 'tidak aktif'])->default('aktif');
             $table->timestamps();
         });
     }
