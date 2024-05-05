@@ -16,7 +16,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="flex w-full h-full items-center align-middle">
+            {{-- <div class="flex w-full h-full items-center align-middle">
                 <p class="text-base text-neutral-950 text-center pr-[10px]">Cari:</p>
                 <div class="relative flex">
                     <input type="text" class="w-100 border border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none placeholder:text-neutral-950" id="search" name="search" placeholder="Cari nama di sini">
@@ -26,7 +26,7 @@
                         </svg>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         @php
