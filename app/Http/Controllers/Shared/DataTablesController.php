@@ -58,15 +58,15 @@ class DataTablesController extends Controller
             ->addIndexColumn()
             ->addColumn('aksi', function ($row) use ($idModel, $url) {
                 return '
-                    <div class="gap-[5px]">
-                        <form method="POST" action="' . url($url . $row->$idModel) . '">
+                    <form method="POST" action="' . url($url . $row->$idModel) . '">
+                        <div class="flex gap-[5px]">
                             <a href="' . url($url . $row->$idModel) . '" class="bg-blue-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600" id="detail">Detail</a>
                             <a href="' . url($url . $row->$idModel . '/edit') . '" class="bg-yellow-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-500" id="ubah">Ubah</a>'
                                 . csrf_field()
                                 . method_field('DELETE')
                                 . '<button type="submit" onclick="alert(\'Apakah anda yakin ingin menghapus data?\')" class="bg-red-400 text-[9px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white" id="hapus">Hapus</button>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 ';
             })
             ->rawColumns(['aksi'])

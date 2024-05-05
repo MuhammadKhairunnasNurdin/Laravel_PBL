@@ -16,20 +16,17 @@
                     @endforeach
                 </select>
             </div>
-            <div class="flex w-full h-full items-center align-middle">
+            {{-- <div class="flex w-full h-full items-center align-middle dt-container dt-empty-footer">
                 <label class="text-base text-neutral-950 text-center pr-[10px]" for="dt-search-0">Cari:</label>
                 <div class="relative flex">
-                    {{-- <input type="search" class="dt-input w-100 border border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none placeholder:text-neutral-950" id="dt-search-0" placeholder="" aria-controls="bayi_table"></div> --}}
-                    <input type="text" class="w-100 border border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none placeholder:text-neutral-950" id="search" name="search" placeholder="Cari nama balita di sini">
+                    <input type="text" class="w-100 border border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none placeholder:text-neutral-950" id="dt-search-0" placeholder="Cari nama balita di sini" aria-controls="bayi_table">
                     <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                         </svg>
                     </div>
                 </div>
-                {{-- <div class="dt-search"><label for="dt-search-0">Search:</label> --}}
-                {{-- <input type="search" class="dt-input" id="dt-search-0" placeholder="" aria-controls="bayi_table"></div> --}}
-            </div>
+            </div> --}}
         </div>
 
         @php
@@ -79,6 +76,15 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <!-- DataTable Reload-->
 <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+
+<script>
+    let placeholder = document.getElementById("dt-search-0");
+    if(placeholder != null){
+        console.log("1");
+    } else {
+        console.log("0");
+    }
+</script>
 
 <script>
         $(document).ready(function () {
