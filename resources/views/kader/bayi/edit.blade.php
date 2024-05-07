@@ -25,8 +25,8 @@
             <div class="flex justify-between items-center w-full py-2 border-b">
                 <p class="text-lg mx-10">Ubah Pemeriksaan Bayi</p>
             </div>
-            <div class="grid grid-cols-2 my-[30px] mx-10 gap-x-[101px]">
-                <div class="col-span-1 flex flex-col gap-[23px]">
+            <div class="grid md:grid-cols-2 my-[30px] mx-10 gap-x-[101px]">
+                <div class="md:col-span-1 flex flex-col gap-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Nama Bayi<span class="text-red-400">*</span></p>
                         <input name="nama" id="filter" class="w-100 border text-neutral-950 border-none text-base font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{$bayiData->penduduk->nama}}" disabled>
@@ -89,7 +89,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-1 flex flex-col gap-[23px]">
+                <div class="md:col-span-1 flex flex-col gap-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_1">
                         <p class="text-base text-neutral-950">Tanggal Pemeriksaan<span class="text-red-400">*</span></p>
                         <div class="grid grid-cols-3 gap-5">
@@ -165,7 +165,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
+            <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
                 <div class="col-span-2 flex justify-end items-center gap-[26px] w-full">
                     <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
                     <a href="{{ url('kader/bayi')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
@@ -176,54 +176,3 @@
     </form>
 @endsection
 
-@push('js')
-    <script>
-        let counter = document.getElementById('counter')
-        let total = document.getElementById('comment')
-        let character = 0;
-
-        function full(){
-            if(character == 200){
-                counter.classList.remove("text-stone-400");
-                counter.classList.add("text-red-400");
-            } else {
-                counter.classList.remove("text-red-400");
-                counter.classList.add("text-stone-400");
-            }
-        }
-
-        // total.addEventListener("input", function() {
-        //     character = total.value.length
-        //     counter.innerText = character+"/200";
-        //     full();
-        // });
-
-        // function togglePages(page1, page2) {
-        //     page1.forEach(function(page) {
-        //         page.classList.toggle('hidden');
-        //     });
-        //     page2.forEach(function(page) {
-        //         page.classList.toggle('hidden');
-        //     });
-        //     // button.innerText = buttonText;
-        // }
-
-        // let button = document.getElementById('next');
-        // let save = document.getElementById('save_button');
-        // let back = document.querySelector('.back');
-        // let page1 = document.querySelectorAll('#page_1');
-        // let page2 = document.querySelectorAll('#page_2');
-
-        // button.addEventListener("click", function () {
-        //     // save.classList.remove('hidden');
-        //     button.classList.add('hidden');
-        //     togglePages(page1, page2);
-        // });
-
-        // back.addEventListener("click", function () {
-        //     // save.classList.add('hidden');
-        //     button.classList.remove('hidden');
-        //     togglePages(page1, page2);
-        // });
-    </script>
-@endpush

@@ -1,7 +1,7 @@
 @extends('kader.layouts.template')
 
 @section('content')
-<div class="grid grid-cols-2 mt-5 mb-10 px-10 gap-12">
+<div class="grid md:grid-cols-2 mt-5 mb-10 px-10 gap-12">
     <a href="{{ url('kader/informasi/artikel/create')}}">
         <div class="flex flex-col bg-white rounded-[15px] py-[47px] justify-center items-center hover:-translate-y-2 hover:ease-in-out hover:duration-300">
             <svg width="124" height="124" viewBox="0 0 124 124" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-blue-700">

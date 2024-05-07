@@ -18,10 +18,10 @@
     @include('kader.layouts.datatables')
     @stack('css')
 </head>
-<body class="bg-gray-200 w-full h-screen">
+<body class="bg-gray-200 w-full md:h-screen">
     @include('kader.layouts.header')
-    <div class="flex md:grid md:grid-cols-6 h-full mt-[50px] md:mt-[88px]">
-        <div id="sidebar" class="fixed md:static z-20 md:z-auto -translate-x-[999px] transform transition ease-in-out duration-500 sm:duration-700 md:col-span-1 md:translate-x-0">
+    <div class="flex lg:grid lg:grid-cols-6 h-full mt-[50px] md:mt-[88px]">
+        <div id="sidebar" class="fixed lg:static z-20 lg:z-auto -translate-x-[999px] transform transition ease-in-out duration-500 sm:duration-700 md:col-span-1 lg:translate-x-0 ">
             @include('kader.layouts.sidebar')
         </div>
         <div class="w-full md:col-span-5">
