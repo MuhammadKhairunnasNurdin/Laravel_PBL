@@ -3,8 +3,8 @@
 @section('content')
     <div class="flex flex-col bg-white mx-5 mt-5 shadow-[0_-4px_0_0_rgba(29,78,216,1)] rounded-md">
         <div class="flex justify-between items-center w-full py-2 border-b">
-            <p class="text-lg ml-10">Daftar pemeriksaan lansia</p>
-            <a href="{{ url('kader/lansia/create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-10 rounded">Tambah</a>
+            <p class="text-sm md:text-lg ml-5 md:ml-10">Daftar pemeriksaan lansia</p>
+            <a href="{{ url('kader/lansia/create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-5 md:mr-10 rounded">Tambah</a>
         </div>
         <div class="flex mt-[30px] mx-10 gap-[30px]">
             <div class="flex w-fit h-full items-center align-middle">

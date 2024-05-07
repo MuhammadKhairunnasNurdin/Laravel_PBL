@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="flex flex-col bg-white mx-5 my-5 rounded-md">
-        <div class="grid grid-cols-3 my-[30px] mx-10 gap-x-[101px]">
-            <div class="col-span-2 flex flex-col gap-[23px]">
+        <div class="grid md:grid-cols-3 my-[30px] mx-10 gap-x-[101px]">
+            <div class="md:col-span-2 flex flex-col gap-[23px]">
                 <div class="flex flex-col w-full h-fill gap-[20px]">
                     <p class="text-base text-neutral-950">Judul Artikel</p>
                     <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan judul artikel">
@@ -24,7 +24,7 @@
                 </div>
             </div>
            
-            <div class="col-span-1 flex flex-col gap-[23px]">
+            <div class="md:col-span-1 flex flex-col gap-[23px] max-md:pt-[23px]">
                 <div class="flex flex-col w-full h-fill gap-[20px]">
                     <p class="text-base text-neutral-950">Tags</p>
                     <div class="flex flex-wrap h-fit gap-2.5">
@@ -50,12 +50,12 @@
             </div>
         </div>
         <div class="grid grid-cols-3 mx-10 gap-x-[101px] pb-[30px]">
-            <div class="flex flex-col col-span-2 w-full h-fill gap-[20px]">
+            <div class="flex flex-col col-span-3 md:col-span-2 w-full h-fill gap-[20px]">
                 <p class="text-base text-neutral-950">Isi Artikel</p>
                 <textarea type="text" id="comment" class="text-sm font-normal border border-stone-400 px-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" rows="10" placeholder="Tuliskan isi artikel"></textarea>
                 <p class="text-xs font-normal text-stone-400 mt-[-10px]">Demi menghindari berita hoax, kami akan mengulas tulisan anda sebelum mengunggahnya ke laman artikel/promosi</p>
             </div>
-            <div class="col-span-1 flex  justify-end items-end gap-[26px] w-full h-full">
+            <div class="col-span-3 flex  justify-end items-end gap-[26px] w-full h-full max-md:pt-[23px]">
                 <a href="{{ url('kader/info/')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[10px] px-[10px] rounded-[5px]">Kembali</a>
                 <a href="" class="bg-blue-700 text-white font-bold text-base py-[10px] px-[10px] rounded-[5px]">Simpan</a>
             </div>
