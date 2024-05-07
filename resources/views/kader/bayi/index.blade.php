@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex flex-col bg-white mx-5 mt-5 shadow-[0_-4px_0_0_rgba(248,113,113,1)] rounded-md">
         <div class="flex justify-between items-center w-full py-2 border-b">
-            <p class="text-lg ml-10">Daftar pemeriksaan bayi</p>
+            <p class="text-sm md:text-lg ml-10">Daftar pemeriksaan bayi</p>
             <a href="{{ url('kader/bayi/create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-10 rounded">Tambah</a>
         </div>
         <div class="flex mt-[30px] mx-10 gap-[30px]">
@@ -76,15 +76,6 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <!-- DataTable Reload-->
 <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
-
-<script>
-    let placeholder = document.getElementById("dt-search-0");
-    if(placeholder != null){
-        console.log("1");
-    } else {
-        console.log("0");
-    }
-</script>
 
 <script>
         $(document).ready(function () {

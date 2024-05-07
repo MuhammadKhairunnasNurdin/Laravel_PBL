@@ -22,8 +22,8 @@
                 <p class="text-lg mx-10">Form Edit Pemeriksaan Lansia</p>
             </div>
 
-            <div class="grid grid-cols-2 my-[30px] mx-10 gap-x-[101px]">
-                <div class="col-span-1 flex flex-col gap-[23px]">
+            <div class="grid md:grid-cols-2 my-[30px] mx-10 gap-x-[101px]">
+                <div class="md:col-span-1 flex flex-col gap-[23px] max-md:pb-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Nama<span class="text-red-400">*</span></p>
                         <input name="nama" id="nama" class="w-100 border border-none text-base font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{$lansiaData->penduduk->nama}}" disabled>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-1 flex flex-col gap-[23px]">
+                <div class="md:col-span-1 flex flex-col gap-[23px]">
                     {{-- <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Tanggal Pemeriksaan<span class="text-red-400">*</span></p>
                         <div class="grid grid-cols-3 gap-5">
@@ -115,7 +115,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
+            <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
                 
                 {{-- <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2"> --}}
                    {{-- <p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>

@@ -8,8 +8,8 @@
                 <p class="text-lg mx-10">Form Pemeriksaan Bayi</p>
             </div>
 
-            <div class="grid grid-cols-2 my-[30px] mx-10 gap-x-[101px]">
-                <div class="col-span-1 flex flex-col gap-[23px]">
+            <div class="grid md:grid-cols-2 my-[30px] mx-10 gap-x-[101px]">
+                <div class="md:col-span-1 flex flex-col gap-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Nama Bayi<span class="text-red-400">*</span></p>
                         <select name="penduduk_id" id="penduduk_id" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
@@ -51,15 +51,15 @@
                     </div>
                 </div>
                 
-                <div class="col-span-1 flex flex-col gap-[23px]">
+                <div class="md:col-span-1 flex flex-col gap-[23px] max-md:mt-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Tanggal Pemeriksaan<span class="text-red-400">*</span></p>
                         <div class="grid grid-cols-3 w-1/2">
-                            <input name="day" id="date" class="w-100 border-stone-400 text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ now()->day }}" disabled>
+                            <input name="day" id="date" class="w-100 border-stone-400 text-black-300 text-sm font-normal pl-[10px] lg:px-[31px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ now()->day }}" disabled>
                             
-                            <input name="month" id="month" class="w-100 border-stone-400 text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ now()->month }}" disabled>
+                            <input name="month" id="month" class="w-100 border-stone-400 text-black-300 text-sm font-normal pl-[10px] lg:px-[31px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ now()->month }}" disabled>
                             
-                            <input name="year" id="year" class="w-100 border-stone-400 text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ now()->year }}" disabled>
+                            <input name="year" id="year" class="w-100 border-stone-400 text-black-300 text-sm font-normal pl-[10px] lg:px-[31px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ now()->year }}" disabled>
                         </div>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
@@ -81,6 +81,10 @@
                         <textarea type="text" name="respon" id="comment" class="text-sm font-normal border border-stone-400 px-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" rows="5" maxlength="200" placeholder="Masukkan respon pengunjung"></textarea>
                         <p class="text-xs font-normal text-stone-400 mt-[-10px]" id="counter">0/200</p>
                     </div> --}}
+                    <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
+                        <p class="text-base text-neutral-950 pr-[10px]">Tinggi Badan<span class="text-red-400">*</span></p>
+                        <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan tinggi badan" required>
+                    </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950 pr-[10px]">Status Kesehatan?<span class="text-red-400">*</span></p>
                         <div class="flex items-center gap-10">
@@ -105,16 +109,13 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
-                <div class="col-span-1 flex flex-col w-full h-fill gap-[20px]" id="page_1">
+            <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
+                <div class="col-span-2 md:col-span-1 flex flex-col w-full h-fill gap-[20px]" id="page_1">
                     <p class="text-base text-neutral-950 pr-[10px]">Data KB<span class="text-red-400">*</span></p>
                     <input name="data_kb" id="data_kb" class="w-100 border border-stone-400 text-gray-300 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none" required>
                 </div>
-                <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
-                    <p class="text-base text-neutral-950 pr-[10px]">Tinggi Badan<span class="text-red-400">*</span></p>
-                    <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan tinggi badan" required>
-                </div>
-                <div class="col-span-1 flex justify-end items-center gap-[26px] pt-10 w-full">
+                <span id="page_2" class="col-span-1 hidden md:hidden"></span>                
+                <div class="col-span-2 md:col-span-1 flex justify-end items-center gap-[26px] pt-10 w-full">
                     <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
                     <a href="{{ url('kader/bayi')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
                     <button type="button" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden back" id="page_2">Kembali</button>

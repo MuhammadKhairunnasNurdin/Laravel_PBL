@@ -8,8 +8,8 @@
                 <p class="text-lg mx-10">Form Pemeriksaan Lansia</p>
             </div>
 
-            <div class="grid grid-cols-2 my-[30px] mx-10 gap-x-[101px]">
-                <div class="col-span-1 flex flex-col gap-[23px]">
+            <div class="grid md:grid-cols-2 my-[30px] mx-10 gap-x-[101px]">
+                <div class="md:col-span-1 flex flex-col gap-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Nama<span class="text-red-400">*</span></p>
                         <select id="penduduk_id" name="penduduk_id" class="w-100 border border-stone-400 placeholder:text-gray-300 text-sm font-normal pl-[10px] pr-[300px] py-[10px] rounded-[5px] focus:outline-none">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950">Berat Badan<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="berat_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan berat badan">
+                        <input type="number" step="any" name="berat_badan" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan berat badan" required>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Usia<span class="text-red-400">*</span></p>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
-                        <div class="flex gap-x-5 items-center me-[337px]">
+                        <div class="flex gap-x-5 items-center md:me-[337px]">
                             <input type="number" name="tensi_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="masukan tensi">
                             {{--<span class="w-fit">/</span>
                             <input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Diastolik">--}}
@@ -49,15 +49,15 @@
                     </div>
                 </div>
 
-                <div class="col-span-1 flex flex-col gap-[23px]">
+                <div class="md:col-span-1 flex flex-col gap-[23px] max-md:mt-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Tanggal Pemeriksaan<span class="text-red-400">*</span></p>
                         <div class="grid grid-cols-3 gap-5">
-                            <input name="day" id="date" class="w-100 border border-none text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ now()->day }}" disabled>
+                            <input name="day" id="date" class="w-100 border border-none text-black-300 text-sm font-normal pl-[10px] lg:px-[31px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ now()->day }}" disabled>
     
-                            <input name="month" id="month" class="w-100 border border-none text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ now()->month }}" disabled>
+                            <input name="month" id="month" class="w-100 border border-none text-black-300 text-sm font-normal pl-[10px] lg:px-[31px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ now()->month }}" disabled>
     
-                            <input name="year" id="year" class="w-100 border border-none text-black-300 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ now()->year }}" disabled>
+                            <input name="year" id="year" class="w-100 border border-none text-black-300 text-sm font-normal pl-[10px] lg:px-[31px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ now()->year }}" disabled>
                         </div>
                     </div>
                     
@@ -91,16 +91,17 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
+
+            <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
                
-                <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
+                {{-- <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2"> --}}
                     {{--<p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
                     <div class="flex gap-x-5 items-center me-[337px]">
                         <input type="number" name="tensi_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="masukan tensi">
                         --}}{{--<span class="w-fit">/</span>
                         <input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Diastolik">--}}{{--
                     </div>--}}
-                </div>
+                {{-- </div> --}}
                 <div class="col-span-2 flex justify-end items-center gap-[26px] w-full">
                     <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
                     <a href="{{ url('kader/lansia')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>

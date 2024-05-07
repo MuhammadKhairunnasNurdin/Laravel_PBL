@@ -1,7 +1,7 @@
 @extends('kader.layouts.template')
 
 @section('content')
-<div class="grid grid-cols-3 mx-5 mt-5 mb-10 gap-5">
+<div class="grid md:grid-cols-3 mx-5 mt-5 md:mb-10 gap-5">
     @php
         $golongan = ['Lansia', 'Bayi'];
     @endphp
@@ -47,23 +47,25 @@
 <div class="grid grid-cols-3 mx-5 mt-5 mb-10 gap-5">
 
     {{-- Card Kunjungan Anggota --}}
-    <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 mb-10 gap-9">
+    <div class="flex flex-col col-span-3 md:col-span-1 w-full bg-white rounded-2xl pr-6 pl-7 md:mb-10 gap-9">
         <div class="flex w-full justify-between pt-5">
             <p class="font-medium text-base">Kunjungan Anggota</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
             </svg>
         </div>
-        {!! $chart->container() !!}
+        <div class="z-10">
+            {!! $chart->container() !!}
+        </div>
     </div>
 
     {{-- Card Agenda Posyandu --}}
-    <div class="flex flex-col col-span-2 bg-white rounded-2xl pr-6 pl-7 pb-9 gap-5">
+    <div class="flex flex-col col-span-3 md:col-span-2 w-full bg-white rounded-2xl pr-6 pl-7 pb-9 gap-5 overflow-x-scroll">
         <div class="flex w-full justify-between pt-6 align-middle">
-            <p class="font-medium text-xl">Agenda Posyandu</p>
+            <p class="font-medium md:text-xl">Agenda Posyandu</p>
             <div class="flex gap-4">
                 <div class="relative flex">
-                    <input type="text" class="text-xs pl-5 pr-4 py-2 border rounded-3xl focus:outline-none" id="search" name="search" placeholder="Cari Kegiatan">
+                    <input type="text" class="text-xs md:pl-5 md:pr-4 md:py-2 border rounded-3xl focus:outline-none" id="search" name="search" placeholder="Cari Kegiatan">
                     <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -80,19 +82,19 @@
         <table class="border-collapse w-full rounded-t-[10px] overflow-hidden">
             <thead class="bg-gray-200 border-b text-left py-5">
                 <tr class=" text-stone-400">
-                    <th class="font-normal text-sm">Nama Kegiatan</th>
-                    <th class="font-normal text-sm">Tanggal</th>
-                    <th class="font-normal text-sm">Pukul</th>
-                    <th class="font-normal text-sm">Tempat</th>
+                    <th class="font-normal text-xs md:text-sm">Nama Kegiatan</th>
+                    <th class="font-normal text-xs md:text-sm">Tanggal</th>
+                    <th class="font-normal text-xs md:text-sm">Pukul</th>
+                    <th class="font-normal text-xs md:text-sm">Tempat</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($data['kegiatan'] as $item)
                     <tr class="text-neutral-950 text-left">
-                        <td class="font-normal text-sm">{{ $item->nama }}</td>
-                        <td class="font-normal text-sm">{{ date('d-M-Y', strtotime($item->tgl_kegiatan)) }}</td>
-                        <td class="font-normal text-sm">{{ date('H:i', strtotime($item->jam_mulai)) }} - Selesai</td>
-                        <td class="font-normal text-sm">{{ $item->tempat }}</td>
+                        <td class="font-normal text-xs md:text-sm">{{ $item->nama }}</td>
+                        <td class="font-normal text-xs md:text-sm">{{ date('d-M-Y', strtotime($item->tgl_kegiatan)) }}</td>
+                        <td class="font-normal text-xs md:text-sm">{{ date('H:i', strtotime($item->jam_mulai)) }} - Selesai</td>
+                        <td class="font-normal text-xs md:text-sm">{{ $item->tempat }}</td>
                     </tr>
                 @endforeach
             </tbody>
