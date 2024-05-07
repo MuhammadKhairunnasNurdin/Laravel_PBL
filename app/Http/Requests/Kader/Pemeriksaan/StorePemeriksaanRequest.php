@@ -42,7 +42,6 @@ class StorePemeriksaanRequest extends FormRequest
             'berat_badan',
             'tinggi_badan',
             'status',
-            'respon',
         ]));
     }
 
@@ -88,11 +87,6 @@ class StorePemeriksaanRequest extends FormRequest
                 'bail',
                 'required',
                 'numeric'
-            ],
-            'respon' => [
-                'bail',
-                'required',
-                'string'
             ],
         ];
     }
