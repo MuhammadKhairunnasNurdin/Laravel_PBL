@@ -22,7 +22,7 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 65.2,
                 'tinggi_badan' => 168.0,
                 'status' => 'sakit',
-                'respon' => 'Posyandu Bagus'
+                /*'respon' => 'Posyandu Bagus'*/
             ], [
                 'kader_id'=> 2,
                 'penduduk_id' => 8,
@@ -31,7 +31,7 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 3.5,
                 'tinggi_badan' => 50.0,
                 'status' => 'sehat',
-                'respon' => 'Posyandu Bagus'
+                /*'respon' => 'Posyandu Bagus'*/
             ], [
                 'kader_id'=> 2,
                 'penduduk_id' => 7,
@@ -40,7 +40,7 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 9.5,
                 'tinggi_badan' => 10.2,
                 'status' => 'sakit',
-                'respon' => 'Posyandu Bagus'
+                /*'respon' => 'Posyandu Bagus'*/
             ],[
                 'kader_id'=> 2,
                 'penduduk_id' => 10,
@@ -49,7 +49,7 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 59.5,
                 'tinggi_badan' => 165.2,
                 'status' => 'sakit',
-                'respon' => 'Posyandu Bagus'
+                /*'respon' => 'Posyandu Bagus'*/
             ], [
                 'kader_id'=> 2,
                 'penduduk_id' => 13,
@@ -58,7 +58,7 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 3.7,
                 'tinggi_badan' => 57.0,
                 'status' => 'sakit',
-                'respon' => 'Posyandu Bagus'
+                /*'respon' => 'Posyandu Bagus'*/
             ],
         ];
 
