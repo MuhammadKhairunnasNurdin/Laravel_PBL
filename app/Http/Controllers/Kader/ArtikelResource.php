@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Kader;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Kader\Artikel\StoreArtikelRequest;
+use App\Http\Requests\Kader\Artikel\UpdateArtikelRequest;
 use App\Models\Artikel;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class ArtikelResource extends Controller
      */
     public function store(StoreArtikelRequest $request): RedirectResponse
     {
-        $id = Artikel::insertGetId($request->input());
+        Artikel::insert($request->input());
         return redirect()->intended(route('artikel.index'))
             ->with('success', 'Data artikel berhasil ditambahkan');
     }
@@ -72,7 +73,6 @@ class ArtikelResource extends Controller
     public function edit(string $id)
     {
         $artikels = Artikel::find($id);
-        $artikels->tag = explode(',', $artikels->tag);
 
         $breadcrumb = (object) [
             'title' => 'Kelola Informasi'

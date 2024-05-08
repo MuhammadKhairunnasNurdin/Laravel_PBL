@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -22,23 +21,15 @@ class Artikel extends Model
         'judul',
         'isi',
         'tag',
-        'foto_artikel_path'
+        'foto_artikel'
     ];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
+     * Define an accessor for the 'foto_artikel' attribute
      */
-    protected $appends = [
-        'foto_artikel_path',
-    ];
-
-    public function foto_artikel_path(): Attribute
+    public function getFotoArtikelAttribute(): string
     {
-        return Attribute::make(
-            get: fn($foto_artikel_path) => url('storage/' . $foto_artikel_path)
-        );
+        return asset('artikel/' . $this->attributes['foto_artikel']);
     }
 
     /**

@@ -4,7 +4,7 @@
     <div class="grid grid-cols-3 gap-[41px] my-5 mx-5">
         @foreach ($artikels as $artikel)
         <div class="w-100 flex flex-col justify-center bg-white px-[15px] py-5 rounded-[15px] gap-[15px]">
-            <img src="{{ asset('img/image 1.png')}}" alt="">
+            <img src="{{ $artikel->foto_artikel}}" alt="">
             <h3 class="font-bold text-[15px]">{{ $artikel->judul}}</h3>
             <p class="text-[15px]">{{ substr($artikel->isi, 0, 200) }} {{ strlen($artikel->isi) > 100 ? '...' : '' }}</p>
             <div class="flex w-full justify-center gap-[10px] pt-[13px]">
