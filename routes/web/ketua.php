@@ -39,6 +39,14 @@ Route::group([
             Route::get('/', [PenerimaController::class, 'index']);
             Route::get('/tambah', [PenerimaController::class, 'tambah']);
         });
+        Route::group(['prefix' => 'spk'], function() {
+            Route::get('/', function(){
+                return view('ketua.spk.index');
+            });
+            Route::get('/', function(){
+                return view('ketua.spk.kriteria');
+            });
+        });
 
         /**
          * route for logout process

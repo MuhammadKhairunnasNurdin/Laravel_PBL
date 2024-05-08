@@ -25,7 +25,8 @@
         </div>
         <div class="col-span-5">
             <div class="flex px-5 text-2xl pt-5">
-                @include('kader.layouts.breadcrumb')
+                {{-- @include('kader.layouts.breadcrumb') --}}
+                <p>SPK</p>
             </div>
             @yield('content')
         </div>
