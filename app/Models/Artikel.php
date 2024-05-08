@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,14 +16,30 @@ class Artikel extends Model
      */
     protected $primaryKey = 'artikel_id';
 
+
+    protected $fillable = [
+        'kader_id',
+        'judul',
+        'isi',
+        'tag',
+        'foto_artikel_path'
+    ];
+
     /**
-     * The attributes that are not mass assignable.
+     * The accessors to append to the model's array form.
      *
      * @var array<int, string>
      */
-    protected $guarded = [
-        'artikel_id'
+    protected $appends = [
+        'foto_artikel_path',
     ];
+
+    public function foto_artikel_path(): Attribute
+    {
+        return Attribute::make(
+            get: fn($foto_artikel_path) => url('storage/' . $foto_artikel_path)
+        );
+    }
 
     /**
      * Eloquent Model Relationship

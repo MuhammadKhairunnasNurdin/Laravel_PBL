@@ -21,7 +21,7 @@ return new class extends Migration
             $table->float('berat_badan')->nullable();
             $table->float('tinggi_badan')->nullable();
             $table->enum('status', ['sakit', 'sehat'])->nullable();
-            $table->text('respon')->nullable();
+//            $table->text('respon')->nullable();
             $table->timestamps();
 
         });

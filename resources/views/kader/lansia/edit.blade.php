@@ -49,14 +49,9 @@
                         <p class="text-base text-neutral-950">Lingkar Perut<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="lingkar_perut" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{$lansiaData->pemeriksaan_lansia->lingkar_perut}}" placeholder="Masukkan lingkar perut">
                     </div>
-                    <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
+                    <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
-                        <div class="flex gap-x-5 items-center me-[337px]">
-                            {{--<input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Sistolik">
-                            <span class="w-fit">/</span>
-                            <input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Diastolik">--}}
-                            <input type="number" name="tensi_darah" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="tensi_darah" value="{{$lansiaData->pemeriksaan_lansia->tensi_darah}}">
-                        </div>
+                        <input type="number" step="any" name="tensi_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{$lansiaData->pemeriksaan_lansia->tensi_darah}}" placeholder="Masukkan lingkar perut">
                     </div>
                 </div>
 
@@ -116,7 +111,7 @@
                 </div>
             </div>
             <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
-                
+
                 {{-- <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2"> --}}
                    {{-- <p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
                     <div class="flex gap-x-5 items-center me-[337px]">
