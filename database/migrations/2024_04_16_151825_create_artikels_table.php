@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreign('kader_id')->references('kader_id')->on('kaders')->nullOnDelete()->cascadeOnUpdate();
             $table->string('judul', 250)->nullable();
             $table->text('isi')->nullable();
-            $table->string('tag', 50)->nullable();
-            $table->string('foto_artikel_path')->nullable();
+            $table->string('tag', 100)->nullable();
+            $table->string('foto_artikel')->nullable();
             $table->timestamps();
         });
     }

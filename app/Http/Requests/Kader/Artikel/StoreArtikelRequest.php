@@ -33,7 +33,7 @@ class StoreArtikelRequest extends FormRequest
             'judul',
             'isi',
             'tag',
-            'foto_artikel_path',
+            'foto_artikel',
         ]));
 
     }
@@ -45,19 +45,12 @@ class StoreArtikelRequest extends FormRequest
      */
     protected function passedValidation(): void
     {
-        $image = $this->file('foto_artikel_path');
+        $image = $this->file('foto_artikel');
         $fileName = $image->hashName();
-        $image->move(public_path('storage'), $fileName);
+        $image->move(public_path('artikel'), $fileName);
         $this->merge([
-            'foto_artikel_path' => $fileName
+            'foto_artikel' => $fileName
         ]);
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-            'failed' => $validator->errors()
-        ]));
     }
 
     /**
@@ -71,8 +64,8 @@ class StoreArtikelRequest extends FormRequest
             'kader_id' => 'bail|required|exists:kaders|integer',
             'judul' => 'bail|required|string|max:250',
             'isi' => 'bail|required|string',
-            'tag' => 'bail|required|string|max:50',
-            'foto_artikel_path' => 'bail|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'tag' => 'bail|required|string|max:100',
+            'foto_artikel' => 'bail|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ];
     }
 }
