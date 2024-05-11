@@ -17,7 +17,6 @@ return new class extends Migration
             $table->float('lingkar_lengan')->nullable();
             $table->enum('asi', ['iya', 'tidak'])->nullable();
             $table->enum('kenaikan', ['iya', 'tidak'])->nullable();
-            $table->string('data_kb', 50)->nullable();
             $table->timestamps();
         });
     }
