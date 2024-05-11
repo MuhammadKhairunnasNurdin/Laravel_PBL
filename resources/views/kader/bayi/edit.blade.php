@@ -45,7 +45,7 @@
                     </div>
                     <div class="col-span-1 flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Data KB<span class="text-red-400">*</span></p>
-                        <input name="data_kb" id="data_kb" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $bayiData->pemeriksaan_bayi->data_kb }}" required>
+                        <input id="data_kb" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $momMedical->data_kb }}" disabled>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_1">
                         <p class="text-base text-neutral-950">Usia<span class="text-red-400">*</span></p>
@@ -55,10 +55,10 @@
                         <p class="text-base text-neutral-950">Nama Ibu<span class="text-red-400">*</span></p>
                         <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan nama ibu" value="@php
                             foreach($parentData as $parent) {
-                                if($parent->hubungan_keluarga == 'Istri') {
+                                if($parent->penduduk_id === $momMedical->ibu_id) {
                                     echo $parent->nama;
                                 }
-                                elseif($parent->hubungan_keluarga == 'Kepala Keluarga') {
+                                elseif($parent->hubungan_keluarga === 'Kepala Keluarga' || $parent->hubungan_keluarga === 'Istri') {
                                     continue;
                                 }
                                 else {
