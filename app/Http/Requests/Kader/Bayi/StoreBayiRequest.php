@@ -28,7 +28,6 @@ class StoreBayiRequest extends FormRequest
                 'lingkar_lengan',
                 'asi',
                 'kenaikan',
-                'data_kb'
             ])
         );
     }
@@ -60,12 +59,6 @@ class StoreBayiRequest extends FormRequest
                 'bail',
                 'required',
                 Rule::in(['iya', 'tidak'])
-            ],
-            'data_kb' => [
-                'bail',
-                'required',
-                'string',
-                'max:50'
             ],
         ];
     }
