@@ -177,6 +177,7 @@
         document.getElementById('penduduk_id').addEventListener('change', function() {
             let bayis = @json($bayisData);
             let parents = @json($parentsData);
+            let momsMedicals = @json($momsMedicals);
             let bayi;
 
             for (let i = 0; i < bayis.length; i++) {
@@ -190,8 +191,6 @@
                     bulan += sekarang.getMonth();
                     document.getElementById('usia1').innerText = bulan + " bulan";
                     document.getElementById('usia1').value = bulan + " bulan";
-                    // document.getElementById('usia2').innerText = bulan + " bulan";
-                    // document.getElementById('usia2').value = bulan + " bulan";
                     bayi = bayis[i].NKK;
                 }
             }
@@ -199,9 +198,13 @@
             for (let i = 0; i < parents.length; i++) {
                 if (parents[i].NKK === bayi) {
                     if (parents[i].hubungan_keluarga === 'Istri') {
-                        // document.getElementById('ibu').innerText = parents[i].nama;
-                        document.getElementById('ibu').value = parents[i].nama;
-                        break;
+                        for (let j = 0; j < momsMedicals.length; j++) {
+                            if (momsMedicals[j].anak_id.toString() === this.value && parents[i].penduduk_id === momsMedicals[j].ibu_id) {
+                                document.getElementById('ibu').value = parents[i].nama;
+                                document.getElementById('data_kb').value = momsMedicals[j].data_kb;
+                                break;
+                            }
+                        }
                     } else {
                         document.getElementById('data_kb').value = "Data_Kb Ibu tidak ditemukan"
                         document.getElementById('ibu').value = "Data Ibu tidak ditemukan";
