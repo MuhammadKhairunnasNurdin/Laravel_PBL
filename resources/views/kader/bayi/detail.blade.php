@@ -22,9 +22,10 @@
                     <td>Nama Ibu</td>
                     <td>:</td>
                     @foreach($parentData as $parent)
-                        @if($parent->hubungan_keluarga == 'Istri')
+                        @if($parent->penduduk_id === $momMedical->ibu_id)
                             <td>{{ $parent->nama }}</td>
-                        @elseif($parent->hubungan_keluarga == 'Kepala Keluarga')
+                            @break
+                        @elseif($parent->hubungan_keluarga === 'Kepala Keluarga' || $parent->hubungan_keluarga === 'Istri')
                             @continue
                         @else
                             <td>Tidak Ada Ibu</td>
@@ -35,9 +36,9 @@
                     <td>Nama Ayah</td>
                     <td>:</td>
                     @foreach($parentData as $parent)
-                        @if($parent->hubungan_keluarga == 'Kepala Keluarga')
+                        @if($parent->hubungan_keluarga === 'Kepala Keluarga')
                             <td>{{ $parent->nama }}</td>
-                        @elseif($parent->hubungan_keluarga == 'Istri')
+                        @elseif($parent->hubungan_keluarga === 'Istri')
                             @continue
                         @else
                             <td>Tidak Ada Ayah</td>
@@ -57,7 +58,7 @@
                 <tr>
                     <td>Data KB</td>
                     <td>:</td>
-                    <td>{{ $bayiData->pemeriksaan_bayi->data_kb }}</td>
+                    <td>{{ $momMedical->data_kb }}</td>
                 </tr>
                 <tr>
                     <td>Lingkar Kepala</td>
