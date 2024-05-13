@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('pemeriksaan_lansias', function (Blueprint $table) {
             $table->foreignId('pemeriksaan_id')->primary()->constrained('pemeriksaans', 'pemeriksaan_id')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->float('lingkar_perut')->nullable();
-            $table->integer('gula_darah')->nullable();
-            $table->integer('kolesterol')->nullable();
-            $table->integer('tensi_darah')->nullable();
-            $table->float('asam_urat')->nullable();
+            $table->float('lingkar_perut', 9, 3);
+            $table->integer('gula_darah');
+            $table->integer('kolesterol');
+            $table->integer('tensi_darah');
+            $table->float('asam_urat', 5, 3);
             $table->timestamps();
 
         });

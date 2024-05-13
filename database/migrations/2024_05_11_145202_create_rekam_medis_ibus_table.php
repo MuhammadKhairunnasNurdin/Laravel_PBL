@@ -15,7 +15,7 @@ return new class extends Migration
             $table->foreignId('ibu_id')->constrained('penduduks', 'penduduk_id')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('anak_id')->constrained('penduduks', 'penduduk_id')->cascadeOnUpdate();
             $table->primary(['ibu_id', 'anak_id']);
-            $table->string('data_kb', 50)->nullable();
+            $table->string('data_kb', 50);
             $table->timestamps();
         });
     }
