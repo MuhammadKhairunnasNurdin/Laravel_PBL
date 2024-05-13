@@ -20,17 +20,17 @@ return new class extends Migration
          */
         Schema::create('penduduks', function (Blueprint $table) {
             $table->id('penduduk_id');
-            $table->string('NIK')->unique();
-            $table->string('NKK')->nullable();
-            $table->string('nama', 100)->nullable();
-            $table->date('tgl_lahir')->nullable();
+            $table->string('NIK', 20)->unique();
+            $table->string('NKK', 20);
+            $table->string('nama', 100);
+            $table->date('tgl_lahir');
             $table->enum('pendapatan', ['0 - 500000', '500000 - 1000000', '1000000 - 2000000', '2000000 - 3000000', '3000000 - keatas'])->nullable();
             $table->string('no_telp', 14)->nullable();
-            $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
-            $table->enum('pendidikan', ['SD', 'SMP', 'SMA', 'S1'])->nullable();
-            $table->enum('hubungan_keluarga', ['Kepala Keluarga', 'Istri', 'Anak'])->nullable();
-            $table->string('alamat', 200)->nullable();
-            $table->enum('RT', ['RT 01', 'RT 02', 'RT 03', 'RT 04', 'RT 05', 'RT 06'])->nullable();
+            $table->enum('jenis_kelamin', ['L', 'P']);
+            $table->enum('pendidikan', ['Tidak Terpelajar','SD', 'SMP', 'SMA', 'S1'])->nullable();
+            $table->enum('hubungan_keluarga', ['Kepala Keluarga', 'Istri', 'Anak']);
+            $table->string('alamat', 200);
+            $table->enum('RT', ['RT 01', 'RT 02', 'RT 03', 'RT 04', 'RT 05', 'RT 06']);
             $table->timestamps();
         });
     }

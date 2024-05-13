@@ -13,12 +13,20 @@ return new class extends Migration
     {
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->id('kegiatan_id');
+
+            /**
+             * create table for foreign() function in laravel or
+             * foreign relationship for kader_id that can be null
+             *
+             * because when use foreignId() we cannot make those column null
+             */
             $table->unsignedBigInteger('kader_id')->index()->nullable();
             $table->foreign('kader_id')->references('kader_id')->on('kaders')->nullOnDelete()->cascadeOnUpdate();
-            $table->string('nama', 100)->nullable();
-            $table->date('tgl_kegiatan')->nullable();
-            $table->time('jam_mulai')->nullable();
-            $table->string('tempat', 200)->nullable();
+
+            $table->string('nama', 100);
+            $table->date('tgl_kegiatan');
+            $table->time('jam_mulai');
+            $table->string('tempat', 200);
             $table->timestamps();
 
         });

@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('admins', function (Blueprint $table) {
             $table->id('admin_id');
-            $table->unsignedBigInteger('user_id')->index()->nullable();
-            $table->foreign('user_id')->references('user_id')->on('users')->nullOnDelete()->cascadeOnUpdate();
-            $table->string('nama', 100)->nullable();
+            $table->foreignId('user_id')->constrained('users', 'user_id')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('nama', 100);
             $table->string('no_telp', 14)->nullable();
             $table->timestamps();
         });

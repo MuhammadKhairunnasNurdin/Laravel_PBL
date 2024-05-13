@@ -20,8 +20,16 @@ return new class extends Migration
          */
         Schema::create('kaders', function (Blueprint $table) {
             $table->id('kader_id');
+
+            /**
+             * create table for foreign() function in laravel or
+             * foreign relationship for user_id that can be null
+             *
+             * because when use foreignId() we cannot make those column null
+             */
             $table->unsignedBigInteger('user_id')->index()->nullable();
             $table->foreign('user_id')->references('user_id')->on('users')->nullOnDelete()->cascadeOnUpdate();
+
             $table->foreignId('penduduk_id')->constrained('penduduks', 'penduduk_id')->cascadeOnDelete()->cascadeOnUpdate();
             $table->enum('status', ['aktif', 'tidak aktif'])->default('aktif');
             $table->timestamps();
