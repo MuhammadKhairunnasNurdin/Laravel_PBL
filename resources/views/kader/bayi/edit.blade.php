@@ -40,12 +40,12 @@
                         <input type="number" step="any" name="lingkar_lengan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $bayiData->pemeriksaan_bayi->lingkar_lengan }}" placeholder="Masukkan lingkar lengan" required>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
+                        <p class="text-base text-neutral-950 pr-[10px]">Lingkar Kepala<span class="text-red-400">*</span></p>
+                        <input type="number" step="any" name="lingkar_kepala" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $bayiData->pemeriksaan_bayi->lingkar_kepala }}" placeholder="Masukkan lingkar kepala" required>
+                    </div>
+                    <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Berat Badan<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="berat_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $bayiData->berat_badan }}" placeholder="Masukkan berat badan" required>
-                    </div>
-                    <div class="col-span-1 flex flex-col w-full h-fill gap-[20px]" id="page_1">
-                        <p class="text-base text-neutral-950 pr-[10px]">Data KB<span class="text-red-400">*</span></p>
-                        <input name="data_kb" id="data_kb" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $bayiData->pemeriksaan_bayi->data_kb }}" required>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_1">
                         <p class="text-base text-neutral-950">Usia<span class="text-red-400">*</span></p>
@@ -112,10 +112,6 @@
                                 @endfor
                             </select>
                         </div>
-                    </div>
-                    <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
-                        <p class="text-base text-neutral-950 pr-[10px]">Lingkar Kepala<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="lingkar_kepala" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $bayiData->pemeriksaan_bayi->lingkar_kepala }}" placeholder="Masukkan lingkar kepala" required>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950 pr-[10px]">Tinggi Badan<span class="text-red-400">*</span></p>

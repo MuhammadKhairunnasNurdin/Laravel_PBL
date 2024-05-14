@@ -42,7 +42,7 @@
         <input type="hidden" name="where" id="whereValue" value="{{encrypt('bayi')}}">
 
         <div class="mx-10 my-[30px]">
-            <table class="border-collapse w-full rounded-t-[10px] overflow-hidden" id="bayi_table">
+            {{-- <table class="border-collapse w-full rounded-t-[10px] overflow-hidden" id="bayi_table">
                 <thead class="bg-gray-200 border-b text-left py-5">
                     <tr class=" text-stone-400">
                         <th class="font-normal text-sm">Nama Bayi</th>
@@ -55,7 +55,25 @@
                         <th class="font-normal text-sm">Aksi</th>
                     </tr>
                 </thead>
-            </table>
+            </table> --}}
+            <x-table.data-table :data="$penduduks" :headers="['Nama Bayi', 'Tgl Pemeriksaan', 'Usia', 'Kategori Umur', 'Berat', 'Tinggi', 'Status', 'Aksi']">
+                @foreach ($penduduks as $pd)
+                <x-table.table-row>
+                        <td class="px-6 border-b 2xl:py-6 lg:py-5 bg-white">{{$pd->penduduk->nama}}</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tgl_pemeriksaan}}</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white usia" id="usia"></td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->golongan}}</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->berat_badan}}</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tinggi_badan}}</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->status}}</td>
+                        <td class="bodyTable">
+                            <a href="bayi/{{$pd->pemeriksaan_id}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
+                            <a href="bayi/{{$pd->pemeriksaan_id}}" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Ubah</a>
+                            <a href="bayi/{{$pd->pemeriksaan_id}}" class="bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
+                        </td>
+                    </x-table.table-row>
+                    @endforeach
+            </x-table.data-table>
         </div>
     </div>
 @endsection
@@ -76,6 +94,17 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <!-- DataTable Reload-->
 <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+
+<script>
+    document.getElementById('usia').innerText => function () {
+        let tglLahir = new Date(data.penduduk.tgl_lahir);
+        let sekarang = new Date();
+        let bulan = (sekarang.getFullYear() - tglLahir.getFullYear()) * 12;
+        bulan -= tglLahir.getMonth();
+        bulan += sekarang.getMonth();
+        return bulan + " bulan";
+    }
+</script>
 
 <script>
         $(document).ready(function () {
