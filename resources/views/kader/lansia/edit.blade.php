@@ -79,11 +79,6 @@
                             </select>
                         </div>
                     </div> --}}
-                    {{-- <div class="flex flex-col w-full h-full gap-[20px]" id="page_1">
-                        <p class="text-base text-neutral-950 pr-[10px]">Respon Pengunjung<span class="text-red-400">*</span></p>
-                        <textarea type="text" name="respon" id="comment" class="text-sm font-normal border border-stone-400 px-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" rows="5" maxlength="200" placeholder="Masukkan respon pengunjung">{{ $lansiaData->respon }}</textarea>
-                        <p class="text-xs font-normal text-stone-400 mt-[-10px]" id="counter">0/200</p>
-                    </div> --}}
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Gula Darah<span class="text-red-400">*</span></p>
                         <input type="number" name="gula_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->gula_darah}}" placeholder="Masukkan gula darah">

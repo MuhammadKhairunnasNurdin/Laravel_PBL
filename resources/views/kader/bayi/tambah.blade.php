@@ -29,11 +29,6 @@
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="">
                         <p class="text-base text-neutral-950">Tanggal Pemeriksaan</p>
                         <p>{{ now()->day }} - {{ now()->format('F') }} - {{ now()->year }}</p>
-                            {{-- <input name="day" id="date" class="w-100 text-black-300 text-sm font-normal text-center pl-[10px] lg:px-[10px] py-[10px] rounded-[5px] focus:outline-none" value="">
-                            
-                            <input name="month" id="month" class="w-100 text-black-300 text-sm font-normal text-center pl-[10px] lg:px-[31px] py-[10px] rounded-[5px] focus:outline-none" value="">
-                            
-                            <input name="year" id="year" class="w-100 text-black-300 text-sm font-normal text-center py-[10px] rounded-[5px] focus:outline-none" value=""> --}}
                     </div>
 
                     {{-- LINGKAR KEPALA --}}
@@ -68,13 +63,6 @@
                             <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" required><span>Sakit</span>
                         </div>
                     </div>
-                    <div class="flex flex-col w-full h-fill gap-[20px] " id="page_">
-                        <p class="text-base text-neutral-950 pr-[10px]">Apakah Ada Kenaikan?<span class="text-red-400">*</span></p>
-                        <div class="flex items-center gap-10">
-                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="kenaikan" value="iya" id="option1" required><span>Ya</span>
-                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="kenaikan" value="tidak" id="option2" required><span>Tidak</span>
-                        </div>
-                    </div>
                     <div class="flex flex-col w-full h-fit gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">ASI Eksklusif?<span class="text-red-400">*</span></p>
                         <div class="flex items-center gap-10">
@@ -96,7 +84,7 @@
                                         <td>:</td>
                                         <td>
                                             <select name="penduduk_id" id="penduduk_id" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
-                                                <option value="" class="text-gray-300">Masukkan nama balita</option>
+                                                <option value="" class="text-gray-300">Masukkan nama bayi</option>
                                                 @foreach($bayisData as $bayi)
                                                     <option value="{{ $bayi->penduduk_id }}" class="text-neutral-950">{{ $bayi->nama }}</option>
                                                 @endforeach
@@ -111,7 +99,7 @@
                                     <tr>
                                         <td>Golongan Usia</td>
                                         <td>:</td>
-                                        <td id="golongan" value=""></td>
+                                        <td id="golongan"  value=""></td>
                                     </tr>
                                     <tr>
                                         <td>Nama Ibu</td>
@@ -135,12 +123,13 @@
                 </div>
             </div>
 
+            <input type="hidden" name="kategori_golongan" id="kategori_golongan">
             <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
                 <div class="col-span-2 md:col-span-1 flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                     <p class="text-base text-neutral-950 pr-[10px]">Data KB<span class="text-red-400">*</span></p>
                     <input type="text" id="data_kb" class="w-100 border border-stone-400 text-black-300 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none" placeholder="Otomatis terisi setelah memilih nama bayi"  disabled>
                 </div>
-                <span id="page_1" class="col-span-1 hidden md:hidden"></span>                
+                <span id="page_1" class="col-span-1 hidden md:hidden"></span>
                 <div class="col-span-2 flex justify-end items-center gap-[26px] pt-10 w-full" id="">
                     <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
                     {{-- <button type="button" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden back" id="page_2">Kembali</button> --}}
@@ -149,7 +138,7 @@
                 </div>
             </div>
 
-            
+
         </div>
     </form>
 @endsection
@@ -187,12 +176,15 @@
                     if(bulan>0&&bulan<=24){
                         document.getElementById('golongan').innerText = "baduta"
                         document.getElementById('golongan').value = "baduta"
+                        document.getElementById('kategori_golongan').value = "baduta"
                     } else if(bulan>24&&bulan<=36) {
                         document.getElementById('golongan').innerText = "batita"
                         document.getElementById('golongan').value = "batita"
+                        document.getElementById('kategori_golongan').value = "batita"
                     } else if(bulan>36&&bulan<=60){
                         document.getElementById('golongan').innerText = "balita"
                         document.getElementById('golongan').value = "balita"
+                        document.getElementById('kategori_golongan').value = "balita"
                     }
                     document.getElementById('usia1').innerText = bulan + " bulan";
                     document.getElementById('usia1').value = bulan + " bulan";

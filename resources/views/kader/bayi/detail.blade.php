@@ -85,11 +85,12 @@
                     <td>:</td>
                     <td>{{ $bayiData->status }}</td>
                 </tr>
-                <tr>
+                {{--this will replace with actual data changes from audit_bulanan_bayi table--}}
+                {{--<tr>
                     <td>Apakah Ada Kenaikan?</td>
                     <td>:</td>
                     <td>{{ $bayiData->pemeriksaan_bayi->kenaikan }}</td>
-                </tr>
+                </tr>--}}
                 <tr>
                     <td>ASI Eksklusif?</td>
                     <td>:</td>

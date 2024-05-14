@@ -62,14 +62,18 @@
                         <td class="px-6 border-b 2xl:py-6 lg:py-5 bg-white">{{$pd->penduduk->nama}}</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tgl_pemeriksaan}}</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white usia" id="usia"></td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->golongan}}</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->pemeriksaan_bayi->kategori_golongan}}</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->berat_badan}}</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tinggi_badan}}</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->status}}</td>
                         <td class="bodyTable">
-                            <a href="bayi/{{$pd->pemeriksaan_id}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
-                            <a href="bayi/{{$pd->pemeriksaan_id}}" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Ubah</a>
-                            <a href="bayi/{{$pd->pemeriksaan_id}}" class="bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
+                            <form action="bayi/{{$pd->pemeriksaan_id}}" method="post">
+                                <a href="bayi/{{$pd->pemeriksaan_id}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
+                                <a href="bayi/{{$pd->pemeriksaan_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Ubah</a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Hapus</button>
+                            </form>
                         </td>
                     </x-table.table-row>
                     @endforeach
@@ -96,7 +100,7 @@
 <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
 
 <script>
-    document.getElementById('usia').innerText => function () {
+    function calculateAgeInMonths() {
         let tglLahir = new Date(data.penduduk.tgl_lahir);
         let sekarang = new Date();
         let bulan = (sekarang.getFullYear() - tglLahir.getFullYear()) * 12;
@@ -104,6 +108,8 @@
         bulan += sekarang.getMonth();
         return bulan + " bulan";
     }
+
+    document.getElementById('usia').innerText = calculateAgeInMonths();
 </script>
 
 <script>
