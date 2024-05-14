@@ -27,6 +27,7 @@ class StoreBayiRequest extends FormRequest
                 'lingkar_kepala',
                 'lingkar_lengan',
                 'asi',
+                'kategori_golongan'
             ])
         );
     }
@@ -74,7 +75,7 @@ class StoreBayiRequest extends FormRequest
                  *
                  * 8. $ : End => matches the end of string or end of a line if the multiline flag(m) is enabled
                  */
-                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
+                'regex:/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'lingkar_lengan' => [
                 'bail',
@@ -85,13 +86,19 @@ class StoreBayiRequest extends FormRequest
                  * lingkar_kepala regex, because this has same regex
                  * logic
                  */
-                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
+                'regex:/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'asi' => [
                 'bail',
                 'required',
                 Rule::in(['iya', 'tidak'])
             ],
+            'kategori_golongan' => [
+                'bail',
+                'required',
+                'string',
+                Rule::in(['baduta', 'batita', 'balita'])
+            ]
         ];
     }
 }

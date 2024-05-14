@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Kader\Pemeriksaan;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 
 class StorePemeriksaanRequest extends FormRequest
@@ -22,17 +23,22 @@ class StorePemeriksaanRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
+        $routeName = Route::currentRouteName();
+        $needles = collect(['bayi', 'lansia']);
         $this->merge([
+            'golongan' => $needles->first(function ($needle) use ($routeName) {
+                return str_contains($routeName, $needle);
+            }),
             'kader_id' => auth()->user()->kaders[0]->kader_id,
         ]);
 
         $this->request->replace($this->only([
-            'golongan',
             'kader_id',
             'penduduk_id',
-            'berat_badan',
+            'golongan',
+            'status',
             'tinggi_badan',
-            /*'status',*/
+            'berat_badan',
         ]));
     }
 
@@ -56,28 +62,28 @@ class StorePemeriksaanRequest extends FormRequest
                 'integer',
                 'exists:penduduks'
             ],
-            /*'status' => [
+            'status' => [
                 'bail',
                 'required',
                 Rule::in(['sehat', 'sakit'])
-            ],*/
+            ],
             'golongan' => [
                 'bail',
                 'required',
                 'string',
-                Rule::in(['lansia', 'baduta', 'batita', 'balita'])
+                Rule::in(['lansia', 'bayi'])
             ],
             'tinggi_badan' => [
                 'bail',
                 'required',
                 'numeric',
-                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
+                'regex:/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'berat_badan' => [
                 'bail',
                 'required',
                 'numeric',
-                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
+                'regex:/^\d{1,3}(\.\d{1,3})?$/'
             ],
         ];
     }
