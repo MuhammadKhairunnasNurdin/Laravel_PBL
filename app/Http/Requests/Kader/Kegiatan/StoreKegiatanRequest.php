@@ -46,6 +46,7 @@ class StoreKegiatanRequest extends FormRequest
             'kader_id' => [
                 'bail',
                 'required',
+                'integer',
                 'exists:kaders',
             ],
             'nama' => [
@@ -58,11 +59,12 @@ class StoreKegiatanRequest extends FormRequest
             'tgl_kegiatan' => [
                 'bail',
                 'required',
-                'date'
+                'date_format:Y-m-d'
             ],
             'jam_mulai' => [
                 'bail',
                 'required',
+                'date_format:H:i'
             ],
             'tempat' => [
                 'bail',
