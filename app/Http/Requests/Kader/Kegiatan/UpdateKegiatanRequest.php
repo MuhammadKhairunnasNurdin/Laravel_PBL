@@ -28,7 +28,8 @@ class UpdateKegiatanRequest extends FormRequest
 
         $oldData = json_decode($this->input('kegiatan'), true);
 
-        $this->request->replace($this->only([
+        $this->request->replace(
+            $this->only([
                 'nama',
                 'tgl_kegiatan',
                 'jam_mulai',
@@ -55,10 +56,11 @@ class UpdateKegiatanRequest extends FormRequest
             ],
             'tgl_kegiatan' => [
                 'bail',
-                'date'
+                'date_format:Y-m-d'
             ],
             'jam_mulai' => [
                 'bail',
+                'date_format:H:i'
             ],
             'tempat' => [
                 'bail',
