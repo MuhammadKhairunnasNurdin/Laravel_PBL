@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Kader\Pemeriksaan;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,19 +23,16 @@ class UpdatePemeriksaanRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'tgl_pemeriksaan' => Carbon::create($this->input('year'), $this->input('month'), $this->input('day'))->format('Y-m-d')
+            'kader_id' => auth()->user()->kaders[0]->kader_id,
         ]);
 
         $oldData = json_decode($this->input('pemeriksaan'), true);
 
         $this->request->replace($this->only([
-            'tgl_pemeriksaan',
-            'golongan',
             'kader_id',
-            'penduduk_id',
-            'berat_badan',
+            'status',
             'tinggi_badan',
-            /*'status',*/
+            'berat_badan',
         ]));
 
         $this->request->replace($this->only(array_keys(array_diff_assoc($this->request->all(), $oldData))));
@@ -55,34 +51,20 @@ class UpdatePemeriksaanRequest extends FormRequest
                 'integer',
                 'exists:kaders'
             ],
-            'penduduk_id' => [
-                'bail',
-                'integer',
-                'exists:penduduks'
-            ],
-            /*'status' => [
+            'status' => [
                 'bail',
                 'string',
                 Rule::in(['sehat', 'sakit'])
-            ],*/
-            'golongan' => [
-                'bail',
-                'string',
-                Rule::in(['lansia', 'baduta', 'batita', 'balita'])
-            ],
-            'tgl_pemeriksaan' => [
-                'bail',
-                'date'
             ],
             'tinggi_badan' => [
                 'bail',
                 'numeric',
-                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
+                'regex:/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'berat_badan' => [
                 'bail',
                 'numeric',
-                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
+                'regex:/^\d{1,3}(\.\d{1,3})?$/'
             ],
         ];
     }

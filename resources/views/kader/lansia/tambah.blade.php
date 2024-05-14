@@ -39,12 +39,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
-                        <p class="text-base text-neutral-950">Tinggi Badan<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan tinggi badan">
-                    </div>
                 </div>
-                    
+
 
                 <div class="md:col-span-1 flex flex-col gap-[23px] max-md:mt-[23px]">
                     <h2 class="font-bold text-lg">Data Pemeriksaan</h2>
@@ -52,16 +48,11 @@
                         <p class="text-base text-neutral-950">Tanggal Pemeriksaan</p>
                         <p>{{ now()->day }}-{{ now()->format('F') }}-{{ now()->year }}</p>
                     </div>
-                    
+
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Alamat<span class="text-red-400">*</span></p>
                         <input type="text" id="alamat" class="w-100 text-sm font-normal border border-stone-300 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-400 cursor-not-allowed" placeholder="Otomatis terisi setelah memilih nama warga" disabled>
                     </div>
-                    {{-- <div class="flex flex-col w-full h-full gap-[20px]" id="page_1">
-                        <p class="text-base text-neutral-950 pr-[10px]">Respon Pengunjung<span class="text-red-400">*</span></p>
-                        <textarea type="text" name="respon" id="comment" class="text-sm font-normal border border-stone-400 px-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" rows="5" maxlength="200" placeholder="Masukkan respon pengunjung"></textarea>
-                        <p class="text-xs font-normal text-stone-400 mt-[-10px]" id="counter">0/200</p>
-                    </div> --}}
                     <div class="flex flex-col w-full h-fill gap-[20px] ">
                         <p class="text-base text-neutral-950">Lingkar Perut<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="lingkar_perut" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar perut">
@@ -73,6 +64,10 @@
                             {{--<span class="w-fit">/</span>
                             <input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Diastolik">--}}
                         </div>
+                    </div>
+                    <div class="flex flex-col w-full h-fill gap-[20px]">
+                        <p class="text-base text-neutral-950">Tinggi Badan<span class="text-red-400">*</span></p>
+                        <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan tinggi badan">
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] ">
                         <p class="text-base text-neutral-950">Berat Badan<span class="text-red-400">*</span></p>
@@ -101,7 +96,7 @@
             </div>
 
             <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
-               
+
                 {{-- <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2"> --}}
                     {{--<p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
                     <div class="flex gap-x-5 items-center me-[337px]">

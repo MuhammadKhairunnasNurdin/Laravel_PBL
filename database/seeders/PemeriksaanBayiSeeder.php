@@ -19,26 +19,31 @@ class PemeriksaanBayiSeeder extends Seeder
                 'lingkar_kepala' => 13.3,
                 'lingkar_lengan' => 5.1,
                 'asi' => 'iya',
+                'kategori_golongan' => 'batita',
             ], [
                 'pemeriksaan_id'=> 3,
                 'lingkar_kepala' => 16.3,
                 'lingkar_lengan' => 6.5,
                 'asi' => 'iya',
+                'kategori_golongan' => 'baduta',
             ],[
                 'pemeriksaan_id'=> 5,
                 'lingkar_kepala' => 17.3,
                 'lingkar_lengan' => 7.3,
                 'asi' => 'tidak',
+                'kategori_golongan' => 'batita',
             ],[
                 'pemeriksaan_id'=> 6,
                 'lingkar_kepala' => 20.3,
                 'lingkar_lengan' => 9.3,
                 'asi' => 'tidak',
+                'kategori_golongan' => 'batita',
             ],[
                 'pemeriksaan_id'=> 7,
                 'lingkar_kepala' => 21.7,
                 'lingkar_lengan' => 10.1,
                 'asi' => 'tidak',
+                'kategori_golongan' => 'batita',
             ],
         ];
 

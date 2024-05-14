@@ -17,9 +17,6 @@
             'respon' => $bayiData->respon
             ])
         }}">
-        <input type="hidden" name="golongan" value="{{$bayiData->golongan}}">
-        <input type="hidden" name="kader_id" value="{{$bayiData->kader_id}}">
-
 
         <div class="flex flex-col bg-white mx-5 my-5 shadow-[0_-4px_0_0_rgba(248,113,113,1)] rounded-md">
             <div class="flex justify-between items-center w-full py-2 border-b">
@@ -28,7 +25,7 @@
             <div class="grid md:grid-cols-2 my-[30px] mx-10 gap-x-[101px]">
                 <div class="md:col-span-1 flex flex-col gap-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
-                        <p class="text-base text-neutral-950">Nama Bayi<span class="text-red-400">*</span></p>
+                        <p class="text-base text-neutral-950">Nama Bayi<span class="text-red-400"></span></p>
                         <input name="nama" id="filter" class="w-100 border text-neutral-950 border-none text-base font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{$bayiData->penduduk->nama}}" disabled>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
@@ -48,8 +45,8 @@
                         <input type="number" step="any" name="berat_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $bayiData->berat_badan }}" placeholder="Masukkan berat badan" required>
                     </div>
                     <div class="col-span-1 flex flex-col w-full h-fill gap-[20px]" id="page_1">
-                        <p class="text-base text-neutral-950 pr-[10px]">Data KB<span class="text-red-400">*</span></p>
-                        <input id="data_kb" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $momMedical->data_kb }}" disabled>
+                        <p class="text-base text-neutral-950 pr-[10px]">Data KB<span class="text-red-400"></span></p>
+                        <input id="data_kb" class="w-100 border text-neutral-950 border-none text-base font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none disabled:bg-transparent" value="{{ $momMedical->data_kb }}" disabled>
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_1">
                         <p class="text-base text-neutral-950">Usia<span class="text-red-400">*</span></p>
@@ -135,18 +132,6 @@
                             @else
                                 <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="status"  value="sehat" id="option1"><span>Sehat</span>
                                 <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[20px] checked:w-4 checked:outline-2 -mr-[25px]" name="status" value="sakit" id="option2" checked><span>Sakit</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
-                        <p class="text-base text-neutral-950 pr-[10px]">Apakah Ada Kenaikan?<span class="text-red-400">*</span></p>
-                        <div class="flex items-center gap-10">
-                            @if($bayiData->pemeriksaan_bayi->kenaikan === 'iya')
-                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="kenaikan" value="iya" id="option1" checked><span>Ya</span>
-                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="kenaikan" value="tidak" id="option2"><span>Tidak</span>
-                            @else
-                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="kenaikan" value="iya" id="option1"><span>Ya</span>
-                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[20px] checked:w-4 checked:outline-2 -mr-[25px]" name="kenaikan" value="tidak" id="option2" checked><span>Tidak</span>
                             @endif
                         </div>
                     </div>

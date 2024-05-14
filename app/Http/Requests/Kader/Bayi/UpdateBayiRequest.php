@@ -44,11 +44,11 @@ class UpdateBayiRequest extends FormRequest
         return [
             'lingkar_kepala' => [
                 'bail',
-                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
+                'regex:/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'lingkar_lengan' => [
                 'bail',
-                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
+                'regex:/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'asi' => [
                 'bail',
