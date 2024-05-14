@@ -15,7 +15,8 @@ return new class extends Migration
             /**
              * with primary() function, we can create composite primary key
              */
-            $table->foreignId('kode')->constrained('kriterias', 'kode')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('kode', 8);
+            $table->foreign('kode')->references('kode')->on('kriterias')->cascadeOnDelete()->cascadeOnUpdate();
             $table->float('rentang_min', 10, 3);
             $table->float('rentang_max', 10, 3);
             $table->primary(['kode', 'rentang_min', 'rentang_max']);
