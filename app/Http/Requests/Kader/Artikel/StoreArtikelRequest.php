@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\Kader\Artikel;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreArtikelRequest extends FormRequest
 {
@@ -61,11 +59,11 @@ class StoreArtikelRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kader_id' => 'bail|required|exists:kaders|integer',
-            'judul' => 'bail|required|string|max:250',
-            'isi' => 'bail|required|string',
+            'kader_id' => 'bail|required|integer|exists:kaders',
+            'judul' => 'bail|required|string|mix:5|max:250',
+            'isi' => 'bail|required|string|min:30|max:30000',
             'tag' => 'bail|required|string|max:100',
-            'foto_artikel' => 'bail|required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            'foto_artikel' => 'bail|required|image|mimes:jpeg,png,jpg,gif,svg|max:5048'
         ];
     }
 }

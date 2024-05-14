@@ -28,7 +28,6 @@ class UpdateBayiRequest extends FormRequest
                 'lingkar_kepala',
                 'lingkar_lengan',
                 'asi',
-                'kenaikan',
             ])
         );
 
@@ -45,17 +44,13 @@ class UpdateBayiRequest extends FormRequest
         return [
             'lingkar_kepala' => [
                 'bail',
-                'numeric'
+                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'lingkar_lengan' => [
                 'bail',
-                'numeric'
+                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'asi' => [
-                'bail',
-                Rule::in(['iya', 'tidak'])
-            ],
-            'kenaikan' => [
                 'bail',
                 Rule::in(['iya', 'tidak'])
             ],

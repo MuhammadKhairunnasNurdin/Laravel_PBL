@@ -36,8 +36,7 @@ class UpdatePemeriksaanRequest extends FormRequest
             'penduduk_id',
             'berat_badan',
             'tinggi_badan',
-            'status',
-            'respon',
+            /*'status',*/
         ]));
 
         $this->request->replace($this->only(array_keys(array_diff_assoc($this->request->all(), $oldData))));
@@ -53,19 +52,23 @@ class UpdatePemeriksaanRequest extends FormRequest
         return [
             'kader_id' => [
                 'bail',
+                'integer',
                 'exists:kaders'
             ],
             'penduduk_id' => [
                 'bail',
+                'integer',
                 'exists:penduduks'
             ],
-            'status' => [
+            /*'status' => [
                 'bail',
+                'string',
                 Rule::in(['sehat', 'sakit'])
-            ],
+            ],*/
             'golongan' => [
                 'bail',
-                Rule::in(['lansia', 'bayi'])
+                'string',
+                Rule::in(['lansia', 'baduta', 'batita', 'balita'])
             ],
             'tgl_pemeriksaan' => [
                 'bail',
@@ -73,15 +76,13 @@ class UpdatePemeriksaanRequest extends FormRequest
             ],
             'tinggi_badan' => [
                 'bail',
-                'numeric'
+                'numeric',
+                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'berat_badan' => [
                 'bail',
-                'numeric'
-            ],
-            'respon' => [
-                'bail',
-                'string'
+                'numeric',
+                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
             ],
         ];
     }

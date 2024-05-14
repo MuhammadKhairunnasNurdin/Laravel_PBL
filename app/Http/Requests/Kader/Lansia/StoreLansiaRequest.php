@@ -46,7 +46,8 @@ class StoreLansiaRequest extends FormRequest
             'lingkar_perut' => [
                 'bail',
                 'required',
-                'numeric'
+                'numeric',
+                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'gula_darah' => [
                 'bail',
@@ -66,7 +67,8 @@ class StoreLansiaRequest extends FormRequest
             'asam_urat' => [
                 'bail',
                 'required',
-                'numeric'
+                'numeric',
+                'regex' => '/^\d{1,2}(\.\d{1,3})?$/'
             ],
         ];
     }

@@ -48,7 +48,8 @@ class UpdateLansiaRequest extends FormRequest
         return [
             'lingkar_perut' => [
                 'bail',
-                'numeric'
+                'numeric',
+                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'gula_darah' => [
                 'bail',
@@ -64,7 +65,8 @@ class UpdateLansiaRequest extends FormRequest
             ],
             'asam_urat' => [
                 'bail',
-                'numeric'
+                'numeric',
+                'regex' => '/^\d{1,2}(\.\d{1,3})?$/'
             ],
         ];
     }
