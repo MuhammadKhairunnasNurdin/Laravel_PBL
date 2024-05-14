@@ -56,4 +56,3 @@ Route::group([
         Route::post('/logout', [AuthController::class, 'logout'])->name('kader.logout');
     }
 );
-

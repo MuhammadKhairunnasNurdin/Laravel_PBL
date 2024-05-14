@@ -40,8 +40,8 @@
                     <form method="post" action="{{route('login.auth')}}" id="login-form">
                         @csrf
                         <div class="flex flex-col w-full gap-[15px] md:gap-[30px]">
-                            <input type="text" name="username" placeholder="Username" class=" w-full border border-stone-400 pl-2.5 py-[7px] rounded text-xs placeholder:text-xs md:pl-5 md:py-[15px] focus:outline-none md:placeholder:text-base" required>
-                            <input type="password" id="password" name="password" placeholder="Password" class="w-full border border-stone-400 pl-2.5 py-[7px] rounded text-xs placeholder:text-xs md:pl-5 md:py-[15px] focus:outline-none md:placeholder:text-base" required>
+                            <input type="text" name="username" placeholder="Username" class=" w-full border border-stone-400 pl-2.5 py-[7px] rounded text-sm placeholder:text-xs md:pl-5 md:py-[10px] focus:outline-none md:placeholder:text-sm" required>
+                            <input type="password" id="password" name="password" placeholder="Password" class="w-full border border-stone-400 pl-2.5 py-[7px] rounded text-sm placeholder:text-xs md:pl-5 md:py-[10px] focus:outline-none md:placeholder:text-sm placeholder:items-center" required>
                         </div>
                         <div class="flex left w-full">
                             <span id="passwordError" class="text-red-500 hidden"></span>
