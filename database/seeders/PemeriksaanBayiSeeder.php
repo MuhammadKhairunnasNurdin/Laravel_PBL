@@ -34,6 +34,11 @@ class PemeriksaanBayiSeeder extends Seeder
                 'lingkar_kepala' => 20.3,
                 'lingkar_lengan' => 9.3,
                 'asi' => 'tidak',
+            ],[
+                'pemeriksaan_id'=> 7,
+                'lingkar_kepala' => 21.7,
+                'lingkar_lengan' => 10.1,
+                'asi' => 'tidak',
             ],
         ];
 
