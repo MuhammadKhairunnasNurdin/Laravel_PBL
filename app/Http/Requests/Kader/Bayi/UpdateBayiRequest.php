@@ -29,7 +29,6 @@ class UpdateBayiRequest extends FormRequest
                 'lingkar_lengan',
                 'asi',
                 'kenaikan',
-                'data_kb',
             ])
         );
 
@@ -59,11 +58,6 @@ class UpdateBayiRequest extends FormRequest
             'kenaikan' => [
                 'bail',
                 Rule::in(['iya', 'tidak'])
-            ],
-            'data_kb' => [
-                'bail',
-                'string',
-                'max:50'
             ],
         ];
     }

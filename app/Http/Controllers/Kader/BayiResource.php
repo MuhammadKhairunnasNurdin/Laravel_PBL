@@ -10,6 +10,7 @@ use App\Http\Requests\Kader\Pemeriksaan\UpdatePemeriksaanRequest;
 use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanBayi;
 use App\Models\Penduduk;
+use App\Models\RekamMedisIbu;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 
@@ -48,9 +49,11 @@ class BayiResource extends Controller
         $bayisData = Penduduk::whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) <= 5')->get(['penduduk_id', 'nama', 'alamat', 'NKK', 'tgl_lahir']);
 
         $parentsData = Penduduk::where('hubungan_keluarga', '!=', 'Anak')
-            ->get(['nama', 'hubungan_keluarga', 'NKK']);
+            ->get(['nama', 'hubungan_keluarga', 'NKK', 'penduduk_id']);
 
-        return view('kader.bayi.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayisData' => $bayisData, 'parentsData' => $parentsData]);
+        $momsMedicals = RekamMedisIbu::all();
+
+        return view('kader.bayi.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayisData' => $bayisData, 'parentsData' => $parentsData, 'momsMedicals' => $momsMedicals]);
     }
 
     /**
@@ -72,18 +75,20 @@ class BayiResource extends Controller
      */
     public function show(string $id)
     {
-        $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->find($id);
-        $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
-            ->where('hubungan_keluarga', '!=', 'Anak')
-            ->get(['nama', 'hubungan_keluarga']);
-
         $breadcrumb = (object) [
             'title' => 'Pemeriksaan Bayi'
         ];
 
         $activeMenu = 'bayi';
 
-        return view('kader.bayi.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayiData' => $bayiData, 'parentData' => $parentData]);
+        $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->find($id);
+        $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
+            ->where('hubungan_keluarga', '!=', 'Anak')
+            ->get(['nama', 'hubungan_keluarga', 'penduduk_id']);
+
+        $momsMedical = RekamMedisIbu::find($bayiData->penduduk->penduduk_id);
+
+        return view('kader.bayi.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayiData' => $bayiData, 'parentData' => $parentData, 'momMedical' => $momsMedical]);
     }
 
     /**
@@ -91,18 +96,19 @@ class BayiResource extends Controller
      */
     public function edit(string $id)
     {
-        $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->find($id);
-        $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
-            ->where('hubungan_keluarga', '!=', 'Anak')
-            ->get(['nama', 'hubungan_keluarga']);
-
         $breadcrumb = (object) [
             'title' => 'Pemeriksaan Bayi'
         ];
 
         $activeMenu = 'bayi';
 
-        return view('kader.bayi.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayiData' => $bayiData, 'parentData' => $parentData]);
+        $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->find($id);
+        $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
+            ->where('hubungan_keluarga', '!=', 'Anak')
+            ->get(['nama', 'hubungan_keluarga', 'penduduk_id']);
+        $momsMedical = RekamMedisIbu::find($bayiData->penduduk->penduduk_id);
+
+        return view('kader.bayi.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayiData' => $bayiData, 'parentData' => $parentData, 'momMedical' => $momsMedical]);
     }
 
     /**

@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('pemeriksaan_bayis', function (Blueprint $table) {
             $table->foreignId('pemeriksaan_id')->primary()->constrained('pemeriksaans', 'pemeriksaan_id')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->float('lingkar_kepala')->nullable();
-            $table->float('lingkar_lengan')->nullable();
-            $table->enum('asi', ['iya', 'tidak'])->nullable();
-            $table->enum('kenaikan', ['iya', 'tidak'])->nullable();
-            $table->string('data_kb', 50)->nullable();
+            $table->float('lingkar_kepala', 9, 3);
+            $table->float('lingkar_lengan', 9, 3);
+            $table->enum('asi', ['iya', 'tidak']);
             $table->timestamps();
         });
     }

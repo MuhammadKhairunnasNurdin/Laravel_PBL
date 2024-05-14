@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             PemeriksaanBayiSeeder::class,
             PemeriksaanLansiaSeeder::class,
             BantuanPanganSeeder::class,
+            RekamMedisIbuSeeder::class,
         ]);
     }
 }

@@ -36,7 +36,7 @@ class Penduduk extends Model
     {
         return $this->hasMany(Pemeriksaan::class, 'penduduk_id', 'penduduk_id');
     }
-    public function bantuanPangans(): HasMany
+    public function bantuan_pangan(): HasMany
     {
         return $this->hasMany(BantuanPangan::class, 'penduduk_id', 'penduduk_id');
     }

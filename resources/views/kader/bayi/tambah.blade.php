@@ -66,7 +66,7 @@
                     </div>
                     {{-- END NAMA IBU --}}
                 </div>
-                
+
                 <div class="md:col-span-1 flex flex-col gap-[23px] max-md:mt-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                         <p class="text-base text-neutral-950">Tanggal Pemeriksaan<span class="text-red-400">*</span></p>
@@ -128,7 +128,7 @@
             <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
                 <div class="col-span-2 md:col-span-1 flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
                     <p class="text-base text-neutral-950 pr-[10px]">Data KB<span class="text-red-400">*</span></p>
-                    <input name="data_kb" id="data_kb" class="w-100 border border-stone-400 text-gray-300 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none" required>
+                    <input type="text" id="data_kb" class="w-100 border border-stone-400 text-black-300 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none" placeholder="Otomatis terisi setelah memilih nama bayi"  disabled>
                 </div>
                 <span id="page_1" class="col-span-1 hidden md:hidden"></span>                
                 <div class="col-span-2 md:col-span-1 flex justify-end items-center gap-[26px] pt-10 w-full hidden" id="page_2">
@@ -196,6 +196,7 @@
         document.getElementById('penduduk_id').addEventListener('change', function() {
             let bayis = @json($bayisData);
             let parents = @json($parentsData);
+            let momsMedicals = @json($momsMedicals);
             let bayi;
 
             for (let i = 0; i < bayis.length; i++) {
@@ -209,21 +210,22 @@
                     bulan += sekarang.getMonth();
                     document.getElementById('usia1').innerText = bulan + " bulan";
                     document.getElementById('usia1').value = bulan + " bulan";
-                    // document.getElementById('usia2').innerText = bulan + " bulan";
-                    // document.getElementById('usia2').value = bulan + " bulan";
                     bayi = bayis[i].NKK;
                 }
             }
 
             for (let i = 0; i < parents.length; i++) {
                 if (parents[i].NKK === bayi) {
-                    console.log(parents[i].NKK, bayi);
                     if (parents[i].hubungan_keluarga === 'Istri') {
-                        // document.getElementById('ibu').innerText = parents[i].nama;
-                        document.getElementById('ibu').value = parents[i].nama;
-                        break;
+                        for (let j = 0; j < momsMedicals.length; j++) {
+                            if (momsMedicals[j].anak_id.toString() === this.value && parents[i].penduduk_id === momsMedicals[j].ibu_id) {
+                                document.getElementById('ibu').value = parents[i].nama;
+                                document.getElementById('data_kb').value = momsMedicals[j].data_kb;
+                                break;
+                            }
+                        }
                     } else {
-                        // document.getElementById('ibu').innerText = "Data Ibu tidak ditemukan";
+                        document.getElementById('data_kb').value = "Data_Kb Ibu tidak ditemukan"
                         document.getElementById('ibu').value = "Data Ibu tidak ditemukan";
                     }
                 }
@@ -231,13 +233,10 @@
 
             for (let i = 0; i < parents.length; i++) {
                 if (parents[i].NKK === bayi) {
-                    console.log(parents[i].NKK, bayi);
                     if (parents[i].hubungan_keluarga === 'Kepala Keluarga') {
-                        // document.getElementById('ayah').innerText = parents[i].nama;
                         document.getElementById('ayah').value = parents[i].nama;
                         break;
                     } else {
-                        // document.getElementById('ayah').innerText = "Data Ayah tidak ditemukan";
                         document.getElementById('ayah').value = "Data Ayah tidak ditemukan";
                     }
                 }

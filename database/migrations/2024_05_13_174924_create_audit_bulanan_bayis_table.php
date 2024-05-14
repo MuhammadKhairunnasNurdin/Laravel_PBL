@@ -11,17 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pemeriksaans', function (Blueprint $table) {
-            $table->id('pemeriksaan_id');
-            $table->foreignId('kader_id')->constrained('kaders', 'kader_id')->cascadeOnUpdate();
+        Schema::create('audit_bulanan_bayis', function (Blueprint $table) {
             $table->foreignId('penduduk_id')->constrained('penduduks', 'penduduk_id')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->date('tgl_pemeriksaan')->default(now());
-            $table->enum('golongan', ['balita', 'baduta', 'batita', 'lansia']);
             $table->float('berat_badan', 5, 3);
             $table->float('tinggi_badan', 5, 3);
-            $table->enum('status', ['sakit', 'sehat'])->nullable();
+            $table->float('lingkar_kepala', 5, 3);
+            $table->float('lingkar_lengan', 5, 3);
             $table->timestamps();
-
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pemeriksaans');
+        Schema::dropIfExists('audit_bulanan_bayis');
     }
 };
