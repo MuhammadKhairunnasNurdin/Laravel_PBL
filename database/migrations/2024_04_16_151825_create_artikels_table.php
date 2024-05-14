@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('judul', 250) ;
             $table->text('isi') ;
             $table->string('tag', 100)->nullable();
-            $table->string('foto_artikel', 2048)->nullable();
+            $table->string('foto_artikel')->nullable();
             $table->timestamps();
         });
     }
