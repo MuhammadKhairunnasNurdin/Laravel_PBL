@@ -62,6 +62,22 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 5.4,
                 'tinggi_badan' => 70.0,
                 'status' => 'sakit',
+            ],[
+                'kader_id'=> 2,
+                'penduduk_id' => 15,
+                'tgl_pemeriksaan' => '2024-05-15',
+                'golongan' => 'batita',
+                'berat_badan' => 7.4,
+                'tinggi_badan' => 73.0,
+                'status' => 'sehat',
+            ],[
+                'kader_id'=> 2,
+                'penduduk_id' => 10,
+                'tgl_pemeriksaan' => '2024-03-15',
+                'golongan' => 'lansia',
+                'berat_badan' => 62.4,
+                'tinggi_badan' => 165.5,
+                'status' => 'sehat',
             ],
         ];
 
