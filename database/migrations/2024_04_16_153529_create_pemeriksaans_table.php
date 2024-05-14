@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('penduduk_id')->constrained('penduduks', 'penduduk_id')->cascadeOnDelete()->cascadeOnUpdate();
             $table->date('tgl_pemeriksaan')->default(now());
             $table->enum('golongan', ['balita', 'baduta', 'batita', 'lansia']);
-            $table->float('berat_badan', 5, 3);
-            $table->float('tinggi_badan', 5, 3);
+            $table->float('berat_badan', 6, 3);
+            $table->float('tinggi_badan', 6, 3);
             $table->enum('status', ['sakit', 'sehat'])->nullable();
             $table->timestamps();
 

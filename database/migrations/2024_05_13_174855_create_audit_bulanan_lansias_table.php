@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('audit_bulanan_lansias', function (Blueprint $table) {
-            $table->foreignId('penduduk_id')->constrained('penduduks', 'penduduk_id')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->float('berat_badan', 5, 3);
-            $table->float('tinggi_badan', 5, 3);
-            $table->float('lingkar_perut', 5, 3);
+            $table->foreignId('penduduk_id')->primary()->constrained('penduduks', 'penduduk_id')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->float('berat_badan', 6, 3);
+            $table->float('tinggi_badan', 6, 3);
+            $table->float('lingkar_perut', 6, 3);
             $table->integer('gula_darah');
             $table->integer('kolesterol');
             $table->integer('tensi_darah');
-            $table->float('asam_urat', 5, 3);
+            $table->float('asam_urat', 6, 3);
             $table->timestamps();
         });
     }
