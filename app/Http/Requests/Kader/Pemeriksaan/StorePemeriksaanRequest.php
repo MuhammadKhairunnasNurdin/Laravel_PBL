@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\Kader\Pemeriksaan;
 
-use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\Rule;
 
 class StorePemeriksaanRequest extends FormRequest
@@ -24,24 +22,17 @@ class StorePemeriksaanRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $routeName = Route::currentRouteName();
-        $needles = collect(['bayi', 'lansia']);
         $this->merge([
-            'golongan' => $needles->first(function ($needle) use ($routeName) {
-                    return str_contains($routeName, $needle);
-                }),
             'kader_id' => auth()->user()->kaders[0]->kader_id,
-            'tgl_pemeriksaan' => Carbon::create($this->input('year'), $this->input('month'), $this->input('day'))->format('Y-m-d')
         ]);
 
         $this->request->replace($this->only([
-            'tgl_pemeriksaan',
             'golongan',
             'kader_id',
             'penduduk_id',
             'berat_badan',
             'tinggi_badan',
-            'status',
+            /*'status',*/
         ]));
     }
 
@@ -56,37 +47,37 @@ class StorePemeriksaanRequest extends FormRequest
             'kader_id' => [
                 'bail',
                 'required',
+                'integer',
                 'exists:kaders'
             ],
             'penduduk_id' => [
                 'bail',
                 'required',
+                'integer',
                 'exists:penduduks'
             ],
-            'status' => [
+            /*'status' => [
                 'bail',
                 'required',
                 Rule::in(['sehat', 'sakit'])
-            ],
+            ],*/
             'golongan' => [
                 'bail',
                 'required',
-                Rule::in(['lansia', 'bayi'])
-            ],
-            'tgl_pemeriksaan' => [
-                'bail',
-                'required',
-                'date'
+                'string',
+                Rule::in(['lansia', 'baduta', 'batita', 'balita'])
             ],
             'tinggi_badan' => [
                 'bail',
                 'required',
-                'numeric'
+                'numeric',
+                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'berat_badan' => [
                 'bail',
                 'required',
-                'numeric'
+                'numeric',
+                'regex' => '/^\d{1,3}(\.\d{1,3})?$/'
             ],
         ];
     }
