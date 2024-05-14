@@ -1,7 +1,7 @@
 @extends('kader.layouts.template')
 
 @section('content')
-<div class="grid md:grid-cols-3 mx-5 mt-5 md:mb-10 gap-5">
+<div class="grid md:grid-cols-3 mx-5 mt-5 md:mb-5 gap-5">
     @php
         $golongan = ['Lansia', 'Bayi'];
     @endphp
