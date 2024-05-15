@@ -16,8 +16,6 @@
             <h1 class="text-5xl font-medium">{{ $data['golongan_all'][$i]->total ?? 0}}</h1>
             <p class="text-xs text-stone-400 pb-4">Seluruhnya</p>
         </div>
-    @endfor
-    @for($i = 0; $i < 2; $i++)
         <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
             <div class="flex w-full justify-between pt-5">
                 <p class="font-medium text-base">Jumlah {{ $data['golongan_subMonth'][$i]->golongan ?? $golongan[$i] }}</p>
@@ -28,8 +26,6 @@
             <h1 class="text-5xl font-medium">{{ $data['golongan_subMonth'][$i]->total ?? 0}}</h1>
             <p class="text-xs text-stone-400 pb-4">Sebulan Terakhir</p>
         </div>
-    @endfor
-    @for($i = 0; $i < 2; $i++)
         <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
             <div class="flex w-full justify-between pt-5">
                 <p class="font-medium text-base">Jumlah {{ $data['status'][$i]->golongan ?? $golongan[$i]}} Sakit</p>
