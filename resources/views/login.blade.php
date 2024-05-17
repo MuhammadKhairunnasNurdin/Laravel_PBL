@@ -17,41 +17,41 @@
     </style>
 </head>
 <body>
-    <div class="flex bg-gray-200 w-screen h-screen justify-center items-center">
-        <div class="bg-white w-full flex flex-col mx-8 px-[25px] py-[22px] gap-[25px] md:grid md:grid-cols-2 md:px-[100px] md:py-[55px] md:rounded-[25px] md:gap-[100px] md:mx-32 ">
-            <div class="w-full flex flex-col md:justify-center">
+    <div class="flex bg-gray-200 w-screen h-full justify-center items-center lg:h-screen">
+        <div class="bg-white w-full h-screen flex flex-col pt-[60px] py-[22px] gap-[50px] md:justify-center md:h-fit md:grid md:grid-cols-2 md:px-[100px] md:py-[55px] md:rounded-[25px] md:gap-[100px] md:mx-32 ">
+            <div class="w-full flex flex-col px-[25px] md:justify-center">
                 <p class="md:text-[31px] order-2 hidden md:flex">Sistem Informasi</p>
                 <p class="font-bold md:text-[57px] order-3 hidden md:flex">Posyandu</p>
-                <p class="font-bold md:text-[57px] order-2 md:hidden">Login</p>
-                <p class="text-xs md:hidden order-3">Gunakan Akun Anda</p>
-                <img src="{{ asset('img/logo_posyandu.png') }}" alt="logo Posyandu" class="w-[75px] -ml-2.5 md:w-[142px] md:h-[106.5px] md:hidden  order-1">
+                <p class="font-bold text-[25px] md:text-[57px] order-2 md:hidden">Login</p>
+                <p class="text-sm md:hidden order-3">Gunakan Akun Anda</p>
+                <img src="{{ asset('img/logo_posyandu.png') }}" alt="logo Posyandu" class="w-[125px] -ml-4 md:w-[142px] md:h-[106.5px] md:hidden  order-1">
             </div>
-            <div class="md:flex md:flex-col w-100 justify-center items-center md:gap-[42px]">
+            <div class="md:flex md:flex-col w-100 justify-center items-center px-[25px] md:gap-[42px]">
                 <img src="{{ asset('img/logo_posyandu.png') }}" alt="logo Posyandu" class="w-[75px] md:w-[142px] md:h-[106.5px] hidden md:flex">
                 @error('login_failed')
                 <div class="pl-5 py-[15px] bg-red-200 w-full fade show" role="alert">
                     <span class="alert-inner-text"><strong>Warning!</strong> {{ $message }}</span>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-{{--                        <span aria-hidden="true">&times;</span>--}}
+                    {{--<span aria-hidden="true">&times;</span>--}}
                     </button>
                 </div>
                 @enderror
                 <div class="flex flex-col w-full gap-4">
                     <form method="post" action="{{route('login.auth')}}" id="login-form">
                         @csrf
-                        <div class="flex flex-col w-full gap-[15px] md:gap-[30px]">
-                            <input type="text" name="username" placeholder="Username" class=" w-full border border-stone-400 pl-2.5 py-[7px] rounded text-sm placeholder:text-xs md:pl-5 md:py-[10px] focus:outline-none md:placeholder:text-sm" required>
-                            <input type="password" id="password" name="password" placeholder="Password" class="w-full border border-stone-400 pl-2.5 py-[7px] rounded text-sm placeholder:text-xs md:pl-5 md:py-[10px] focus:outline-none md:placeholder:text-sm placeholder:items-center" required>
+                        <div class="flex flex-col w-full gap-[25px] md:gap-[30px]">
+                            <input type="text" name="username" placeholder="Username" class=" w-full border border-stone-400 pl-2.5 py-[14px] rounded text-sm placeholder:text-sm md:pl-5 md:py-[10px] focus:outline-none md:placeholder:text-sm" required>
+                            <input type="password" id="password" name="password" placeholder="Password" class="w-full border border-stone-400 pl-2.5 py-[14px] rounded text-sm placeholder:text-sm md:pl-5 md:py-[10px] focus:outline-none md:placeholder:text-sm placeholder:items-center" required>
                         </div>
                         <div class="flex left w-full">
                             <span id="passwordError" class="text-red-500 hidden"></span>
                         </div>
-{{--                        <div class="flex left pt-4 w-full gap-4">--}}
-{{--                            <input type="checkbox" name="remember" id="">--}}
-{{--                            <p>Ingat saya</p>--}}
-{{--                        </div>--}}
-                        <div class="flex right w-full pt-2 md:pt-4 gap-4 justify-end">
-                            <button class="bg-blue-700 text-white text-xs py-[8px] px-[15px] md:text-base md:py-[10px] md:px-[17px] rounded-[5px] w-fit right-0" id="submit" type="submit">Login</button>
+                        {{--<div class="flex left pt-4 w-full gap-4">--}}
+                            {{--<input type="checkbox" name="remember" id="">--}}
+                            {{--<p>Ingat saya</p>--}}
+                        {{--</div>--}}
+                        <div class="flex right w-full pt-[25px] gap-4 justify-center lg:justify-end">
+                            <button class="bg-blue-700 w-full text-white text-sm py-[12px] px-[18px] md:w-fit md:text-base md:py-[10px] md:px-[17px] rounded-[5px] w-fit right-0" id="submit" type="submit">Login</button>
                         </div>
                     </form>
                 </div>
@@ -59,7 +59,17 @@
             {{-- <div class="border-t w-full m-0 p-0">
                 <p class="text-xs text-stone-400">Sistem Informasi Posyandu</p>
             </div> --}}
+            <footer class="fixed flex bg-blue-700 w-full bottom-0 py-2 lg:py-3 justify-center items-center gap-[10px] lg:gap-[21px] lg:hidden">
+                <img src="{{ asset('img/logo-polinema.png')}}" alt="" class="w-[25px] lg:w-[33px] aspect-square">
+                <img src="{{ asset('img/logo_jti_baru.png')}}" alt="" class="w-[25px] lg:w-[33px] aspect-square">
+                <p class="text-white text-sm font-light md:text-base md:font-normal">&copy;JTI Polinema</p>
+            </footer>
         </div>
+        <footer class="fixed flex bg-blue-700 w-full bottom-0 lg:py-2 justify-center items-center gap-[10px] max-md:hidden lg:gap-[21px]">
+            <img src="{{ asset('img/logo-polinema.png')}}" alt="" class="w-[25px] lg:w-[30px] aspect-square">
+            <img src="{{ asset('img/logo_jti_baru.png')}}" alt="" class="w-[25px] lg:w-[30px] aspect-square">
+            <p class="text-white text-sm font-light md:text-base md:font-normal">&copy;JTI Polinema</p>
+        </footer>
     </div>
     <script>
         document.getElementById("login-form").addEventListener("submit", function(event){

@@ -8,13 +8,14 @@
         </div>
         <div class="flex mt-[30px] mx-10 gap-[30px]">
             <div class="flex w-fit h-full items-center align-middle">
-                <p class="text-base text-neutral-950 text-center pr-[10px]">Filter:</p>
+                <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
+                {{-- <p class="text-base text-neutral-950 text-center pr-[10px]">Filter:</p>
                 <select name="filterValue" id="filterValue" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none">
                     <option value="" class="">Pilih Kategori</option>
                     @foreach($penduduks as $filter)
                         <option value="{{ $filter->NIK }}">{{ $filter->penduduk->nama }}</option>
                     @endforeach
-                </select>
+                </select> --}}
             </div>
             {{-- <div class="flex w-full h-full items-center align-middle dt-container dt-empty-footer">
                 <label class="text-base text-neutral-950 text-center pr-[10px]" for="dt-search-0">Cari:</label>
@@ -100,19 +101,118 @@
 <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
 
 <script>
-    function calculateAgeInMonths() {
-        let tglLahir = new Date(data.penduduk.tgl_lahir);
-        let sekarang = new Date();
-        let bulan = (sekarang.getFullYear() - tglLahir.getFullYear()) * 12;
-        bulan -= tglLahir.getMonth();
-        bulan += sekarang.getMonth();
-        return bulan + " bulan";
+    // function calculateAgeInMonths() {
+    //     let tglLahir = new Date(data.penduduk.tgl_lahir);
+    //     let sekarang = new Date();
+    //     let bulan = (sekarang.getFullYear() - tglLahir.getFullYear()) * 12;
+    //     bulan -= tglLahir.getMonth();
+    //     bulan += sekarang.getMonth();
+    //     return bulan + " bulan";
+    // }
+
+    // document.getElementById('usia').innerText = calculateAgeInMonths();
+
+    function filterByKategori(kategori) {
+        let url = `/bayi?`;
+
+        let statusElement = document.querySelector('input[name="statusKes"]:checked');
+        let golonganElement = document.querySelector('input[name="golUmur"]:checked');
+
+        let status = statusElement? statusElement.value : '';
+        let golongan = golonganElement? golonganElement.value : '';
+
+        if(status !== ''){
+            url += `&status=${status}`;
+        }
+        if(golongan !== ''){
+            url += `&golongan=${golongan}`;
+        }
+        window.location.href=url;
     }
 
-    document.getElementById('usia').innerText = calculateAgeInMonths();
-</script>
+    document.addEventListener('click', (event) => {
+        const dropdown = document.querySelector('.dropdown');
+        const button = dropdown.querySelector('#filterInput');
+        const urlParams = new URLSearchParams(window.location.search);
+        const filters = [['statusKes'], ['golUmur']];
+        let activeFilters = 0;
+        for (let filter of filters) {
+            let filterValues = urlParams.getAll(filter[0]);
+            if(filterValues.length>0){
+                filter.push(...filterValues);
+                activeFilters += filterValues.length;
+            }
+        }
+        if (!dropdown.contains(event.target) && activeFilters === 0) {
+                button.classList.remove('focusElement');
+                button.querySelectorAll('path').forEach(path => {
+                    path.classList.remove('fill-Primary/10');
+                    path.classList.add('fill-[#025864]');
+                });
+        }
+    });
 
-<script>
+    window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const filters = [['statusKes'], ['golUmur']];
+            let activeFilters = 0;
+            for (let filter of filters) {
+                let filterValues = urlParams.getAll(filter[0]);
+                if (filterValues.length > 0) {
+                    filter.push(...filterValues);
+                    activeFilters += filterValues.length;
+                }
+            }
+
+            const countSpan = document.getElementById('count');
+            if (activeFilters > 0) {
+                countSpan.textContent = activeFilters;
+                document.getElementById('filterInput').classList.add('focusElement');
+                countSpan.classList.remove('hidden');
+            } else {
+                countSpan.classList.add('hidden');
+            }
+        }
+
+        {{--Javascript function to add active style to filter button--}}
+        function activeFilter(e) {
+            e.classList.add('focusElement')
+            e.querySelectorAll('path').forEach(path => {
+                path.classList.remove('fill-[#025864]')
+                path.classList.add('fill-[#000000]')
+            })
+            document.querySelector('.filter-content').classList.toggle('hidden')
+        }
+
+        {{--Javascript function to add active style for filter button--}}
+        const inputFilterChange = () => {
+            const count = document.getElementById('count')
+            const button = document.querySelector('button[type="submit"]')
+            button.classList.add('activeSubmitButton')
+            button.classList.remove('pointer-events-none')
+            count.classList.remove('hidden')
+            count.innerText = document.querySelectorAll('input[type="radio"]:checked').length
+        }
+
+        {{--Javascript function to reset input--}}
+        const resetInput = () => {
+            const buttons = document.querySelectorAll('input[type="radio"]')
+
+            const count = document.getElementById('count')
+            count.classList.add('hidden')
+            count.innerText = ''
+
+            buttons.forEach(button => {
+                button.checked = false
+            })
+
+            const button = document.querySelector('button[type="submit"]')
+            button.classList.remove('activeSubmitButton')
+            button.classList.add('pointer-events-none')
+
+            window.location.href = '/kader/bayi';
+        }
+
         $(document).ready(function () {
             let relationships = [];
             $('input[name="relationships[]"]').each(function() {
