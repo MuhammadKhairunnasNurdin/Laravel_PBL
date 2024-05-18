@@ -17,6 +17,21 @@
                     @endforeach
                 </select> --}}
             </div>
+            @if(session('success'))
+                <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
+                    <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p>
+                    <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
+                        <span>&times;</span>
+                    </button>
+                </div>
+            @elseif(session('error'))
+                <div class="flex items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
+                    <p class="mr-4">{{ session('error') }}</p>
+                    <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
+                        <span>&times;</span>
+                    </button>
+                </div>
+            @endif
             {{-- <div class="flex w-full h-full items-center align-middle">
                 <p class="text-base text-neutral-950 text-center pr-[10px]">Cari:</p>
                 <div class="relative flex">
@@ -177,7 +192,18 @@
 <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
 
 <script>
-            function filterByKategori(kategori) {
+    document.addEventListener('DOMContentLoaded', function() {
+        var div = document.getElementById('message');
+        var button = document.getElementById('close');
+
+        if (div && button) {
+            button.addEventListener('click', function() {
+                div.classList.add('hidden');
+                console.log('test button');
+            });
+        }
+    });
+        function filterByKategori(kategori) {
         let url = `/bayi?`;
 
         let statusElement = document.querySelector('input[name="statusKes"]:checked');
