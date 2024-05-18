@@ -11,6 +11,7 @@ use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanBayi;
 use App\Models\Penduduk;
 use App\Models\RekamMedisIbu;
+use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 
@@ -19,7 +20,7 @@ class BayiResource extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $breadcrumb = (object) [
             'title' => 'Pemeriksaan Bayi'
@@ -31,8 +32,15 @@ class BayiResource extends Controller
          * Retrieve data for filter feature
          */
         $penduduks = Pemeriksaan::with('penduduk', 'pemeriksaan_bayi')->where('golongan', 'bayi')->get();
+        // @dd($penduduks);
 
-        return view('kader.bayi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);
+        // THIS IS ONE OF THE PART OF THE FILTER
+        $bayi = $this->getFilteredData($request)->paginate(3);
+        $bayi->appends(request()->all());
+        // @dd($bayi);
+
+        // return view('kader.bayi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);
+        return view('kader.bayi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks, 'bayi' => $bayi]);
     }
 
     /**
@@ -152,5 +160,21 @@ class BayiResource extends Controller
         } catch (QueryException) {
             return redirect()->intended('kader/bayi')->with('error', 'Data pemeriksaan bayi gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         }
+    }
+
+    // ORIGINALLY HERE
+    public function getFilteredData(Request $request)
+    {
+        $query = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->orderBy('status', 'asc');
+
+        if ($request->has('statusKes')) {
+            $query->where('status', $request->input('status'));
+        }
+
+        if ($request->has('golUmur')) {
+            $query->where('golongan', $request->input('golongan'));
+        }
+
+        return $query;
     }
 }

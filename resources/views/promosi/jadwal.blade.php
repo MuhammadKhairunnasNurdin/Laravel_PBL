@@ -7,7 +7,7 @@
             <div class="flex w-full h-full items-center align-middle">
                 <p class="text-base text-neutral-950 text-center pr-[10px]">Cari:</p>
                 <div class="relative flex">
-                    <input type="text" class="w-100 border border-stone-400 bg-transparent text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none placeholder:text-neutral-950" id="search" name="search" placeholder="Cari kegiatan di sini">           
+                    <input type="text" class="w-100 border border-stone-400 bg-transparent text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none placeholder:text-neutral-950" id="search" name="search" placeholder="Cari kegiatan di sini">
                     <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
