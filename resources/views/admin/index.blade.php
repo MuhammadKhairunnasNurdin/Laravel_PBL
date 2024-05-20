@@ -1,43 +1,51 @@
-@extends('kader.layouts.template')
+@extends('admin.layouts.template')
 
 @section('content')
 <div class="grid mx-5 mt-5 md:mb-5 gap-5 md:grid-cols-3">
     @php
         $golongan = ['Lansia', 'Bayi'];
     @endphp
-    @for($i = 0; $i < 2; $i++)
+    @for($i = 0; $i < 1; $i++)
+    {{-- Card Total Penduduk --}}
         <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
             <div class="flex w-full justify-between pt-5">
-                <p class="font-medium text-sm lg:text-base">Jumlah {{ $data['golongan_all'][$i]->golongan ?? $golongan[$i] }}</p>
+                <p class="font-medium text-sm lg:text-base">Total Penduduk</p>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
                 </svg>
             </div>
-            <h1 class="text-5xl font-medium">{{ $data['golongan_all'][$i]->total ?? 0}}</h1>
+            <h1 class="text-5xl font-medium">{{ $data['penduduk_all'][$i]->total ?? 0}}</h1>
             <p class="text-xs text-stone-400 pb-4">Seluruhnya</p>
         </div>
+    {{-- End Card Total --}}
+
+    {{-- Card Jumlah Laki-Laki --}}
         <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
             <div class="flex w-full justify-between pt-5">
-                <p class="font-medium text-sm lg:text-base">Jumlah {{ $data['golongan_subMonth'][$i]->golongan ?? $golongan[$i] }}</p>
+                <p class="font-medium text-sm lg:text-base">Jumlah Penduduk Laki-Laki</p>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
                 </svg>
             </div>
-            <h1 class="text-5xl font-medium">{{ $data['golongan_subMonth'][$i]->total ?? 0}}</h1>
-            <p class="text-xs text-stone-400 pb-4">Sebulan Terakhir</p>
+            <h1 class="text-5xl font-medium">{{ $data['penduduk_laki'][$i]->total ?? 0}}</h1>
+            <p class="text-xs text-stone-400 pb-4">Seluruhnya</p>
         </div>
+    {{-- End Card Laki-Laki --}}
+
+    {{-- Card Jumlah Perempuan --}}
         <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
             <div class="flex w-full justify-between pt-5">
-                <p class="font-medium text-sm lg:text-base">Jumlah {{ $data['status'][$i]->golongan ?? $golongan[$i]}} Sakit</p>
+                <p class="font-medium text-sm lg:text-base">Jumlah Penduduk Perempuan</p>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
                 </svg>
             </div>
             {{-- {{ !empty($data['status'][$i]) ? $data['status'][$i]->total : 0}} --}}
             {{-- this bellow code same above code--}}
-            <h1 class="text-5xl font-medium">{{ $data['status'][$i]->total ?? 0}}</h1>
-            <p class="text-xs text-stone-400 pb-4">Sebulan Terakhir</p>
+            <h1 class="text-5xl font-medium">{{ $data['penduduk_perempuan'][$i]->total ?? 0}}</h1>
+            <p class="text-xs text-stone-400 pb-4">Seluruhnya</p>
         </div>
+    {{-- End Card Perempuan --}}
     @endfor
 </div>
 <div class="grid grid-cols-3 mx-5 mt-5 mb-10 gap-5">
