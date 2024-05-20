@@ -1,4 +1,4 @@
-@extends('kader.layouts.template')
+@extends('admin.layouts.template')
 
 @section('content')
 <div class="grid mx-5 mt-5 md:mb-5 gap-5 md:grid-cols-3">

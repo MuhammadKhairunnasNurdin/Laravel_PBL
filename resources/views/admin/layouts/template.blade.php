@@ -15,18 +15,18 @@
             font-family: 'Plus Jakarta Sans'
         }
         </style>
-    @include('kader.layouts.datatables')
+    @include('admin.layouts.datatables')
     @stack('css')
 </head>
 <body class="bg-gray-200 w-full md:h-screen">
-    @include('kader.layouts.header')
+    @include('admin.layouts.header')
     <div class="flex relative h-full mt-[50px] lg:grid lg:grid-cols-6 md:mt-[88px]">
         <div id="sidebar" class="fixed z-20 h-full -translate-x-[999px] transform transition ease-in-out duration-500 sm:duration-700 col-span-1 lg:translate-x-0 ">
-            @include('kader.layouts.sidebar')
+            @include('admin.layouts.sidebar')
         </div>
         <div class="w-full lg:w-fit lg:ml-[240px] lg:col-span-6">
             <div class="flex text-base px-5 md:text-2xl pt-5">
-                @include('kader.layouts.breadcrumb')
+                @include('admin.layouts.breadcrumb')
             </div>
             @yield('content')
         </div>

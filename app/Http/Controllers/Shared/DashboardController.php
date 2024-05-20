@@ -29,6 +29,16 @@ DashboardController extends Controller
 
         return view('ketua.index', ['chart' => $chart->build(), 'breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'data' => $this->indexData()]);
     }
+    
+    public function indexAdmin(KunjunganChart $chart){
+        $breadcrumb = (object) [
+            'title' => 'Dashboard',
+        ];
+
+        $activeMenu = 'dashboard';
+
+        return view('admin.index', ['chart' => $chart->build(), 'breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'data' => $this->indexData()]);
+    }
 
     private function indexData(): array
     {
