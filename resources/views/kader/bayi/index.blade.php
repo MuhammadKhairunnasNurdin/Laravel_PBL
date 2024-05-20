@@ -57,6 +57,9 @@
                 </thead>
             </table> --}}
             <x-table.data-table :data="$penduduks" :headers="['Nama Bayi', 'Tgl Pemeriksaan', 'Usia', 'Kategori Umur', 'Berat', 'Tinggi', 'Status', 'Aksi']">
+                @php
+                    $no = ($penduduks->currentPage() - 1) * $penduduks->perPage() + 1;
+                @endphp
                 @foreach ($penduduks as $pd)
                 <x-table.table-row>
                         <td class="px-6 border-b 2xl:py-6 lg:py-5 bg-white">{{$pd->penduduk->nama}}</td>
@@ -72,10 +75,13 @@
                                 <a href="bayi/{{$pd->pemeriksaan_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Ubah</a>
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" onclick="confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Hapus</button>
+                                <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Hapus</button>
                             </form>
                         </td>
                     </x-table.table-row>
+                    @php
+                        $no++;
+                    @endphp
                     @endforeach
             </x-table.data-table>
         </div>
@@ -259,6 +265,7 @@
 
 
             } catch (error) {
+                console.error;
                 const table = document.getElementById('dataTable');
 
                 clearTable();

@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Shared\AuthController;
+use App\Http\Controllers\Shared\DashboardController;
+use App\Http\Controllers\Admin\PendudukController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,5 +24,7 @@ Route::group([
          * route for logout process
          */
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->name('admin.logout');
+        Route::get('/', [DashboardController::class, 'indexAdmin']);
+        Route::get('/penduduk', [PendudukController::class, 'index']);
     }
 );

@@ -7,6 +7,7 @@ use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanLansia;
 use App\Models\Penduduk;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class SearchController extends Controller
 {
@@ -46,6 +47,22 @@ class SearchController extends Controller
                 ->paginate(6);
         }
 
+        if ($penduduk->isEmpty()) {
+            return response()->json(['error' => 'No results found'], 404);
+        }
+
+        return response()->json([$penduduk], 200);
+    }
+    
+    public function searchPenduduk(Request $request)
+    {
+        $search = $request->input('search', '');
+
+        $field = preg_match('/^\d/', $search) ? 'NKK' : 'nama';
+        
+        $penduduk = Penduduk::where($field, 'like', "%{$search}%")
+            ->paginate(6);
+        
         if ($penduduk->isEmpty()) {
             return response()->json(['error' => 'No results found'], 404);
         }

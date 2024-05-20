@@ -1,4 +1,3 @@
-
 <div class="relative flex">
     <input type="search" onkeyup="searchFunction()" class="text-xs w-[250px] md:px-5 md:py-2.5 border rounded-3xl focus:outline-none search-cancel" id="searchInput" name="{{$name}}" placeholder="{{$placeholder}}">
     <div class="absolute inset-y-0 right-0 pr-4 flex items-center cursor-pointer">
