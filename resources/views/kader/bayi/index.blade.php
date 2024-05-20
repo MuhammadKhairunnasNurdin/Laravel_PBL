@@ -46,7 +46,7 @@
                 <x-table.table-row>
                         <td class="px-6 border-b 2xl:py-6 lg:py-5 bg-white">{{$pd->penduduk->nama}}</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tgl_pemeriksaan}}</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white usia" id="usia">{{now()->diffInMonth($pd->penduduk->tgl_lahir)}} Bulan</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white usia" id="usia">{{now()->diffInMonths($pd->penduduk->tgl_lahir)}} Bulan</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->pemeriksaan_bayi->kategori_golongan}}</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->berat_badan}} Kg</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tinggi_badan}} Cm</td>

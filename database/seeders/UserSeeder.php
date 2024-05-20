@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
-                'username'=> 'admin',
+                'username'=> 'admin1',
                 'password' => Hash::make('Admin123'),
                 'level' => 'admin'
             ],[
