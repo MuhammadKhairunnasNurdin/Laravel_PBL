@@ -35,6 +35,9 @@
                     <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Lingkar Kepala<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="lingkar_kepala" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar kepala" required>
+                        @error('lingkar_kepala')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     {{-- END LINGKAR KEPALA --}}
 
@@ -42,6 +45,9 @@
                     <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Lingkar Lengan<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="lingkar_lengan" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar lengan" required>
+                        @error('lingkar_lengan')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     {{-- END LINGKAR LENGAN --}}
 
@@ -49,12 +55,18 @@
                     <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950">Berat Badan<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="berat_badan" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan berat badan" required>
+                        @error('berat_badan')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     {{-- END BERAT BADAN --}}
 
                     <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Tinggi Badan<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan tinggi badan" required>
+                        @error('tinggi_badan')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Status Kesehatan?<span class="text-red-400">*</span></p>
@@ -62,6 +74,9 @@
                             <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="status" value="sehat" id="option1" required><span>Sehat</span>
                             <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" required><span>Sakit</span>
                         </div>
+                        @error('status')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fit gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">ASI Eksklusif?<span class="text-red-400">*</span></p>
@@ -69,6 +84,9 @@
                             <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="asi" value="iya" id="option1" required><span>Ya</span>
                             <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="asi" value="tidak" id="option2" required><span>Tidak</span>
                         </div>
+                        @error('asi')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
 

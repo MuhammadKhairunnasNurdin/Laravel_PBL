@@ -32,6 +32,9 @@
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Berat Badan<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="berat_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->berat_badan}}" placeholder="Masukkan berat badan">
+                        @error('berat_badan')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     {{-- <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Usia<span class="text-red-400">*</span></p>
@@ -40,6 +43,9 @@
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Tinggi Badan<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->tinggi_badan}}" placeholder="Masukkan tinggi badan">
+                        @error('tinggi_badan')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     {{-- <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Alamat<span class="text-red-400">*</span></p>
@@ -48,10 +54,16 @@
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Lingkar Perut<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="lingkar_perut" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{$lansiaData->pemeriksaan_lansia->lingkar_perut}}" placeholder="Masukkan lingkar perut">
+                        @error('lingkar_perut')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="tensi_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{$lansiaData->pemeriksaan_lansia->tensi_darah}}" placeholder="Masukkan lingkar perut">
+                        @error('tensi_darah')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
 
@@ -82,14 +94,23 @@
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Gula Darah<span class="text-red-400">*</span></p>
                         <input type="number" name="gula_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->gula_darah}}" placeholder="Masukkan gula darah">
+                        @error('gula_darah')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Asam Urat<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="asam_urat" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->asam_urat}}" placeholder="Masukkan asam urat">
+                        @error('asam_urat')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Kolesterol<span class="text-red-400">*</span></p>
                         <input type="number" name="kolesterol" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->kolesterol }}" placeholder="Masukkan kolesterol">
+                        @error('kolesterol')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950 pr-[10px]">Status Kesehatan?<span class="text-red-400">*</span></p>
@@ -102,6 +123,9 @@
                                 <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" checked><span>Sakit</span>
                             @endif
                         </div>
+                        @error('status')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
             </div>

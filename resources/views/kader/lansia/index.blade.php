@@ -11,6 +11,33 @@
                 <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
                 <x-input.search-input name="search" placeholder="Cari nama anggota posyandu"></x-input.search-input>
             </div>
+            @if(session('success'))
+                <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
+                    <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p>
+                    <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
+                        <span>&times;</span>
+                    </button>
+                </div>
+            @elseif(session('error'))
+                <div class="flex items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
+                    <p class="mr-4">{{ session('error') }}</p>
+                    <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
+                        <span>&times;</span>
+                    </button>
+                </div>
+            @endif
+            {{-- <div class="flex w-full h-full items-center align-middle">
+                <p class="text-base text-neutral-950 text-center pr-[10px]">Cari:</p>
+                <div class="relative flex">
+                    <input type="text" class="w-100 border border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none placeholder:text-neutral-950" id="search" name="search" placeholder="Cari nama di sini">
+                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                    </div>
+                </div>
+            </div> --}}
+        </div>
 
         @php
             $relationships = ['penduduk', 'pemeriksaan_lansia'];
@@ -85,6 +112,7 @@
 
 @push('js')
 <script>
+
     //         function filterByKategori(kategori) {
     //     let url = `/bayi?`;
 
