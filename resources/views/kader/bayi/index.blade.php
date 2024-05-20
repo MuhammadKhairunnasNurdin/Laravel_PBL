@@ -73,15 +73,18 @@
                     </tr>
                 </thead>
             </table> --}}
-            <x-table.data-table :data="$penduduks" :headers="['Nama Bayi', 'Tgl Pemeriksaan', 'Usia', 'Kategori Umur', 'Berat', 'Tinggi', 'Status', 'Aksi']">
+            <x-table.data-table :dt="$penduduks" :headers="['Nama Bayi', 'Tgl Pemeriksaan', 'Usia', 'Kategori Umur', 'Berat', 'Tinggi', 'Status', 'Aksi']">
+                @php
+                    $no = ($penduduks->currentPage() - 1) * $penduduks->perPage() + 1;
+                @endphp
                 @foreach ($penduduks as $pd)
                 <x-table.table-row>
                         <td class="px-6 border-b 2xl:py-6 lg:py-5 bg-white">{{$pd->penduduk->nama}}</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tgl_pemeriksaan}}</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white usia" id="usia"></td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white usia" id="usia">{{now()->diffInMonths($pd->penduduk->tgl_lahir)}} Bulan</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->pemeriksaan_bayi->kategori_golongan}}</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->berat_badan}}</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tinggi_badan}}</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->berat_badan}} Kg</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tinggi_badan}} Cm</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->status}}</td>
                         <td class="bodyTable">
                             <form action="bayi/{{$pd->pemeriksaan_id}}" method="post">
@@ -89,10 +92,13 @@
                                 <a href="bayi/{{$pd->pemeriksaan_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Ubah</a>
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" onclick="confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Hapus</button>
+                                <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Hapus</button>
                             </form>
                         </td>
                     </x-table.table-row>
+                    @php
+                        $no++;
+                    @endphp
                     @endforeach
             </x-table.data-table>
         </div>
@@ -248,6 +254,65 @@
             button.classList.add('pointer-events-none')
 
             window.location.href = '/kader/bayi';
+        }
+
+        function clearTable() {
+            const table = document.getElementById('dataTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = rows.length - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
+        }
+
+        function addRowToTable(item) {
+            const table = document.getElementById('dataTable');
+            const row = table.insertRow(-1);
+
+            row.innerHTML = `
+            <x-table.table-row>
+                        <td class="px-6 border-b lg:py-2 bg-white">${item.nama}</td>
+                        <td class="px-6 lg:py-2 border-b bg-white">${item.tgl_pemeriksaan}</td>
+                    </x-table.table-row>
+    `;
+
+        }
+
+        async function searchFunction() {
+            let input;
+            input = document.getElementById('searchInput');
+            search = input.value;
+
+            try {
+                // Make a request to the server
+                const response = await fetch(`/api/bayi/search?search=${search}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    },
+                });
+
+                const responseData = await response.json();
+
+                clearTable();
+
+                responseData[0].data.forEach(item => {
+                    addRowToTable(item);
+                });
+
+
+            } catch (error) {
+                console.error;
+                const table = document.getElementById('dataTable');
+
+                clearTable();
+
+                const row = table.insertRow(-1);
+                row.innerHTML = `
+                    <td colspan="7" class="text-center p-6 bg-white border-b font-medium text-Neutral/60">Data tidak ditemukan</td>
+                    `;
+            }
         }
 
         $(document).ready(function () {

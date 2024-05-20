@@ -31,16 +31,15 @@ class BayiResource extends Controller
         /**
          * Retrieve data for filter feature
          */
-        $penduduks = Pemeriksaan::with('penduduk', 'pemeriksaan_bayi')->where('golongan', 'bayi')->get();
-        // @dd($penduduks);
+        $penduduks = Pemeriksaan::with('penduduk', 'pemeriksaan_bayi')->where('golongan', 'bayi')->paginate(10);
 
         // THIS IS ONE OF THE PART OF THE FILTER
-        $bayi = $this->getFilteredData($request)->paginate(3);
-        $bayi->appends(request()->all());
+        // $bayi = $this->getFilteredData($request)->paginate(3);
+        // $bayi->appends(request()->all());
         // @dd($bayi);
 
         // return view('kader.bayi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);
-        return view('kader.bayi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks, 'bayi' => $bayi]);
+        return view('kader.bayi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);
     }
 
     /**

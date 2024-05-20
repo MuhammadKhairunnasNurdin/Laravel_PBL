@@ -40,6 +40,7 @@ Route::group([
         Route::resource('lansia', LansiaResource::class);
         Route::post('lansia/list', [DataTablesController::class, 'list'])->name('lansia.list');
 
+
         /**
          * routes for informasi feature
          */
