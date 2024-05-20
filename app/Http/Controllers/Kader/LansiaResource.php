@@ -28,7 +28,8 @@ class LansiaResource extends Controller
         /**
          * Retrieve data for filter feature
          */
-        $penduduks = Pemeriksaan::with('penduduk')->where('golongan', 'lansia')->get();
+        $penduduks = Pemeriksaan::with('penduduk')->where('golongan', 'lansia')->paginate(10);
+        // $penduduks = Pemeriksaan::with('penduduk')->where('golongan', 'lansia')->get();
 
         return view('kader.lansia.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);
     }
