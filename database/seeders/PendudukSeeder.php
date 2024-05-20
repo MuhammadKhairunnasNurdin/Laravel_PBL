@@ -186,7 +186,7 @@ class PendudukSeeder extends Seeder
                 'NIK' => '351001100220220155',
                 'NKK' => '351001231654324856',
                 'nama' => 'Halur',
-                'tgl_lahir' => '2022-02-10',
+                'tgl_lahir' => '2020-07-10',
                 'pendapatan' => '0 - 500000',
                 'no_telp' => null,
                 'jenis_kelamin' => 'L',

@@ -6,9 +6,44 @@
             <p class="text-sm md:text-lg ml-10">Daftar pemeriksaan bayi</p>
             <a href="{{ url('kader/bayi/create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-10 rounded">Tambah</a>
         </div>
-        <div class="flex w-fit h-full items-center align-middle gap-[20px] mx-10 mt-[30px]">
-            <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
-            <x-input.search-input name="search" placeholder="Cari nama anggota posyandu"></x-input.search-input>
+        <div class="flex mt-[30px] mx-10 gap-[30px]">
+            <div class="flex w-fit h-full items-center align-middle">
+                <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
+                {{-- <p class="text-base text-neutral-950 text-center pr-[10px]">Filter:</p>
+                <select name="filterValue" id="filterValue" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none">
+                    <option value="" class="">Pilih Kategori</option>
+                    @foreach($penduduks as $filter)
+                        <option value="{{ $filter->NIK }}">{{ $filter->penduduk->nama }}</option>
+                    @endforeach
+                </select> --}}
+            </div>
+            @if(session('success'))
+                <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
+                    <p class="mr-4"> <b>BERHASIL </b> {{ session('success') }}</p>
+                    <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
+                        <span>&times;</span>
+                    </button>
+                </div>
+            @elseif(session('error'))
+                <div class="flex items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
+                    <p class="mr-4">{{ session('error') }}</p>
+                    <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
+                        <span>&times;</span>
+                    </button>
+                </div>
+            @endif
+
+            {{-- <div class="flex w-full h-full items-center align-middle dt-container dt-empty-footer">
+                <label class="text-base text-neutral-950 text-center pr-[10px]" for="dt-search-0">Cari:</label>
+                <div class="relative flex">
+                    <input type="text" class="w-100 border border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none placeholder:text-neutral-950" id="dt-search-0" placeholder="Cari nama balita di sini" aria-controls="bayi_table">
+                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                        </svg>
+                    </div>
+                </div>
+            </div> --}}
         </div>
 
         @php
@@ -46,7 +81,7 @@
                 <x-table.table-row>
                         <td class="px-6 border-b 2xl:py-6 lg:py-5 bg-white">{{$pd->penduduk->nama}}</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tgl_pemeriksaan}}</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white usia" id="usia">{{now()->diffInMonth($pd->penduduk->tgl_lahir)}} Bulan</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white usia" id="usia">{{now()->diffInMonths($pd->penduduk->tgl_lahir)}} Bulan</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->pemeriksaan_bayi->kategori_golongan}}</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->berat_badan}} Kg</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tinggi_badan}} Cm</td>
@@ -88,6 +123,27 @@
 <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var div = document.getElementById('message');
+        var button = document.getElementById('close');
+
+        if (div && button) {
+            button.addEventListener('click', function() {
+                div.classList.add('hidden');
+                console.log('test button');
+            });
+        }
+    });
+
+
+    // document.addEventListener('DOMContentLoaded', function(button) {
+    //     console.log('test id');
+    //     button.addEventListener('click', function() {
+    //         div.classList.add('hidden');
+    //         console.log('test button');
+    //     });
+    // });
+
     // function calculateAgeInMonths() {
     //     let tglLahir = new Date(data.penduduk.tgl_lahir);
     //     let sekarang = new Date();
