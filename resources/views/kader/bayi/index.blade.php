@@ -9,25 +9,7 @@
         <div class="flex w-fit h-full items-center align-middle gap-[20px] mx-10 mt-[30px]">
             <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
             <x-input.search-input name="search" placeholder="Cari nama anggota posyandu"></x-input.search-input>
-                {{-- <p class="text-base text-neutral-950 text-center pr-[10px]">Filter:</p>
-                <select name="filterValue" id="filterValue" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none">
-                    <option value="" class="">Pilih Kategori</option>
-                    @foreach($penduduks as $filter)
-                        <option value="{{ $filter->NIK }}">{{ $filter->penduduk->nama }}</option>
-                    @endforeach
-                </select> --}}
-            </div>
-            {{-- <div class="flex w-full h-full items-center align-middle dt-container dt-empty-footer">
-                <label class="text-base text-neutral-950 text-center pr-[10px]" for="dt-search-0">Cari:</label>
-                <div class="relative flex">
-                    <input type="text" class="w-100 border border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none placeholder:text-neutral-950" id="dt-search-0" placeholder="Cari nama balita di sini" aria-controls="bayi_table">
-                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                        </svg>
-                    </div>
-                </div>
-            </div> --}}
+        </div>
 
         @php
             $relationships = ['penduduk'];
@@ -56,7 +38,7 @@
                     </tr>
                 </thead>
             </table> --}}
-            <x-table.data-table :data="$penduduks" :headers="['Nama Bayi', 'Tgl Pemeriksaan', 'Usia', 'Kategori Umur', 'Berat', 'Tinggi', 'Status', 'Aksi']">
+            <x-table.data-table :dt="$penduduks" :headers="['Nama Bayi', 'Tgl Pemeriksaan', 'Usia', 'Kategori Umur', 'Berat', 'Tinggi', 'Status', 'Aksi']">
                 @php
                     $no = ($penduduks->currentPage() - 1) * $penduduks->perPage() + 1;
                 @endphp
@@ -64,10 +46,10 @@
                 <x-table.table-row>
                         <td class="px-6 border-b 2xl:py-6 lg:py-5 bg-white">{{$pd->penduduk->nama}}</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tgl_pemeriksaan}}</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white usia" id="usia"></td>
-                        {{-- <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->pemeriksaan_bayi->kategori_golongan}}</td> --}}
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->berat_badan}}</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tinggi_badan}}</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white usia" id="usia">{{now()->diffInMonth($pd->penduduk->tgl_lahir)}} Bulan</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->pemeriksaan_bayi->kategori_golongan}}</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->berat_badan}} Kg</td>
+                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tinggi_badan}} Cm</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->status}}</td>
                         <td class="bodyTable">
                             <form action="bayi/{{$pd->pemeriksaan_id}}" method="post">

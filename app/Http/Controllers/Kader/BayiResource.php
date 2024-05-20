@@ -32,9 +32,6 @@ class BayiResource extends Controller
          * Retrieve data for filter feature
          */
         $penduduks = Pemeriksaan::with('penduduk', 'pemeriksaan_bayi')->where('golongan', 'bayi')->paginate(10);
-        
-        // $penduduks = Pemeriksaan::with('penduduk', 'pemeriksaan_bayi')->where('golongan', 'bayi')->get();
-        // @dd($penduduks);
 
         // THIS IS ONE OF THE PART OF THE FILTER
         // $bayi = $this->getFilteredData($request)->paginate(3);

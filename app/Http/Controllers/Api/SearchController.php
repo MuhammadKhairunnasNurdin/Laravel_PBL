@@ -14,24 +14,22 @@ class SearchController extends Controller
     public function searchLansia(Request $request)
     {
         $search = $request->input('search', '');
-        $query = Pemeriksaan::with('pemeriksaan_lansia','penduduk');
+        $query = Pemeriksaan::with('pemeriksaan_lansia', 'penduduk')->where('golongan', 'lansia');
 
-        if (preg_match('/^\d/', $search)) {
-            $penduduk = $query
-                ->where('golongan', 'lansia', 'and', 'penduduk.nama', 'like', "%{$search}%")
-                ->paginate(6);
-        } else {
-            $penduduk = $query
-                ->where('golongan', 'lansia', 'and', 'penduduk.nama', 'like', "%{$search}%")
-                ->paginate(6);
-        }
-
+        $field = preg_match('/^\d/', $search) ? 'NKK' : 'nama';
+        $penduduk = $query
+            ->whereHas('penduduk', function($q) use ($search, $field) {
+                $q->where($field, 'like', "%{$search}%");
+            })
+            ->paginate(6);
+            
         if ($penduduk->isEmpty()) {
             return response()->json(['error' => 'No results found'], 404);
         }
 
-        return response()->json([$penduduk], 200);
+        return response()->json($penduduk, 200);
     }
+
     public function searchBayi(Request $request)
     {
         $search = $request->input('search', '');
