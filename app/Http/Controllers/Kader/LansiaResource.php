@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Kader;
 
+use App\Events\Lansia\PemeriksaanLansiaCreated;
+use App\Events\Lansia\PemeriksaanLansiaUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Kader\Lansia\StoreLansiaRequest;
 use App\Http\Requests\Kader\Lansia\UpdateLansiaRequest;
@@ -10,7 +12,11 @@ use App\Http\Requests\Kader\Pemeriksaan\UpdatePemeriksaanRequest;
 use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanLansia;
 use App\Models\Penduduk;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class LansiaResource extends Controller
 {
@@ -55,10 +61,13 @@ class LansiaResource extends Controller
      */
     public function store(StoreLansiaRequest $lansiaRequest, StorePemeriksaanRequest $pemeriksaanRequest): RedirectResponse
     {
+        $pemeriksaan = Pemeriksaan::create($pemeriksaanRequest->all());
         $lansiaRequest->merge([
-            'pemeriksaan_id' => Pemeriksaan::insertGetId($pemeriksaanRequest->all())
+            'pemeriksaan_id' => $pemeriksaan->pemeriksaan_id
         ]);
-        PemeriksaanLansia::insert($lansiaRequest->all());
+        $pemeriksaanLansia = PemeriksaanLansia::create($lansiaRequest->all());
+
+        event(new PemeriksaanLansiaCreated($pemeriksaan, $pemeriksaanLansia));
 
         return redirect()->intended(route('lansia.index'))
             ->with('success', 'Data Lansia berhasil ditambahkan');
@@ -70,6 +79,9 @@ class LansiaResource extends Controller
     public function show(string $id)
     {
         $lansiaData = Pemeriksaan::with('pemeriksaan_lansia', 'penduduk')->find($id);
+        if ($lansiaData === null) {
+            return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia tidak ditemukan atau mungkin sudah dihapus kader lain');
+        }
 
         $breadcrumb = (object)[
             'title' => 'Pemeriksaan Lansia'
@@ -85,7 +97,10 @@ class LansiaResource extends Controller
      */
     public function edit(string $id)
     {
-        $lansiaData = Pemeriksaan::with('pemeriksaan_lansia', 'penduduk')->find($id);
+        $lansiaData = Pemeriksaan::with('pemeriksaan_lansia', 'penduduk')->lockForUpdate()->find($id);
+        if ($lansiaData === null) {
+            return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia tidak ditemukan atau mungkin sudah dihapus kader lain');
+        }
 
         $breadcrumb = (object)[
             'title' => 'Pemeriksaan Lansia'
@@ -101,41 +116,127 @@ class LansiaResource extends Controller
      */
     public function update(UpdateLansiaRequest $lansiaRequest, UpdatePemeriksaanRequest $pemeriksaanRequest, string $id): RedirectResponse
     {
-        $isUpdated = false;
+        /**
+         * try database transaction, because we use sql type
+         * database(mysql), to prevent database race condition when
+         * update data, we use transaction to rollback if there are any
+         * error and catch that error mesasge to display in view
+         */
+        try {
+            /**
+             * return $isUpdated for checking update data not just
+             * submit when not actually changes
+             */
+            $isUpdated =  DB::transaction(function () use ($lansiaRequest, $pemeriksaanRequest, $id) {
+                $isUpdated = false;
+                /**
+                 * retrieve original data from update action below for
+                 * event
+                 */
+                $originalPemeriksaan = new Collection();
+                $originalLansia = new Collection();
 
-        if ($pemeriksaanRequest->all() !== []) {
-            Pemeriksaan::find($id)->update($pemeriksaanRequest->all());
-            $isUpdated = true;
+                /**
+                 * lock and update with queue pemeriksaan table
+                 * to prevent database race condition
+                 *
+                 * and check if use has change column in pemeriksaans table
+                 */
+                $pemeriksaan = Pemeriksaan::lockForUpdate()->find($id);
+                if ($pemeriksaanRequest->all() !== [] and $pemeriksaan !== null) {
+                    /**
+                     * fill $isUpdated to use in checking update
+                     * action and clone pemeriksaan model data to
+                     * retrieve original data before update also use
+                     * that data in event
+                     */
+                    $originalPemeriksaan = clone $pemeriksaan;
+                    $isUpdated = $pemeriksaan->update($pemeriksaanRequest->all());
+                }
+
+                /**
+                 * lock and update with queue pemeriksaanLansia table
+                 * to prevent database race condition
+                 *
+                 * and check if use has change column in pemeriksaan_lansias table
+                 */
+                $pemeriksaanLansia = PemeriksaanLansia::lockForUpdate()->find($id);
+                if ($lansiaRequest->all() !== [] and $pemeriksaanLansia !== null) {
+                    /**
+                     * fill $isUpdated to use in checking update
+                     * action and clone pemeriksaanLansia model data to
+                     * retrieve original data before update also use
+                     * that data in event
+                     */
+                    $originalLansia = clone $pemeriksaanLansia;
+                    $isUpdated = PemeriksaanLansia::find($id)->update($lansiaRequest->all());
+                }
+
+                /**
+                 * running event when update success to fill
+                 * automatically audit_bulanan_lansias from our data
+                 * updated
+                 */
+                event(new PemeriksaanLansiaUpdated(
+                    pemeriksaan_id: $id,
+                    originalPemeriksaan: $originalPemeriksaan,
+                    originalPemeriksaanLansia: $originalLansia,
+                    updatedPemeriksaan: $pemeriksaanRequest->all(),
+                    updatedPemeriksaanLansia: $lansiaRequest->all())
+                );
+
+                return $isUpdated;
+            });
+
+            return redirect()->intended(route('lansia.index'))
+                ->with('success', $isUpdated ? 'Data lansia berhasil diubah' : 'Namun Data lansia tidak diubah');
+
+        } catch (\Throwable $e) {
+            return redirect()->intended(route('lansia.index'))
+                ->with('error', 'Terjadi Masalah Ketika mengubah Data Lansia: ' . $e->getMessage());
         }
-
-        if ($lansiaRequest->all() !== []) {
-            PemeriksaanLansia::find($id)->update($lansiaRequest->all());
-            $isUpdated = true;
-        }
-
-        return redirect()->intended(route('lansia.index'))
-            ->with('success', $isUpdated ? 'Data lansia berhasil diubah' : 'Namun Data lansia tidak diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(string $id, Request $request): RedirectResponse
     {
-        $check = Pemeriksaan::find($id);
-        if(!$check) {
-            return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia tidak ditemukan');
-        }
-
+        /**
+         * try database transaction, because we use sql type
+         * database(mysql), to prevent database race condition when
+         * delete data, we use transaction to rollback if there are any
+         * error and catch that error mesasge to display in view
+         */
         try {
-            /**
-             * delete pemeriksaans column that also cascade to pemeriksaan_lansias column, because we use cascadeOnDelete() in migration
-             */
-            Pemeriksaan::destroy($id);
+            return DB::transaction(function () use ($id, $request) {
+                /**
+                 * lock and delete with queue pemeriksaan table
+                 * to prevent database race condition
+                 */
+                $pemeriksaan = Pemeriksaan::lockForUpdate()->find($id);
+                if ($pemeriksaan === null) {
+                    return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia tidak ditemukan');
+                }
 
-            return redirect()->intended('kader/lansia')->with('success', 'Data pemeriksaan lansia berhasil dihapus');
-        } catch (\Illuminate\Database\QueryException $e) {
+                /**
+                 * check if other user is update our data when we do delete action
+                 */
+                if ($pemeriksaan->updated_at > $request->input('updated_at')) {
+                    return redirect()->intended('kader/lansia')->with('error', 'Data Lansia masih di update oleh kader lain, coba refresh dan lakukan hapus lagi');
+                }
+
+                /**
+                 * delete pemeriksaans column that also cascade to pemeriksaan_lansias column, because we use cascadeOnDelete() in migration
+                 */
+                $pemeriksaan->delete();
+
+                return redirect()->intended('kader/lansia')->with('success', 'Data pemeriksaan lansia berhasil dihapus');
+            });
+        } catch (QueryException) {
             return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        } catch (\Throwable $e) {
+            return redirect()->intended('kader/lansia')->with('error', 'Terjadi Masalah Ketika menghapus Data Lansia: ' . $e->getMessage());
         }
     }
 }

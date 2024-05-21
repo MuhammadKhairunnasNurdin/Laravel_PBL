@@ -2,10 +2,15 @@
 
 namespace App\Providers;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use App\Events\Bayi\PemeriksaanBayiCreated;
+use App\Events\Bayi\PemeriksaanBayiUpdated;
+use App\Events\Lansia\PemeriksaanLansiaCreated;
+use App\Events\Lansia\PemeriksaanLansiaUpdated;
+use App\Listeners\Bayi\LogPemeriksaanBayiCreation;
+use App\Listeners\Bayi\LogPemeriksaanBayiUpdation;
+use App\Listeners\Lansia\LogPemeriksaanLansiaCreation;
+use App\Listeners\Lansia\LogPemeriksaanLansiaUpdation;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -15,8 +20,17 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
+        PemeriksaanBayiCreated::class => [
+            LogPemeriksaanBayiCreation::class,
+        ],
+        PemeriksaanBayiUpdated::class => [
+            LogPemeriksaanBayiUpdation::class
+        ],
+        PemeriksaanLansiaCreated::class => [
+            LogPemeriksaanLansiaCreation::class,
+        ],
+        PemeriksaanLansiaUpdated::class => [
+            LogPemeriksaanLansiaUpdation::class,
         ],
     ];
 
