@@ -24,5 +24,14 @@ class PendudukController extends Controller
         return view('admin.penduduk.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);
     }
 
-    
+    public function create()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Data Penduduk'
+        ];
+
+        $activeMenu = 'penduduk';
+
+        return view('admin.penduduk.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+    }
 }

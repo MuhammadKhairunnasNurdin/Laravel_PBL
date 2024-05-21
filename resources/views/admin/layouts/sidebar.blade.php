@@ -1,4 +1,4 @@
-<aside class=" flex bg-white w-[236.094px] h-screen lg:h-full justify-center shadow-inner">
+<aside class="static lg:fixed flex bg-white w-[236.094px] h-screen lg:h-full justify-center shadow-inner">
     <div class="content flex flex-col w-full gap-10 pt-10 mx-7">
         <a href="{{ url('admin/') }}" class="containerSidebar active:bg-blue-900 {{ ($activeMenu == 'dashboard')? 'active' : 'hover:text-white hover:bg-blue-600'}} ">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">

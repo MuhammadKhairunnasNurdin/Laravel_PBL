@@ -26,5 +26,6 @@ Route::group([
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->name('admin.logout');
         Route::get('/', [DashboardController::class, 'indexAdmin']);
         Route::get('/penduduk', [PendudukController::class, 'index']);
+        Route::get('/penduduk/create', [PendudukController::class, 'create']);
     }
 );
