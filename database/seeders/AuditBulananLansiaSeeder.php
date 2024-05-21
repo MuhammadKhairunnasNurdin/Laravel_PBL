@@ -13,7 +13,7 @@ class AuditBulananLansiaSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = [
+        /*$data = [
             [
                 'penduduk_id' => 10,
                 'berat_badan' => 2.9,
@@ -26,6 +26,6 @@ class AuditBulananLansiaSeeder extends Seeder
             ]
         ];
 
-        DB::table('audit_bulanan_lansias')->insert($data);
+        DB::table('audit_bulanan_lansias')->insert($data);*/
     }
 }

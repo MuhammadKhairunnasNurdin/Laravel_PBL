@@ -31,8 +31,8 @@ class UpdatePemeriksaanRequest extends FormRequest
         $this->request->replace($this->only([
             'kader_id',
             'status',
-            'tinggi_badan',
             'berat_badan',
+            'tinggi_badan',
         ]));
 
         $this->request->replace($this->only(array_keys(array_diff_assoc($this->request->all(), $oldData))));
@@ -56,12 +56,12 @@ class UpdatePemeriksaanRequest extends FormRequest
                 'string',
                 Rule::in(['sehat', 'sakit'])
             ],
-            'tinggi_badan' => [
+            'berat_badan' => [
                 'bail',
                 'numeric',
                 'regex:/^\d{1,3}(\.\d{1,3})?$/'
             ],
-            'berat_badan' => [
+            'tinggi_badan' => [
                 'bail',
                 'numeric',
                 'regex:/^\d{1,3}(\.\d{1,3})?$/'

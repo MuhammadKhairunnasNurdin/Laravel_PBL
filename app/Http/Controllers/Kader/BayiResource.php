@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Kader;
 
+use App\Events\Bayi\PemeriksaanBayiCreated;
+use App\Events\Bayi\PemeriksaanBayiUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Kader\Bayi\StoreBayiRequest;
 use App\Http\Requests\Kader\Bayi\UpdateBayiRequest;
@@ -11,9 +13,11 @@ use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanBayi;
 use App\Models\Penduduk;
 use App\Models\RekamMedisIbu;
-use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class BayiResource extends Controller
 {
@@ -68,10 +72,13 @@ class BayiResource extends Controller
      */
     public function store(StoreBayiRequest $bayiRequest, StorePemeriksaanRequest $pemeriksaanRequest): RedirectResponse
     {
+        $pemeriksaan = Pemeriksaan::create($pemeriksaanRequest->all());
         $bayiRequest->merge([
-            'pemeriksaan_id' => Pemeriksaan::insertGetId($pemeriksaanRequest->all())
+            'pemeriksaan_id' => $pemeriksaan->pemeriksaan_id
         ]);
-        PemeriksaanBayi::insert($bayiRequest->all());
+        $pemeriksaanBayi = PemeriksaanBayi::create($bayiRequest->all());
+
+        event(new PemeriksaanBayiCreated($pemeriksaan, $pemeriksaanBayi));
 
         return redirect()->intended(route('bayi.index'))
             ->with('success', 'Data Bayi berhasil ditambahkan');
@@ -89,6 +96,10 @@ class BayiResource extends Controller
         $activeMenu = 'bayi';
 
         $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->find($id);
+        if ($bayiData === null) {
+            return redirect()->intended('kader/bayi')->with('error', 'Data pemeriksaan bayi tidak ditemukan atau mungkin sudah dihapus kader lain');
+        }
+
         $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
             ->where('hubungan_keluarga', '!=', 'Anak')
             ->get(['nama', 'hubungan_keluarga', 'penduduk_id']);
@@ -109,7 +120,11 @@ class BayiResource extends Controller
 
         $activeMenu = 'bayi';
 
-        $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->find($id);
+        $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->lockForUpdate()->find($id);
+        if ($bayiData === null) {
+            return redirect()->intended('kader/bayi')->with('error', 'Data pemeriksaan bayi tidak ditemukan atau mungkin sudah dihapus');
+        }
+
         $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
             ->where('hubungan_keluarga', '!=', 'Anak')
             ->get(['nama', 'hubungan_keluarga', 'penduduk_id']);
@@ -123,41 +138,124 @@ class BayiResource extends Controller
      */
     public function update(UpdateBayiRequest $bayiRequest, UpdatePemeriksaanRequest $pemeriksaanRequest, string $id): RedirectResponse
     {
-        $isUpdated = false;
+        /**
+         * try database transaction, because we use sql type
+         * database(mysql), to prevent database race condition when
+         * update data, we use transaction to rollback if there are any
+         * error and catch that error mesasge to display in view
+         */
+        try {
+            /**
+             * return $isUpdated for checking update data not just
+             * submit when not actually changes
+             */
+            $isUpdated = DB::transaction(function () use ($bayiRequest, $pemeriksaanRequest, $id) {
+                $isUpdated = false;
+                /**
+                 * retrieve original data from update action below for
+                 * event
+                 */
+                $originalPemeriksaan = new Collection();
+                $originalBayi = new Collection();
 
-        if ($pemeriksaanRequest->all() !== []) {
-            Pemeriksaan::find($id)->update($pemeriksaanRequest->all());
-            $isUpdated = true;
+                /**
+                 * lock and update with queue pemeriksaan table
+                 * to prevent database race condition
+                 *
+                 * and check if use has change column in pemeriksaans table
+                 */
+                $pemeriksaan = Pemeriksaan::lockForUpdate()->find($id);
+                if ($pemeriksaanRequest->all() !== [] and $pemeriksaan !== null) {
+                    /**
+                     * fill $isUpdated to use in checking update
+                     * action and clone pemeriksaan model data to
+                     * retrieve original data before update also use
+                     * that data in event
+                     */
+                    $originalPemeriksaan = clone $pemeriksaan;
+                    $isUpdated = $pemeriksaan->update($pemeriksaanRequest->all());
+                }
+
+                /**
+                 * lock and update with queue pemeriksaan table
+                 * to prevent database race condition
+                 *
+                 * and check if use has change column in pemeriksaan_bayis table
+                 */
+                $pemeriksaanBayi = PemeriksaanBayi::lockForUpdate()->find($id);
+                if ($bayiRequest->all() !== [] and $pemeriksaanBayi !== null) {
+                    /**
+                     * fill $isUpdated to use in checking update
+                     * action and clone pemeriksaanBayi model data to
+                     * retrieve original data before update also use
+                     * that data in event
+                     */
+                    $originalBayi = clone $pemeriksaanBayi;
+                    $isUpdated = $pemeriksaanBayi->update($bayiRequest->all());
+                }
+
+                /**
+                 * running event when update success to fill
+                 * automatically audit_bulanan_bayis from our data
+                 * updated
+                 */
+                event(new PemeriksaanBayiUpdated(
+                    pemeriksaan_id: $id,
+                    originalPemeriksaan: $originalPemeriksaan,
+                    originalPemeriksaanBayi: $originalBayi,
+                    updatedPemeriksaan: $pemeriksaanRequest->all(),
+                    updatedPemeriksaanBayi: $bayiRequest->all()));
+
+                return $isUpdated;
+            });
+
+            return redirect()->intended(route('bayi.index'))
+                ->with('success', $isUpdated ? 'Data Bayi berhasil diubah' : 'Namun Data Bayi tidak diubah');
+        } catch (\Throwable $e) {
+            return redirect()->intended(route('bayi.index'))
+                ->with('error', 'Terjadi Masalah Ketika mengubah Data Bayi: ' . $e->getMessage());
         }
-
-        if ($bayiRequest->all() !== []) {
-            PemeriksaanBayi::find($id)->update($bayiRequest->all());
-            $isUpdated = true;
-        }
-
-        return redirect()->intended(route('bayi.index'))
-            ->with('success', $isUpdated ? 'Data Bayi berhasil diubah' : 'Namun Data Bayi tidak diubah');
     }
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(string $id, Request $request): RedirectResponse
     {
-        $check = Pemeriksaan::find($id);
-        if (!$check) {
-            return redirect()->intended('kader/bayi')->with('error', 'Data pemeriksaan bayi tidak ditemukan');
-        }
-
+        /**
+         * try database transaction, because we use sql type
+         * database(mysql), to prevent database race condition when
+         * delete data, we use transaction to rollback if there are any
+         * error and catch that error mesasge to display in view
+         */
         try {
-            /**
-             * delete pemeriksaans column that also cascade to pemeriksaan_bayis column, because we use cascadeOnDelete() in migration
-             */
-            Pemeriksaan::destroy($id);
+            return DB::transaction(function () use ($id, $request) {
+                /**
+                 * lock and delete with queue pemeriksaan table
+                 * to prevent database race condition
+                 */
+                $pemeriksaan = Pemeriksaan::lockForUpdate()->find($id);
+                if ($pemeriksaan === null) {
+                    return redirect()->intended('kader/bayi')->with('error', 'Data pemeriksaan bayi tidak ditemukan');
+                }
 
-            return redirect()->intended('kader/bayi')->with('success', 'Data pemeriksaan bayi berhasil dihapus');
+                /**
+                 * check if other user is update our data when we do delete action
+                 */
+                if ($pemeriksaan->updated_at > $request->input('updated_at')) {
+                    return redirect()->intended('kader/bayi')->with('error', 'Data Bayi masih di update oleh kader lain, coba refresh dan lakukan hapus lagi');
+                }
+
+                /**
+                 * delete pemeriksaans column that also cascade to pemeriksaan_bayis column, because we use cascadeOnDelete() in migration
+                 */
+                $pemeriksaan->delete();
+
+                return redirect()->intended('kader/bayi')->with('success', 'Data pemeriksaan bayi berhasil dihapus');
+            });
         } catch (QueryException) {
             return redirect()->intended('kader/bayi')->with('error', 'Data pemeriksaan bayi gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        } catch (\Throwable $e) {
+            return redirect()->intended('kader/bayi')->with('error', 'Terjadi Masalah Ketika menghapus Data Bayi: ' . $e->getMessage());
         }
     }
 

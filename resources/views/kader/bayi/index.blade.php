@@ -93,6 +93,7 @@
                                 <a href="bayi/{{$pd->pemeriksaan_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Ubah</a>
                                 @csrf
                                 @method('DELETE')
+                                <input type="hidden" name="updated_at" value="{{ $pd->updated_at }}">
                                 <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Hapus</button>
                             </form>
                         </td>
@@ -253,17 +254,17 @@
     //     }
     function calculateAge(ttl){
         let birth = new Date(ttl);
-        
+
         // Get the current date
         let today = new Date();
-        
+
         // Calculate the age based on the year difference
         let year = today.getFullYear() - birth.getFullYear();
         let month = today.getMonth() - birth.getMonth();
         let day = today.getDay() - birth.getDay();
 
         let ageInMonths = year * 12 + month;
-        
+
         // Adjust the age if the birth date hasn't occurred yet this year
         if (day < 0) {
                 ageInMonths -= 1;

@@ -61,6 +61,7 @@
                                 <a href="lansia/{{$pd->pemeriksaan_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
                                 @csrf
                                 @method('DELETE')
+                                <input type="hidden" name="updated_at" value="{{ $pd->updated_at }}">
                                 <button type="submit" onclick="Javascript:return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[6px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</button>
                             </form>
                         </td>
@@ -83,7 +84,7 @@
         border-bottom: 1px solid #ddd;
     }
 </style>
-@endpush    
+@endpush
 
 @push('js')
 <script>
@@ -191,19 +192,19 @@
 
     function calculateAge(ttl){
         let birth = new Date(ttl);
-        
+
         // Get the current date
         let today = new Date();
-        
+
         // Calculate the age based on the year difference
         let age = today.getFullYear() - birth.getFullYear();
-        
+
         // Adjust the age if the birth date hasn't occurred yet this year
         let monthDifference = today.getMonth() - birth.getMonth();
         if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birth.getDate())) {
             age--;
         }
-        
+
         return age;
     }
 
