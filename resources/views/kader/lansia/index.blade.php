@@ -26,18 +26,7 @@
                     </button>
                 </div>
             @endif
-            {{-- <div class="flex w-full h-full items-center align-middle">
-                <p class="text-base text-neutral-950 text-center pr-[10px]">Cari:</p>
-                <div class="relative flex">
-                    <input type="text" class="w-100 border border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none placeholder:text-neutral-950" id="search" name="search" placeholder="Cari nama di sini">
-                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                        </svg>
-                    </div>
-                </div>
-            </div> --}}
-        </div>
+        {{-- </div> --}}
 
         @php
             $relationships = ['penduduk', 'pemeriksaan_lansia'];
@@ -52,20 +41,6 @@
         <input type="hidden" name="where" id="whereValue" value="{{encrypt('lansia')}}">
 
         <div class="mx-10 my-[30px]">
-            {{-- <table class=" border-collapse w-full rounded-t-[10px] overflow-hidden" id="lansia_table">
-                <thead class="bg-gray-200 border-b text-left py-5">
-                    <tr class=" text-stone-400 rounded-lg">
-                        <th class="font-normal text-sm py-2">Nama</th>
-                        <th class="font-normal text-sm py-2">Tgl Pemeriksaan</th>
-                        <th class="font-normal text-sm py-2">Usia</th>
-                        <th class="font-normal text-sm py-2">Berat</th>
-                        <th class="font-normal text-sm py-2">Tinggi</th>
-                        <th class="font-normal text-sm py-2">L.Perut</th>
-                        <th class="font-normal text-sm py-2">Status</th>
-                        <th class="font-normal text-sm py-2">Aksi</th>
-                    </tr>
-                </thead>
-            </table> --}}
             <x-table.data-table :dt="$penduduks" :headers="['Nama', 'Tgl Pemeriksaan', 'Usia', 'Berat', 'Tinggi', 'L.Perut', 'Status', 'Aksi']">
                 @php
                     $no = ($penduduks->currentPage() - 1) * $penduduks->perPage() + 1;
@@ -113,7 +88,7 @@
 @push('js')
 <script>
 
-    //         function filterByKategori(kategori) {
+    // function filterByKategori(kategori) {
     //     let url = `/bayi?`;
 
     //     let statusElement = document.querySelector('input[name="statusKes"]:checked');
@@ -214,179 +189,95 @@
     //         window.location.href = '/kader/bayi';
     //     }
 
-        function calculateAge(ttl){
-            let birth = new Date(ttl);
-            
-            // Get the current date
-            let today = new Date();
-            
-            // Calculate the age based on the year difference
-            let age = today.getFullYear() - birth.getFullYear();
-            
-            // Adjust the age if the birth date hasn't occurred yet this year
-            let monthDifference = today.getMonth() - birth.getMonth();
-            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birth.getDate())) {
-                age--;
-            }
-            
-            return age;
+    function calculateAge(ttl){
+        let birth = new Date(ttl);
+        
+        // Get the current date
+        let today = new Date();
+        
+        // Calculate the age based on the year difference
+        let age = today.getFullYear() - birth.getFullYear();
+        
+        // Adjust the age if the birth date hasn't occurred yet this year
+        let monthDifference = today.getMonth() - birth.getMonth();
+        if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birth.getDate())) {
+            age--;
         }
+        
+        return age;
+    }
 
-        function clearTable() {
-            const table = document.getElementById('dataTable');
-            const rows = table.getElementsByTagName('tr');
+    function clearTable() {
+        const table = document.getElementById('dataTable');
+        const rows = table.getElementsByTagName('tr');
 
-            for (let i = rows.length - 1; i > 0; i--) {
-                table.deleteRow(i);
-            }
+        for (let i = rows.length - 1; i > 0; i--) {
+            table.deleteRow(i);
         }
+    }
 
-        function addRowToTable(item) {
+    function addRowToTable(item) {
+        const table = document.getElementById('dataTable');
+        const row = table.insertRow(-1);
+        console.log(item)
+
+        row.innerHTML = `
+        <x-table.table-row>
+                    <td class="px-6 border-b lg:py-2 bg-white">${item.penduduk.nama}</td>
+                    <td class="px-6 lg:py-2 border-b bg-white">${item.tgl_pemeriksaan}</td>
+                    <td class="px-6 lg:py-2 border-b bg-white">${calculateAge(item.penduduk.tgl_lahir)} Tahun</td>
+                    <td class="px-6 lg:py-2 border-b bg-white">${item.berat_badan} Kg</td>
+                    <td class="px-6 lg:py-2 border-b bg-white">${item.tinggi_badan} Cm</td>
+                    <td class="px-6 lg:py-2 border-b bg-white">${item.pemeriksaan_lansia.lingkar_perut} Cm</td>
+                    <td class="px-6 lg:py-2 border-b bg-white">${item.status}</td>
+                    <td class="px-6 lg:py-2 border-b bg-white">
+                        <form action="lansia/${item.pemeriksaan_id}" method="post" class="flex items-center gap-2">
+                            <a href="lansia/${item.pemeriksaan_id}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
+                            <a href="lansia/${item.pemeriksaan_id}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[6px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</button>
+                        </form>
+                    </td>
+                </x-table.table-row>
+`;
+
+    }
+
+    async function searchFunction() {
+        let input;
+        input = document.getElementById('searchInput');
+        search = input.value;
+
+        try {
+            // Make a request to the server
+            const response = await fetch(`/api/lansia/search?search=${search}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                },
+            });
+
+            const responseData = await response.json();
+            clearTable();
+
+            responseData.data.forEach(item => {
+                addRowToTable(item);
+            });
+
+
+        } catch (error) {
+            console.log(error);
             const table = document.getElementById('dataTable');
+
+            clearTable();
+
             const row = table.insertRow(-1);
-            console.log(item)
-
             row.innerHTML = `
-            <x-table.table-row>
-                        <td class="px-6 border-b lg:py-2 bg-white">${item.penduduk.nama}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">${item.tgl_pemeriksaan}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">${calculateAge(item.penduduk.tgl_lahir)} Tahun</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">${item.berat_badan} Kg</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">${item.tinggi_badan} Cm</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">${item.pemeriksaan_lansia.lingkar_perut} Cm</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">${item.status}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">
-                            <form action="lansia/${item.pemeriksaan_id}" method="post" class="flex items-center gap-2">
-                                <a href="lansia/${item.pemeriksaan_id}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
-                                <a href="lansia/${item.pemeriksaan_id}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[6px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</button>
-                            </form>
-                        </td>
-                    </x-table.table-row>
-    `;
-
+                <td colspan="7" class="text-center p-6 bg-white border-b font-medium text-Neutral/60">Data tidak ditemukan</td>
+                `;
         }
-
-        async function searchFunction() {
-            let input;
-            input = document.getElementById('searchInput');
-            search = input.value;
-
-            try {
-                // Make a request to the server
-                const response = await fetch(`/api/lansia/search?search=${search}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    },
-                });
-
-                const responseData = await response.json();
-                clearTable();
-
-                responseData.data.forEach(item => {
-                    addRowToTable(item);
-                });
-
-
-            } catch (error) {
-                console.log(error);
-                const table = document.getElementById('dataTable');
-
-                clearTable();
-
-                const row = table.insertRow(-1);
-                row.innerHTML = `
-                    <td colspan="7" class="text-center p-6 bg-white border-b font-medium text-Neutral/60">Data tidak ditemukan</td>
-                    `;
-            }
-        }
-
-        // $(document).ready(function () {
-        //     let relationships = [];
-        //     $('input[name="relationships[]"]').each(function() {
-        //         relationships.push($(this).val());
-        //     });
-        //     let dataLansia = $('#lansia_table').DataTable({
-        //         serverSide: true,
-        //         ajax: {
-        //             "url": "{{ route('lansia.list') }}",
-        //             "dataType": "json",
-        //             "type": "POST",
-        //             "data": function (d) {
-        //                 d._token = "{{ csrf_token() }}";
-        //                 d.filterValue = $('#filterValue').val();
-        //                 d.model = $('#model').val();
-        //                 d.relationships = relationships;
-        //                 d.url = $('#url').val();
-        //                 d.filterName = $('#filterName').val();
-        //                 d.whereName = $('#whereName').val();
-        //                 d.whereValue = $('#whereValue').val();
-        //             }
-        //         },
-        //         columns: [
-        //             {
-        //                 data: "penduduk.nama",
-        //                 className: "font-normal text-smr",
-        //                 orderable: false,
-        //                 searchable: false
-        //             }, {
-        //                 data: "tgl_pemeriksaan",
-        //                 className: "font-normal text-sm",
-        //                 orderable: true,
-        //                 searchable: true
-        //             }, {
-        //                 data: null,
-        //                 className: "font-normal text-sm",
-        //                 orderable: true,
-        //                 searchable: true,
-        //                 render: function (data) {
-        //                     // Menghitung umur dalam bulan
-        //                     let tglLahir = new Date(data.penduduk.tgl_lahir);
-        //                     let sekarang = new Date();
-        //                     let tahun = sekarang.getFullYear() - tglLahir.getFullYear();
-        //                     if (sekarang.getMonth() < tglLahir.getMonth() ||
-        //                         (sekarang.getMonth() === tglLahir.getMonth() && sekarang.getDate() < tglLahir.getDate())) {
-        //                         tahun--;
-        //                     }
-        //                     return tahun + " Tahun";
-        //                 }
-        //             }, {
-        //                 data: "berat_badan",
-        //                 className: "font-normal text-sm",
-        //                 orderable: false,
-        //                 searchable: false,
-        //             }, {
-        //                 data: "tinggi_badan",
-        //                 className: "font-normal text-sm",
-        //                 orderable: false,
-        //                 searchable: false,
-        //             }, {
-        //                 // error: can't get data pemeriksaanLansia
-        //                 data: "pemeriksaan_lansia.lingkar_perut",
-        //                 className: "font-normal text-sm",
-        //                 orderable: false,
-        //                 searchable: false,
-        //             }, {
-        //                 data: "status",
-        //                 className: "font-normal text-sm",
-        //                 orderable: false,
-        //                 searchable: false,
-        //             }, {
-        //                 data: "aksi",
-        //                 className: "",
-        //                 orderable: false,
-        //                 searchable: false
-        //             }
-        //         ]
-        //     });
-        //     console.log(dataLansia);
-        //     $('#filterValue').on('change', function() {
-        //         dataLansia.ajax.reload();
-        //     });
-        // });
-    </script>
+    }
+</script>
 @endpush
