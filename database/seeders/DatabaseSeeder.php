@@ -24,8 +24,8 @@ class DatabaseSeeder extends Seeder
             PemeriksaanLansiaSeeder::class,
             BantuanPanganSeeder::class,
             RekamMedisIbuSeeder::class,
-            /*AuditBulananBayiSeeder::class,
-            AuditBulananLansiaSeeder::class,*/
+            AuditBulananBayiSeeder::class,
+            AuditBulananLansiaSeeder::class,
         ]);
     }
 }
