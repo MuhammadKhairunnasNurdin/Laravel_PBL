@@ -30,7 +30,7 @@ DashboardController extends Controller
 
         return view('ketua.index', ['chart' => $chart->build(), 'breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'data' => $this->indexData()]);
     }
-    
+
     public function indexAdmin(KunjunganChart $chart){
         $breadcrumb = (object) [
             'title' => 'Dashboard',
@@ -44,10 +44,10 @@ DashboardController extends Controller
     private function indexData(): array
     {
         return $data = [
+            'golongan_all' => Pemeriksaan::selectRaw('count(pemeriksaan_id) as total, golongan')
+                ->groupBy('golongan')->get(),
             'golongan_subMonth' => Pemeriksaan::selectRaw('count(pemeriksaan_id) as total, golongan')
                 ->whereDate('tgl_pemeriksaan', '>=', now()->subMonth())
-                ->groupBy('golongan')->get(),
-            'golongan_all' => Pemeriksaan::selectRaw('count(pemeriksaan_id) as total, golongan')
                 ->groupBy('golongan')->get(),
             'status' => Pemeriksaan::selectRaw('count(pemeriksaan_id) as total, golongan')
                 ->whereDate('tgl_pemeriksaan', '>=', now()->subMonth())
