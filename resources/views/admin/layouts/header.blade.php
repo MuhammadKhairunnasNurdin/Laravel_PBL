@@ -3,7 +3,7 @@
         <div class="flex lg:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" id="show">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>          
+              </svg>
         </div>
         <img src="{{ asset('img/logo_posyandu.png') }}" alt="" class="aspect-auto w-14 lg:w-16 lg:h-auto">
         <div class="flex flex-col hidden lg:flex">
@@ -24,9 +24,9 @@
             </div>
             <div class="dropdown-content hidden absolute bg-white border border-gray-200 mt-12 rounded-md shadow-md">
                 <!-- Isi dropdown content di sini -->
-                <a href="{{ route('kader.profile') }}"
+                <a href="{{ route('admin.profile') }}"
                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Atur Profil</a>
-                <form action="{{ route('kader.logout') }}" method="post">
+                <form action="{{ route('admin.logout') }}" method="post">
                     @csrf
                     <button type="submit" class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100">Logout</button>
                 </form>
