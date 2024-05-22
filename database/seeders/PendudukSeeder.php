@@ -186,7 +186,7 @@ class PendudukSeeder extends Seeder
                 'NIK' => '351001100220220155',
                 'NKK' => '351001231654324856',
                 'nama' => 'Halur',
-                'tgl_lahir' => '2022-02-10',
+                'tgl_lahir' => '2020-07-10',
                 'pendapatan' => '0 - 500000',
                 'no_telp' => null,
                 'jenis_kelamin' => 'L',
@@ -194,9 +194,92 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Anak',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06 ',
                 'RT' => 'RT 03',
-            ],
+            ], [
+                "NIK"=> "351001100220220156",
+                "NKK"=> "351001231654324857",
+                "nama"=> "Budi",
+                "tgl_lahir"=> "1985-08-15",
+                "pendapatan"=> "2000000 - 3000000",
+                "no_telp"=> "081234567890",
+                "jenis_kelamin"=> "L",
+                "pendidikan"=> "SMA",
+                "hubungan_keluarga"=> "Kepala Keluarga",
+                "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06",
+                "RT"=> "RT 02"
+            ], [
+                "NIK"=> "351001100220220157",
+                "NKK"=> "351001231654324857",
+                "nama"=> "Siti",
+                "tgl_lahir"=> "1987-05-20",
+                "pendapatan"=> "0 - 500000",
+                "no_telp"=> "081234567891",
+                "jenis_kelamin"=> "P",
+                "pendidikan"=> "SMA",
+                "hubungan_keluarga"=> "Istri",
+                "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06",
+                "RT"=> "RT 02"
+            ], [
+                "NIK"=> "351001100220220158",
+                "NKK"=> "351001231654324857",
+                "nama"=> "Andi",
+                "tgl_lahir"=> "2020-07-10",
+                "pendapatan"=> "0 - 500000",
+                "no_telp"=> null,
+                "jenis_kelamin"=> "L",
+                "pendidikan"=> null,
+                "hubungan_keluarga"=> "Anak",
+                "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06",
+                "RT"=> "RT 02"
+            ], [
+                "NIK"=> "351001100220220159",
+                "NKK"=> "351001231654324857",
+                "nama"=> "Ani",
+                "tgl_lahir"=> "2022-03-15",
+                "pendapatan"=> "0 - 500000",
+                "no_telp"=> null,
+                "jenis_kelamin"=> "P",
+                "pendidikan"=> null,
+                "hubungan_keluarga"=> "Anak",
+                "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06",
+                "RT"=> "RT 02"
+            ], [
+                "NIK"=> "351001100220220160",
+                "NKK"=> "351001231654324858",
+                "nama"=> "Ahmad",
+                "tgl_lahir"=> "1950-01-01",
+                "pendapatan"=> "0 - 500000",
+                "no_telp"=> "081234567892",
+                "jenis_kelamin"=> "L",
+                "pendidikan"=> "SD",
+                "hubungan_keluarga"=> "Kepala Keluarga",
+                "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 03 RW 06",
+                "RT"=> "RT 03"
+            ], [
+                "NIK"=> "351001100220220161",
+                "NKK"=> "351001231654324859",
+                "nama"=> "Fatimah",
+                "tgl_lahir"=> "1948-03-22",
+                "pendapatan"=> "0 - 500000",
+                "no_telp"=> "081234567893",
+                "jenis_kelamin"=> "P",
+                "pendidikan"=> "SD",
+                "hubungan_keluarga"=> "Istri",
+                "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 04 RW 06",
+                "RT"=> "RT 04"
+            ], [
+                "NIK"=> "351001100220220162",
+                "NKK"=> "351001231654324860",
+                "nama"=> "Sukardi",
+                "tgl_lahir"=> "1955-07-15",
+                "pendapatan"=> "0 - 500000",
+                "no_telp"=> "081234567894",
+                "jenis_kelamin"=> "L",
+                "pendidikan"=> "SD",
+                "hubungan_keluarga"=> "Kepala Keluarga",
+                "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 05 RW 06",
+                "RT"=> "RT 05"
+            ]         
         ];
-
         DB::table('penduduks')->insert($data);
     }
 }

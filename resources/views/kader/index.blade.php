@@ -3,12 +3,12 @@
 @section('content')
 <div class="grid md:grid-cols-3 mx-5 mt-5 sm:mb-5 md:mb-5 gap-5">
     @php
-        $golongan = ['Lansia', 'Bayi'];
+        $golongan = ['Bayi', 'Lansia'];
     @endphp
     @for($i = 0; $i < 2; $i++)
         <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
             <div class="flex w-full justify-between pt-5">
-                <p class="font-medium text-base">Jumlah {{ $data['golongan_all'][$i]->golongan ?? $golongan[$i] }}</p>
+                <p class="font-medium text-sm lg:text-base">Jumlah {{ $data['golongan_all'][$i]->golongan ?? $golongan[$i] }}</p>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
                 </svg>
@@ -18,7 +18,7 @@
         </div>
         <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
             <div class="flex w-full justify-between pt-5">
-                <p class="font-medium text-base">Jumlah {{ $data['golongan_subMonth'][$i]->golongan ?? $golongan[$i] }}</p>
+                <p class="font-medium text-sm lg:text-base">Jumlah {{ $data['golongan_subMonth'][$i]->golongan ?? $golongan[$i] }}</p>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
                 </svg>
@@ -28,7 +28,7 @@
         </div>
         <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
             <div class="flex w-full justify-between pt-5">
-                <p class="font-medium text-base">Jumlah {{ $data['status'][$i]->golongan ?? $golongan[$i]}} Sakit</p>
+                <p class="font-medium text-sm lg:text-base">Jumlah {{ $data['status'][$i]->golongan ?? $golongan[$i]}} Sakit</p>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
                 </svg>
@@ -45,7 +45,7 @@
     {{-- Card Kunjungan Anggota --}}
     <div class="flex flex-col col-span-3 md:col-span-1 w-full bg-white rounded-2xl pr-6 pl-7 md:mb-10 gap-9">
         <div class="flex w-full justify-between pt-5">
-            <p class="font-medium text-base">Kunjungan Anggota</p>
+            <p class="font-medium text-sm lg:text-base">Kunjungan Anggota</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
             </svg>

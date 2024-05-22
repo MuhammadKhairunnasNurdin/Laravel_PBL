@@ -56,6 +56,9 @@
                     <div class="flex flex-col w-full h-fill gap-[20px] ">
                         <p class="text-base text-neutral-950">Lingkar Perut<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="lingkar_perut" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar perut">
+                        @error('lingkar_perut')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] ">
                         <p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
@@ -64,26 +67,44 @@
                             {{--<span class="w-fit">/</span>
                             <input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Diastolik">--}}
                         </div>
+                        @error('tensi_darah')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]">
                         <p class="text-base text-neutral-950">Tinggi Badan<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan tinggi badan">
+                        @error('tinggi_badan')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] ">
                         <p class="text-base text-neutral-950">Berat Badan<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="berat_badan" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan berat badan" required>
+                        @error('berat_badan')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Gula Darah<span class="text-red-400">*</span></p>
                         <input type="number" name="gula_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan gula darah">
+                        @error('gula_darah')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Asam Urat<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="asam_urat" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan asam urat">
+                        @error('asam_urat')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Kolesterol<span class="text-red-400">*</span></p>
                         <input type="number" name="kolesterol" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan kolesterol">
+                        @error('kolesterol')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950 pr-[10px]">Status Kesehatan?<span class="text-red-400">*</span></p>
@@ -91,6 +112,9 @@
                             <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="status" value="sehat" id="option1" required><span>Sehat</span>
                             <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" required><span>Sakit</span>
                         </div>
+                        @error('status')
+                            <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                 </div>
             </div>

@@ -96,6 +96,9 @@
                     </tr>
                 </tbody>
             </table>
+            <div style="display: flex; justify-content: flex-end;">
+                <a href="{{ url('ketua/bantuan/konfirmasi') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-10 rounded" style="margin-top: 10px;">Next</a>
+            </div>
         </div>
     </div>
 @endsection
