@@ -25,6 +25,16 @@ class BantuanController extends Controller
 
         $activeMenu = 'bantuan';
 
-        return view('ketua.bantuan.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('ketua.bantuan.penerima', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+    }
+    public function konfirmasi()
+    {
+        $breadcrumb= (object) [
+            'title' => 'Bantuan Pangan'
+        ];
+
+        $activeMenu = 'bantuan';
+
+        return view('ketua.bantuan.konfirmasi', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
     }
 }
