@@ -21,8 +21,8 @@ class SearchController extends Controller
             ->whereHas('penduduk', function($q) use ($search, $field) {
                 $q->where($field, 'like', "%{$search}%");
             })
-            ->paginate(6);
-            
+            ->paginate(10);
+
         if ($penduduk->isEmpty()) {
             return response()->json(['error' => 'No results found'], 404);
         }
@@ -40,7 +40,7 @@ class SearchController extends Controller
             ->whereHas('penduduk', function($q) use ($search, $field) {
                 $q ->where($field, 'like', "%{$search}%");
             })
-            ->paginate(6);
+            ->paginate(10);
 
         if ($penduduk->isEmpty()) {
             return response()->json(['error' => 'No results found'], 404);
@@ -48,20 +48,20 @@ class SearchController extends Controller
 
         return response()->json([$penduduk], 200);
     }
-    
+
     public function searchPenduduk(Request $request)
     {
         $search = $request->input('search', '');
 
         $field = preg_match('/^\d/', $search) ? 'NKK' : 'nama';
-        
+
         $penduduk = Penduduk::where($field, 'like', "%{$search}%")
-            ->paginate(6);
-        
+            ->paginate(10);
+
         if ($penduduk->isEmpty()) {
             return response()->json(['error' => 'No results found'], 404);
         }
 
         return response()->json([$penduduk], 200);
     }
-}   
+}

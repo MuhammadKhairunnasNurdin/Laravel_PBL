@@ -25,7 +25,7 @@ class ProfileController extends Controller
         /**
          * Retrieve User with level Kader for updating profile feature
          */
-        $user = $this->indexData();
+        $user = $this->indexData('kaders');
 
         return view('kader.profil.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'user' => $user]);
     }
@@ -41,21 +41,41 @@ class ProfileController extends Controller
         /**
          * Retrieve User with level ketua for updating profile feature
          */
-        $user = $this->indexData();
+        $user = $this->indexData('kaders');
 
         return view('ketua.profil.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'user' => $user]);
+    }
+
+    public function indexAdmin()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Manajemen Profil',
+        ];
+
+        $activeMenu = 'profile';
+
+        /**
+         * Retrieve User with level ketua for updating profile feature
+         */
+        $user = $this->indexData('admins');
+
+        return view('admin.profil.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'user' => $user]);
     }
 
     /**
      * Retrieve users joined kaders table with specific id
      */
-    private function indexData(): array
+    private function indexData(string $relationship): array
     {
-        $user = User::with('kaders')->find(Auth::id())->only('username', 'foto_profil_path', 'kaders');
+        $user = User::with($relationship)->find(Auth::id())->only('username', 'foto_profil_path', $relationship);
 
-        $user['nama'] = Penduduk::find($user['kaders'][0]->penduduk_id)->only('nama')['nama'];
+        if ($relationship === 'kaders') {
+            $user['nama'] = Penduduk::find($user[$relationship][0]->penduduk_id)->only('nama')['nama'];
+        } else {
+            $user['nama'] = $user[$relationship][0]->nama;
+        }
 
-        unset($user['kaders']);
+        unset($user[$relationship]);
 
         return $user;
     }

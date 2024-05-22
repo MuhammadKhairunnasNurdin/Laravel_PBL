@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Admin;
+namespace App\Http\Requests\Admin\Penduduk;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StorePendudukRequest extends FormRequest
 {
@@ -19,7 +20,7 @@ class StorePendudukRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $this->request->request($this
+        $this->request->replace($this
             ->only([
                 'NIK',
                 'NKK',
@@ -47,26 +48,37 @@ class StorePendudukRequest extends FormRequest
             'NIK' => [
                 'bail',
                 'required',
+                'string',
+                'regex:/^\w{1,20}$/',
+                'unique:penduduks,NIK'
             ],
             'NKK'=> [
                 'bail',
                 'required',
+                'string',
+                'regex:/^\w{1,20}$/',
             ],
             'nama' => [
                 'bail',
                 'required',
+                'string',
+                'regex:/^[a-zA-Z\s.]{1,100}$/',
             ],
             'tgl_lahir' => [
                 'bail',
                 'required',
+                'date_format:Y-m-d'
             ],
             'pendapatan' => [
                 'bail',
                 'required',
+                Rule::in(['Belum Bekerja', 'Rp 0 - Rp 500.000', 'Rp 500.000 - Rp 1.000.000', 'Rp 1.000.000 - Rp 2.000.000', 'Rp 2.000.000 - Rp 3.000.000', 'Rp 3.000.000 - keatas'])
             ],
             'no_telp' =>[
                 'bail',
-                'required',
+                'nullable',
+                'string',
+                'regex:/^\w{0,14}$/',
             ],
             'jenis_kelamin' => [
                 'bail',
@@ -76,7 +88,7 @@ class StorePendudukRequest extends FormRequest
             'pendidikan' => [
                 'bail',
                 'required',
-                Rule::in(['Tidak Terpelajar', 'SD', 'SMP', 'SMA', 'S1'])
+                Rule::in(['Belum Sekolah', 'Tidak Terpelajar', 'SD', 'SMP', 'SMA', 'D4/S1', 'S2 Keatas'])
             ],
             'hubungan_keluarga' => [
                 'bail',
@@ -86,13 +98,15 @@ class StorePendudukRequest extends FormRequest
             'alamat' => [
                 'bail',
                 'required',
+                'string',
+                'regex:/^([\w\s\n.]{1,200})$/',
             ],
             'RT' => [
                 'bail',
                 'required',
                 Rule::in(['RT 01', 'RT 02', 'RT 03', 'RT 04', 'RT 05', 'RT 06'])
             ]
-            
+
         ];
     }
 }
