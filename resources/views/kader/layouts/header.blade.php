@@ -37,6 +37,7 @@
 
 @push('js')
 <script>
-function showDropdown(){document.querySelector(".dropdown-content").classList.remove("hidden")}function hideDropdown(){document.querySelector(".dropdown-content").classList.add("hidden")}function show(e){e.classList.toggle("-translate-x-[999px]"),e.classList.toggle("translate-x-0")}let sidebar=document.getElementById("sidebar");document.getElementById("show").addEventListener("click",function(){show(sidebar)});
+function showDropdown(){document.querySelector(".dropdown-content").classList.remove("hidden")}
+function hideDropdown(){document.querySelector(".dropdown-content").classList.add("hidden")}function show(e){e.classList.toggle("-translate-x-[999px]"),e.classList.toggle("translate-x-0")}let sidebar=document.getElementById("sidebar");document.getElementById("show").addEventListener("click",function(){show(sidebar)});
 </script>
 @endpush

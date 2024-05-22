@@ -15,7 +15,7 @@
             font-family: 'Plus Jakarta Sans'
         }
         </style>
-    @include('kader.layouts.datatables')
+    {{-- @include('kader.layouts.da tatables') --}}
     @stack('css')
 </head>
 <body class="bg-gray-200 w-full md:h-screen">
