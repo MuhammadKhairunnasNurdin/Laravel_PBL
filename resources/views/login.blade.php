@@ -18,6 +18,13 @@
 </head>
 <body>
     <div class="flex bg-gray-200 w-screen h-full justify-center items-center lg:h-screen">
+        <div class="flex absolute right w-full pt-[10px] top-0 gap-2 px-2 justify-between lg:justify-start">
+            <a href="{{ url('/') }}" class="back-button py-2 px-2 rounded-full bg-white hover:bg-gray-500">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:text-black">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                </svg>                  
+            </a>
+        </div>
         <div class="bg-white w-full h-screen flex flex-col pt-[60px] py-[22px] gap-[50px] md:justify-center md:h-fit md:grid md:grid-cols-2 md:px-[100px] md:py-[55px] md:rounded-[25px] md:gap-[100px] md:mx-32 ">
             <div class="w-full flex flex-col px-[25px] md:justify-center">
                 <p class="md:text-[31px] order-2 hidden md:flex">Sistem Informasi</p>

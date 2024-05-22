@@ -1,7 +1,7 @@
 @extends('kader.layouts.template')
 
 @section('content')
-<div class="grid mx-5 mt-5 md:mb-5 gap-5 md:grid-cols-3">
+<div class="grid md:grid-cols-3 mx-5 mt-5 sm:mb-5 md:mb-5 gap-5">
     @php
         $golongan = ['Bayi', 'Lansia'];
     @endphp
@@ -56,7 +56,7 @@
     </div>
 
     {{-- Card Agenda Posyandu --}}
-    <div class="flex flex-col col-span-3 md:col-span-2 w-full bg-white rounded-2xl pr-6 pl-7 pb-9 gap-5 overflow-x-scroll">
+    <div class="flex flex-col col-span-3 md:col-span-2 w-full bg-white rounded-2xl pr-6 pl-7 pb-9 gap-5 overflow-x-auto">
         <div class="flex w-full justify-between pt-6 align-middle">
             <p class="font-medium md:text-xl">Agenda Posyandu</p>
             <div class="flex gap-4">

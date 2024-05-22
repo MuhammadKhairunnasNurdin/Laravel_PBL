@@ -17,14 +17,14 @@
     </style>
     @stack('css')
 </head>
-<body class="bg-gray-200 w-full h-screen">
+<body class="bg-gray-200 w-full md:h-screen">
     @include('ketua.layouts.header')
-    <div class="grid grid-cols-6 h-full mt-[88px]">
-        <div class="col-span-1">
+    <div class="flex lg:grid lg:grid-cols-6 h-full mt-[50px] md:mt-[88px]">
+        <div id="sidebar" class="fixed lg:static z-20 lg:z-auto -translate-x-[999px] transform transition ease-in-out duration-500 sm:duration-700 md:col-span-1 lg:translate-x-0 ">
             @include('ketua.layouts.sidebar')
         </div>
-        <div class="col-span-5">
-            <div class="flex px-5 text-2xl pt-5">
+        <div class="w-full md:col-span-5">
+            <div class="flex text-base px-5 md:text-2xl pt-5">
                 {{-- @include('kader.layouts.breadcrumb') --}}
                 <p>SPK</p>
             </div>

@@ -5,46 +5,24 @@
     <!-- Carousel wrapper -->
     <div class="relative h-56 overflow-hidden rounded-lg md:h-[600px]">
          <!-- Item 1 -->
-        <div class="hidden duration-700 ease-in-out h-full  " data-carousel-item>
+         <div class="hidden duration-700 ease-in-out h-full  " data-carousel-item>
             {{-- <img src="/docs/images/carousel/carousel-1.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."> --}}
             <div class="absolute w-full -translate-x-1/2 -translate-y-1/2 bg-posyandu top-1/2 left-1/2 grid grid-cols-2 px-[15px] lg:px-[131px] h-full items-center lg:gap-[235px]">
                 <div class="col-span-1 gap-[30px] lg:pr-10 justify-center">
-                    <h2 class="font-bold text-sm lg:text-[40px]">Posyandu Delima Merah</h2>
-                    <p class="lg:text-[30px] text-sm text-justify tracking-[10%] mb-[35px]">Pelayanan kesehatan untuk mewujudkan masyarakat sehat</p>
-                    <a href="{{ url('profil')}}" class="px-[15px] lg:px-[30px] py-[7.5px] lg:py-[15px] rounded-[5px] text-xs lg:text-[25px] border border-neutral-950 bg-transparent">Pelajari Selengkapnya</a>
+                    <h2 class="font-bold text-[14px] lg:text-[40px]">Posyandu Delima Merah</h2>
+                    <p class="text-[14px] lg:text-[30px] text-justify tracking-[10%] mb-[35px]">Pelayanan kesehatan untuk mewujudkan masyarakat sehat</p>
+                    <a href="{{ url('profil')}}" class="px-[15px] lg:px-[30px] py-[7.5px] lg:py-[15px] rounded-[5px] text-[12px] lg:text-[25px] border border-neutral-950 bg-transparent">Pelajari Selengkapnya</a>
                 </div>
                 <img class=" py-[39px] pl-10" src="{{ asset('img/logo_posyandu.png') }}" alt="logo posyandu">
             </div>
         </div>
         <div class="hidden duration-700 ease-in-out h-full  " data-carousel-item>
-            {{-- <img src="/docs/images/carousel/carousel-1.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."> --}}
+            
             <div class="absolute w-full -translate-x-1/2 -translate-y-1/2 bg-posyandu top-1/2 left-1/2 grid grid-cols-2 px-[15px] lg:px-[131px] h-full items-center lg:gap-[235px]">
                 <div class="col-span-1 gap-[30px] lg:pr-10 justify-center">
-                    <h2 class="font-bold text-sm lg:text-[40px]">Posyandu Delima Merah</h2>
-                    <p class="lg:text-[30px] text-sm text-justify tracking-[10%] mb-[35px]">Pelayanan kesehatan untuk mewujudkan masyarakat sehat</p>
-                    <a href="{{ url('profil')}}" class="px-[15px] lg:px-[30px] py-[7.5px] lg:py-[15px] rounded-[5px] text-xs lg:text-[25px] border border-neutral-950 bg-transparent">Pelajari Selengkapnya</a>
-                </div>
-                <img class=" py-[39px] pl-10" src="{{ asset('img/logo_posyandu.png') }}" alt="logo posyandu">
-            </div>
-        </div>
-        <div class="hidden duration-700 ease-in-out h-full  " data-carousel-item>
-            {{-- <img src="/docs/images/carousel/carousel-1.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."> --}}
-            <div class="absolute w-full -translate-x-1/2 -translate-y-1/2 bg-posyandu top-1/2 left-1/2 grid grid-cols-2 px-[15px] lg:px-[131px] h-full items-center lg:gap-[235px]">
-                <div class="col-span-1 gap-[30px] lg:pr-10 justify-center">
-                    <h2 class="font-bold text-sm lg:text-[40px]">Posyandu Delima Merah</h2>
-                    <p class="lg:text-[30px] text-sm text-justify tracking-[10%] mb-[35px]">Pelayanan kesehatan untuk mewujudkan masyarakat sehat</p>
-                    <a href="{{ url('profil')}}" class="px-[15px] lg:px-[30px] py-[7.5px] lg:py-[15px] rounded-[5px] text-xs lg:text-[25px] border border-neutral-950 bg-transparent">Pelajari Selengkapnya</a>
-                </div>
-                <img class=" py-[39px] pl-10" src="{{ asset('img/logo_posyandu.png') }}" alt="logo posyandu">
-            </div>
-        </div>
-        <div class="hidden duration-700 ease-in-out h-full  " data-carousel-item>
-            {{-- <img src="/docs/images/carousel/carousel-1.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."> --}}
-            <div class="absolute w-full -translate-x-1/2 -translate-y-1/2 bg-posyandu top-1/2 left-1/2 grid grid-cols-2 px-[15px] lg:px-[131px] h-full items-center lg:gap-[235px]">
-                <div class="col-span-1 gap-[30px] lg:pr-10 justify-center">
-                    <h2 class="font-bold text-sm lg:text-[40px]">Posyandu Delima Merah</h2>
-                    <p class="lg:text-[30px] text-sm text-justify tracking-[10%] mb-[35px]">Pelayanan kesehatan untuk mewujudkan masyarakat sehat</p>
-                    <a href="{{ url('profil')}}" class="px-[15px] lg:px-[30px] py-[7.5px] lg:py-[15px] rounded-[5px] text-xs lg:text-[25px] border border-neutral-950 bg-transparent">Pelajari Selengkapnya</a>
+                    <h2 class="font-bold text-[14px] lg:text-[40px]">Posyandu Delima Merah</h2>
+                    <p class="lg:text-[30px] text-[14px] text-justify tracking-[10%] mb-[35px]">Pelayanan kesehatan untuk mewujudkan masyarakat sehat</p>
+                    <a href="{{ url('profil')}}" class="px-[15px] lg:px-[30px] py-[7.5px] lg:py-[15px] rounded-[5px] text-[12px] lg:text-[25px] border border-neutral-950 bg-transparent">Pelajari Selengkapnya</a>
                 </div>
                 <img class=" py-[39px] pl-10" src="{{ asset('img/logo_posyandu.png') }}" alt="logo posyandu">
             </div>
@@ -56,7 +34,7 @@
     <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse overflow-x-auto">
         <button type="button" class="w-3 h-3 rounded-full hover:bg-blue-500 " aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
         <button type="button" class="w-3 h-3 rounded-full hover:bg-blue-500 " aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-        <button type="button" class="w-3 h-3 rounded-full hover:bg-blue-500 " aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
+        {{-- <button type="button" class="w-3 h-3 rounded-full hover:bg-blue-500 " aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button> --}}
     </div>
     <!-- Slider controls -->
     <button type="button" class="absolute top-0 start-0 z-30 items-center justify-center h-full px-4 cursor-pointer group focus:outline-none lg:flex hidden" data-carousel-prev>
@@ -101,7 +79,7 @@
         </div>
     </div>
     <div>
-        <div class="grid lg:grid-cols-4 gap-[22px] overflow-x-scroll">
+        <div class="grid grid-flow-col lg:grid-cols-4 gap-[22px] overflow-x-scroll">
             <div class="min-w-40 flex flex-col gap-[15px]">
                 <img src="{{ asset('img/image 1.png')}}" alt="" >
                 <p class="lg:text-[17px] font-semibold text-justify">Tingkatkan Masyarakat Sehat Sejahtera, Kader Panjang Baru adakan Posyandu Balita di Polehan</p>
@@ -129,17 +107,17 @@
 <div class="bg-white gap-8 pr-6 pl-7 mb-10 rounded-[5px] mx-[22.5px] lg:mx-[55px] py-5 my:[30px] lg:my-[60px]">
     <div class="flex justify-between flex-col gap-5">
         <div class="flex w-full justify-between">
-            <span class="text-[26px] font-bold -mt-[10px]">Edukasi</span>
+            <span class="text-lg lg:text-[26px] font-bold lg:-mt-[10px]">Edukasi</span>
             <a href="{{ url('') }}" class="bg-neutral-950 text-white rounded-full px-2.5 py-[5px] text-xs lg:text-base lg:px-5 lg:py-2.5">Lihat Semua</a>
         </div>
 
-        <p class="text-[18px]">Berita-berita seputar edukasi</p>
+        <p class="text-[12pxlg:text-[18px]">Berita-berita seputar edukasi</p>
         <div class="px-[173px]">
             {!! $chart->container() !!}
         </div>
     </div>
     <div>
-        <div class="grid lg:grid-cols-4 gap-[22px] overflow-x-auto">
+        <div class="grid grid-flow-col lg:grid-cols-4 gap-[22px] overflow-x-auto">
             <div class="min-w-40 flex flex-col gap-[15px]">
                 <img src="{{ asset('img/image 2.png')}}" alt="" class="w-full h-auto">
                 <p class="text-[17px] font-semibold text-justify">Pengaruh Keharmonisan Keluarga Terhadap Perkembangan Anak</p>
