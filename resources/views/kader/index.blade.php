@@ -3,7 +3,7 @@
 @section('content')
 <div class="grid mx-5 mt-5 md:mb-5 gap-5 md:grid-cols-3">
     @php
-        $golongan = ['Lansia', 'Bayi'];
+        $golongan = ['Bayi', 'Lansia'];
     @endphp
     @for($i = 0; $i < 2; $i++)
         <div class="flex flex-col bg-white rounded-2xl pr-6 pl-7 gap-9">
