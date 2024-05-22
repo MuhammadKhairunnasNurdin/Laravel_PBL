@@ -16,11 +16,19 @@ class KaderSeeder extends Seeder
         $data = [
             [
                 'user_id'=> 2,
-                'penduduk_id' => 1,
+                'penduduk_id' => 2,
             ],
             [
                 'user_id'=> 3,
                 'penduduk_id' => 4,
+            ],
+            [
+                'user_id'=> 4,
+                'penduduk_id' => 6,
+            ],
+            [
+                'user_id'=> 5,
+                'penduduk_id' => 12,
             ],
         ];
 
