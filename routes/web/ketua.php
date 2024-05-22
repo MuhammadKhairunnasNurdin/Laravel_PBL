@@ -33,11 +33,13 @@ Route::group([
          */
         Route::group(['prefix' => 'bantuan'], function () {
             Route::get('/', [BantuanController::class, 'index']);
-            Route::get('/tambah', [BantuanController::class, 'tambah']);
+            Route::get('/penerima', [BantuanController::class, 'tambah']);
+            Route::get('/konfirmasi', [BantuanController::class, 'konfirmasi']);
         });
         Route::group(['prefix' => 'penerima'], function () {
             Route::get('/', [PenerimaController::class, 'index']);
             Route::get('/tambah', [PenerimaController::class, 'tambah']);
+
         });
         Route::group(['prefix' => 'spk'], function() {
             Route::get('/', function(){
