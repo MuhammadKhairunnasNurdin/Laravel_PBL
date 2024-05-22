@@ -24,10 +24,10 @@ return new class extends Migration
             $table->string('NKK', 20);
             $table->string('nama', 100);
             $table->date('tgl_lahir');
-            $table->enum('pendapatan', ['0 - 500000', '500000 - 1000000', '1000000 - 2000000', '2000000 - 3000000', '3000000 - keatas'])->nullable();
+            $table->enum('pendapatan', ['Belum Bekerja', 'Rp 0 - Rp 500.000', 'Rp 500.000 - Rp 1.000.000', 'Rp 1.000.000 - Rp 2.000.000', 'Rp 2.000.000 - Rp 3.000.000', 'Rp 3.000.000 - Keatas']);
             $table->string('no_telp', 14)->nullable();
             $table->enum('jenis_kelamin', ['L', 'P']);
-            $table->enum('pendidikan', ['Tidak Terpelajar','SD', 'SMP', 'SMA', 'S1'])->nullable();
+            $table->enum('pendidikan', ['Belum Sekolah', 'Tidak Terpelajar','SD', 'SMP', 'SMA', 'D4/S1', 'S2 Keatas']);
             $table->enum('hubungan_keluarga', ['Kepala Keluarga', 'Istri', 'Anak']);
             $table->string('alamat', 200);
             $table->enum('RT', ['RT 01', 'RT 02', 'RT 03', 'RT 04', 'RT 05', 'RT 06']);
