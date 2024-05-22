@@ -6,7 +6,7 @@
             <p class="text-lg ml-10">Daftar Penerima Bantuan Pangan</p>
             <a href="{{ url('ketua/bantuan/penerima') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-10 rounded">Tambah</a>
         </div>
-        <div class="mx-10 my-[30px]">
+        <div class="mx-10 my-[30px] overflow-x-auto">
             <table class="border-collapse w-full rounded-t-[10px] overflow-hidden">
                 <thead class="bg-gray-200 border-b text-left py-5">
                     <tr class=" text-stone-400">
