@@ -16,17 +16,49 @@ class UserSeeder extends Seeder
     {
         $data = [
             [
-                'username'=> 'admin1',
+                'username' => 'admin1',
                 'password' => Hash::make('Admin123'),
                 'level' => 'admin'
-            ],[
-                'username'=> 'ketua1',
+            ], [
+                'username' => 'ketua1',
                 'password' => Hash::make('Ketua123'),
                 'level' => 'ketua'
-            ],[
-                'username'=> 'kader1',
+            ], [
+                'username' => 'kader1',
                 'password' => Hash::make('Kader123'),
                 'level' => 'kader'
+            ], [
+                'username' => 'kader2',
+                'password' => Hash::make('Kader234'),
+                'level' => 'kader'
+            ], [
+                'username' => 'kader3',
+                'password' => Hash::make('Kader345'),
+                'level' => 'kader'
+            ], [
+                'username' => 'kader4',
+                'password' => Hash::make('Kader456'),
+                'level' => 'kader'
+            ], [
+                'username' => 'kader5',
+                'password' => Hash::make('Kader567'),
+                'level' => 'kader'
+            ], [
+                'username' => 'admin2',
+                'password' => Hash::make('Admin234'),
+                'level' => 'admin'
+            ], [
+                'username' => 'admin3',
+                'password' => Hash::make('Admin345'),
+                'level' => 'admin'
+            ], [
+                'username' => 'admin4',
+                'password' => Hash::make('Admin456'),
+                'level' => 'admin'
+            ], [
+                'username' => 'admin5',
+                'password' => Hash::make('Admin567'),
+                'level' => 'admin'
             ],
         ];
 

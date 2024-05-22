@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             RekamMedisIbuSeeder::class,
             AuditBulananBayiSeeder::class,
             AuditBulananLansiaSeeder::class,
+            KriteriaSeeder::class,
         ]);
     }
 }
