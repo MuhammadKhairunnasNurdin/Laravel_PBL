@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\PendudukResource;
 use App\Http\Controllers\Shared\AuthController;
 use App\Http\Controllers\Shared\DashboardController;
-use App\Http\Controllers\Admin\PendudukController;
+use App\Http\Controllers\Shared\ProfileController;
+use Illuminate\Support\Facades\Route;
 
 
 /*
@@ -21,11 +21,20 @@ Route::group([
     'prefix' => 'admin'
     ], function () {
         /**
+         * routes for dashsboard and profile ketua
+         */
+        Route::get('/', [DashboardController::class, 'indexAdmin']);
+        Route::get('/profile', [ProfileController::class, 'indexAdmin'])->name('admin.profile');
+        Route::post('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+
+        /**
+         * routes for data penduduk feature in admin
+         */
+        Route::resource('penduduk', PendudukResource::class);
+
+        /**
          * route for logout process
          */
-        Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->name('admin.logout');
-        Route::get('/', [DashboardController::class, 'indexAdmin']);
-        Route::get('/penduduk', [PendudukController::class, 'index']);
-        Route::get('/penduduk/create', [PendudukController::class, 'create']);
+        Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
     }
 );
