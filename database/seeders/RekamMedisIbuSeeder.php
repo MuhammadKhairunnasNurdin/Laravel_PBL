@@ -22,7 +22,7 @@ class RekamMedisIbuSeeder extends Seeder
             [
                 'ibu_id' => 6,
                 'anak_id' => 8,
-                'data_kb' => 'Kondom',
+                'data_kb' => 'PIL',
             ],
             [
                 'ibu_id' => 12,
@@ -32,7 +32,17 @@ class RekamMedisIbuSeeder extends Seeder
             [
                 'ibu_id' => 14,
                 'anak_id' => 15,
-                'data_kb' => 'Suplemen',
+                'data_kb' => 'Spiral',
+            ],
+            [
+                'ibu_id' => 17,
+                'anak_id' => 18,
+                'data_kb' => 'Implan',
+            ],
+            [
+                'ibu_id' => 17,
+                'anak_id' => 19,
+                'data_kb' => 'Implan',
             ],
         ];
 
