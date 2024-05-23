@@ -55,7 +55,7 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] ">
                         <p class="text-base text-neutral-950">Lingkar Perut<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="lingkar_perut" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar perut">
+                        <input type="number" step="any" name="lingkar_perut" value="{{old('lingkar_perut')}}" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar perut">
                         @error('lingkar_perut')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -63,7 +63,7 @@
                     <div class="flex flex-col w-full h-fill gap-[20px] ">
                         <p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
                         <div class="flex gap-x-5 items-center md:me-[337px]">
-                            <input type="number" name="tensi_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="masukan tensi">
+                            <input type="number" name="tensi_darah" value="{{old('tensi_darah')}}" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="masukan tensi">
                             {{--<span class="w-fit">/</span>
                             <input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Diastolik">--}}
                         </div>
@@ -73,35 +73,35 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]">
                         <p class="text-base text-neutral-950">Tinggi Badan<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan tinggi badan">
+                        <input type="number" step="any" name="tinggi_badan" value="{{old('tinggi_badan')}}" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan tinggi badan">
                         @error('tinggi_badan')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px] ">
                         <p class="text-base text-neutral-950">Berat Badan<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="berat_badan" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan berat badan" required>
+                        <input type="number" step="any" name="berat_badan" value="{{old('berat_badan')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan berat badan" required>
                         @error('berat_badan')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Gula Darah<span class="text-red-400">*</span></p>
-                        <input type="number" name="gula_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan gula darah">
+                        <input type="number" name="gula_darah" value="{{old('gula_darah')}}" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan gula darah">
                         @error('gula_darah')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Asam Urat<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="asam_urat" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan asam urat">
+                        <input type="number" step="any" name="asam_urat" value="{{old('asam_urat')}}" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan asam urat">
                         @error('asam_urat')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Kolesterol<span class="text-red-400">*</span></p>
-                        <input type="number" name="kolesterol" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan kolesterol">
+                        <input type="number" name="kolesterol" value="{{old('kolesterol')}}" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan kolesterol">
                         @error('kolesterol')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -109,8 +109,8 @@
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950 pr-[10px]">Status Kesehatan?<span class="text-red-400">*</span></p>
                         <div class="flex items-center gap-10">
-                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="status" value="sehat" id="option1" required><span>Sehat</span>
-                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" required><span>Sakit</span>
+                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="status" value="sehat" id="option1" required {{ old('status') === 'sehat' ? 'checked' : '' }}><span>Sehat</span>
+                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" required {{ old('status') === 'sakit' ? 'checked' : '' }}><span>Sakit</span>
                         </div>
                         @error('status')
                             <span class="text-red-500">{{$message}}</span>
@@ -120,20 +120,9 @@
             </div>
 
             <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
-
-                {{-- <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2"> --}}
-                    {{--<p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
-                    <div class="flex gap-x-5 items-center me-[337px]">
-                        <input type="number" name="tensi_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="masukan tensi">
-                        --}}{{--<span class="w-fit">/</span>
-                        <input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Diastolik">--}}{{--
-                    </div>--}}
-                {{-- </div> --}}
                 <div class="col-span-2 flex justify-end items-center gap-[26px] w-full">
                     <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
-                    <a href="{{ url('kader/lansia')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
-                    {{-- <button type="button" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden back" id="page_2">Kembali</button> --}}
-                    {{-- <button type="button" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="next">Lanjut</button> --}}
+                    <a href="{{ url('kader/lansia' . session('urlPaginate'))}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
                     <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_2">Simpan Data</button>
                 </div>
             </div>

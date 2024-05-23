@@ -31,36 +31,28 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Berat Badan<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="berat_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->berat_badan}}" placeholder="Masukkan berat badan">
+                        <input type="number" step="any" name="berat_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ old('berat_badan', $lansiaData->berat_badan) }}" placeholder="Masukkan berat badan">
                         @error('berat_badan')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
-                    {{-- <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
-                        <p class="text-base text-neutral-950">Usia<span class="text-red-400">*</span></p>
-                        <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{  now()->diffInYears($lansiaData->penduduk->tgl_lahir) . ' tahun'}}" placeholder="Masukkan usia balita" disabled>
-                    </div> --}}
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Tinggi Badan<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->tinggi_badan}}" placeholder="Masukkan tinggi badan">
+                        <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ old('tinggi_badan', $lansiaData->tinggi_badan) }}" placeholder="Masukkan tinggi badan">
                         @error('tinggi_badan')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
-                    {{-- <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
-                        <p class="text-base text-neutral-950 pr-[10px]">Alamat<span class="text-red-400">*</span></p>
-                        <input type="text" class="w-100 text-sm font-normal border border-stone pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->penduduk->alamat }}" placeholder="Masukkan alamat" disabled>
-                    </div> --}}
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Lingkar Perut<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="lingkar_perut" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{$lansiaData->pemeriksaan_lansia->lingkar_perut}}" placeholder="Masukkan lingkar perut">
+                        <input type="number" step="any" name="lingkar_perut" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ old('lingkar_perut', $lansiaData->pemeriksaan_lansia->lingkar_perut) }}" placeholder="Masukkan lingkar perut">
                         @error('lingkar_perut')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="tensi_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{$lansiaData->pemeriksaan_lansia->tensi_darah}}" placeholder="Masukkan lingkar perut">
+                        <input type="number" step="any" name="tensi_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ old('tensi_darah', $lansiaData->pemeriksaan_lansia->tensi_darah) }}" placeholder="Masukkan lingkar perut">
                         @error('tensi_darah')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -68,46 +60,23 @@
                 </div>
 
                 <div class="md:col-span-1 flex flex-col gap-[23px]">
-                    {{-- <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
-                        <p class="text-base text-neutral-950">Tanggal Pemeriksaan<span class="text-red-400">*</span></p>
-                        <div class="grid grid-cols-3 gap-5">
-                            <select name="day" id="day" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none">
-                                <option value="{{ date('d', strtotime($lansiaData->tgl_pemeriksaan)) }}" class="text-black-300">{{ date('d', strtotime($lansiaData->tgl_pemeriksaan)) }}</option>
-                                @for ($i = 1; $i <= 31; $i++)
-                                    <option value="{{ $i }}" name="">{{$i}}</option>
-                                @endfor
-                            </select>
-                            <select name="month" id="month" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none">
-                                <option value="{{ date('m', strtotime($lansiaData->tgl_pemeriksaan)) }}" class="text-black-300">{{ date('m', strtotime($lansiaData->tgl_pemeriksaan)) }}</option>
-                                @for ($i = 1; $i <= 12; $i++)
-                                    <option value="{{ $i }}" name="">{{$i}}</option>
-                                @endfor
-                            </select>
-                            <select name="year" id="year" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] px-[31px] py-[10px] rounded-[5px] focus:outline-none">
-                                <option value="{{ date('Y', strtotime($lansiaData->tgl_pemeriksaan)) }}" class="text-black-300">{{ date('Y', strtotime($lansiaData->tgl_pemeriksaan)) }}</option>
-                                @for ($i = 2024; $i <= 2050; $i++)
-                                    <option value="{{ $i }}" name="">{{$i}}</option>
-                                @endfor
-                            </select>
-                        </div>
-                    </div> --}}
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Gula Darah<span class="text-red-400">*</span></p>
-                        <input type="number" name="gula_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->gula_darah}}" placeholder="Masukkan gula darah">
+                        <input type="number" name="gula_darah" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ old('gula_darah', $lansiaData->pemeriksaan_lansia->gula_darah) }}" placeholder="Masukkan gula darah">
                         @error('gula_darah')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Asam Urat<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="asam_urat" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->asam_urat}}" placeholder="Masukkan asam urat">
+                        <input type="number" step="any" name="asam_urat" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ old('asam_urat', $lansiaData->pemeriksaan_lansia->asam_urat) }}" placeholder="Masukkan asam urat">
                         @error('asam_urat')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950">Kolesterol<span class="text-red-400">*</span></p>
-                        <input type="number" name="kolesterol" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ $lansiaData->pemeriksaan_lansia->kolesterol }}" placeholder="Masukkan kolesterol">
+                        <input type="number" name="kolesterol" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ old('kolesterol', $lansiaData->pemeriksaan_lansia->kolesterol) }}" placeholder="Masukkan kolesterol">
                         @error('kolesterol')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -115,13 +84,8 @@
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950 pr-[10px]">Status Kesehatan?<span class="text-red-400">*</span></p>
                         <div class="flex items-center gap-10">
-                            @if($lansiaData->status === 'sehat')
-                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="status"  value="sehat" id="option1" checked><span>Sehat</span>
-                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2"><span>Sakit</span>
-                            @else
-                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="status"  value="sehat" id="option1"><span>Sehat</span>
-                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" checked><span>Sakit</span>
-                            @endif
+                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="status"  value="sehat" id="option1" {{ old('status', $lansiaData->status) === 'sehat' ? 'checked' : '' }}><span>Sehat</span>
+                                <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" {{ old('status', $lansiaData->status) === 'sakit' ? 'checked' : '' }}><span>Sakit</span>
                         </div>
                         @error('status')
                             <span class="text-red-500">{{$message}}</span>
@@ -130,21 +94,9 @@
                 </div>
             </div>
             <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
-
-                {{-- <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_2"> --}}
-                   {{-- <p class="text-base text-neutral-950">Tensi Darah<span class="text-red-400">*</span></p>
-                    <div class="flex gap-x-5 items-center me-[337px]">
-                        --}}{{--<input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Sistolik">
-                        <span class="w-fit">/</span>
-                        <input type="text" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Diastolik">--}}{{--
-                        <input type="text" name="tensi_darah" class=" w-[83px] text-sm text-center font-normal border border-stone-400 py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="tensi_darah" value="{{$lansiaData->pemeriksaan_lansia->tensi_darah}}">--}}
-                    {{--</div>--}}
-                {{-- </div> --}}
                 <div class="col-span-2 flex justify-end items-center gap-[26px] w-full">
                     <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
-                    <a href="{{ url('kader/lansia')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
-                    {{-- <button type="button" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden back" id="page_2">Kembali</button> --}}
-                    {{-- <button type="button" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="next">Lanjut</button> --}}
+                    <a href="{{ url('kader/lansia' . session('urlPagination'))}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
                     <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_2">Simpan Data</button>
                 </div>
             </div>

@@ -9,6 +9,16 @@
         <table class="w-fit">
             <tbody>
                 <tr>
+                    <td>Kader Pengurus Data</td>
+                    <td>:</td>
+                    <td>{{ $namaKader}}</td>
+                </tr>
+                <tr>
+                    <td>Terahir data dirubah</td>
+                    <td>:</td>
+                    <td>{{ now('Asia/Jakarta')->locale('id')->longRelativeToNowDiffForHumans($lansiaData->updated_at)}}</td>
+                </tr>
+                <tr>
                     <td>Nama</td>
                     <td>:</td>
                     <td>{{ $lansiaData->penduduk->nama }}</td>
@@ -47,7 +57,6 @@
                     <td>Tensi Darah</td>
                     <td>:</td>
                     <td>{{ $lansiaData->pemeriksaan_lansia->tensi_darah}}</td>
-                    {{-- <td>120/71</td> --}}
                 </tr>
                 <tr>
                     <td>Gula Darah</td>
@@ -67,7 +76,7 @@
             </tbody>
         </table>
         <div class="flex justify-end">
-            <a href="{{ url('kader/lansia')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]">Kembali</a>
+            <a href="{{  url('kader/lansia' . session('urlPagination'))}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]">Kembali</a>
         </div>
     </div>
 </div>
