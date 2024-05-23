@@ -63,8 +63,8 @@
                     <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Status Kesehatan?<span class="text-red-400">*</span></p>
                         <div class="flex items-center gap-10">
-                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="status" value="sehat" id="option1" required {{ old('status') ? 'checked' : '' }}><span>Sehat</span>
-                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" required {{ old('status') ? 'checked' : '' }}><span>Sakit</span>
+                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="status" value="sehat" id="option1" required {{ old('status') === 'sehat' ? 'checked' : '' }}><span>Sehat</span>
+                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" required {{ old('status') === 'sakit' ? 'checked' : '' }}><span>Sakit</span>
                         </div>
                         @error('status')
                             <span class="text-red-500">{{$message}}</span>
@@ -76,8 +76,8 @@
                     <div class="flex flex-col w-full h-fit gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">ASI Eksklusif?<span class="text-red-400">*</span></p>
                         <div class="flex items-center gap-10">
-                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="asi" value="iya" id="option1" required {{ old('asi') ? 'checked' : '' }}><span>Ya</span>
-                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="asi" value="tidak" id="option2" required {{ old('asi') ? 'checked' : '' }}><span>Tidak</span>
+                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="asi" value="iya" id="option1" required {{ old('asi') === 'iya' ? 'checked' : '' }}><span>Ya</span>
+                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="asi" value="tidak" id="option2" required {{ old('asi') === 'tidak' ? 'checked' : '' }}><span>Tidak</span>
                         </div>
                         @error('asi')
                             <span class="text-red-500">{{$message}}</span>
