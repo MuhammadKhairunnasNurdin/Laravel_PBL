@@ -91,6 +91,7 @@ class StoreBayiRequest extends FormRequest
             'asi' => [
                 'bail',
                 'required',
+                'string',
                 Rule::in(['iya', 'tidak'])
             ],
             'kategori_golongan' => [

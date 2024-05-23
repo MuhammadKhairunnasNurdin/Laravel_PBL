@@ -53,8 +53,7 @@ class StoreKegiatanRequest extends FormRequest
                 'bail',
                 'required',
                 'string',
-                'max:100',
-                'min:5'
+                'regex:/^[a-zA-Z\s.]{5,100}$/',
             ],
             'tgl_kegiatan' => [
                 'bail',
@@ -70,8 +69,7 @@ class StoreKegiatanRequest extends FormRequest
                 'bail',
                 'required',
                 'string',
-                'max:200',
-                'min:5'
+                'regex:/^([\w\s\n.]{5,200})$/',
             ]
         ];
     }

@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\Kader\Lansia;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreLansiaRequest extends FormRequest
 {
@@ -52,17 +50,20 @@ class StoreLansiaRequest extends FormRequest
             'gula_darah' => [
                 'bail',
                 'required',
-                'integer'
+                'integer',
+                'regex:/^\d{1,3}$/'
             ],
             'kolesterol' => [
                 'bail',
                 'required',
-                'integer'
+                'integer',
+                'regex:/^\d{1,3}$/'
             ],
             'tensi_darah' => [
                 'bail',
                 'required',
-                'integer'
+                'integer',
+                'regex:/^\d{1,3}$/'
             ],
             'asam_urat' => [
                 'bail',
@@ -71,10 +72,5 @@ class StoreLansiaRequest extends FormRequest
                 'regex:/^\d{1,2}(\.\d{1,3})?$/'
             ],
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
 }

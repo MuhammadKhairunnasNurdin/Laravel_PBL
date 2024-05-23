@@ -22,16 +22,14 @@ class UpdateBayiRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $oldData = json_decode($this->input('pemeriksaan_bayi'), true);
-
-        $this->request->replace($this->only([
+        $this->request->replace(
+            $this->only([
                 'lingkar_kepala',
                 'lingkar_lengan',
                 'asi',
+                'pemeriksaan_bayi'
             ])
         );
-
-        $this->request->replace($this->only(array_keys(array_diff_assoc($this->request->all(), $oldData))));
     }
 
     /**
@@ -44,16 +42,38 @@ class UpdateBayiRequest extends FormRequest
         return [
             'lingkar_kepala' => [
                 'bail',
+                'required',
+                'numeric',
                 'regex:/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'lingkar_lengan' => [
                 'bail',
+                'required',
+                'numeric',
                 'regex:/^\d{1,3}(\.\d{1,3})?$/'
             ],
             'asi' => [
                 'bail',
+                'required',
+                'string',
                 Rule::in(['iya', 'tidak'])
             ],
         ];
+    }
+    /**
+     * Handle a passed validation attempt.
+     *
+     * @return void
+     */
+    protected function passedValidation(): void
+    {
+        /**
+         * compare updated data from user form with old data in
+         * database and just replace request input with data that
+         * changes
+         */
+        $oldData = json_decode($this->input('pemeriksaan_bayi'), true);
+
+        $this->request->replace($this->only(array_keys(array_diff_assoc($oldData, $this->request->all()))));
     }
 }
