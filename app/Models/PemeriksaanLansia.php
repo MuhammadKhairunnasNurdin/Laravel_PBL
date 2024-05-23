@@ -27,6 +27,8 @@ class PemeriksaanLansia extends Model
         'kolesterol',
         'tensi_darah',
         'asam_urat',
+        'created_at',
+        'updated_at',
     ];
 
     /**
