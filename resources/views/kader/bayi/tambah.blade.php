@@ -182,7 +182,7 @@
     // Function to load data from localStorage
     function loadDataFromLocalStorage() {
         const savedData = localStorage.getItem('bayiData');
-        if (savedData) {
+        if (savedData && @json(old('penduduk_id'))) {
             data = JSON.parse(savedData);
             inputData();
         }
@@ -262,13 +262,13 @@
                 }
             }
         }
-        
+
         saveDataToLocalStorage();
         data = {
-            nama: document.getElementById('penduduk_id').value, 
-            golonganOld: golongan.value, 
-            usiaOld: usia.value, 
-            ibuOld: ibu.value, 
+            nama: document.getElementById('penduduk_id').value,
+            golonganOld: golongan.value,
+            usiaOld: usia.value,
+            ibuOld: ibu.value,
             ayahOld: ayah.value
         };
     });
@@ -283,7 +283,7 @@
         ayah.value = '';
         ayah.innerText = '';
     }
-    
+
 
     // Load data from localStorage on page load
     window.addEventListener('load', loadDataFromLocalStorage);
