@@ -58,6 +58,10 @@
                         <td class="tableBody">{{$pd->status}}</td>
                         <td class="tableBody">
                             <form action="bayi/{{$pd->pemeriksaan_id}}" method="post" class="flex items-center gap-2">
+                                @php
+                                    $queryString = http_build_query(request()->query());
+                                    session(['urlPagination' => $queryString ? '?' . $queryString : '']);
+                                @endphp
                                 <a href="bayi/{{$pd->pemeriksaan_id}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
                                 <a href="bayi/{{$pd->pemeriksaan_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Ubah</a>
                                 @csrf
