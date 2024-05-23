@@ -19,7 +19,7 @@
                                     <td>:</td>
                                     <td>
                                         <select name="penduduk_id" id="penduduk_id" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
-                                            <option value="" class="text-gray-300">Masukkan nama lansia</option>
+                                            <option value="" class="text-gray-300" id="params">Masukkan nama lansia</option>
                                             @foreach($lansiasData as $lansia)
                                                 <option value="{{ $lansia->penduduk_id }}" class="text-neutral-950">{{ $lansia->nama }}</option>
                                             @endforeach
@@ -29,12 +29,12 @@
                                 <tr>
                                     <td>Usia</td>
                                     <td>:</td>
-                                    <td id="usia" name="" value=""></td>
+                                    <td><input type="text" value="" class="border-none" id="usia"></td>
                                 </tr>
                                 <tr>
                                     <td>Alamat</td>
                                     <td>:</td>
-                                    <td id="alamat" value=""></td>
+                                    <td><input type="text" value="" class="border-none" id="alamat"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -141,7 +141,7 @@
     </form>
 @endsection
 
-@push('css')
+{{-- @push('css')
 <style>
     @media (min-width: 768px){
         td{
@@ -169,4 +169,77 @@
             }
         });
     </script>
+@endpush --}}
+
+@push('js')
+<script>
+    let nama = document.getElementById('params');
+    let usia = document.getElementById('usia');
+    let alamat = document.getElementById('alamat');
+    let data;
+
+    // Function to save data to localStorage
+    function saveDataToLocalStorage() {
+        const dataToSave = {
+            nama: document.getElementById('penduduk_id').value,
+            usiaOld: usia.value,
+            alamatOld: alamat.value
+        };
+        localStorage.setItem('lansiaData', JSON.stringify(dataToSave));
+    }
+
+    // Function to load data from localStorage
+    function loadDataFromLocalStorage() {
+        const savedData = localStorage.getItem('lansiaData');
+        if (savedData) {
+            data = JSON.parse(savedData);
+            inputData();
+        }
+    }
+
+    function inputData() {
+        if (data) {
+            document.getElementById('penduduk_id').value = data.nama;
+            usia.value = data.usiaOld;
+            usia.innerText = data.usiaOld;
+            alamat.value = data.alamatOld;
+            alamat.innerText = data.alamatOld;
+        }
+    }
+
+    document.getElementById('penduduk_id').addEventListener('change', function() {
+        let lansias = @json($lansiasData);
+
+        // Clear existing values before setting new ones
+        clearFields();
+
+        for (let i = 0; i < lansias.length; i++) {
+            if (lansias[i].penduduk_id.toString() === this.value) {
+                document.getElementById('alamat').value = lansias[i].alamat;
+                document.getElementById('alamat').innerText = lansias[i].alamat;
+                let tgl_lahir = new Date(lansias[i].tgl_lahir);
+                let sekarang = new Date();
+                document.getElementById('usia').value = (sekarang.getFullYear() - tgl_lahir.getFullYear()) + " tahun";
+                document.getElementById('usia').innerText = (sekarang.getFullYear() - tgl_lahir.getFullYear()) + " tahun";
+            }
+        }
+        
+        saveDataToLocalStorage();
+        data = {
+            nama: document.getElementById('penduduk_id').value, 
+            usiaOld: usia.value, 
+            alamatOld: alamat.value
+        };
+    });
+
+    function clearFields() {
+        usia.value = '';
+        usia.innerText = '';
+        alamat.value = '';
+        alamat.innerText = '';
+    }
+
+    // Load data from localStorage on page load
+    window.addEventListener('load', loadDataFromLocalStorage);
+</script>
 @endpush
