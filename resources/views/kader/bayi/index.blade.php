@@ -269,7 +269,7 @@
                         <td class="tableBody">${item.tinggi_badan} Cm</td>
                         <td class="tableBody">${item.status}</td>
                         <td class="tableBody">
-                            <form action="bayi/${item.pemeriksaan_id}" method="post">
+                            <form action="bayi/${item.pemeriksaan_id}" method="post" class="flex items-center gap-2">
                                 <a href="bayi/${item.pemeriksaan_id}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
                                 <a href="bayi/${item.pemeriksaan_id}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Ubah</a>
                                 @csrf

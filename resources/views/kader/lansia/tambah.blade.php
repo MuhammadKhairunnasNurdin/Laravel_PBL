@@ -29,12 +29,12 @@
                                 <tr>
                                     <td>Usia</td>
                                     <td>:</td>
-                                    <td><input type="text" value="" class="border-none" id="usia"></td>
+                                    <td><input type="text" value="" class="border-none" id="usia" disabled></td>
                                 </tr>
                                 <tr>
                                     <td>Alamat</td>
                                     <td>:</td>
-                                    <td><input type="text" value="" class="border-none" id="alamat"></td>
+                                    <td><input type="text" value="" class="border-none" id="alamat" disabled></td>
                                 </tr>
                             </tbody>
                         </table>

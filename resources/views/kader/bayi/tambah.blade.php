@@ -108,22 +108,22 @@
                                     <tr>
                                         <td>Usia</td>
                                         <td>:</td>
-                                        <td><input type="text" value="" class="border-none" id="usia"></td>
+                                        <td><input type="text" value="" class="border-none" id="usia" disabled></td>
                                     </tr>
                                     <tr>
                                         <td>Golongan Usia</td>
                                         <td>:</td>
-                                        <td><input type="text" value="" class="border-none" id="golongan"></td>
+                                        <td><input type="text" value="" class="border-none" id="golongan" disabled></td>
                                     </tr>
                                     <tr>
                                         <td>Nama Ibu</td>
                                         <td>:</td>
-                                        <td><input type="text" value="" class="border-none" id="ibu"></td>
+                                        <td><input type="text" value="" class="border-none" id="ibu" disabled></td>
                                     </tr>
                                     <tr>
                                         <td>Nama Ayah</td>
                                         <td>:</td>
-                                        <td><input type="text" value="" class="border-none" id="ayah"></td>
+                                        <td><input type="text" value="" class="border-none" id="ayah" disabled></td>
                                     </tr>
                                 </tbody>
                             </table>
