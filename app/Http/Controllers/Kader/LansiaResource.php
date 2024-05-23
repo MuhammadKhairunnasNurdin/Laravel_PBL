@@ -9,6 +9,7 @@ use App\Http\Requests\Kader\Lansia\StoreLansiaRequest;
 use App\Http\Requests\Kader\Lansia\UpdateLansiaRequest;
 use App\Http\Requests\Kader\Pemeriksaan\StorePemeriksaanRequest;
 use App\Http\Requests\Kader\Pemeriksaan\UpdatePemeriksaanRequest;
+use App\Models\Kader;
 use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanLansia;
 use App\Models\Penduduk;
@@ -69,7 +70,7 @@ class LansiaResource extends Controller
 
         event(new PemeriksaanLansiaCreated($pemeriksaan, $pemeriksaanLansia));
 
-        return redirect()->intended(route('lansia.index'))
+        return redirect()->intended('kader/lansia' . session('urlPagination'))
             ->with('success', 'Data Lansia berhasil ditambahkan');
     }
 
@@ -80,8 +81,12 @@ class LansiaResource extends Controller
     {
         $lansiaData = Pemeriksaan::with('pemeriksaan_lansia', 'penduduk')->find($id);
         if ($lansiaData === null) {
-            return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia tidak ditemukan atau mungkin sudah dihapus kader lain');
+            return redirect()->intended('kader/lansia' . session('urlPagination'))->with('error', 'Data pemeriksaan lansia tidak ditemukan atau mungkin sudah dihapus kader lain');
         }
+
+        $kader = Kader::find($lansiaData->kader_id)->only('penduduk_id')['penduduk_id'];
+        $namaKader = Penduduk::find($kader)->only('nama')['nama'];
+
 
         $breadcrumb = (object)[
             'title' => 'Pemeriksaan Lansia'
@@ -89,7 +94,7 @@ class LansiaResource extends Controller
 
         $activeMenu = 'lansia';
 
-        return view('kader.lansia.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'lansiaData' => $lansiaData]);
+        return view('kader.lansia.detail', compact('breadcrumb', 'activeMenu', 'lansiaData', 'namaKader'));
     }
 
     /**
@@ -99,7 +104,7 @@ class LansiaResource extends Controller
     {
         $lansiaData = Pemeriksaan::with('pemeriksaan_lansia', 'penduduk')->lockForUpdate()->find($id);
         if ($lansiaData === null) {
-            return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia tidak ditemukan atau mungkin sudah dihapus kader lain');
+            return redirect()->intended('kader/lansia' . session('urlPagination'))->with('error', 'Data pemeriksaan lansia tidak ditemukan atau mungkin sudah dihapus kader lain');
         }
 
         $breadcrumb = (object)[
@@ -188,11 +193,11 @@ class LansiaResource extends Controller
                 return $isUpdated;
             });
 
-            return redirect()->intended(route('lansia.index'))
+            return redirect()->intended('kader/lansia' . session('urlPagination'))
                 ->with('success', $isUpdated ? 'Data lansia berhasil diubah' : 'Namun Data lansia tidak diubah');
 
         } catch (\Throwable $e) {
-            return redirect()->intended(route('lansia.index'))
+            return redirect()->intended('kader/lansia' . session('urlPagination'))
                 ->with('error', 'Terjadi Masalah Ketika mengubah Data Lansia: ' . $e->getMessage());
         }
     }
@@ -216,14 +221,14 @@ class LansiaResource extends Controller
                  */
                 $pemeriksaan = Pemeriksaan::lockForUpdate()->find($id);
                 if ($pemeriksaan === null) {
-                    return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia tidak ditemukan');
+                    return redirect()->intended('kader/lansia' . session('urlPagination'))->with('error', 'Data pemeriksaan lansia tidak ditemukan');
                 }
 
                 /**
                  * check if other user is update our data when we do delete action
                  */
                 if ($pemeriksaan->updated_at > $request->input('updated_at')) {
-                    return redirect()->intended('kader/lansia')->with('error', 'Data Lansia masih di update oleh kader lain, coba refresh dan lakukan hapus lagi');
+                    return redirect()->intended('kader/lansia' . session('urlPagination'))->with('error', 'Data Lansia masih di update oleh kader lain, coba refresh dan lakukan hapus lagi');
                 }
 
                 /**
@@ -231,12 +236,12 @@ class LansiaResource extends Controller
                  */
                 $pemeriksaan->delete();
 
-                return redirect()->intended('kader/lansia')->with('success', 'Data pemeriksaan lansia berhasil dihapus');
+                return redirect()->intended('kader/lansia' . session('urlPagination'))->with('success', 'Data pemeriksaan lansia berhasil dihapus');
             });
         } catch (QueryException) {
-            return redirect()->intended('kader/lansia')->with('error', 'Data pemeriksaan lansia gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect()->intended('kader/lansia' . session('urlPagination'))->with('error', 'Data pemeriksaan lansia gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         } catch (\Throwable $e) {
-            return redirect()->intended('kader/lansia')->with('error', 'Terjadi Masalah Ketika menghapus Data Lansia: ' . $e->getMessage());
+            return redirect()->intended('kader/lansia' . session('urlPagination'))->with('error', 'Terjadi Masalah Ketika menghapus Data Lansia: ' . $e->getMessage());
         }
     }
 }
