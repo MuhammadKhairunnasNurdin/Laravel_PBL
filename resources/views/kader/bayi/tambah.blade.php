@@ -24,7 +24,7 @@
                         <p class="text-base text-neutral-950 pr-[10px]">Lingkar Kepala<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="lingkar_kepala" value="{{old('lingkar_kepala')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar kepala" required>
                         @error('lingkar_kepala')
-                            <span class="text-red-500">{{$message}}</span>
+                            <span class="text-red-500 message">{{$message}}</span>
                         @enderror
                     </div>
                     {{-- END LINGKAR KEPALA --}}
@@ -34,7 +34,7 @@
                         <p class="text-base text-neutral-950 pr-[10px]">Lingkar Lengan<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="lingkar_lengan" value="{{old('lingkar_lengan')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar lengan" required>
                         @error('lingkar_lengan')
-                            <span class="text-red-500">{{$message}}</span>
+                            <span class="text-red-500 message">{{$message}}</span>
                         @enderror
                     </div>
                     {{-- END LINGKAR LENGAN --}}
@@ -44,7 +44,7 @@
                         <p class="text-base text-neutral-950">Berat Badan<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="berat_badan" value="{{old('berat_badan')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan berat badan" required>
                         @error('berat_badan')
-                            <span class="text-red-500">{{$message}}</span>
+                            <span class="text-red-500 message">{{$message}}</span>
                         @enderror
                     </div>
                     {{-- END BERAT BADAN --}}
@@ -54,7 +54,7 @@
                         <p class="text-base text-neutral-950 pr-[10px]">Tinggi Badan<span class="text-red-400">*</span></p>
                         <input type="number" step="any" name="tinggi_badan" value="{{old('tinggi_badan')}}" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan tinggi badan" required>
                         @error('tinggi_badan')
-                            <span class="text-red-500">{{$message}}</span>
+                            <span class="text-red-500 message">{{$message}}</span>
                         @enderror
                     </div>
                     {{-- END TINGGI BADAN --}}
@@ -67,7 +67,7 @@
                             <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" required {{ old('status') === 'sakit' ? 'checked' : '' }}><span>Sakit</span>
                         </div>
                         @error('status')
-                            <span class="text-red-500">{{$message}}</span>
+                            <span class="text-red-500 message">{{$message}}</span>
                         @enderror
                     </div>
                     {{-- END STATUS KESEHATAN --}}
@@ -80,7 +80,7 @@
                             <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="asi" value="tidak" id="option2" required {{ old('asi') === 'tidak' ? 'checked' : '' }}><span>Tidak</span>
                         </div>
                         @error('asi')
-                            <span class="text-red-500">{{$message}}</span>
+                            <span class="text-red-500 message">{{$message}}</span>
                         @enderror
                     </div>
                 </div>
@@ -98,9 +98,9 @@
                                         <td>:</td>
                                         <td>
                                             <select name="penduduk_id" id="penduduk_id" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
-                                                <option value="" class="text-gray-300">Masukkan nama bayi</option>
+                                                <option value="0" class="text-gray-300" id="params">Masukkan nama bayi</option>
                                                 @foreach($bayisData as $bayi)
-                                                    <option value="{{ $bayi->penduduk_id }}" class="text-neutral-950">{{ $bayi->nama }}</option>
+                                                    <option value="{{ $bayi->penduduk_id }}" class="text-neutral-950" {{ old('penduduk_id') === strval($bayi->penduduk_id) ? 'selected' : '' }}>{{ $bayi->nama }}</option>
                                                 @endforeach
                                             </select>
                                         </td>
@@ -108,22 +108,22 @@
                                     <tr>
                                         <td>Usia</td>
                                         <td>:</td>
-                                        <td id="usia1" name="" value=""></td>
+                                        <td><input type="text" value="" class="border-none" id="usia"></td>
                                     </tr>
                                     <tr>
                                         <td>Golongan Usia</td>
                                         <td>:</td>
-                                        <td id="golongan"  value=""></td>
+                                        <td><input type="text" value="" class="border-none" id="golongan"></td>
                                     </tr>
                                     <tr>
                                         <td>Nama Ibu</td>
                                         <td>:</td>
-                                        <td id="ibu" value=""></td>
+                                        <td><input type="text" value="" class="border-none" id="ibu"></td>
                                     </tr>
                                     <tr>
                                         <td>Nama Ayah</td>
                                         <td>:</td>
-                                        <td id="ayah" value=""></td>
+                                        <td><input type="text" value="" class="border-none" id="ayah"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -159,61 +159,134 @@
 @endpush
 
 @push('js')
-    <script>
-        document.getElementById('penduduk_id').addEventListener('change', function() {
-            let bayis = @json($bayisData);
-            let parents = @json($parentsData);
-            let bayi;
+<script>
+    let nama = document.getElementById('params');
+    let golongan = document.getElementById('golongan');
+    let usia = document.getElementById('usia');
+    let ibu = document.getElementById('ibu');
+    let ayah = document.getElementById('ayah');
+    let data;
 
-            for (let i = 0; i < bayis.length; i++) {
-                if (bayis[i].penduduk_id.toString() === this.value) {
-                    let tgl_lahir = new Date(bayis[i].tgl_lahir);
-                    console.log(tgl_lahir);
-                    let sekarang = new Date();
-                    let bulan = (sekarang.getFullYear() - tgl_lahir.getFullYear()) * 12;
-                    bulan -= tgl_lahir.getMonth();
-                    bulan += sekarang.getMonth();
-                    if(bulan>0&&bulan<=24){
-                        document.getElementById('golongan').innerText = "baduta"
-                        document.getElementById('golongan').value = "baduta"
-                        document.getElementById('kategori_golongan').value = "baduta"
-                    } else if(bulan>24&&bulan<=36) {
-                        document.getElementById('golongan').innerText = "batita"
-                        document.getElementById('golongan').value = "batita"
-                        document.getElementById('kategori_golongan').value = "batita"
-                    } else if(bulan>36&&bulan<=60){
-                        document.getElementById('golongan').innerText = "balita"
-                        document.getElementById('golongan').value = "balita"
-                        document.getElementById('kategori_golongan').value = "balita"
-                    }
-                    document.getElementById('usia1').innerText = bulan + " bulan";
-                    document.getElementById('usia1').value = bulan + " bulan";
-                    bayi = bayis[i].NKK;
+    // Function to save data to localStorage
+    function saveDataToLocalStorage() {
+        const dataToSave = {
+            nama: document.getElementById('penduduk_id').value,
+            golonganOld: golongan.value,
+            usiaOld: usia.value,
+            ibuOld: ibu.value,
+            ayahOld: ayah.value
+        };
+        localStorage.setItem('bayiData', JSON.stringify(dataToSave));
+    }
+
+    // Function to load data from localStorage
+    function loadDataFromLocalStorage() {
+        const savedData = localStorage.getItem('bayiData');
+        if (savedData) {
+            data = JSON.parse(savedData);
+            inputData();
+        }
+    }
+
+    function inputData() {
+        if (data) {
+            document.getElementById('penduduk_id').value = data.nama;
+            golongan.value = data.golonganOld;
+            golongan.innerText = `${data.golonganOld}`;
+            document.getElementById('kategori_golongan').value = data.golonganOld;
+            usia.value = data.usiaOld;
+            usia.innerText = data.usiaOld;
+            ibu.value = data.ibuOld;
+            ibu.innerText = data.ibuOld;
+            ayah.value = data.ayahOld;
+            ayah.innerText = data.ayahOld;
+        }
+    }
+
+    document.getElementById('penduduk_id').addEventListener('change', function() {
+        let bayis = @json($bayisData);
+        let parents = @json($parentsData);
+        let bayi;
+
+        // Clear existing values before setting new ones
+        clearFields();
+
+        for (let i = 0; i < bayis.length; i++) {
+            if (bayis[i].penduduk_id.toString() === this.value) {
+                let tgl_lahir = new Date(bayis[i].tgl_lahir);
+                let sekarang = new Date();
+                let bulan = (sekarang.getFullYear() - tgl_lahir.getFullYear()) * 12;
+                bulan -= tgl_lahir.getMonth();
+                bulan += sekarang.getMonth();
+                if (bulan > 0 && bulan <= 24) {
+                    golongan.innerText = "baduta";
+                    golongan.value = "baduta";
+                    document.getElementById('kategori_golongan').value = "baduta";
+                } else if (bulan > 24 && bulan <= 36) {
+                    golongan.innerText = "batita";
+                    golongan.value = "batita";
+                    document.getElementById('kategori_golongan').value = "batita";
+                } else if (bulan > 36 && bulan <= 60) {
+                    golongan.innerText = "balita";
+                    golongan.value = "balita";
+                    document.getElementById('kategori_golongan').value = "balita";
+                }
+                usia.innerText = bulan + " bulan";
+                usia.value = bulan + " bulan";
+                bayi = bayis[i].NKK;
+            }
+        }
+
+        for (let i = 0; i < parents.length; i++) {
+            if (parents[i].NKK === bayi) {
+                if (parents[i].hubungan_keluarga === 'Istri') {
+                    ibu.value = parents[i].nama;
+                    ibu.innerText = parents[i].nama;
+                    break;
+                } else {
+                    ibu.value = "Data Ibu tidak ditemukan";
+                    ibu.innerText = "Data Ibu tidak ditemukan";
                 }
             }
+        }
 
-            for (let i = 0; i < parents.length; i++) {
-                if (parents[i].NKK === bayi) {
-                    if (parents[i].hubungan_keluarga === 'Istri') {
-                        document.getElementById('ibu').innerText = parents[i].nama;
-                        break;
-                    } else {
-                        document.getElementById('ibu').innerText = "Data Ibu tidak ditemukan";
-                    }
+        for (let i = 0; i < parents.length; i++) {
+            if (parents[i].NKK === bayi) {
+                if (parents[i].hubungan_keluarga === 'Kepala Keluarga') {
+                    ayah.value = parents[i].nama;
+                    ayah.innerText = parents[i].nama;
+                    break;
+                } else {
+                    ayah.value = "Data Ayah tidak ditemukan";
+                    ayah.innerText = "Data Ayah tidak ditemukan";
                 }
             }
+        }
+        
+        saveDataToLocalStorage();
+        data = {
+            nama: document.getElementById('penduduk_id').value, 
+            golonganOld: golongan.value, 
+            usiaOld: usia.value, 
+            ibuOld: ibu.value, 
+            ayahOld: ayah.value
+        };
+    });
 
-            for (let i = 0; i < parents.length; i++) {
-                if (parents[i].NKK === bayi) {
-                    if (parents[i].hubungan_keluarga === 'Kepala Keluarga') {
-                        document.getElementById('ayah').innerText = parents[i].nama;
-                        break;
-                    } else {
-                        document.getElementById('ayah').innerText = "Data Ayah tidak ditemukan";
-                    }
-                }
-            }
-        });
-    </script>
+    function clearFields() {
+        golongan.value = '';
+        golongan.innerText = '';
+        usia.value = '';
+        usia.innerText = '';
+        ibu.value = '';
+        ibu.innerText = '';
+        ayah.value = '';
+        ayah.innerText = '';
+    }
+    
 
+    // Load data from localStorage on page load
+    window.addEventListener('load', loadDataFromLocalStorage);
+</script>
 @endpush
+
