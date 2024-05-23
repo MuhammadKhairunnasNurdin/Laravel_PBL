@@ -14,18 +14,6 @@
                 <div class="md:col-span-1 flex flex-col gap-[23px] order-2">
                     <h2 class="font-bold text-lg">Data Pemeriksaan</h2>
 
-                    {{-- NAMA BAYI --}}
-                    {{-- <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_">
-                        <p class="text-base text-neutral-950">Nama Bayi<span class="text-red-400">*</span></p>
-                        <select name="penduduk_id" id="penduduk_id" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
-                            <option value="" class="text-gray-300">Masukkan nama balita</option>
-                            @foreach($bayisData as $bayi)
-                                <option value="{{ $bayi->penduduk_id }}" class="text-neutral-950">{{ $bayi->nama }}</option>
-                            @endforeach
-                        </select>
-                    </div> --}}
-                    {{-- END NAMA BAYI --}}
-
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="">
                         <p class="text-base text-neutral-950">Tanggal Pemeriksaan</p>
                         <p>{{ now()->day }} - {{ now()->format('F') }} - {{ now()->year }}</p>
@@ -34,7 +22,7 @@
                     {{-- LINGKAR KEPALA --}}
                     <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Lingkar Kepala<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="lingkar_kepala" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar kepala" required>
+                        <input type="number" step="any" name="lingkar_kepala" value="{{old('lingkar_kepala')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar kepala" required>
                         @error('lingkar_kepala')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -44,7 +32,7 @@
                     {{-- LINGKAR LENGAN --}}
                     <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Lingkar Lengan<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="lingkar_lengan" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar lengan" required>
+                        <input type="number" step="any" name="lingkar_lengan" value="{{old('lingkar_lengan')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan lingkar lengan" required>
                         @error('lingkar_lengan')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -54,41 +42,49 @@
                     {{-- BERAT BADAN --}}
                     <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950">Berat Badan<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="berat_badan" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan berat badan" required>
+                        <input type="number" step="any" name="berat_badan" value="{{old('berat_badan')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan berat badan" required>
                         @error('berat_badan')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
                     {{-- END BERAT BADAN --}}
 
+                    {{-- TINGGI BADAN --}}
                     <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Tinggi Badan<span class="text-red-400">*</span></p>
-                        <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan tinggi badan" required>
+                        <input type="number" step="any" name="tinggi_badan" value="{{old('tinggi_badan')}}" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan tinggi badan" required>
                         @error('tinggi_badan')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
+                    {{-- END TINGGI BADAN --}}
+
+                    {{-- STATUS KESEHATAN --}}
                     <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">Status Kesehatan?<span class="text-red-400">*</span></p>
                         <div class="flex items-center gap-10">
-                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="status" value="sehat" id="option1" required><span>Sehat</span>
-                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" required><span>Sakit</span>
+                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="status" value="sehat" id="option1" required {{ old('status') ? 'checked' : '' }}><span>Sehat</span>
+                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="status" value="sakit" id="option2" required {{ old('status') ? 'checked' : '' }}><span>Sakit</span>
                         </div>
                         @error('status')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
+                    {{-- END STATUS KESEHATAN --}}
+
+                    {{-- ASI EKSKLUSIF --}}
                     <div class="flex flex-col w-full h-fit gap-[20px] " id="page_1">
                         <p class="text-base text-neutral-950 pr-[10px]">ASI Eksklusif?<span class="text-red-400">*</span></p>
                         <div class="flex items-center gap-10">
-                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="asi" value="iya" id="option1" required><span>Ya</span>
-                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="asi" value="tidak" id="option2" required><span>Tidak</span>
+                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:border-transparent -mr-[25px]" name="asi" value="iya" id="option1" required {{ old('asi') ? 'checked' : '' }}><span>Ya</span>
+                            <input type="radio" class="indeterminate:outline-2 indeterminate:outline-stone-400 indeterminate:w-4 indeterminate:py-[6px] checked:w-4 checked:outline-2 checked:bg-red-400 -mr-[25px]" name="asi" value="tidak" id="option2" required {{ old('asi') ? 'checked' : '' }}><span>Tidak</span>
                         </div>
                         @error('asi')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
                 </div>
+                {{-- END ASI EKSKLUSIF --}}
 
                 <div class="md:col-span-1 flex flex-col gap-[23px] max-md:mt-[23px] order-1">
                     {{-- SISI KIRI (COMMENT WHEN SHOWING TO LECTURER)--}}
@@ -125,11 +121,6 @@
                                         <td id="ibu" value=""></td>
                                     </tr>
                                     <tr>
-                                        <td>Data KB</td>
-                                        <td>:</td>
-                                        <td id="data_kb" value=""></td>
-                                    </tr>
-                                    <tr>
                                         <td>Nama Ayah</td>
                                         <td>:</td>
                                         <td id="ayah" value=""></td>
@@ -143,15 +134,10 @@
 
             <input type="hidden" name="kategori_golongan" id="kategori_golongan">
             <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
-                <div class="col-span-2 md:col-span-1 flex flex-col w-full h-fill gap-[20px] hidden" id="page_2">
-                    <p class="text-base text-neutral-950 pr-[10px]">Data KB<span class="text-red-400">*</span></p>
-                    <input type="text" id="data_kb" class="w-100 border border-stone-400 text-black-300 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none" placeholder="Otomatis terisi setelah memilih nama bayi"  disabled>
-                </div>
                 <span id="page_1" class="col-span-1 hidden md:hidden"></span>
                 <div class="col-span-2 flex justify-end items-center gap-[26px] pt-10 w-full" id="">
                     <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
-                    {{-- <button type="button" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px] hidden back" id="page_2">Kembali</button> --}}
-                    <a href="{{ url('kader/bayi')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
+                    <a href="{{ url('kader/bayi' . session('urlPagination')) }}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
                     <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_2">Simpan Data</button>
                 </div>
             </div>
@@ -177,14 +163,10 @@
         document.getElementById('penduduk_id').addEventListener('change', function() {
             let bayis = @json($bayisData);
             let parents = @json($parentsData);
-            let momsMedicals = @json($momsMedicals);
             let bayi;
 
             for (let i = 0; i < bayis.length; i++) {
                 if (bayis[i].penduduk_id.toString() === this.value) {
-                    // document.getElementById('alamat').innerText = bayis[i].alamat;
-                    // console.log(bayis[i].alamat);
-                    // document.getElementById('alamat').value = bayis[i].alamat;
                     let tgl_lahir = new Date(bayis[i].tgl_lahir);
                     console.log(tgl_lahir);
                     let sekarang = new Date();
@@ -213,16 +195,10 @@
             for (let i = 0; i < parents.length; i++) {
                 if (parents[i].NKK === bayi) {
                     if (parents[i].hubungan_keluarga === 'Istri') {
-                        for (let j = 0; j < momsMedicals.length; j++) {
-                            if (momsMedicals[j].anak_id.toString() === this.value && parents[i].penduduk_id === momsMedicals[j].ibu_id) {
-                                document.getElementById('ibu').innerText = parents[i].nama;
-                                document.getElementById('data_kb').innerText = momsMedicals[j].data_kb;
-                                break;
-                            }
-                        }
+                        document.getElementById('ibu').innerText = parents[i].nama;
+                        break;
                     } else {
-                        document.getElementById('data_kb').value = "Data_Kb Ibu tidak ditemukan"
-                        document.getElementById('ibu').value = "Data Ibu tidak ditemukan";
+                        document.getElementById('ibu').innerText = "Data Ibu tidak ditemukan";
                     }
                 }
             }

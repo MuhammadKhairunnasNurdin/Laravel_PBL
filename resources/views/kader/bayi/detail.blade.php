@@ -21,29 +21,12 @@
                 <tr>
                     <td>Nama Ibu</td>
                     <td>:</td>
-                    @foreach($parentData as $parent)
-                        @if($parent->penduduk_id === $momMedical->ibu_id)
-                            <td>{{ $parent->nama }}</td>
-                            @break
-                        @elseif($parent->hubungan_keluarga === 'Kepala Keluarga' || $parent->hubungan_keluarga === 'Istri')
-                            @continue
-                        @else
-                            <td>Tidak Ada Ibu</td>
-                        @endif
-                    @endforeach
+                    <td>{{ $ibu }}</td>
                 </tr>
                 <tr>
                     <td>Nama Ayah</td>
                     <td>:</td>
-                    @foreach($parentData as $parent)
-                        @if($parent->hubungan_keluarga === 'Kepala Keluarga')
-                            <td>{{ $parent->nama }}</td>
-                        @elseif($parent->hubungan_keluarga === 'Istri')
-                            @continue
-                        @else
-                            <td>Tidak Ada Ayah</td>
-                        @endif
-                    @endforeach
+                    <td>{{ $ayah }}</td>
                 </tr>
                 <tr>
                     <td>Tanggal Kunjungan</td>
@@ -54,11 +37,6 @@
                     <td>Alamat</td>
                     <td>:</td>
                     <td>{{ $bayiData->penduduk->alamat }}</td>
-                </tr>
-                <tr>
-                    <td>Data KB</td>
-                    <td>:</td>
-                    <td>{{ $momMedical->data_kb }}</td>
                 </tr>
                 <tr>
                     <td>Lingkar Kepala</td>
@@ -85,12 +63,6 @@
                     <td>:</td>
                     <td>{{ $bayiData->status }}</td>
                 </tr>
-                {{--this will replace with actual data changes from audit_bulanan_bayi table--}}
-                {{--<tr>
-                    <td>Apakah Ada Kenaikan?</td>
-                    <td>:</td>
-                    <td>{{ $bayiData->pemeriksaan_bayi->kenaikan }}</td>
-                </tr>--}}
                 <tr>
                     <td>ASI Eksklusif?</td>
                     <td>:</td>
@@ -99,7 +71,7 @@
             </tbody>
         </table>
         <div class="flex justify-end">
-            <a href="{{ url('kader/bayi')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]">Kembali</a>
+            <a href="{{ url('kader/bayi' . session('urlPagination'))}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]">Kembali</a>
         </div>
     </div>
 </div>
