@@ -12,7 +12,6 @@ use App\Http\Requests\Kader\Pemeriksaan\UpdatePemeriksaanRequest;
 use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanBayi;
 use App\Models\Penduduk;
-use App\Models\RekamMedisIbu;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,13 +36,7 @@ class BayiResource extends Controller
          */
         $penduduks = Pemeriksaan::with('penduduk', 'pemeriksaan_bayi')->where('golongan', 'bayi')->paginate(10);
 
-        // THIS IS ONE OF THE PART OF THE FILTER
-        // $bayi = $this->getFilteredData($request)->paginate(3);
-        // $bayi->appends(request()->all());
-        // @dd($bayi);
-
-        // return view('kader.bayi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);
-        return view('kader.bayi.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'penduduks' => $penduduks]);
+        return view('kader.bayi.index', compact('breadcrumb', 'activeMenu', 'penduduks'));
     }
 
     /**
@@ -62,9 +55,7 @@ class BayiResource extends Controller
         $parentsData = Penduduk::where('hubungan_keluarga', '!=', 'Anak')
             ->get(['nama', 'hubungan_keluarga', 'NKK', 'penduduk_id']);
 
-        $momsMedicals = RekamMedisIbu::all();
-
-        return view('kader.bayi.tambah', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayisData' => $bayisData, 'parentsData' => $parentsData, 'momsMedicals' => $momsMedicals]);
+        return view('kader.bayi.tambah', compact('breadcrumb', 'activeMenu', 'bayisData', 'parentsData'));
     }
 
     /**
@@ -80,7 +71,7 @@ class BayiResource extends Controller
 
         event(new PemeriksaanBayiCreated($pemeriksaan, $pemeriksaanBayi));
 
-        return redirect()->intended(route('bayi.index'))
+        return redirect()->intended('kader/bayi' . session('urlPagination'))
             ->with('success', 'Data Bayi berhasil ditambahkan');
     }
 
@@ -97,16 +88,16 @@ class BayiResource extends Controller
 
         $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->find($id);
         if ($bayiData === null) {
-            return redirect()->intended('kader/bayi')->with('error', 'Data pemeriksaan bayi tidak ditemukan atau mungkin sudah dihapus kader lain');
+            return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data pemeriksaan bayi tidak ditemukan atau mungkin sudah dihapus kader lain');
         }
 
         $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
             ->where('hubungan_keluarga', '!=', 'Anak')
-            ->get(['nama', 'hubungan_keluarga', 'penduduk_id']);
+            ->get(['nama', 'hubungan_keluarga']);
+        $ibu = $parentData->firstWhere('hubungan_keluarga', 'Istri')->nama ?? 'Tidak Ada Ibu';
+        $ayah = $parentData->firstWhere('hubungan_keluarga', 'Kepala Keluarga')->nama ?? 'Tidak Ada Ayah';
 
-        $momsMedical = RekamMedisIbu::find($bayiData->penduduk->penduduk_id);
-
-        return view('kader.bayi.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayiData' => $bayiData, 'parentData' => $parentData, 'momMedical' => $momsMedical]);
+        return view('kader.bayi.detail', compact('breadcrumb', 'activeMenu', 'ibu', 'ayah', 'bayiData'));
     }
 
     /**
@@ -122,15 +113,14 @@ class BayiResource extends Controller
 
         $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->lockForUpdate()->find($id);
         if ($bayiData === null) {
-            return redirect()->intended('kader/bayi')->with('error', 'Data pemeriksaan bayi tidak ditemukan atau mungkin sudah dihapus');
+            return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data pemeriksaan bayi tidak ditemukan atau mungkin sudah dihapus');
         }
 
         $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
             ->where('hubungan_keluarga', '!=', 'Anak')
             ->get(['nama', 'hubungan_keluarga', 'penduduk_id']);
-        $momsMedical = RekamMedisIbu::find($bayiData->penduduk->penduduk_id);
 
-        return view('kader.bayi.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayiData' => $bayiData, 'parentData' => $parentData, 'momMedical' => $momsMedical]);
+        return view('kader.bayi.edit', compact('breadcrumb', 'activeMenu', 'bayiData', 'parentData'));
     }
 
     /**
@@ -209,10 +199,10 @@ class BayiResource extends Controller
                 return $isUpdated;
             });
 
-            return redirect()->intended(route('bayi.index'))
+            return redirect()->intended('kader/bayi' . session('urlPagination'))
                 ->with('success', $isUpdated ? 'Data Bayi berhasil diubah' : 'Namun Data Bayi tidak diubah');
         } catch (\Throwable $e) {
-            return redirect()->intended(route('bayi.index'))
+            return redirect()->intended('kader/bayi' . session('urlPagination'))
                 ->with('error', 'Terjadi Masalah Ketika mengubah Data Bayi: ' . $e->getMessage());
         }
     }
@@ -235,14 +225,14 @@ class BayiResource extends Controller
                  */
                 $pemeriksaan = Pemeriksaan::lockForUpdate()->find($id);
                 if ($pemeriksaan === null) {
-                    return redirect()->intended('kader/bayi')->with('error', 'Data pemeriksaan bayi tidak ditemukan');
+                    return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data pemeriksaan bayi tidak ditemukan');
                 }
 
                 /**
                  * check if other user is update our data when we do delete action
                  */
                 if ($pemeriksaan->updated_at > $request->input('updated_at')) {
-                    return redirect()->intended('kader/bayi')->with('error', 'Data Bayi masih di update oleh kader lain, coba refresh dan lakukan hapus lagi');
+                    return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data Bayi masih di update oleh kader lain, coba refresh dan lakukan hapus lagi');
                 }
 
                 /**
@@ -250,10 +240,10 @@ class BayiResource extends Controller
                  */
                 $pemeriksaan->delete();
 
-                return redirect()->intended('kader/bayi')->with('success', 'Data pemeriksaan bayi berhasil dihapus');
+                return redirect()->intended('kader/bayi' . session('urlPagination'))->with('success', 'Data pemeriksaan bayi berhasil dihapus');
             });
         } catch (QueryException) {
-            return redirect()->intended('kader/bayi')->with('error', 'Data pemeriksaan bayi gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data pemeriksaan bayi gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         } catch (\Throwable $e) {
             return redirect()->intended('kader/bayi')->with('error', 'Terjadi Masalah Ketika menghapus Data Bayi: ' . $e->getMessage());
         }

@@ -52,7 +52,7 @@ class PendudukSeeder extends Seeder
                 'RT' => 'RT 05',
             ], [
                 'NIK' => '351001200819980752',
-                'NKK' => '351001231654324857',
+                'NKK' => '351001231654324800',
                 'nama' => 'Nabila Saputri',
                 'tgl_lahir' => '1998-08-20',
                 'pendapatan' => 'Rp 500.000 - Rp 1.000.000',
@@ -172,7 +172,7 @@ class PendudukSeeder extends Seeder
                 'RT' => 'RT 03',
             ],[
                 'NIK' => '351001231654324894',
-                'NKK' => '351001231654324856',
+                'NKK' => '351001231654324888',
                 'nama' => 'Srintilente',
                 'tgl_lahir' => '1999-11-12',
                 'pendapatan' => 'Rp 1.000.000 - Rp 2.000.000',
@@ -196,7 +196,7 @@ class PendudukSeeder extends Seeder
                 'RT' => 'RT 03',
             ], [
                 "NIK"=> "351001100220220156",
-                "NKK"=> "351001231654324857",
+                "NKK"=> "351001231654324889",
                 "nama"=> "Budi",
                 "tgl_lahir"=> "1985-08-15",
                 "pendapatan"=> "Rp 2.000.000 - Rp 3.000.000",
@@ -208,7 +208,7 @@ class PendudukSeeder extends Seeder
                 "RT"=> "RT 02"
             ], [
                 "NIK"=> "351001100220220157",
-                "NKK"=> "351001231654324857",
+                "NKK"=> "351001231654324889",
                 "nama"=> "Siti",
                 "tgl_lahir"=> "1987-05-20",
                 "pendapatan"=> "Rp 0 - Rp 500.000",
