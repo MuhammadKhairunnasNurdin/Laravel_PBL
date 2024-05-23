@@ -35,13 +35,13 @@
                 @endphp
                 @foreach ($penduduks as $pd)
                     <x-table.table-row>
-                        <td class="px-6 border-b lg:py-2 bg-white">{{$pd->nama}}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">{{$pd->NIK}}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">{{$pd->NKK}}</td>
-                        <td class="px-6 lg:py-2 text-nowrap border-b bg-white">{{$pd->tgl_lahir}}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">{{$pd->jenis_kelamin}}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">{{$pd->hubungan_keluarga}}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">
+                        <td class="tableBody">{{$pd->nama}}</td>
+                        <td class="tableBody">{{$pd->NIK}}</td>
+                        <td class="tableBody">{{$pd->NKK}}</td>
+                        <td class="tableBody text-nowrap">{{$pd->tgl_lahir}}</td>
+                        <td class="tableBody">{{$pd->jenis_kelamin}}</td>
+                        <td class="tableBody">{{$pd->hubungan_keluarga}}</td>
+                        <td class="tableBody">
                             <form action="penduduk/{{$pd->penduduk_id}}" method="post" class="flex items-center gap-2">
                                 @php
                                     $queryString = http_build_query(request()->query());
@@ -83,12 +83,12 @@
         row.innerHTML = `
         <x-table.table-row>
                     <td class="px-6 border-b lg:py-2 bg-white">${item.nama}</td>
-                    <td class="px-6 lg:py-2 border-b bg-white">${item.NIK}</td>
-                    <td class="px-6 lg:py-2 border-b bg-white">${item.NKK}</td>
+                    <td class="tableBody">${item.NIK}</td>
+                    <td class="tableBody">${item.NKK}</td>
                     <td class="px-6 lg:py-2 text-nowrap border-b bg-white">${item.tgl_lahir}</td>
-                    <td class="px-6 lg:py-2 border-b bg-white">${item.jenis_kelamin}</td>
-                    <td class="px-6 lg:py-2 border-b bg-white">${item.hubungan_keluarga}</td>
-                    <td class="px-6 lg:py-2 border-b bg-white">
+                    <td class="tableBody">${item.jenis_kelamin}</td>
+                    <td class="tableBody">${item.hubungan_keluarga}</td>
+                    <td class="tableBody">
                         <form action="penduduk/${item.penduduk_id}" method="post" class="flex items-center gap-2">
                             <a href="penduduk/${item.penduduk_id}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
                             <a href="penduduk/${item.penduduk_id}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>

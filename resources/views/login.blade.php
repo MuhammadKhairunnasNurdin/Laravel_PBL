@@ -19,8 +19,8 @@
 <body>
     <div class="flex bg-gray-200 w-screen h-full justify-center items-center lg:h-screen">
         <div class="flex absolute right w-full pt-[10px] top-0 gap-2 px-2 justify-between lg:justify-start">
-            <a href="{{ url('/') }}" class="back-button py-2 px-2 rounded-full bg-white hover:bg-gray-500">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:text-black">
+            <a href="{{ url('/') }}" class="back-button py-2 px-2 rounded-full bg-white hover:bg-neutral-950 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hover:text-white">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
                 </svg>                  
             </a>

@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/lansia/search', [\App\Http\Controllers\Api\SearchController::class, 'searchLansia']);
 Route::get('/bayi/search', [\App\Http\Controllers\Api\SearchController::class, 'searchBayi']);
 Route::get('/penduduk/search', [\App\Http\Controllers\Api\SearchController::class, 'searchPenduduk']);
+Route::get('/informasi/search', [\App\Http\Controllers\Api\SearchController::class, 'searchInformasi']);

@@ -22,3 +22,7 @@
 .bg-berita {
     @apply bg-[url('../../public/img/background2.png')] h-[600px] bg-cover bg-no-repeat;
 }
+
+.tableBody{
+    @apply px-5 lg:px-6 border-b py-2 lg:py-2 bg-white text-xs lg:text-base;
+}

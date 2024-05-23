@@ -1,6 +1,6 @@
 <div class="dropdown">
     <button onclick="activeFilter(this)" id="filterInput"
-            class="transition ease-in-out duration-200 active:scale-95 bg-white hover:bg-white hover:border-neutral-950 group ease-in-out duration-200 flex gap-2 font-normal items-center rounded-[1.25rem] text-neutral-950 border border-gray-400 xl:px-[1vw] xl:text-sm lg:px-[1vw] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem]">
+            class="transition ease-in-out duration-200 active:scale-95 bg-white hover:bg-white hover:border-neutral-950 group ease-in-out duration-200 flex gap-2 font-normal items-center rounded-[1.25rem] text-neutral-950 border border-gray-400 xl:px-[1vw] xl:text-sm px-[1vw] lg:px-[1vw] py-[0.25rem] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem]">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
              class="transition-all ease-in-out duration-200">
             <path

@@ -6,45 +6,28 @@
             <p class="text-sm md:text-lg ml-10">Daftar pemeriksaan bayi</p>
             <a href="{{ url('kader/bayi/create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-10 rounded">Tambah</a>
         </div>
-        <div class="flex mt-[30px] mx-10 gap-[30px]">
-            <div class="flex w-fit h-full items-center align-middle">
-                <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
+        <div class="flex flex-col mt-[30px] mx-10 gap-[30px]">
+            <div class="flex flex-row w-fit h-full items-center align-middle gap-4">
+                <x-dropdown.dropdown-filter><span class="hidden lg:flex">Filter</span></x-dropdown.dropdown-filter>
                 <x-input.search-input name="search" placeholder="Cari nama anggota posyandu"></x-input.search-input>
-                {{-- <p class="text-base text-neutral-950 text-center pr-[10px]">Filter:</p>
-                <select name="filterValue" id="filterValue" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none">
-                    <option value="" class="">Pilih Kategori</option>
-                    @foreach($penduduks as $filter)
-                        <option value="{{ $filter->NIK }}">{{ $filter->penduduk->nama }}</option>
-                    @endforeach
-                </select> --}}
             </div>
-            @if(session('success'))
-                <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
-                    <p class="mr-4"> <b>BERHASIL </b> {{ session('success') }}</p>
-                    <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
-                        <span>&times;</span>
-                    </button>
-                </div>
-            @elseif(session('error'))
-                <div class="flex items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
-                    <p class="mr-4">{{ session('error') }}</p>
-                    <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
-                        <span>&times;</span>
-                    </button>
-                </div>
-            @endif
-
-            {{-- <div class="flex w-full h-full items-center align-middle dt-container dt-empty-footer">
-                <label class="text-base text-neutral-950 text-center pr-[10px]" for="dt-search-0">Cari:</label>
-                <div class="relative flex">
-                    <input type="text" class="w-100 border border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none placeholder:text-neutral-950" id="dt-search-0" placeholder="Cari nama balita di sini" aria-controls="bayi_table">
-                    <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                        </svg>
+            <div class="flex mr-[3.75rem] -mt-[20px] absolute" id="message">
+                @if(session('success'))
+                    <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
+                        <p class="mr-4"> <b>BERHASIL </b> {{ session('success') }}</p>
+                        <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
+                            <span>&times;</span>
+                        </button>
                     </div>
-                </div>
-            </div> --}}
+                @elseif(session('error'))
+                    <div class="flex items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md transform transition ease-out duration-150" id="message">
+                        <p class="mr-4">{{ session('error') }}</p>
+                        <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                @endif
+            </div>
         </div>
 
         @php
@@ -60,41 +43,27 @@
         <input type="hidden" name="where" id="whereValue" value="{{encrypt('bayi')}}">
 
         <div class="mx-10 my-[30px]">
-            {{-- <table class="border-collapse w-full rounded-t-[10px] overflow-hidden" id="bayi_table">
-                <thead class="bg-gray-200 border-b text-left py-5">
-                    <tr class=" text-stone-400">
-                        <th class="font-normal text-sm">Nama Bayi</th>
-                        <th class="font-normal text-sm">Tgl Pemeriksaan</th>
-                        <th class="font-normal text-sm">Usia</th>
-                        <th class="font-normal text-sm">Kategori Umur</th>
-                        <th class="font-normal text-sm">Berat</th>
-                        <th class="font-normal text-sm">Tinggi</th>
-                        <th class="font-normal text-sm">Status</th>
-                        <th class="font-normal text-sm">Aksi</th>
-                    </tr>
-                </thead>
-            </table> --}}
             <x-table.data-table :dt="$penduduks" :headers="['Nama Bayi', 'Tgl Pemeriksaan', 'Usia', 'Kategori Umur', 'Berat', 'Tinggi', 'Status', 'Aksi']">
                 @php
                     $no = ($penduduks->currentPage() - 1) * $penduduks->perPage() + 1;
                 @endphp
                 @foreach ($penduduks as $pd)
                 <x-table.table-row>
-                        <td class="px-6 border-b 2xl:py-6 lg:py-5 bg-white">{{$pd->penduduk->nama}}</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tgl_pemeriksaan}}</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white usia" id="usia">{{now()->diffInMonths($pd->penduduk->tgl_lahir)}} Bulan</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->pemeriksaan_bayi->kategori_golongan}}</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->berat_badan}} Kg</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->tinggi_badan}} Cm</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{$pd->status}}</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">
-                            <form action="bayi/{{$pd->pemeriksaan_id}}" method="post">
+                        <td class="tableBody">{{$pd->penduduk->nama}}</td>
+                        <td class="tableBody">{{$pd->tgl_pemeriksaan}}</td>
+                        <td class="tableBody usia" id="usia">{{now()->diffInMonths($pd->penduduk->tgl_lahir)}} Bulan</td>
+                        <td class="tableBody">{{$pd->pemeriksaan_bayi->kategori_golongan}}</td>
+                        <td class="tableBody">{{$pd->berat_badan}} Kg</td>
+                        <td class="tableBody">{{$pd->tinggi_badan}} Cm</td>
+                        <td class="tableBody">{{$pd->status}}</td>
+                        <td class="tableBody">
+                            <form action="bayi/{{$pd->pemeriksaan_id}}" method="post" class="flex items-center gap-2">
                                 <a href="bayi/{{$pd->pemeriksaan_id}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
                                 <a href="bayi/{{$pd->pemeriksaan_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Ubah</a>
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="updated_at" value="{{ $pd->updated_at }}">
-                                <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Hapus</button>
+                                <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</button>
                             </form>
                         </td>
                     </x-table.table-row>
@@ -252,6 +221,7 @@
 
     //         window.location.href = '/kader/bayi';
     //     }
+
     function calculateAge(ttl){
         let birth = new Date(ttl);
 
@@ -287,14 +257,14 @@
 
             row.innerHTML = `
             <x-table.table-row>
-                        <td class="px-6 border-b lg:py-2 bg-white">${item.penduduk.nama}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">${item.tgl_pemeriksaan}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">${calculateAge(item.penduduk.tgl_lahir)} Bulan</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">${item.pemeriksaan_bayi.kategori_golongan}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">${item.berat_badan} Kg</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">${item.tinggi_badan} Cm</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">${item.status}</td>
-                        <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">
+                        <td class="tableBody">${item.penduduk.nama}</td>
+                        <td class="tableBody">${item.tgl_pemeriksaan}</td>
+                        <td class="tableBody">${calculateAge(item.penduduk.tgl_lahir)} Bulan</td>
+                        <td class="tableBody">${item.pemeriksaan_bayi.kategori_golongan}</td>
+                        <td class="tableBody">${item.berat_badan} Kg</td>
+                        <td class="tableBody">${item.tinggi_badan} Cm</td>
+                        <td class="tableBody">${item.status}</td>
+                        <td class="tableBody">
                             <form action="bayi/${item.pemeriksaan_id}" method="post">
                                 <a href="bayi/${item.pemeriksaan_id}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
                                 <a href="bayi/${item.pemeriksaan_id}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Ubah</a>

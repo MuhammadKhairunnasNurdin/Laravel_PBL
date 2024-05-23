@@ -53,7 +53,7 @@ DashboardController extends Controller
                 ->whereDate('tgl_pemeriksaan', '>=', now()->subMonth())
                 ->where('status', '=', 'sakit')
                 ->groupBy('golongan')->get(),
-            'kegiatan' => Kegiatan::all(),
+            'kegiatan' => Kegiatan::paginate(10),
         ];
     }
     private function indexDataAdmin(): array
@@ -68,7 +68,7 @@ DashboardController extends Controller
                 ->whereDate('tgl_pemeriksaan', '>=', now()->subMonth())
                 ->where('status', '=', 'sakit')
                 ->groupBy('golongan')->get(),
-            'kegiatan' => Kegiatan::all(),
+            'kegiatan' => Kegiatan::paginate(10),
             'penduduk_all' => Penduduk::selectRaw('count(penduduk_id) as total')
                 ->get(),
             'penduduk_laki' => Penduduk::selectRaw('count(penduduk_id) as total')
