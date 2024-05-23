@@ -180,7 +180,7 @@
     // Function to load data from localStorage
     function loadDataFromLocalStorage() {
         const savedData = localStorage.getItem('lansiaData');
-        if (savedData) {
+        if (savedData && @json(old('penduduk_id'))) {
             data = JSON.parse(savedData);
             inputData();
         }
@@ -212,11 +212,11 @@
                 document.getElementById('usia').innerText = (sekarang.getFullYear() - tgl_lahir.getFullYear()) + " tahun";
             }
         }
-        
+
         saveDataToLocalStorage();
         data = {
-            nama: document.getElementById('penduduk_id').value, 
-            usiaOld: usia.value, 
+            nama: document.getElementById('penduduk_id').value,
+            usiaOld: usia.value,
             alamatOld: alamat.value
         };
     });
