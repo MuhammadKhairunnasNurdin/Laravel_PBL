@@ -25,7 +25,9 @@ class PemeriksaanBayi extends Model
         'lingkar_kepala',
         'lingkar_lengan',
         'asi',
-        'kategori_golongan'
+        'kategori_golongan',
+        'created_at',
+        'updated_at',
     ];
 
     /**

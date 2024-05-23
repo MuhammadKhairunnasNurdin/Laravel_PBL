@@ -30,6 +30,14 @@ class KaderSeeder extends Seeder
                 'user_id'=> 5,
                 'penduduk_id' => 12,
             ],
+            [
+                'user_id'=> 6,
+                'penduduk_id' => 14,
+            ],
+            [
+                'user_id'=> 7,
+                'penduduk_id' => 17,
+            ],
         ];
 
         DB::table('kaders')->insert($data);
