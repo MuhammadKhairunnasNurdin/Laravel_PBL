@@ -7,24 +7,9 @@
     </div>
     <div class="flex mt-[30px] mx-10 gap-[30px]">
         <div class="flex w-fit h-full items-center align-middle">
-            <p class="text-base text-neutral-950 text-center pr-[10px]">Filter:</p>
-            <select name="filterValue" id="filterValue" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none">
-                <option value="" class="">Semua</option>
-                @foreach($kegiatans as $filter)
-                    <option value="{{ $filter->kegiatan_id }}">{{ $filter->nama }}</option>
-                @endforeach
-            </select>
+            <x-input.search-input name="search" placeholder="Cari nama atau tempat kegiatan">Search</x-input.search-input>
         </div>
         <div class="flex w-full h-full items-center align-middle">
-            <p class="text-base text-neutral-950 text-center pr-[10px]">Cari:</p>
-            <div class="relative flex">
-                <input type="text" class="w-100 border border border-stone-400 text-sm font-normal pl-[10px] pr-28 py-[10px] rounded-[5px] focus:outline-none placeholder:text-neutral-950" id="search" name="search" placeholder="Cari di sini">
-                <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                    </svg>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -32,91 +17,132 @@
     <input type="hidden" name="url" id="url" value="{{encrypt('/kader/informasi/kegiatan/')}}">
     <input type="hidden" name="filterName" id="filterName" value="{{encrypt('kegiatan_id')}}">
 
-    <div class="mx-10 my-[30px]">
-        <table class="border-collapse w-full rounded-t-[10px] overflow-hidden" id="kegiatan_table">
-            <thead class="bg-gray-200 border-b text-left py-5">
-                <tr class=" text-stone-400">
-                    <th class="font-normal text-sm">Nama Kegiatan</th>
-                    <th class="font-normal text-sm">Tanggal Pelaksanaan</th>
-                    <th class="font-normal text-sm">Pukul</th>
-                    <th class="font-normal text-sm">Tempat Pelaksanaan</th>
-                    <th class="font-normal text-sm">Aksi</th>
-                </tr>
-            </thead>
-        </table>
+    <div class="mx-10 my-[30px] overflow-x-auto lg:overflow-hidden">
+        <x-table.data-table :dt="$kegiatans" 
+                            :headers="['Nama Kegiatan', 'Tanggal Pelaksanan', 'Pukul', 'Tempat Pelaksanaan', 'Aksi']">
+            @php
+                $no = ($kegiatans->currentPage() - 1) * $kegiatans->perPage() + 1;
+            @endphp
+            @foreach ($kegiatans as $kd)
+            <x-table.table-row>
+                <td class="tableBody">{{$kd->nama}}</td>
+                <td class="tableBody">{{ date('d-M-Y', strtotime($kd->tgl_kegiatan))}}</td>
+                <td class="tableBody">{{ date('H:i', strtotime($kd->jam_mulai)) }} - Selesai</td>
+                <td class="tableBody">{{$kd->tempat}}</td>
+                <td class="tableBody">
+                    <form action="penduduk/{{$kd->kegiatan_id}}" method="post" class="flex items-center gap-2">
+                        @php
+                            $queryString = http_build_query(request()->query());
+                            session(['urlPagination' => $queryString ? '?' . $queryString : '']);
+                        @endphp
+                        <a href="informasi/{{$kd->kegiatan_id}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
+                        <a href="informasi/{{$kd->kegiatan_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="updated_at" value="{{ $kd->updated_at }}">
+                        <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[6px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</button>
+                    </form>
+                </td>
+            </x-table.table-row>
+            @php
+                $no++;
+            @endphp
+            @endforeach
+        </x-table.data-table>
     </div>
 </div>
 @endsection
 
-@push('css')
-<style>
-    th, td {
-        padding-inline: 20px;
-        padding-block: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-    #detail {
-        display: none;
-    }
-</style>
-@endpush
-
 @push('js')
-    <!-- jQuery Reload -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <!-- DataTable Reload-->
-    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.min.js"></script>
+<script>
+    function formatDate(dateString) {
+        const date = new Date(dateString);
 
-    <script>
-        $(document).ready(function () {
-            let dataKegiatan = $('#kegiatan_table').DataTable({
-                serverSide: true,
-                ajax: {
-                    "url": "{{ route('kegiatan.list') }}",
-                    "dataType": "json",
-                    "type": "POST",
-                    "data": function (d) {
-                        d._token = "{{ csrf_token() }}";
-                        d.filterValue = $('#filterValue').val();
-                        d.model = $('#model').val();
-                        d.url = $('#url').val();
-                        d.filterName = $('#filterName').val();
-                    }
-                },
-                columns: [
-                    {
-                        data: "nama",
-                        className: "font-normal text-smr",
-                        width: 300,
-                        orderable: false,
-                        searchable: true
-                    }, {
-                        data: "tgl_kegiatan",
-                        className: "font-normal text-sm",
-                        orderable: true,
-                        searchable: true
-                    }, {
-                        data: "jam_mulai",
-                        className: "font-normal text-sm",
-                        orderable: false,
-                        searchable: false,
-                    }, {
-                        data: "tempat",
-                        className: "font-normal text-sm",
-                        orderable: false,
-                        searchable: false,
-                    }, {
-                        data: "aksi",
-                        className: "",
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-            $('#filterValue').on('change', function() {
-                dataKegiatan.ajax.reload();
-            });
-        });
-    </script>
+        const day = date.getDate().toString().padStart(2, '0'); // Pad single digit days with a leading zero
+        const month = date.toLocaleString('en-US', { month: 'short' }); // Get short month name
+        const year = date.getFullYear();
+
+        return `${day}-${month}-${year}`;
+    }
+
+    function formatTime(timeString) {
+        const [hour, minute, second] = timeString.split(':');
+
+        const formattedHour = hour.padStart(2, '0');
+        const formattedMinute = minute.padStart(2, '0');
+
+        return `${formattedHour}:${formattedMinute}`;
+    }
+
+    function clearTable() {
+            const table = document.getElementById('dataTable');
+            const rows = table.getElementsByTagName('tr');
+
+            for (let i = rows.length - 1; i > 0; i--) {
+                table.deleteRow(i);
+            }
+        }
+
+        function addRowToTable(item) {
+            const table = document.getElementById('dataTable');
+            const row = table.insertRow(-1);
+
+            row.innerHTML = `
+            <x-table.table-row>
+                        <td class="tableBody">${item.nama}</td>
+                        <td class="tableBody">${formatDate(item.tgl_kegiatan)}</td>
+                        <td class="tableBody">${formatTime(item.jam_mulai)} - Selesai</td>
+                        <td class="tableBody">${item.tempat}</td>
+                        <td class="tableBody">
+                            <form action="informasi/${item.kegiatan_id}" method="post" class="flex items-center gap-2">
+                                <a href="informasi/${item.kegiatan_id}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Detail</a>
+                                <a href="informasi/${item.kegiatan_id}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Ubah</a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600">Hapus</button>
+                            </form>
+                        </td>
+                    </x-table.table-row>
+    `;
+
+        }
+
+        async function searchFunction() {
+            let input;
+            input = document.getElementById('searchInput');
+            search = input.value;
+
+            try {
+                // Make a request to the server
+                const response = await fetch(`/api/informasi/search?search=${search}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    },
+                });
+
+                const responseData = await response.json();
+
+                clearTable();
+
+                responseData[0].data.forEach(item => {
+                    addRowToTable(item);
+                });
+
+
+            } catch (error) {
+                console.error('Fetch error:', error);
+                // console.log(error);
+                const table = document.getElementById('dataTable');
+
+                clearTable();
+
+                const row = table.insertRow(-1);
+                row.innerHTML = `
+                    <td colspan="7" class="text-center p-6 bg-white border-b font-medium text-Neutral/60">Data tidak ditemukan</td>
+                    `;
+            }
+        }
+</script>
 @endpush

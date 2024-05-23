@@ -25,7 +25,7 @@ class KegiatanResource extends Controller
         /**
          * Retrieve data for filter feature
          */
-        $kegiatans = Kegiatan::get(['kegiatan_id', 'nama']);
+        $kegiatans = Kegiatan::paginate(10);
 
         return view('kader.informasi.kegiatan.list', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kegiatans' => $kegiatans]);
     }

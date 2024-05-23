@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanLansia;
 use App\Models\Penduduk;
+use App\Models\Kegiatan;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
@@ -63,5 +64,25 @@ class SearchController extends Controller
         }
 
         return response()->json([$penduduk], 200);
+    }
+    
+    public function searchInformasi(Request $request)
+    {
+        $search = $request->input('search', '');
+
+        $informasi = Kegiatan::where('nama', 'like', "%{$search}%")
+        ->paginate(10);
+        
+        if($informasi->isEmpty()) {
+            $informasi = Kegiatan::where('tempat', 'like', "%{$search}%")
+            ->paginate(10);
+        }
+
+
+        if ($informasi->isEmpty()) {
+            return response()->json(['error' => 'No results found'], 404);
+        }
+
+        return response()->json([$informasi], 200);
     }
 }
