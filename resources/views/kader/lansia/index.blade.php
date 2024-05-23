@@ -8,10 +8,11 @@
         </div>
         {{-- <div class="flex mt-[30px] mx-10 "> --}}
             <div class="flex w-fit h-full items-center align-middle gap-[20px] mx-10 mt-[30px]">
-                <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
+                <x-dropdown.dropdown-filter><span class="hidden lg:flex">Filter</span></x-dropdown.dropdown-filter>
                 <x-input.search-input name="search" placeholder="Cari nama anggota posyandu"></x-input.search-input>
             </div>
-            @if(session('success'))
+            <div class="flex mr-[3.75rem] -mt-[20px] absolute" id="message">
+                @if(session('success'))
                 <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
                     <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p>
                     <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
@@ -25,7 +26,8 @@
                         <span>&times;</span>
                     </button>
                 </div>
-            @endif
+                @endif
+            </div>
         {{-- </div> --}}
 
         @php
@@ -47,22 +49,22 @@
                 @endphp
                 @foreach ($penduduks as $pd)
                 <x-table.table-row>
-                        <td class="px-6 border-b lg:py-2 bg-white">{{$pd->penduduk->nama}}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">{{$pd->tgl_pemeriksaan}}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white usia" id="usia">{{now()->diffInYears($pd->penduduk->tgl_lahir)}} Tahun</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">{{$pd->berat_badan}} Kg</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">{{$pd->tinggi_badan}} Cm</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">{{$pd->pemeriksaan_lansia->lingkar_perut}} Cm</td>
+                        <td class="tableBody">{{$pd->penduduk->nama}}</td>
+                        <td class="tableBody">{{$pd->tgl_pemeriksaan}}</td>
+                        <td class="tableBody usia" id="usia">{{now()->diffInYears($pd->penduduk->tgl_lahir)}} Tahun</td>
+                        <td class="tableBody">{{$pd->berat_badan}} Kg</td>
+                        <td class="tableBody">{{$pd->tinggi_badan}} Cm</td>
+                        <td class="tableBody">{{$pd->pemeriksaan_lansia->lingkar_perut}} Cm</td>
                             {{-- @dd($pd->pemeriksaan_lansia->lingkar_perut); --}}
-                        <td class="px-6 lg:py-2 border-b bg-white">{{$pd->status}}</td>
-                        <td class="px-6 lg:py-2 border-b bg-white">
+                        <td class="tableBody">{{$pd->status}}</td>
+                        <td class="tableBody">
                             <form action="lansia/{{$pd->pemeriksaan_id}}" method="post" class="flex items-center gap-2">
                                 <a href="lansia/{{$pd->pemeriksaan_id}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
                                 <a href="lansia/{{$pd->pemeriksaan_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="updated_at" value="{{ $pd->updated_at }}">
-                                <button type="submit" onclick="Javascript:return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[6px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</button>
+                                <button type="submit" onclick="Javascript:return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</button>
                             </form>
                         </td>
                     </x-table.table-row>
@@ -224,14 +226,14 @@
 
         row.innerHTML = `
         <x-table.table-row>
-                    <td class="px-6 border-b lg:py-2 bg-white">${item.penduduk.nama}</td>
-                    <td class="px-6 lg:py-2 border-b bg-white">${item.tgl_pemeriksaan}</td>
-                    <td class="px-6 lg:py-2 border-b bg-white">${calculateAge(item.penduduk.tgl_lahir)} Tahun</td>
-                    <td class="px-6 lg:py-2 border-b bg-white">${item.berat_badan} Kg</td>
-                    <td class="px-6 lg:py-2 border-b bg-white">${item.tinggi_badan} Cm</td>
-                    <td class="px-6 lg:py-2 border-b bg-white">${item.pemeriksaan_lansia.lingkar_perut} Cm</td>
-                    <td class="px-6 lg:py-2 border-b bg-white">${item.status}</td>
-                    <td class="px-6 lg:py-2 border-b bg-white">
+                    <td class="tableBody">${item.penduduk.nama}</td>
+                    <td class="tableBody">${item.tgl_pemeriksaan}</td>
+                    <td class="tableBody">${calculateAge(item.penduduk.tgl_lahir)} Tahun</td>
+                    <td class="tableBody">${item.berat_badan} Kg</td>
+                    <td class="tableBody">${item.tinggi_badan} Cm</td>
+                    <td class="tableBody">${item.pemeriksaan_lansia.lingkar_perut} Cm</td>
+                    <td class="tableBody">${item.status}</td>
+                    <td class="tableBody">
                         <form action="lansia/${item.pemeriksaan_id}" method="post" class="flex items-center gap-2">
                             <a href="lansia/${item.pemeriksaan_id}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
                             <a href="lansia/${item.pemeriksaan_id}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>

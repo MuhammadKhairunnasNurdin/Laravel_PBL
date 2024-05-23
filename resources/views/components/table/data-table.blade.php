@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-between w-full h-full overflow-hidden">
+<div class="flex flex-col justify-between w-full h-full overflow-x-auto lg:overflow-hidden">
     <table class="table-auto w-full xl:text-sm lg:text-xs font-normal capitalize" id="dataTable">
         <thead class="bg-gray-200">
         <tr class="text-neutral-950">
@@ -6,13 +6,13 @@
             @foreach($headers as $index => $header)
 
                 @if($index == 0)
-                    <th class="py-2 px-6 rounded-tl-[10px] text-sm text-start">{{ $header }}</th>
+                    <th class="py-2 px-5 lg:px-6 rounded-tl-[10px] text-xs lg:text-sm text-start">{{ $header }}</th>
 
                 @elseif($index == count($headers) - 1)
-                    <th class="px-6 py-2 rounded-tr-[10px] text-sm text-start">{{ $header }}</th>
+                    <th class="px-5 lg:px-6 py-2 rounded-tr-[10px] text-xs lg:text-sm text-start">{{ $header }}</th>
 
                 @else
-                    <th class="px-6 py-2 text-sm text-start">{{ $header }}</th>
+                    <th class="px-5 lg:px-6 py-2 text-xs lg:text-sm text-start">{{ $header }}</th>
                 @endif
 
             @endforeach
@@ -31,7 +31,7 @@
             </tbody>
         @endif
     </table>
-    <div class="flex justify-between items-center" id="pagin">
+    <div class="flex justify-between items-center my-4" id="pagin">
         <div class="flex items-center list-none gap-2">
             {{ $dt->links() }}
         </div>
