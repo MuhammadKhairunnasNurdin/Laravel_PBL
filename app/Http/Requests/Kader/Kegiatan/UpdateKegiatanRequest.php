@@ -26,18 +26,15 @@ class UpdateKegiatanRequest extends FormRequest
             'tgl_kegiatan' => Carbon::create($this->input('year'), $this->input('month'), $this->input('day'))->format('Y-m-d')
         ]);
 
-        $oldData = json_decode($this->input('kegiatan'), true);
-
         $this->request->replace(
             $this->only([
                 'nama',
                 'tgl_kegiatan',
                 'jam_mulai',
                 'tempat',
+                'kegiatan',
             ])
         );
-
-        $this->request->replace($this->only(array_keys(array_diff_assoc($this->request->all(), $oldData))));
     }
 
     /**
@@ -50,24 +47,43 @@ class UpdateKegiatanRequest extends FormRequest
         return [
             'nama' => [
                 'bail',
+                'required',
                 'string',
-                'max:100',
-                'min:5'
+                'regex:/^[a-zA-Z\s.]{5,100}$/',
             ],
             'tgl_kegiatan' => [
                 'bail',
+                'required',
                 'date_format:Y-m-d'
             ],
             'jam_mulai' => [
                 'bail',
+                'required',
                 'date_format:H:i'
             ],
             'tempat' => [
                 'bail',
+                'required',
                 'string',
-                'max:200',
-                'min:5'
+                'regex:/^([\w\s\n.]{5,200})$/',
             ]
         ];
+    }
+
+    /**
+     * Handle a passed validation attempt.
+     *
+     * @return void
+     */
+    protected function passedValidation(): void
+    {
+        /**
+         * compare updated data from user form with old data in
+         * database and just replace request input with data that
+         * changes
+         */
+        $oldData = json_decode($this->input('kegiatan'), true);
+
+        $this->request->replace($this->only(array_keys(array_diff_assoc($oldData, $this->request->all()))));
     }
 }
