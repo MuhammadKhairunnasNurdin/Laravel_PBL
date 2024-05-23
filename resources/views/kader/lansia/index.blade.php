@@ -59,6 +59,10 @@
                         <td class="tableBody">{{$pd->status}}</td>
                         <td class="tableBody">
                             <form action="lansia/{{$pd->pemeriksaan_id}}" method="post" class="flex items-center gap-2">
+                                @php
+                                    $queryString = http_build_query(request()->query());
+                                    session(['urlPagination' => $queryString ? '?' . $queryString : '']);
+                                @endphp
                                 <a href="lansia/{{$pd->pemeriksaan_id}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
                                 <a href="lansia/{{$pd->pemeriksaan_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
                                 @csrf
@@ -90,6 +94,18 @@
 
 @push('js')
 <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var div = document.getElementById('message');
+        var button = document.getElementById('close');
+
+        if (div && button) {
+            button.addEventListener('click', function() {
+                div.classList.add('hidden');
+                console.log('test button');
+            });
+        }
+    });
 
     // function filterByKategori(kategori) {
     //     let url = `/bayi?`;

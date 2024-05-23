@@ -9,6 +9,7 @@ use App\Http\Requests\Kader\Bayi\StoreBayiRequest;
 use App\Http\Requests\Kader\Bayi\UpdateBayiRequest;
 use App\Http\Requests\Kader\Pemeriksaan\StorePemeriksaanRequest;
 use App\Http\Requests\Kader\Pemeriksaan\UpdatePemeriksaanRequest;
+use App\Models\Kader;
 use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanBayi;
 use App\Models\Penduduk;
@@ -17,6 +18,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use function Symfony\Component\String\b;
 
 class BayiResource extends Controller
 {
@@ -97,7 +99,10 @@ class BayiResource extends Controller
         $ibu = $parentData->firstWhere('hubungan_keluarga', 'Istri')->nama ?? 'Tidak Ada Ibu';
         $ayah = $parentData->firstWhere('hubungan_keluarga', 'Kepala Keluarga')->nama ?? 'Tidak Ada Ayah';
 
-        return view('kader.bayi.detail', compact('breadcrumb', 'activeMenu', 'ibu', 'ayah', 'bayiData'));
+        $kader = Kader::find($bayiData->kader_id)->only('penduduk_id')['penduduk_id'];
+        $namaKader = Penduduk::find($kader)->only('nama')['nama'];
+
+        return view('kader.bayi.detail', compact('breadcrumb', 'activeMenu', 'ibu', 'ayah', 'namaKader', 'bayiData'));
     }
 
     /**

@@ -9,6 +9,16 @@
         <table class="w-fit">
             <tbody>
                 <tr>
+                    <td>Kader Pengurus Data</td>
+                    <td>:</td>
+                    <td>{{ $namaKader}}</td>
+                </tr>
+                <tr>
+                    <td>Terahir data dirubah</td>
+                    <td>:</td>
+                    <td>{{ now('Asia/Jakarta')->locale('id')->longRelativeToNowDiffForHumans($bayiData->updated_at)}}</td>
+                </tr>
+                <tr>
                     <td>Nama Bayi</td>
                     <td>:</td>
                     <td>{{ $bayiData->penduduk->nama }}</td>
