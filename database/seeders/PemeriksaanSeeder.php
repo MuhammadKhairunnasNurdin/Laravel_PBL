@@ -22,6 +22,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 13.2,
                 'tinggi_badan' => 68.0,
                 'status' => 'sehat',
+                'created_at' => '2024-04-15',
+                'updated_at' => '2024-04-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 7,
@@ -30,6 +32,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 15.5,
                 'tinggi_badan' => 69.3,
                 'status' => 'sehat',
+                'created_at' => '2024-05-15',
+                'updated_at' => '2024-05-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 8,
@@ -38,6 +42,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 9.5,
                 'tinggi_badan' => 42.2,
                 'status' => 'sehat',
+                'created_at' => '2024-04-15',
+                'updated_at' => '2024-04-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 8,
@@ -46,6 +52,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 10.7,
                 'tinggi_badan' => 42.7,
                 'status' => 'sehat',
+                'created_at' => '2024-05-15',
+                'updated_at' => '2024-05-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 13,
@@ -54,6 +62,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 13.7,
                 'tinggi_badan' => 66.0,
                 'status' => 'sehat',
+                'created_at' => '2024-04-15',
+                'updated_at' => '2024-04-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 13,
@@ -62,6 +72,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 14.4,
                 'tinggi_badan' => 66.8,
                 'status' => 'sehat',
+                'created_at' => '2024-05-15',
+                'updated_at' => '2024-05-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 15,
@@ -70,6 +82,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 27.4,
                 'tinggi_badan' => 73.0,
                 'status' => 'sehat',
+                'created_at' => '2024-04-15',
+                'updated_at' => '2024-04-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 15,
@@ -78,6 +92,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 28.1,
                 'tinggi_badan' => 74.5,
                 'status' => 'sehat',
+                'created_at' => '2024-05-15',
+                'updated_at' => '2024-05-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 18,
@@ -86,6 +102,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 25.4,
                 'tinggi_badan' => 68.5,
                 'status' => 'sehat',
+                'created_at' => '2024-04-15',
+                'updated_at' => '2024-04-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 18,
@@ -94,6 +112,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 26.0,
                 'tinggi_badan' => 69.2,
                 'status' => 'sehat',
+                'created_at' => '2024-05-15',
+                'updated_at' => '2024-05-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 19,
@@ -102,6 +122,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 13.4,
                 'tinggi_badan' => 68.5,
                 'status' => 'sehat',
+                'created_at' => '2024-03-15',
+                'updated_at' => '2024-03-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 19,
@@ -110,6 +132,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 14.1,
                 'tinggi_badan' => 69.2,
                 'status' => 'sehat',
+                'created_at' => '2024-04-15',
+                'updated_at' => '2024-04-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 19,
@@ -118,6 +142,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 15.8,
                 'tinggi_badan' => 70.5,
                 'status' => 'sehat',
+                'created_at' => '2024-05-15',
+                'updated_at' => '2024-05-15',
             ], [ // lansia
                 'kader_id' => 2,
                 'penduduk_id' => 9,
@@ -126,6 +152,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 65.8,
                 'tinggi_badan' => 166.5,
                 'status' => 'sehat',
+                'created_at' => '2024-04-15',
+                'updated_at' => '2024-04-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 9,
@@ -134,6 +162,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 68.1,
                 'tinggi_badan' => 166.8,
                 'status' => 'sehat',
+                'created_at' => '2024-05-15',
+                'updated_at' => '2024-05-15',
             ], [ 
                 'kader_id' => 2,
                 'penduduk_id' => 10,
@@ -142,6 +172,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 59.5,
                 'tinggi_badan' => 165.2,
                 'status' => 'sehat',
+                'created_at' => '2024-04-15',
+                'updated_at' => '2024-04-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 10,
@@ -150,6 +182,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 60.1,
                 'tinggi_badan' => 165.8,
                 'status' => 'sehat',
+                'created_at' => '2024-05-15',
+                'updated_at' => '2024-05-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 20,
@@ -158,6 +192,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 61.1,
                 'tinggi_badan' => 162.2,
                 'status' => 'sehat',
+                'created_at' => '2024-04-15',
+                'updated_at' => '2024-04-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 20,
@@ -166,6 +202,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 62.4,
                 'tinggi_badan' => 162.8,
                 'status' => 'sehat',
+                'created_at' => '2024-05-15',
+                'updated_at' => '2024-05-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 21,
@@ -174,6 +212,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 57.1,
                 'tinggi_badan' => 160.2,
                 'status' => 'sehat',
+                'created_at' => '2024-04-15',
+                'updated_at' => '2024-04-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 21,
@@ -182,6 +222,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 58.4,
                 'tinggi_badan' => 160.5,
                 'status' => 'sehat',
+                'created_at' => '2024-05-15',
+                'updated_at' => '2024-05-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 22,
@@ -190,6 +232,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 61.7,
                 'tinggi_badan' => 160.7,
                 'status' => 'sehat',
+                'created_at' => '2024-03-15',
+                'updated_at' => '2024-03-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 22,
@@ -198,6 +242,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 62.4,
                 'tinggi_badan' => 161.1,
                 'status' => 'sehat',
+                'created_at' => '2024-04-15',
+                'updated_at' => '2024-04-15',
             ], [
                 'kader_id' => 2,
                 'penduduk_id' => 22,
@@ -206,6 +252,8 @@ class PemeriksaanSeeder extends Seeder
                 'berat_badan' => 62.6,
                 'tinggi_badan' => 161.4,
                 'status' => 'sehat',
+                'created_at' => '2024-05-15',
+                'updated_at' => '2024-05-15',
             ], 
         ];
 
