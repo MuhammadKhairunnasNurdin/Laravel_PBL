@@ -24,15 +24,17 @@ class StoreKegiatanRequest extends FormRequest
     {
         $this->merge([
             'kader_id' => auth()->user()->kaders[0]->kader_id,
-            'tgl_kegiatan' => Carbon::create($this->input('year'), $this->input('month'), $this->input('day'))->format('Y-m-d')
         ]);
-        $this->request->replace($this->only([
-            'kader_id',
-            'nama',
-            'tgl_kegiatan',
-            'jam_mulai',
-            'tempat'
-        ]));
+
+        $this->request->replace(
+            $this->only([
+                'kader_id',
+                'nama',
+                'tgl_kegiatan',
+                'jam_mulai',
+                'tempat'
+            ])
+        );
     }
 
     /**
