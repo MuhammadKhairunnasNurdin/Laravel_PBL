@@ -12,13 +12,28 @@
         <div class="flex w-full h-full items-center align-middle">
         </div>
     </div>
+        @if(session('success'))
+            <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
+                <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p>
+                <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
+                    <span>&times;</span>
+                </button>
+            </div>
+        @elseif(session('error'))
+            <div class="flex items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
+                <p class="mr-4">{{ session('error') }}</p>
+                <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
+                    <span>&times;</span>
+                </button>
+            </div>
+        @endif
 
     <input type="hidden" name="model" id="model" value="{{encrypt('App\Models\Kegiatan')}}">
     <input type="hidden" name="url" id="url" value="{{encrypt('/kader/informasi/kegiatan/')}}">
     <input type="hidden" name="filterName" id="filterName" value="{{encrypt('kegiatan_id')}}">
 
     <div class="mx-10 my-[30px] overflow-x-auto lg:overflow-hidden">
-        <x-table.data-table :dt="$kegiatans" 
+        <x-table.data-table :dt="$kegiatans"
                             :headers="['Nama Kegiatan', 'Tanggal Pelaksanan', 'Pukul', 'Tempat Pelaksanaan', 'Aksi']">
             @php
                 $no = ($kegiatans->currentPage() - 1) * $kegiatans->perPage() + 1;
@@ -30,13 +45,12 @@
                 <td class="tableBody">{{ date('H:i', strtotime($kd->jam_mulai)) }} - Selesai</td>
                 <td class="tableBody">{{$kd->tempat}}</td>
                 <td class="tableBody">
-                    <form action="penduduk/{{$kd->kegiatan_id}}" method="post" class="flex items-center gap-2">
+                    <form action="kegiatan/{{$kd->kegiatan_id}}" method="post" class="flex items-center gap-2">
                         @php
                             $queryString = http_build_query(request()->query());
                             session(['urlPagination' => $queryString ? '?' . $queryString : '']);
                         @endphp
-                        <a href="informasi/{{$kd->kegiatan_id}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
-                        <a href="informasi/{{$kd->kegiatan_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
+                        <a href="kegiatan/{{$kd->kegiatan_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
                         @csrf
                         @method('DELETE')
                         <input type="hidden" name="updated_at" value="{{ $kd->updated_at }}">
@@ -144,5 +158,16 @@
                     `;
             }
         }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        let div = document.getElementById('message');
+        let button = document.getElementById('close');
+
+        if (div && button) {
+            button.addEventListener('click', function() {
+                div.classList.add('hidden');
+            });
+        }
+    });
 </script>
 @endpush
