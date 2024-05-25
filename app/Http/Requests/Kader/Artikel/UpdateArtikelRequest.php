@@ -4,7 +4,7 @@ namespace App\Http\Requests\Kader\Artikel;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreArtikelRequest extends FormRequest
+class UpdateArtikelRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,23 +32,9 @@ class StoreArtikelRequest extends FormRequest
             'isi',
             'tag',
             'foto_artikel',
+            'artikel'
         ]));
 
-    }
-
-    /**
-     * Handle a passed validation attempt.
-     *
-     * @return void
-     */
-    protected function passedValidation(): void
-    {
-        $image = $this->file('foto_artikel');
-        $fileName = $image->hashName();
-        $image->move(public_path('artikel'), $fileName);
-        $this->merge([
-            'foto_artikel' => $fileName
-        ]);
     }
 
     /**
@@ -85,11 +71,39 @@ class StoreArtikelRequest extends FormRequest
             ],
             'foto_artikel' => [
                 'bail',
-                'required',
+                'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:5048'
             ]
         ];
+    }
+
+    /**
+     * Handle a passed validation attempt.
+     *
+     * @return void
+     */
+    protected function passedValidation(): void
+    {
+        /**
+         * compare updated data from user form with old data in
+         * database and just replace request input with data that
+         * changes
+         */
+        $oldData = json_decode($this->input('artikel'), true);
+        $this->request->replace($this->only(array_keys(array_diff_assoc($oldData, $this->input()))));
+
+        /**
+         * store image in public/artikel directory when user fill foto_artikel input
+         */
+        $image = $this->file('foto_artikel');
+        if (isset($image)) {
+            $fileName = $image->hashName();
+            $this->merge([
+                'foto_artikel' => $fileName
+            ]);
+            $image->move(public_path('artikel'), $fileName);
+        }
     }
 }
