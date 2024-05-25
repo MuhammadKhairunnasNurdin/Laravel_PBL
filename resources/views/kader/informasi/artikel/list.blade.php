@@ -25,6 +25,9 @@
                 <p class="text-[15px] text-justify">{{ substr($artikel->isi, 0, 200) }} {{ strlen($artikel->isi) > 100 ? '...' : '' }}</p>
                 <form action="artikel/{{$artikel->artikel_id}}" method="post" class="flex items-center gap-2">
                     <div class="flex w-full justify-center gap-[10px] pt-[13px]">
+                        @php
+                            session(['urlArtikel' => '']);
+                        @endphp
                         <a href="artikel/{{$artikel->artikel_id}}"
                            class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
                         <a href="artikel/{{$artikel->artikel_id}}/edit"
