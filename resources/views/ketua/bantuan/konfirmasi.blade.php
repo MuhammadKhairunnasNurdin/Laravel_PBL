@@ -57,7 +57,7 @@
                                     @endif    
                                 @endforeach
                             </td>
-                            <td class="font-normal text-sm">{{$bayiSAW[$i]}}</td>
+                            <td class="font-normal text-sm">{{number_format($bayiSAW[$i], 3)}}</td>
                         </tr>    
                     @endfor
                     </tbody>
@@ -84,7 +84,7 @@
                                     @endif    
                                 @endforeach
                             </td>
-                            <td class="font-normal text-sm">{{$bayiMabac[$i]}}</td>
+                            <td class="font-normal text-sm">{{number_format($bayiMabac[$i], 3)}}</td>
                         </tr>    
                     @endfor
                 </tbody>
