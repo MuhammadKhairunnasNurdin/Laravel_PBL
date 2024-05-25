@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Kader\Artikel\StoreArtikelRequest;
 use App\Http\Requests\Kader\Artikel\UpdateArtikelRequest;
 use App\Models\Artikel;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ArtikelResource extends Controller
 {
@@ -24,7 +26,7 @@ class ArtikelResource extends Controller
 
         $activeMenu = 'info';
 
-        return view('kader.informasi.artikel.list', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'artikels' => $artikels]);
+        return view('kader.informasi.artikel.list', compact('breadcrumb', 'activeMenu', 'artikels'));
     }
 
     /**
@@ -38,7 +40,7 @@ class ArtikelResource extends Controller
 
         $activeMenu = 'info';
 
-        return view('kader.informasi.artikel.tambahArtikel', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('kader.informasi.artikel.tambahArtikel', compact('breadcrumb', 'activeMenu'));
     }
 
     /**
@@ -46,7 +48,7 @@ class ArtikelResource extends Controller
      */
     public function store(StoreArtikelRequest $request): RedirectResponse
     {
-        Artikel::insert($request->input());
+        Artikel::create($request->input());
         return redirect()->intended(route('artikel.index'))
             ->with('success', 'Data artikel berhasil ditambahkan');
     }
@@ -57,6 +59,9 @@ class ArtikelResource extends Controller
     public function show(string $id)
     {
         $artikel = Artikel::find($id);
+        if ($artikel === null) {
+            return redirect()->intended(route('artikel.index'))->with('error', 'Data artikel tidak ditemukan atau mungkin sudah dihapus kader lain');
+        }
 
         $breadcrumb = (object) [
             'title' => 'Kelola Informasi'
@@ -64,7 +69,7 @@ class ArtikelResource extends Controller
 
         $activeMenu = 'info';
 
-        return view('kader.informasi.artikel.detail', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'artikel' => $artikel]);
+        return view('kader.informasi.artikel.detail', compact('breadcrumb', 'activeMenu', 'artikel'));
     }
 
     /**
@@ -72,7 +77,10 @@ class ArtikelResource extends Controller
      */
     public function edit(string $id)
     {
-        $artikels = Artikel::find($id);
+        $artikel = Artikel::find($id);
+        if ($artikel === null) {
+            return redirect()->intended(route('artikel.index'))->with('error', 'Data artikel tidak ditemukan atau mungkin sudah dihapus kader lain');
+        }
 
         $breadcrumb = (object) [
             'title' => 'Kelola Informasi'
@@ -80,22 +88,131 @@ class ArtikelResource extends Controller
 
         $activeMenu = 'info';
 
-        return view('kader.informasi.artikel.edit', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'artikels' => $artikels]);
+        $tags = explode(',', $artikel->tag);
+
+        $foto_artikel_path = substr(parse_url($artikel->foto_artikel, PHP_URL_PATH), 1);
+
+        return view('kader.informasi.artikel.edit', compact('breadcrumb', 'activeMenu', 'artikel', 'tags', 'foto_artikel_path'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateArtikelRequest $request, string $id): RedirectResponse
     {
-        dd($request);
+        /**
+         * try database transaction, because we use sql type
+         * database(mysql), to prevent database race condition when
+         * update data, we use transaction to rollback if there are any
+         * error and catch that error mesasge to display in view
+         */
+        try {
+            /**
+             * return $isUpdated for checking update data not just
+             * submit when not actually changes
+             */
+            $isUpdated =  DB::transaction(function () use ($request, $id) {
+                $isUpdated = false;
+
+                /**
+                 * lock and update with queue artikels table
+                 * to prevent database race condition
+                 *
+                 * and check if use has change column in artikels table
+                 */
+                $artikel = Artikel::lockForUpdate()->find($id);
+                if ($request->input() !== [] and $artikel !== null) {
+                    /**
+                     * delete image foto_artikel in public directory if user fill foto_artikel input
+                     */
+                    if ($request->has('foto_artikel')) {
+                        /**
+                         * delete foto_artikel that saved in public/artikel directory
+                         */
+                        $foto_artikel = $artikel->foto_artikel;
+                        /**
+                         * parseUrl from accessor that return asset() and remove trailing '/'
+                         */
+                        $foto_artikel = substr(parse_url($foto_artikel, PHP_URL_PATH), 1);
+                        /**
+                         * delete image foto_artikel in public directory
+                         */
+                        unlink($foto_artikel);
+                    }
+                    /**
+                     * fill $isUpdated to use in checking update
+                     * action
+                     */
+                    $isUpdated = $artikel->update($request->input());
+                }
+
+                return $isUpdated;
+            });
+
+            return redirect()->intended(route('artikel.index'))
+                ->with('success', $isUpdated ? 'Data artikel berhasil diubah' : 'Namun Data artikel tidak diubah');
+
+        } catch (\Throwable $e) {
+            return redirect()->intended(route('artikel.index'))
+                ->with('error', 'Terjadi Masalah Ketika mengubah Data artikel: ' . $e->getMessage());
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id, Request $request)
     {
-        //
+        /**
+         * try database transaction, because we use sql type
+         * database(mysql), to prevent database race condition when
+         * delete data, we use transaction to rollback if there are any
+         * error and catch that error mesasge to display in view
+         */
+        try {
+            return DB::transaction(function () use ($id, $request) {
+                /**
+                 * lock and delete with queue kagiatans table
+                 * to prevent database race condition
+                 */
+                $artikel = Artikel::lockForUpdate()->find($id);
+                if ($artikel === null) {
+                    return redirect()->intended(route('artikel.index'))->with('error', 'Data artikel tidak ditemukan');
+                }
+
+                /**
+                 * check if other user is update our data when we do delete action
+                 */
+                if ($artikel->updated_at > $request->input('updated_at')) {
+                    return redirect()->intended(route('artikel.index'))->with('error', 'Data artikel masih di update oleh kader lain, coba refresh dan lakukan hapus lagi');
+                }
+
+                /**
+                 * delete foto_artikel that saved in public/artikel directory
+                 */
+                $foto_artikel = $artikel->foto_artikel;
+                /**
+                 * parseUrl from accessor that return asset() and remove trailing '/'
+                 */
+                $foto_artikel = substr(parse_url($foto_artikel, PHP_URL_PATH), 1);
+                if (file_exists($foto_artikel)) {
+                    /**
+                     * delete image foto_artikel in public directory
+                     */
+                    unlink($foto_artikel);
+                }
+
+                /**
+                 * delete artikel data in database
+                 */
+                $artikel->delete();
+
+                return redirect()->intended(route('artikel.index'))->with('success', 'Data artikel berhasil dihapus');
+            });
+        } catch (QueryException) {
+            return redirect()->intended(route('artikel.index'))->with('error', 'Data artikel gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+        } catch (\Throwable $e) {
+            return redirect()->intended(route('artikel.index'))->with('error', 'Terjadi Masalah Ketika menghapus Data artikel: ' . $e->getMessage());
+        }
     }
 }
