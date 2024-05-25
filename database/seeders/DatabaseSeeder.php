@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             AuditBulananBayiSeeder::class,
             AuditBulananLansiaSeeder::class,
             KriteriaSeeder::class,
+            RentangKriteriaSeeder::class,
         ]);
     }
 }
