@@ -8,8 +8,11 @@
             {{ $artikel->isi}}
         </p>
         <div class="flex w-full justify-end gap-[15px] font-bold px-10 pb-10">
+            @php
+                session(['urlArtikel' => $artikel->artikel_id]);
+            @endphp
             <a href="{{ url('kader/informasi/artikel')}}" class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Kembali</a>
-            <a href="" class="bg-yellow-400 text-[15px py-[10px] px-[20px] rounded-[5px]">Edit</a>
+            <a href="{{ url('kader/informasi/artikel/' . $artikel->artikel_id . '/edit')}}" class="bg-yellow-400 text-[15px py-[10px] px-[20px] rounded-[5px]">Edit</a>
         </div>
     </div>
 @endsection

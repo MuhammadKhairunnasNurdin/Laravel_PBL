@@ -23,7 +23,7 @@ class UpdateKegiatanRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'tgl_kegiatan' => Carbon::create($this->input('year'), $this->input('month'), $this->input('day'))->format('Y-m-d')
+            'jam_mulai' => Carbon::make($this->input('jam_mulai'))->format('H:i:s'),
         ]);
 
         $this->request->replace(
@@ -59,7 +59,7 @@ class UpdateKegiatanRequest extends FormRequest
             'jam_mulai' => [
                 'bail',
                 'required',
-                'date_format:H:i'
+                'date_format:H:i:s'
             ],
             'tempat' => [
                 'bail',

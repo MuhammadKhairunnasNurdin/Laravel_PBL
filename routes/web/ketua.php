@@ -34,7 +34,7 @@ Route::group([
         Route::group(['prefix' => 'bantuan'], function () {
             Route::get('/', [BantuanController::class, 'index']);
             Route::get('/penerima', [BantuanController::class, 'tambah']);
-            Route::get('/konfirmasi', [BantuanController::class, 'konfirmasi']);
+            Route::post('/konfirmasi', [BantuanController::class, 'konfirmasi'])->name('ketua.konfirmasi');
         });
         Route::group(['prefix' => 'penerima'], function () {
             Route::get('/', [PenerimaController::class, 'index']);
