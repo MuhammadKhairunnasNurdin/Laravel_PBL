@@ -55,7 +55,7 @@ class UpdateArtikelRequest extends FormRequest
                 'bail',
                 'required',
                 'string',
-                'regex:/^([\w\s\n.]{5,250})$/',
+                'regex:/^([\w\s\n.,!;:?()-]{5,250})$/',
             ],
             'isi' => [
                 'bail',
