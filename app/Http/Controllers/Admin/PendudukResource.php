@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Penduduk\StorePendudukRequest;
 use App\Http\Requests\Admin\Penduduk\UpdatePendudukRequest;
 use App\Models\Penduduk;
+use App\Services\FilterServices;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,10 +14,16 @@ use Illuminate\Support\Facades\DB;
 
 class PendudukResource extends Controller
 {
+    private FilterServices $filter;
+
+    public function __construct(FilterServices $filter)
+    {
+        $this->filter = $filter;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $breadcrumb = (object) [
             'title' => 'Data Penduduk'
@@ -27,7 +34,9 @@ class PendudukResource extends Controller
         /**
          * Retrieve data for filter feature
          */
-        $penduduks = Penduduk::paginate(10);
+        // $penduduks = Penduduk::paginate(10);
+        $penduduks = $this->filter->getFilteredData($request)->paginate(10);
+        $penduduks->appends(request()->all());
 
         return view('admin.penduduk.index', compact('breadcrumb', 'activeMenu', 'penduduks'));
     }

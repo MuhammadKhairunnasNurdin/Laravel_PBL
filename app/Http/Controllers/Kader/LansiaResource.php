@@ -13,6 +13,7 @@ use App\Models\Kader;
 use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanLansia;
 use App\Models\Penduduk;
+use App\Services\FilterServices;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,10 +22,17 @@ use Illuminate\Support\Facades\DB;
 
 class LansiaResource extends Controller
 {
+    private FilterServices $filter;
+
+    public function __construct(FilterServices $filter)
+    {
+        $this->filter = $filter;
+    }
+    
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $breadcrumb = (object) [
             'title' => 'Pemeriksaan Lansia'
@@ -35,9 +43,10 @@ class LansiaResource extends Controller
         /**
          * Retrieve data for filter feature
          */
-        $penduduks = Pemeriksaan::with('penduduk')->where('golongan', 'lansia')->paginate(10);
-        // $penduduks = Pemeriksaan::with('penduduk')->where('golongan', 'lansia')->get();
-
+        // $penduduks = Pemeriksaan::with('penduduk')->where('golongan', 'lansia')->paginate(10);
+        $penduduks = $this->filter->getFilteredDataLansia($request)->paginate(10);
+        $penduduks->appends(request()->all());
+        
         return view('kader.lansia.index', compact('breadcrumb', 'activeMenu', 'penduduks'));
     }
 

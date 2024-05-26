@@ -1,4 +1,4 @@
-<div class="dropdown">
+<div class="relative dropdown">
     <button onclick="activeFilter(this)" id="filterInput"
             class="transition ease-in-out duration-200 active:scale-95 bg-white hover:bg-white hover:border-neutral-950 group ease-in-out duration-200 flex gap-2 font-normal items-center rounded-[1.25rem] text-neutral-950 border border-gray-400 xl:px-[1vw] xl:text-sm px-[1vw] lg:px-[1vw] py-[0.25rem] lg:py-[0.5rem] lg:text-xs xl:py-[0.625rem]">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -23,51 +23,166 @@
                 class="fill-[#025864] group-hover:fill-Primary/10"/>
         </svg>
         {{$slot}}
-        <span id="count" class="hidden rounded-full bg-Primary/10 h-[1.2rem] w-[1.2rem] text-[0.6875rem] text-white transition ease-in-out duration-200"></span>
+        <span id="count" class="hidden rounded-full bg-red-600 h-[1.2rem] w-[1.2rem] text-[0.6875rem] text-white transition ease-in-out duration-200"></span>
     </button>
-    <form tabindex="0" action="{{ route('bayi.index') }}" method="GET"
-          class="filter-content z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30 hidden">
-        {{-- <input type="hidden" name="rt" value="{{ request()->get('rt') }}"> --}}
-        <div class="flex justify-between items-center">
-            <p class="text-Neutral/100 font-medium 2xl:text-xl lg:text-sm">Filter</p>
-            <span onclick="resetInput()"
-                  class="cursor-pointer font-semibold xl:text-sm lg:text-xs text-[#E14942]">Reset</span>
-        </div>
-        <div class="flex flex-col gap-2">
-            <p class="text-Neutral/100 text-sm font-medium">Status Kesehatan</p>
-            <div class="flex justify-between items-center gap-3">
-                <x-input.radio-input name="statusKes" id="sehat"
-                                     value="sehat"
-                                     checked="{{ request()->get('statusKes') == 'sehat' }}" fn="a">
-                    Sehat
-                </x-input.radio-input>
-                <x-input.radio-input name="statusKes" id="sakit"
-                                     value="sakit"
-                                     checked="{{ request()->get('statusKes') == 'sakit'}}" fn="a">
-                    Sakit
-                </x-input.radio-input>
+
+    
+
+    @if (Request::is('kader/bayi'))
+        <form tabindex="0" action="{{ route('bayi.index') }}" method="GET"
+            class="dropdown-filter-bayi absolute transition ease-in-out duration-200 opacity-0 transform scale-95 hidden z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
+            <div class="flex justify-between items-center">
+                <p class="text-Neutral/100 font-medium 2xl:text-xl lg:text-sm">Filter</p>
+                <span onclick="resetInput()"
+                    class="cursor-pointer font-semibold xl:text-sm lg:text-xs text-[#E14942]">Reset</span>
             </div>
-        </div>
-        <div class="flex flex-col gap-2">
-            <p class="text-Neutral/100 text-sm font-medium">Golongan Umur</p>
-            <div class="flex justify-between items-center gap-3">
-                <x-input.radio-input name="golUmur" id="baduta"
-                                     value="baduta" checked="{{ request()->get('golUmur') == 'baduta'}}" fn="a">
-                    Baduta
-                </x-input.radio-input>
-                <x-input.radio-input name="golUmur" id="batita"
-                                     value="batita" checked="{{ request()->get('golUmur') == 'batita'}}" fn="a">
-                    Batita
-                </x-input.radio-input>
-                <x-input.radio-input name="golUmur" id="balita"
-                                     value="balita" checked="{{ request()->get('golUmur') == 'balita'}}" fn="a">
-                    Balita
-                </x-input.radio-input>
+            <div class="flex flex-col gap-2">
+                <p class="text-Neutral/100 text-sm font-medium">Status Kesehatan</p>
+                <div class="flex justify-between items-center gap-3">
+                    <x-input.radio-input name="statusKes" id="sehat"
+                                        value="sehat"
+                                        checked="{{ request()->get('statusKes') == 'sehat' }}" fn="a">
+                        Sehat
+                    </x-input.radio-input>
+                    <x-input.radio-input name="statusKes" id="sakit"
+                                        value="sakit"
+                                        checked="{{ request()->get('statusKes') == 'sakit'}}" fn="a">
+                        Sakit
+                    </x-input.radio-input>
+                </div>
             </div>
-        </div>
-        
-        <button type="submit" class="transition-all ease-in-out duration-200 py-3 px-7 bg-blue-700 text-white rounded-[6.25rem] text-center xl:text-base lg:text-sm font-medium ">
-            Terapkan
-        </button>
-    </form>
+            <div class="flex flex-col gap-2">
+                <p class="text-Neutral/100 text-sm font-medium">Golongan Umur</p>
+                <div class="flex justify-between items-center gap-3">
+                    <x-input.radio-input name="golUmur" id="baduta"
+                                        value="baduta" checked="{{ request()->get('golUmur') == 'baduta'}}" fn="a">
+                        Baduta
+                    </x-input.radio-input>
+                    <x-input.radio-input name="golUmur" id="batita"
+                                        value="batita" checked="{{ request()->get('golUmur') == 'batita'}}" fn="a">
+                        Batita
+                    </x-input.radio-input>
+                    <x-input.radio-input name="golUmur" id="balita"
+                                        value="balita" checked="{{ request()->get('golUmur') == 'balita'}}" fn="a">
+                        Balita
+                    </x-input.radio-input>
+                </div>
+            </div>
+            
+            <button type="submit" class="transition-all ease-in-out duration-200 py-3 px-7 bg-red-500 text-white rounded-[6.25rem] text-center xl:text-base lg:text-sm font-medium ">
+                Terapkan
+            </button>
+        </form>
+        <script>
+            console.log('url kader/bayi');
+        </script>
+
+    @elseif (Request::is('kader/lansia'))
+        <form tabindex="0" action="{{ route('lansia.index') }}" method="GET"
+            class="dropdown-filter-bayi absolute transition ease-in-out duration-200 opacity-0 transform scale-95 hidden z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
+            <div class="flex justify-between items-center">
+                <p class="text-Neutral/100 font-medium 2xl:text-xl lg:text-sm">Filter</p>
+                <span onclick="resetInput()"
+                    class="cursor-pointer font-semibold xl:text-sm lg:text-xs text-[#E14942]">Reset</span>
+            </div>
+            <div class="flex flex-col gap-2">
+                <p class="text-Neutral/100 text-sm font-medium">Status Kesehatan</p>
+                <div class="flex justify-between items-center gap-3">
+                    <x-input.radio-input name="statusKes" id="sehat"
+                                        value="sehat"
+                                        checked="{{ request()->get('statusKes') == 'sehat' }}" fn="a">
+                        Sehat
+                    </x-input.radio-input>
+                    <x-input.radio-input name="statusKes" id="sakit"
+                                        value="sakit"
+                                        checked="{{ request()->get('statusKes') == 'sakit'}}" fn="a">
+                        Sakit
+                    </x-input.radio-input>
+                </div>
+            </div>
+            <div class="flex flex-col gap-2">
+                <p class="text-Neutral/100 text-sm font-medium">Indikasi</p>
+                <div class="flex flex-wrap justify-between items-center gap-3">
+                    <x-input.radio-input name="indikasi" id="gula"
+                                        value="gula" checked="{{ request()->get('indikasi') == 'gula'}}" fn="a">
+                        Gula Darah Tinggi
+                    </x-input.radio-input>
+                    <x-input.radio-input name="indikasi" id="kolesterol"
+                                        value="kolesterol" checked="{{ request()->get('indikasi') == 'kolesterol'}}" fn="a">
+                        Kolesterol Tinggi
+                    </x-input.radio-input>
+                    <x-input.radio-input name="indikasi" id="asam_urat"
+                                        value="asam_urat" checked="{{ request()->get('indikasi') == 'asam_urat'}}" fn="a">
+                        Asam Urat Tinggi
+                    </x-input.radio-input>
+                </div>
+            </div>
+            
+            <button type="submit" class="transition-all ease-in-out duration-200 py-3 px-7 bg-blue-700 text-white rounded-[6.25rem] text-center xl:text-base lg:text-sm font-medium ">
+                Terapkan
+            </button>
+        </form>
+        <script>
+            console.log('salah');
+        </script>
+    @elseif (Request::is('admin/penduduk'))
+        <form tabindex="0" action="{{ route('penduduk.index') }}" method="GET"
+            class="dropdown-filter-bayi absolute transition ease-in-out duration-200 opacity-0 transform scale-95 hidden z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
+            <div class="flex justify-between items-center">
+                <p class="text-Neutral/100 font-medium 2xl:text-xl lg:text-sm">Filter</p>
+                <span onclick="resetInput()"
+                    class="cursor-pointer font-semibold xl:text-sm lg:text-xs text-[#E14942]">Reset</span>
+            </div>
+            <div class="flex flex-col gap-2">
+                <p class="text-Neutral/100 text-sm font-medium">Hubungan Keluarga</p>
+                <div class="flex justify-between items-center gap-3">
+                    <x-input.radio-input name="hubKeluarga" id="kepala_keluarga"
+                                        value="Kepala Keluarga"
+                                        checked="{{ request()->get('hubKeluarga') == 'Kepala Keluarga' }}" fn="a">
+                        Kepala Keluarga
+                    </x-input.radio-input>
+                    <x-input.radio-input name="hubKeluarga" id="istri"
+                                        value="Istri"
+                                        checked="{{ request()->get('hubKeluarga') == 'Istri'}}" fn="a">
+                        Istri
+                    </x-input.radio-input>
+                    <x-input.radio-input name="hubKeluarga" id="anak"
+                                        value="Anak"
+                                        checked="{{ request()->get('hubKeluarga') == 'Anak'}}" fn="a">
+                        Anak
+                    </x-input.radio-input>
+                </div>
+            </div>
+            <div class="flex flex-col gap-2">
+                <p class="text-Neutral/100 text-sm font-medium">RT</p>
+                <div class="grid grid-cols-4 justify-between items-center gap-3">
+                    @for($i = 1; $i < 7; $i++)
+                        <x-input.radio-input name="rt" id="rt0{{$i}}"
+                                            value="RT 0{{$i}}" checked="{{ request()->get('rt') == 'RT 0'.$i}}" fn="a">
+                            RT 0{{$i}}
+                        </x-input.radio-input>                        
+                    @endfor
+                </div>
+            </div>
+            <div class="flex flex-col gap-2">
+                <p class="text-Neutral/100 text-sm font-medium">Jenis Kelamin</p>
+                <div class="flex justify-between items-center gap-3">
+                    <x-input.radio-input name="kelamin" id="laki-laki"
+                                        value="L" checked="{{ request()->get('kelamin') == 'L'}}" fn="a">
+                        Laki-Laki
+                    </x-input.radio-input>
+                    <x-input.radio-input name="kelamin" id="perempuan"
+                                        value="P" checked="{{ request()->get('kelamin') == 'P'}}" fn="a">
+                        Perempuan
+                    </x-input.radio-input>
+                </div>
+            </div>
+            
+            <button type="submit" class="transition-all ease-in-out duration-200 py-3 px-7 bg-blue-700 text-white rounded-[6.25rem] text-center xl:text-base lg:text-sm font-medium ">
+                Terapkan
+            </button>
+        </form>
+    {{-- @elseif (Request::is('ketua/spk')) --}}
+    @endif
+
 </div>
