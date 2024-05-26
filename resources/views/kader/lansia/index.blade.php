@@ -6,29 +6,29 @@
             <p class="text-sm md:text-lg ml-5 md:ml-10">Daftar pemeriksaan lansia</p>
             <a href="{{ url('kader/lansia/create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-5 md:mr-10 rounded">Tambah</a>
         </div>
-        {{-- <div class="flex mt-[30px] mx-10 "> --}}
-            <div class="flex w-fit h-full items-center align-middle gap-[20px] mx-10 mt-[30px]">
+        <div class="flex flex-col mt-[30px] mx-10 gap-[30px] relative">
+            <div class="flex flex-row w-fit h-full items-center align-middle gap-4">
                 <x-dropdown.dropdown-filter><span class="hidden lg:flex">Filter</span></x-dropdown.dropdown-filter>
                 <x-input.search-input name="search" placeholder="Cari nama anggota posyandu"></x-input.search-input>
             </div>
-            <div class="flex mr-[3.75rem] -mt-[20px] absolute" id="message">
+            <div class="flex w-full h-full justify-center items-center absolute" id="message">
                 @if(session('success'))
-                <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
-                    <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p>
-                    <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
-                        <span>&times;</span>
-                    </button>
-                </div>
-            @elseif(session('error'))
-                <div class="flex items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
-                    <p class="mr-4">{{ session('error') }}</p>
-                    <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
-                        <span>&times;</span>
-                    </button>
-                </div>
+                    <div class="flex w-full h-full items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
+                        <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p>
+                        <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                @elseif(session('error'))
+                    <div class="flex w-full h-full items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
+                        <p class="mr-4">{{ session('error') }}</p>
+                        <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
+                            <span>&times;</span>
+                        </button>
+                    </div>
                 @endif
             </div>
-        {{-- </div> --}}
+        </div>
 
         @php
             $relationships = ['penduduk', 'pemeriksaan_lansia'];
@@ -81,20 +81,9 @@
     </div>
 @endsection
 
-@push('css')
-<style>
-    th, td {
-        padding-inline: 20px;
-        padding-block: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-</style>
-@endpush
-
 @push('js')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-
     document.addEventListener('DOMContentLoaded', function() {
         var div = document.getElementById('message');
         var button = document.getElementById('close');
@@ -298,5 +287,10 @@
                 `;
         }
     }
+    $(document).ready(function (){
+        setTimeout(function() {
+            $('#message').fadeOut('fast');
+        }, 3000);
+    })
 </script>
 @endpush
