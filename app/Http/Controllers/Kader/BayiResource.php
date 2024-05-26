@@ -13,6 +13,7 @@ use App\Models\Kader;
 use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanBayi;
 use App\Models\Penduduk;
+use App\Services\FilterServices;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -22,6 +23,12 @@ use function Symfony\Component\String\b;
 
 class BayiResource extends Controller
 {
+    private FilterServices $filter;
+
+    public function __construct(FilterServices $filter)
+    {
+        $this->filter = $filter;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -36,7 +43,9 @@ class BayiResource extends Controller
         /**
          * Retrieve data for filter feature
          */
-        $penduduks = Pemeriksaan::with('penduduk', 'pemeriksaan_bayi')->where('golongan', 'bayi')->paginate(10);
+        // $penduduks = Pemeriksaan::with('penduduk', 'pemeriksaan_bayi')->where('golongan', 'bayi')->paginate(10);
+        $penduduks = $this->filter->getFilteredDataBayi($request)->paginate(10);
+        $penduduks->appends(request()->all());
 
         return view('kader.bayi.index', compact('breadcrumb', 'activeMenu', 'penduduks'));
     }
@@ -252,21 +261,5 @@ class BayiResource extends Controller
         } catch (\Throwable $e) {
             return redirect()->intended('kader/bayi')->with('error', 'Terjadi Masalah Ketika menghapus Data Bayi: ' . $e->getMessage());
         }
-    }
-
-    // ORIGINALLY HERE
-    public function getFilteredData(Request $request)
-    {
-        $query = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->orderBy('status', 'asc');
-
-        if ($request->has('statusKes')) {
-            $query->where('status', $request->input('status'));
-        }
-
-        if ($request->has('golUmur')) {
-            $query->where('golongan', $request->input('golongan'));
-        }
-
-        return $query;
     }
 }

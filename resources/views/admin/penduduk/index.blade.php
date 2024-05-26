@@ -67,6 +67,125 @@
 
 @push('js')
 <script>
+    function filterByKategori(kategori) {
+        let url = `/penduduk?`;
+
+        let hubunganElement = document.querySelector('input[name="hubKeluarga"]:checked');
+        let indikasiElement = document.querySelector('input[name="indikasi"]:checked');
+        let rtElement = document.querySelector('input[name="rt"]:checked');
+        let kelaminElement = document.querySelector('input[name="kelamin"]:checked');
+
+        let hubungan = hubungnaElement? hubunganElement.value : '';
+        let indikasi = indikasiElement? indikasiElement.value : '';
+        let rt = rtElement? rtElement.value : '';
+        let kelamin = kelaminElement? kelaminElement.value : '';
+
+        if(status !== ''){
+            url += `&hubungan=${hubungan}`;
+        }
+        if(golongan !== ''){
+            url += `&indikasi=${$indikasi}`;
+        }
+        if(rt !== ''){
+            url += `&rt=${$rt}`;
+        }
+        if(kelamin !== ''){
+            url += `&kelamin=${$kelamin}`;
+        }
+        window.location.href=url;
+    }
+
+    document.addEventListener('click', (event) => {
+        const dropdown = document.querySelector('.dropdown');
+        const button = dropdown.querySelector('#filterInput');
+        const urlParams = new URLSearchParams(window.location.search);
+        const filters = [['hubKeluarga'], ['indikasi'], ['rt'], ['kelamin']];
+        let activeFilters = 0;
+        for (let filter of filters) {
+            let filterValues = urlParams.getAll(filter[0]);
+            if(filterValues.length>0){
+                filter.push(...filterValues);
+                activeFilters += filterValues.length;
+            }
+        }
+        if (!dropdown.contains(event.target) && activeFilters === 0) {
+                button.classList.remove('focusElement');
+                button.querySelectorAll('path').forEach(path => {
+                    path.classList.remove('fill-Primary/10');
+                    path.classList.add('fill-[#025864]');
+                });
+        }
+    });
+
+    window.onload = function () {
+        const urlParams = new URLSearchParams(window.location.search);
+            const filters = [['hubKeluarga'], ['indikasi'], ['rt'], ['kelamin']];
+            let activeFilters = 0;
+            for (let filter of filters) {
+                let filterValues = urlParams.getAll(filter[0]);
+                if (filterValues.length > 0) {
+                    filter.push(...filterValues);
+                    activeFilters += filterValues.length;
+                }
+            }
+
+            const countSpan = document.getElementById('count');
+            if (activeFilters > 0) {
+                countSpan.textContent = activeFilters;
+                document.getElementById('filterInput').classList.add('focusElement');
+                countSpan.classList.remove('hidden');
+            } else {
+                countSpan.classList.add('hidden');
+            }
+        }
+
+        {{--Javascript function to add active style to filter button--}}
+        function activeFilter(e) {
+            e.classList.add('focusElement')
+            e.querySelectorAll('path').forEach(path => {
+                path.classList.remove('fill-[#025864]')
+                path.classList.add('fill-[#000000]')
+            })
+            const dropdown = document.querySelector('.dropdown-filter-bayi');
+            dropdown.classList.toggle('hidden');
+            if (!dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('opacity-0', 'transform', 'scale-95');
+                dropdown.classList.add('opacity-100', 'transform', 'scale-100');
+            } else {
+                dropdown.classList.remove('opacity-100', 'transform', 'scale-100');
+                dropdown.classList.add('opacity-0', 'transform', 'scale-95');
+            }
+        }
+
+        {{--Javascript function to add active style for filter button--}}
+        const inputFilterChange = () => {
+            const count = document.getElementById('count')
+            const button = document.querySelector('button[type="submit"]')
+            button.classList.add('activeSubmitButton')
+            button.classList.remove('pointer-events-none')
+            count.classList.remove('hidden')
+            count.innerText = document.querySelectorAll('input[type="radio"]:checked').length
+        }
+
+        {{--Javascript function to reset input--}}
+        const resetInput = () => {
+            const buttons = document.querySelectorAll('input[type="radio"]')
+
+            const count = document.getElementById('count')
+            count.classList.add('hidden')
+            count.innerText = ''
+
+            buttons.forEach(button => {
+                button.checked = false
+            })
+
+            const button = document.querySelector('button[type="submit"]')
+            button.classList.remove('activeSubmitButton')
+            button.classList.add('pointer-events-none')
+
+            window.location.href = '/admin/penduduk';
+        }
+
     function clearTable() {
         const table = document.getElementById('dataTable');
         const rows = table.getElementsByTagName('tr');
