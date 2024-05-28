@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\BantuanController;
 use App\Http\Controllers\admin\BantuanResource;
 use App\Http\Controllers\Admin\PendudukResource;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Shared\AuthController;
 use App\Http\Controllers\Shared\DashboardController;
 use App\Http\Controllers\Shared\ProfileController;
@@ -47,5 +48,7 @@ Route::group(
          * route for logout process
          */
         Route::post('/logout', [AuthController::class, 'logout'])->name('admin.logout');
+
+        Route::resource('user', UserController::class);
     }
 );

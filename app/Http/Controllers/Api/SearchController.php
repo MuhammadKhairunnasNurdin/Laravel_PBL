@@ -7,6 +7,7 @@ use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanLansia;
 use App\Models\Penduduk;
 use App\Models\Kegiatan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
@@ -78,6 +79,20 @@ class SearchController extends Controller
             ->paginate(10);
         }
 
+
+        if ($informasi->isEmpty()) {
+            return response()->json(['error' => 'No results found'], 404);
+        }
+
+        return response()->json([$informasi], 200);
+    }
+    
+    public function searchUser(Request $request)
+    {
+        $search = $request->input('search', '');
+
+        $informasi = User::where('username', 'like', "%{$search}%")
+        ->paginate(10);
 
         if ($informasi->isEmpty()) {
             return response()->json(['error' => 'No results found'], 404);
