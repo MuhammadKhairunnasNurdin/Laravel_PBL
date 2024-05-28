@@ -4,12 +4,12 @@
     <div class="flex flex-col bg-white mx-5 mt-5 shadow-[0_-4px_0_0_rgba(248,113,113,1)] rounded-md">
         <div class="flex justify-between items-center w-full py-2 border-b">
             <p class="text-sm md:text-lg ml-10">Daftar pemeriksaan bayi</p>
-            <a href="{{ url('kader/bayi/create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-10 rounded">Tambah</a>
+            <a href="{{ url('kader/bayi/create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-5 lg:mr-10 rounded">Tambah</a>
         </div>
         <div class="flex flex-col mt-[30px] mx-10 gap-[30px] relative">
             <div class="flex flex-row w-fit h-full items-center align-middle gap-4">
                 <x-dropdown.dropdown-filter><span class="hidden lg:flex">Filter</span></x-dropdown.dropdown-filter>
-                <x-input.search-input name="search" placeholder="Cari nama anggota posyandu"></x-input.search-input>
+                <x-input.search-input name="search" placeholder="Cari nama bayi"></x-input.search-input>
             </div>
             <div class="flex w-full h-full justify-center items-center absolute" id="message">
                 @if(session('success'))
@@ -42,7 +42,7 @@
         <input type="hidden" name="where" id="whereName" value="{{encrypt('golongan')}}">
         <input type="hidden" name="where" id="whereValue" value="{{encrypt('bayi')}}">
 
-        <div class="mx-10 my-[30px]">
+        <div class="mx-10 my-[30px] overflow-x-auto">
             <x-table.data-table :dt="$penduduks" :headers="['Nama Bayi', 'Tgl Pemeriksaan', 'Usia', 'Kategori Umur', 'Berat', 'Tinggi', 'Status', 'Aksi']">
                 @php
                     $no = ($penduduks->currentPage() - 1) * $penduduks->perPage() + 1;
