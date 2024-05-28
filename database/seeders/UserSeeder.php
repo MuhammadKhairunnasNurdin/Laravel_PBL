@@ -47,18 +47,6 @@ class UserSeeder extends Seeder
                 'username' => 'admin2',
                 'password' => Hash::make('Admin234'),
                 'level' => 'admin'
-            ], [
-                'username' => 'admin3',
-                'password' => Hash::make('Admin345'),
-                'level' => 'admin'
-            ], [
-                'username' => 'admin4',
-                'password' => Hash::make('Admin456'),
-                'level' => 'admin'
-            ], [
-                'username' => 'admin5',
-                'password' => Hash::make('Admin567'),
-                'level' => 'admin'
             ],
         ];
 
