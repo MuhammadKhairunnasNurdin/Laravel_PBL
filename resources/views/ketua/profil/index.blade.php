@@ -1,23 +1,31 @@
 @extends('ketua.layouts.template')
 
 @section('content')
+<form method="POST" action="{{route('ketua.profile.update')}}" id="profile-form">
+    @csrf
     <div class="grid max-md:grid-rows-2 lg:grid-cols-3 bg-white mx-5 mt-5 rounded-[15px] gap-0">
         <div class="flex flex-col items-center w-full pt-[30px] gap-[10px]">
             <p class="text-lg font-bold ">Informasi Profile</p>
-            <img src="{{ asset('img/profile_picture.png')}}" alt="profile image" class="w-[250px] h-[250px] rounded-[50px]">
+            <div class=" w-[250px] h-fill gap-5 border border-stone-400 flex justify-center items-center rounded-[5px]">
+                <div id="image-preview" class="w-full p-6 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg justify-center items-center mx-auto text-center cursor-pointer">
+                    <img src="" alt="" class="w-full aspect-square rounded-[50px]" alt="Image preview" id="imageId">
+                    <input id="upload" type="file" name="" class="hidden" accept="image/*" />
+                    <label for="upload" class="cursor-pointer">
+                    <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
+                    </label>
+                </div>
+            </div>
             <div class="w-full text-center">
                 <p>{{$user['nama']}}</p>
                 <p>Ketua Posyandu</p>
             </div>
             <div class="flex gap-[30px] font-bold">
                 <a href="" class="bg-red-600 text-white py-[10px] px-[17px] rounded-[5px]">Hapus</a>
-                <a href="" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px]">Ubah</a>
+                <label for="upload" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px] cursor-pointer">Ubah</a>
             </div>
         </div>
-        <form method="POST" action="{{route('ketua.profile.update')}}" class="flex flex-col col-span-1 lg:col-span-2" id="profile-form">
-            @csrf
-            <div class="w-full py-10 pt-2">
-                <div class="flex flex-col py-[30px] lg:py-[55px] mr-0 md:mr-[51px] lg:bg-gray-200 lg:rounded-[15px] gap-[15px] lg:gap-[60px]">
+        <div class="col-span-2 w-full h-full py-10 pt-2">
+                <div class="flex flex-col py-[30px] lg:my-[55px] lg:py-[55px] mr-0 md:mr-[51px] lg:bg-gray-200 lg:rounded-[15px] gap-[15px] lg:gap-[60px]">
                     <div class="grid grid-cols-1 pt-0 lg:grid-cols-2 justify-between px-[20px] lg:px-[61px]">
                         <p>Username</p>
                         <input type="text" class="w-full py-1 px-2 rounded-[4px]" name="username" value="{{old('username', $user['username'])}}" id="username" required>
@@ -34,7 +42,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col lg:flex-row justify-end w-full px-[20px] md:pr-[51px] pb-[30px] gap-[15px] lg:gap-[30px]">
+            <div class="flex flex-col col-span-3 lg:flex-row justify-end w-full px-[20px] md:pr-[51px] pb-[30px] gap-[15px] lg:gap-[30px]">
                 <a href="{{ url('ketua/') }}" class="bg-gray-300 py-[10px] px-[17px] rounded-[5px] text-center">Kembali</a>
                 <button type="submit" id="submit" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px]">Simpan Data</button>
             </div>
@@ -120,5 +128,69 @@
                 passConfirmError.classList.add("hidden");
             }
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const uploadInput = document.getElementById('upload');
+    const filenameLabel = document.getElementById('filename');
+    let imagePreview = document.getElementById('image-preview');
+    let image = document.getElementById('imageId');
+    let text = document.querySelectorAll('.text-tanda')
+    let isEventListenerAdded = false;
+    
+    // Initialize the image preview if there's an existing image
+    const existingImageUrl = "{{ asset('img/profile_picture.png')}}"; // Make sure this variable is properly set in your server-side code
+
+    if (existingImageUrl) {
+        image.src = `${existingImageUrl}`;
+        text.forEach(e => {
+            e.classList.toggle('hidden');
+        })
+
+        // Add event listener for image preview only once
+        if (!isEventListenerAdded) {
+            imagePreview.addEventListener('click', () => {
+                uploadInput.click();
+            });
+            isEventListenerAdded = true;
+        }
+    }
+
+    uploadInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+            filenameLabel.textContent = file.name;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                image.src = `${e.target.result}`;
+
+                // Add event listener for image preview only once
+                if (!isEventListenerAdded) {
+                    imagePreview.addEventListener('click', () => {
+                        uploadInput.click();
+                    });
+                    isEventListenerAdded = true;
+                }
+            };
+            reader.readAsDataURL(file);
+        } else {
+            filenameLabel.textContent = '';
+            imagePreview.innerHTML = `<div class="bg-gray-200 h-48 rounded-lg flex items-center justify-center text-gray-500">No image preview</div>`;
+            imagePreview.classList.add('border-dashed', 'border-2', 'border-gray-400');
+
+            // Remove the event listener when there's no image
+            imagePreview.removeEventListener('click', () => {
+                uploadInput.click();
+            });
+
+            isEventListenerAdded = false;
+        }
+    });
+
+    uploadInput.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+});
     </script>
 @endpush

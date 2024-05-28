@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Penduduk\StorePendudukRequest;
 use App\Http\Requests\Admin\Penduduk\UpdatePendudukRequest;
+use App\Models\Admin;
+use App\Models\Kader;
 use App\Models\Penduduk;
+use App\Models\User;
 use App\Services\FilterServices;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
@@ -179,7 +182,29 @@ class PendudukResource extends Controller
                     return redirect()->intended('admin/penduduk' . session('urlPagination'))->with('error', 'Data penduduk masih di update oleh admin lain, coba refresh dan lakukan hapus lagi');
                 }
 
+                /**
+                 * if penduduk has an account either had role kader, ketua, or admin, will delete to
+                 */
+                $kader = Kader::where('penduduk_id', $id)->get('user_id');
+                $admin = Admin::where('penduduk_id', $id)->get('user_id');
+                /**
+                 * we delete penduduk after we search query above in table kaders and admins
+                 *
+                 * because when penduduks table deleted, admins and kaders are deleted too in cascadeOnDelete function
+                 */
                 $penduduk->delete();
+                /**
+                 * if penduduk is kader
+                 */
+                if ($kader->containsOneItem()) {
+                    User::find($kader[0]->user_id)->delete();
+                }
+                /**
+                 * if penduduk is admin
+                 */
+                if ($admin->containsOneItem()) {
+                    User::find($admin[0]->user_id)->delete();
+                }
 
                 return redirect()->intended('admin/penduduk' . session('urlPagination'))->with('success', 'Data penduduk berhasil dihapus');
             });
