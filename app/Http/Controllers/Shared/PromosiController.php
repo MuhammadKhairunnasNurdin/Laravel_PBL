@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shared;
 
 use App\Charts\KunjunganLandingPage;
 use App\Http\Controllers\Controller;
+use App\Models\Kegiatan;
 
 class PromosiController extends Controller
 {
@@ -14,8 +15,9 @@ class PromosiController extends Controller
         ];
 
         $activeMenu = 'jadwal';
+        $kegiatans = Kegiatan::paginate(10);
 
-        return view('promosi.jadwal', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu]);
+        return view('promosi.jadwal', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kegiatans' => $kegiatans]);
     }
 
     public function profil()
