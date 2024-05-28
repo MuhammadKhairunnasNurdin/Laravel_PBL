@@ -109,4 +109,67 @@ class StorePendudukRequest extends FormRequest
 
         ];
     }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            /**
+             * costum message for NIK column or field input
+             */
+            'NIK.required' => 'NIK harus di isi!',
+            'NIK.string' => 'NIK harus berupa string!',
+            'NIK.regex' => 'NIK maksimal 20 angka!',
+            'NIK.unique' => 'NIK harus unik antara penduduk lain!',
+            /**
+             * costum message for NKK column or field input
+             */
+            'NKK.required' => 'NKK harus di isi!',
+            'NKK.string' => 'NKK harus berupa string!',
+            'NKK.regex' => 'NKK maksimal 20 angka!',
+            /**
+             * costum message for nama column or field input
+             */
+            'nama.required' => 'nama harus di isi!',
+            'nama.string' => 'nama harus berupa string!',
+            'nama.regex' => 'nama maksimal 100 serta hanya boleh huruf!',
+            /**
+             * costum message for tgl_lahir column or field input
+             */
+            'tgl_lahir.required' => 'tanggal lahir harus di isi!',
+            'tgl_lahir.date_format' => "tanggal lahir harus valid dengan format: Tahun-Bulan-Tanggal !",
+            /**
+             * costum message for no_telp column or field input
+             */
+            'no_telp.required' => 'nomor telepon harus di isi!',
+            'no_telp.string' => 'nomor telepon harus berupa string!',
+            'no_telp.regex' => 'nomor telepon maksimal 14 angka!',
+            /**
+             * costum message for alamat column or field input
+             */
+            'alamat.required' => 'alamat harus di isi!',
+            'alamat.string' => 'alamat harus berupa string!',
+            'alamat.regex' => 'alamat maksimal 200 kata!',
+            /**
+             * costum message for pendapatan column or field input
+             */
+            'pendapatan.required' => 'pendapatan harus di isi!',
+            /**
+             * costum message for pendidikan column or field input
+             */
+            'pendidikan.required' => 'pendidikan harus di isi!',
+            /**
+             * costum message for hubungan_keluarga column or field input
+             */
+            'hubungan_keluarga.required' => 'hubungan keluarga harus di isi!',
+            /**
+             * costum message for RT column or field input
+             */
+            'RT.required' => 'RT harus di isi!',
+        ];
+    }
 }
