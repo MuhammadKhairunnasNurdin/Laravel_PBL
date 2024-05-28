@@ -36,13 +36,29 @@
             <div class="md:flex md:flex-col w-100 justify-center items-center px-[25px] md:gap-[42px]">
                 <img src="{{ asset('img/logo_posyandu.png') }}" alt="logo Posyandu" class="w-[75px] md:w-[142px] md:h-[106.5px] hidden md:flex">
                 @error('login_failed')
-                <div class="pl-5 py-[15px] bg-red-200 w-full fade show" role="alert">
-                    <span class="alert-inner-text"><strong>Warning!</strong> {{ $message }}</span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    {{--<span aria-hidden="true">&times;</span>--}}
-                    </button>
-                </div>
+                    <div class="pl-5 py-[15px] bg-red-200 w-full fade show" role="alert">
+                        <span class="alert-inner-text"><strong>Peringatan!</strong> {{ $message }}</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        {{--<span aria-hidden="true">&times;</span>--}}
+                        </button>
+                    </div>
                 @enderror
+                @error('error')
+                    <div class="pl-5 py-[15px] bg-red-200 w-full fade show" role="alert">
+                        <span class="alert-inner-text"><strong>Peringatan!</strong> {{ $message }}</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        {{--<span aria-hidden="true">&times;</span>--}}
+                        </button>
+                    </div>
+                @enderror
+                @if(session('success'))
+                    <div class="pl-5 py-[15px] bg-green-200 w-full fade show" role="alert">
+                        <span class="alert-inner-text"><strong>Berhasil!</strong> {{ session('success') }}</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        {{--<span aria-hidden="true">&times;</span>--}}
+                        </button>
+                    </div>
+                @endif
                 <div class="flex flex-col w-full gap-4">
                     <form method="post" action="{{route('login.auth')}}" id="login-form">
                         @csrf

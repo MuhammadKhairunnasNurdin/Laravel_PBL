@@ -30,7 +30,7 @@ class AuthController extends Controller
         $credential = $request->only('username', 'password');
 
         /**
-         * if user data is valid
+         * if user data is not valid
          */
         if (!Auth::attempt($credential)) {
             return redirect('login')
@@ -54,9 +54,9 @@ class AuthController extends Controller
              */
             'ketua' => 'ketua',
             /**
-             * if user has no roles
+             * if user has no roles, back to landing Page
              */
-            default => '/profil',
+            default => '/',
         });
     }
 
@@ -68,6 +68,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('login');
+        return redirect('login')->with('success', 'logout');
     }
 }
