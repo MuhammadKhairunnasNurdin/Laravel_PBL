@@ -26,12 +26,13 @@ class CheckRole
             return redirect('login');
         }
 
+    /**
+     * if user haven't roles to access, return to log in with access denied
+     */
         if ($request->user()->level != $role) {
-
-            /**
-             * if user haven't roles to access, return to log in with access denied
-             */
-            return redirect('login')->with('error', 'Maaf anda tidak memiliki akses');
+            return redirect('login')
+                ->withInput()
+                ->withErrors(['error' => 'Maaf anda tidak memiliki akses!']);
         }
 
         return $next($request);
