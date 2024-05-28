@@ -28,7 +28,7 @@
                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">Atur Profil</a>
                 <form action="{{ route('admin.logout') }}" method="post">
                     @csrf
-                    <button type="submit" class="block px-4 py-2 w-full text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                    <button type="submit" class="block px-4 py-2 w-full text-sm text-start text-gray-700 hover:bg-gray-100">Logout</button>
                 </form>
             </div>
         </div>
