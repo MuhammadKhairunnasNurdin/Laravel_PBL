@@ -4,12 +4,12 @@
     <div class="flex flex-col bg-white mx-5 mt-5 shadow-[0_-4px_0_0_rgba(29,78,216,1)] rounded-md">
         <div class="flex justify-between items-center w-full py-2 border-b">
             <p class="text-sm md:text-lg ml-5 md:ml-10">Daftar pemeriksaan lansia</p>
-            <a href="{{ url('kader/lansia/create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-5 md:mr-10 rounded">Tambah</a>
+            <a href="{{ url('kader/lansia/create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-5 lg:mr-10 rounded">Tambah</a>
         </div>
         <div class="flex flex-row justify-between mt-[30px] mx-10 gap-[30px] relative">
             <div class="flex flex-row w-fit h-full items-center align-middle gap-4">
                 <x-dropdown.dropdown-filter><span class="hidden lg:flex">Filter</span></x-dropdown.dropdown-filter>
-                <x-input.search-input name="search" placeholder="Cari nama anggota posyandu"></x-input.search-input>
+                <x-input.search-input name="search" placeholder="Cari nama lansia"></x-input.search-input>
             </div>
             <a href="{{ url('lansia/index')}}" class="flex flex-row items-center text-sm text-white px-4 py-1 border bg-green-400 rounded-full gap-2 hover:bg-green-500">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6">
@@ -20,7 +20,7 @@
             <div class="flex w-full h-full justify-center items-center absolute" id="message">
                 @if(session('success'))
                     <div class="flex w-full h-full items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
-                        <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p>
+                        <p class="mr-4"> <b>BERHASIL </b> {{ session('success') }}</p>
                         <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
                             <span>&times;</span>
                         </button>

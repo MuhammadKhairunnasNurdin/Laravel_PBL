@@ -9,10 +9,18 @@ use App\Models\Pemeriksaan;
 use App\Models\Penduduk;
 use App\Models\RekamMedisIbu;
 use App\Models\RentangKriteria;
+use App\Services\MabacServices;
+use App\Services\SAWServices;
 use Illuminate\Http\Request;
 
 class BantuanController extends Controller
 {
+    private MabacServices $mabac;
+    private SAWServices $saw;
+    public function __construct(MabacServices $mabac, SAWServices $saw) {
+        $this->mabac = $mabac;
+        $this->saw = $saw;
+    }
     public function index()
     {
         $breadcrumb = (object) [
@@ -42,7 +50,6 @@ class BantuanController extends Controller
         $parentsData = Penduduk::where('hubungan_keluarga', '!=', 'Anak')
             ->get(['nama', 'hubungan_keluarga', 'NKK', 'penduduk_id']);
 
-        // return view('ketua.bantuan.penerima', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'bayis' => $bayisData, 'parents' => $parentsData]);
         return view('ketua.bantuan.penerima', compact('breadcrumb', 'activeMenu', 'bayisData', 'parentsData'));
     }
     public function konfirmasi(Request $request)
@@ -59,174 +66,28 @@ class BantuanController extends Controller
             ->where('tgl_pemeriksaan', '2024-05-15')
             ->get();
 
+        if ($request->penduduk_id === null) {
+            return redirect()->intended('ketua/bantuan/penerima')
+            ->with('error', 'Pilih setidaknya satu alternatif');
+        }
+
+        $kriteria = Kriteria::all();
         $countBayi = $request->penduduk_id;
-        $values = $this->createValue($bayis, $countBayi);
-        $bayiSAW = $this->saw($values);
-        $bayiMabac = $this->mabac($values);
+        // SAW
+        $values = $this->saw->createValue($bayis, $countBayi);
+        $maxMin = $this->saw->maxMin($values, $kriteria);
+        $normalize = $this->saw->normalizedSaw($values, $maxMin, $kriteria);
+        $optimalize = $this->saw->optimalizedSaw($values, $normalize, $kriteria);
+        $bayiSAW = $this->saw->rankSaw($values, $optimalize, $kriteria);
+
+        // Mabac
+        $values = $this->mabac->createValue($bayis, $countBayi);
+        $maxMin = $this->mabac->maxMin($values, $kriteria);
+        $normalize = $this->mabac->normalizedMabac($values, $maxMin, $kriteria);
+        $weighted = $this->mabac->weighMabac($values, $normalize, $kriteria);
+        $areas = $this->mabac->areaMabac($values, $weighted, $kriteria);
+        $distance = $this->mabac->distanceMabac($values, $weighted, $areas, $kriteria);
+        $bayiMabac = $this->mabac->rankMabac($values, $distance, $kriteria);
         return view('ketua.bantuan.konfirmasi', compact('breadcrumb', 'activeMenu', 'bayis', 'values', 'bayiSAW', 'bayiMabac', 'countBayi'));
-    }
-    private function createValue($alternatif, $countBayi)
-    {
-        $ranges = RentangKriteria::all();
-        $value = [];
-        for ($i = 0; $i < count($countBayi); $i++) {
-            foreach ($alternatif as $alt) {
-                if ($alt->penduduk_id == $countBayi[$i]) {
-                    $parents = Penduduk::where('NKK', '=', $alt->NKK)->where('hubungan_keluarga', '!=', 'Anak')->get();
-                    foreach ($parents as $parent) {
-                        if ($parent->hubungan_keluarga === 'Kepala Keluarga') {
-                            $incomeDad = (float) str_replace(['Rp', '.'], '', explode(' - ', $parent->pendapatan)[0]);
-                        } else {
-                            $incomeMom = (float) str_replace(['Rp', '.'], '', explode(' - ', $parent->pendapatan)[0]);
-                        }
-                    }
-                    $sumIncome = $incomeDad + $incomeMom;
-                    foreach ($ranges as $range) {
-                        if ($range->kode === 'C1' && $alt->berat_badan >= $range->rentang_min && $alt->berat_badan <= $range->rentang_max) {
-                            $value[$i][0] = $range->nilai;
-                        }
-                        if ($range->kode === 'C2' && $alt->tinggi_badan >= $range->rentang_min && $alt->tinggi_badan <= $range->rentang_max) {
-                            $value[$i][1] = $range->nilai;
-                        }
-                        if ($range->kode === 'C3' && $alt->lingkar_kepala >= $range->rentang_min && $alt->lingkar_kepala <= $range->rentang_max) {
-                            $value[$i][2] = $range->nilai;
-                        }
-                        if ($range->kode === 'C4' && $alt->lingkar_lengan >= $range->rentang_min && $alt->lingkar_lengan <= $range->rentang_max) {
-                            $value[$i][3] = $range->nilai;
-                        }
-                        if ($range->kode === 'C5' && $sumIncome >= $range->rentang_min && $sumIncome <= $range->rentang_max) {
-                            $value[$i][4] = $range->nilai;
-                        }
-                    }
-                }
-            }
-        }
-        return $value;
-    }
-    private function saw($bayis)
-    {
-        $kriteria = Kriteria::all();
-
-        $value = $bayis;
-        $alternatif = $bayis;
-        $maxMin = [];
-        for ($i = 0; $i < count($kriteria); $i++) {
-            $arrayNilai = array_column($value, $i);
-            $maxMin[$i][0] = max($arrayNilai);
-            $maxMin[$i][1] = min($arrayNilai);
-        }
-
-        // Menghitung normalisasi dari matrix awal
-        $normalizedMatrix = [];
-        for ($i = 0; $i < count($alternatif); $i++) {
-            for ($j = 0; $j < count($kriteria); $j++) {
-                if ($kriteria[$j]['jenis'] === 'benefit') {
-                    $normalizedMatrix[$i][$j] = $value[$i][$j] / $maxMin[$j][0];
-                }
-                if ($kriteria[$j]['jenis'] === 'cost') {
-                    $normalizedMatrix[$i][$j] = $maxMin[$j][1] / $value[$i][$j];
-                }
-            }
-        }
-
-        // matriks R dan perangkingan bisa dijadikan satu //
-        // Matriks R
-        $matriksR = [];
-        for ($i = 0; $i < count($alternatif); $i++) {
-            for ($j = 0; $j < count($kriteria); $j++) {
-                $matriksR[$i][$j] = $normalizedMatrix[$i][$j] * $kriteria[$j]['bobot'];
-            }
-        }
-
-        // Menghitung perangkingan 
-        $rangking = [];
-        $sum = 0;
-        for ($i = 0; $i < count($alternatif); $i++) {
-            $sum = 0;
-            for ($j = 0; $j < count($kriteria); $j++) {
-                $sum += $matriksR[$i][$j];
-            }
-            $rangking[$i] = $sum;
-        }
-
-        return $rangking;
-    }
-
-    private function mabac($bayis)
-    {
-        // Matriks keputusan awal
-        $kriteria = Kriteria::all();
-
-        $value = $bayis;
-        $alternatif = $bayis;
-
-        $maxMin = [];
-        for ($i = 0; $i < 5; $i++) {
-            $arrayNilai = array_column($value, $i);
-            $maxMin[$i][0] = max($arrayNilai);
-            $maxMin[$i][1] = min($arrayNilai);
-        }
-
-        // Normalisasi matriks keputusan (x)
-        $normalizedMatrix = [];
-        for ($i = 0; $i < count($alternatif); $i++) {
-            for ($j = 0; $j < count($kriteria); $j++) {
-                $difference = $maxMin[$j][0] - $maxMin[$j][1];
-                if ($kriteria[$j]['jenis'] === 'benefit') {
-                    if ($difference == 0) {
-                        $normalizedMatrix[$i][$j] = 0;
-                    } else {
-                        $normalizedMatrix[$i][$j] = ($value[$i][$j] - $maxMin[$j][1]) / $difference;
-                    }
-                }
-                if ($kriteria[$j]['jenis'] === 'cost') {
-                    $difference = $maxMin[$j][1] - $maxMin[$j][0];
-                    if ($difference == 0) {
-                        $normalizedMatrix[$i][$j] = 0;
-                    } else {
-                        $normalizedMatrix[$i][$j] = ($value[$i][$j] - $maxMin[$j][0]) / $difference;
-                    }
-                }
-            }
-        }
-
-        // Perhitungan matriks tertimbang (v)
-        $tertimbang = [];
-        for ($i = 0; $i < count($alternatif); $i++) {
-            for ($j = 0; $j < count($kriteria); $j++) {
-                $tertimbang[$i][$j] = ($kriteria[$j]['bobot'] * $normalizedMatrix[$i][$j]) + $kriteria[$j]['bobot'];
-            }
-        }
-
-        // Matriks area perkiraan perbatasan (g)
-        $area = [];
-        for ($i = 0; $i < count($kriteria); $i++) {
-            $area[$i] = 1;
-            for ($j = 0; $j < count($alternatif); $j++) {
-                $area[$i] *= $tertimbang[$j][$i];
-            }
-            $area[$i] = pow($area[$i], 1 / count($alternatif));
-        }
-
-        // matriks jarak (q)
-        $jarak = [];
-        for ($i = 0; $i < count($alternatif); $i++) {
-            for ($j = 0; $j < count($kriteria); $j++) {
-                $jarak[$i][$j] = $tertimbang[$i][$j] - $area[$j];
-            }
-        }
-
-        // perangkingan (s)
-        $rangking = [];
-        $sum = 0;
-        for ($i = 0; $i < count($alternatif); $i++) {
-            $sum = 0;
-            for ($j = 0; $j < count($kriteria); $j++) {
-                $sum += $jarak[$i][$j];
-                $rangking[$i] = $sum;
-            }
-        }
-
-        return $rangking;
     }
 }

@@ -79,7 +79,7 @@
         </div>
     </div>
     <div>
-        <div class="grid grid-flow-col lg:grid-cols-4 gap-[22px] overflow-x-scroll">
+        <div class="grid grid-flow-col lg:grid-cols-4 gap-[22px] overflow-x-auto">
             <div class="min-w-40 flex flex-col gap-[15px]">
                 <img src="{{ asset('img/image 1.png')}}" alt="" >
                 <p class="lg:text-[17px] font-semibold text-justify">Tingkatkan Masyarakat Sehat Sejahtera, Kader Panjang Baru adakan Posyandu Balita di Polehan</p>
