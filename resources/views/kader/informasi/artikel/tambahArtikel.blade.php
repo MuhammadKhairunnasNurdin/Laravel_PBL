@@ -16,15 +16,20 @@
                     </div>
                     <div class="flex flex-col w-full h-fill gap-[20px]">
                         <p class="text-base text-neutral-950">Upload Foto<span class="text-red-400">*</span></p>
-                        <div id="uploadContainer" class="flex w-100 border border-stone-400 justify-between items-center py-[10px] px-[10px] rounded-[5px]">
-                            <div id="label" class="">
-                                <p id="file-upload" class=" text-sm text-gray-300">Pilih foto artikel</p>
-                                <svg id="close" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 hidden">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        <div class="px-4 py-6 w-full h-fill gap-5 border border-stone-400 rounded-[5px]">
+                            <div id="image-preview" class="w-full p-6 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
+                                <img src="" alt="" class="max-h-48 rounded-lg mx-auto" alt="Image preview" id="imageId">
+                                <input id="upload" type="file" name="foto_artikel" class="" accept=".jpeg, .jpg, .png, .gif, .svg" />
+                                <label for="upload" class="cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-tanda w-8 h-8 text-gray-700 mx-auto mb-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                                 </svg>
+                                <h5 class="text-tanda mb-2 text-xl font-bold tracking-tight text-gray-700">Pilih foto artikel</h5>
+                                <p class="text-tanda font-normal text-sm text-gray-400 md:px-6">Ukuran file foto maksimal <b class="text-gray-600">5mb</b></p>
+                                <p class="text-tanda font-normal text-sm text-gray-400 md:px-6">dan harus memiliki format <b class="text-gray-600">JPG, JPEG, or PNG   </b></p>
+                                <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
+                                </label>
                             </div>
-                            <input id="upload" type="file" accept=".jpeg, .jpg, .png, .gif, .svg" name="foto_artikel" value="{{old('foto_artikel')}}" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] flex-row-reverse hidden focus:outline-none file:right-0 placeholder:text-gray-300" placeholder="Masukkan usia balita">
-                            <label for="upload" class="text-[11px] text-white bg-blue-700 py-[2px] px-[5px] rounded-sm cursor-pointer">Pilih File</label>
                         </div>
                         @error('foto_artikel')
                         <span class="text-red-500">{{$message}}</span>
@@ -83,7 +88,7 @@
 @push('js')
 <script>
     window.onload = function() {
-    document.getElementById('upload').addEventListener('change', getFileName);
+    // document.getElementById('upload').addEventListener('change', getFileName);
     }
 
     const getFileName = (event) => {
@@ -115,5 +120,52 @@
             }
         });
     })
+
+    const uploadInput = document.getElementById('upload');
+    const filenameLabel = document.getElementById('filename');
+    let imagePreview = document.getElementById('image-preview');
+    let text = document.querySelectorAll('.text-tanda')
+    var image = document.querySelector('#imageId');
+    // Check if the event listener has been added before
+    let isEventListenerAdded = false;
+    uploadInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        
+        if (file) {
+            filenameLabel.textContent = file.name;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                image.src = `${e.target.result}`;
+                uploadInput.classList.toggle('hidden');
+                text.forEach(e =>{
+                    e.classList.toggle('hidden');
+                });
+
+                // Add event listener for image preview only once
+                if (!isEventListenerAdded) {
+                imagePreview.addEventListener('click', () => {
+                    uploadInput.click();
+                });
+
+                isEventListenerAdded = true;
+                }
+            };
+            reader.readAsDataURL(file);
+        } else {
+            filenameLabel.textContent = '';
+            imagePreview.innerHTML =
+                `<div class="bg-gray-200 h-48 rounded-lg flex items-center justify-center text-gray-500">No image preview</div>`;
+            imagePreview.classList.add('border-dashed', 'border-2', 'border-gray-400');
+
+            // Remove the event listener when there's no image
+            imagePreview.removeEventListener('click', () => {
+                uploadInput.click();
+        });
+
+            isEventListenerAdded = false;
+        }
+    });
+
 </script>
 @endpush
