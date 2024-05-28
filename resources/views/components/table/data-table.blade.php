@@ -1,4 +1,4 @@
-<div class="flex flex-col justify-between w-full h-full overflow-x-auto lg:overflow-hidden">
+<div class="flex flex-col justify-between w-full h-full lg:overflow-x-auto">
     <table class="table-auto w-full xl:text-sm lg:text-xs font-normal capitalize" id="dataTable">
         <thead class="bg-gray-200">
         <tr class="text-neutral-950">
