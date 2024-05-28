@@ -4,8 +4,8 @@
     <form action="{{route('artikel.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="flex flex-col bg-white mx-5 my-5 rounded-md">
-            <div class="grid md:grid-cols-3 my-[30px] mx-10 gap-x-[101px]">
-                <div class="md:col-span-2 flex flex-col gap-[23px]">
+            <div class="grid lg:grid-cols-3 my-[30px] mx-10 lg:gap-x-[101px] gap-5">
+                <div class="lg:col-span-2 flex flex-col gap-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]">
                         <p class="text-base text-neutral-950">Judul Artikel<span class="text-red-400">*</span></p>
                         <input type="text" name="judul" value="{{old('judul')}}" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan judul artikel">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <div class="md:col-span-1 flex flex-col gap-[23px] max-md:pt-[23px]">
+                <div class="col-span-1 flex flex-col gap-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]">
                         <p class="text-base text-neutral-950">Tags<span class="text-red-400">*</span></p>
                         <div class="flex flex-wrap h-fit gap-2.5">
@@ -60,8 +60,8 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-3 mx-10 gap-x-[101px] pb-[30px]">
-                <div class="flex flex-col col-span-3 md:col-span-2 w-full h-fill gap-[20px]">
+            <div class="flex flex-col lg:grid lg:grid-cols-3 mx-10 gap-x-[101px] pb-[30px]">
+                <div class="flex flex-col col-span-2 w-full h-fill gap-[20px]">
                     <p class="text-base text-neutral-950">Isi Artikel<span class="text-red-400">*</span></p>
                     <textarea type="text" name="isi" id="comment" class="text-sm font-normal border border-stone-400 px-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" rows="10" placeholder="Tuliskan isi artikel">{{old('isi')}}</textarea>
                     <p class="text-xs font-normal text-stone-400 mt-[-10px]">Minimal untuk isi artikel 30 huruf sampai maximal 30.000 huruf</p>
@@ -69,7 +69,7 @@
                     <span class="text-red-500">{{$message}}</span>
                     @enderror
                 </div>
-                <div class="col-span-3 flex  justify-end items-end gap-[26px] w-full h-full max-md:pt-[23px]">
+                <div class="col-span-3 flex justify-end items-end gap-[26px] w-full h-full max-md:pt-[23px]">
                     <p class="text-2xs"><span class="text-red-400">*</span>Wajib diisi</p>
                     <a href="{{ url('kader/informasi/')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[10px] px-[10px] rounded-[5px]">Kembali</a>
                     <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[10px] px-[10px] rounded-[5px]">Simpan</button>

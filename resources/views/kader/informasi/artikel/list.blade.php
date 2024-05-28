@@ -18,7 +18,7 @@
         </div>
     @endif
 </div>
-    <div class="grid grid-cols-3 gap-[41px] my-5 mx-5">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-[41px] my-5 mx-5">
         @foreach ($artikels as $artikel)
             <div
                 class="w-100 flex flex-col justify-center items-center bg-white px-[15px] py-5 rounded-[15px] gap-[15px]">

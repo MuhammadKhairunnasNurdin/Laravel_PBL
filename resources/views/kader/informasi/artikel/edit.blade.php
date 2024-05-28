@@ -8,8 +8,8 @@
 
         <input type="hidden" name="artikel" value="{{json_encode($artikel)}}">
         <div class="flex flex-col bg-white mx-5 my-5 rounded-md">
-            <div class="grid grid-cols-3 my-[30px] mx-10 gap-x-[101px]">
-                <div class="col-span-2 flex flex-col gap-[23px]">
+            <div class="grid lg:grid-cols-3 my-[30px] mx-10 lg:gap-x-[101px] gap-5">
+                <div class="lg:col-span-2 flex flex-col gap-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]">
                         <p class="text-base text-neutral-950">Judul Artikel<span class="text-red-400">*</span></p>
                         <input type="text" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" name="judul" value="{{ old('judul', $artikel->judul) }}" placeholder="Masukkan judul artikel" required>
@@ -65,7 +65,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-3 mx-10 gap-x-[101px] pb-[30px]">
+            <div class="flex flex-col lg:grid lg:grid-cols-3 mx-10 gap-x-[101px] pb-[30px]">
                 <div class="flex flex-col col-span-2 w-full h-fill gap-[20px]">
                     <p class="text-base text-neutral-950">Isi Artikel<span class="text-red-400">*</span></p>
                     <textarea type="text" id="comment" name="isi" class="text-sm font-normal border border-stone-400 px-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" rows="10" placeholder="Tuliskan isi artikel">{{ old('isi', $artikel->isi) }}</textarea>
