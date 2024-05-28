@@ -54,17 +54,18 @@ class StorePemeriksaanRequest extends FormRequest
                 'bail',
                 'required',
                 'integer',
-                'exists:kaders'
+                'exists:kaders,kader_id'
             ],
             'penduduk_id' => [
                 'bail',
                 'required',
                 'integer',
-                'exists:penduduks'
+                'exists:penduduks,penduduk_id'
             ],
             'status' => [
                 'bail',
                 'required',
+                'string',
                 Rule::in(['sehat', 'sakit'])
             ],
             'golongan' => [
@@ -85,6 +86,53 @@ class StorePemeriksaanRequest extends FormRequest
                 'numeric',
                 'regex:/^\d{1,3}(\.\d{1,3})?$/'
             ],
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            /**
+             * costum message for kader_id column or field input
+             */
+            'kader_id.required' => 'kader ID harus di isi!',
+            'kader_id.integer' => 'kader ID harus angka bulat!',
+            'kader_id.exists' => 'kader ID tidak ada!',
+            /**
+             * costum message for penduduk_id column or field input
+             */
+            'penduduk_id.required' => 'penduduk ID harus di isi!',
+            'penduduk_id.integer' => 'penduduk ID harus angka bulat!',
+            'penduduk_id.exists' => 'penduduk ID tidak ada!',
+            /**
+             * costum message for status column or field input
+             */
+            'status.required' => 'status harus di isi!',
+            'status.string' => 'status harus berupa string!',
+            'status.in' => "status hanya boleh berisi: 'sehat' atau 'sakit' saja!",
+            /**
+             * costum message for golongan column or field input
+             */
+            'golongan.required' => 'golongan harus di isi!',
+            'golongan.string' => 'golongan harus berupa string!',
+            'golongan.in' => "golongan hanya boleh berisi: 'bayi' atau 'lansia' saja!",
+            /**
+             * costum message for tinggi_badan column or field input
+             */
+            'tinggi_badan.required' => 'tinggi badan harus di isi!',
+            'tinggi_badan.numeric' => 'tinggi badan harus angka(decimal atau bulat)!',
+            'tinggi_badan.regex' => 'tinggi badan maksimal 3 digit di depan koma dan belakang koma!',
+            /**
+             * costum message for berat_badan column or field input
+             */
+            'berat_badan.required' => 'berat badan harus di isi!',
+            'berat_badan.numeric' => 'berat badan harus angka(decimal atau bulat)!',
+            'berat_badan.regex' => 'berat badan maksimal 3 digit di depan koma dan belakang koma!',
         ];
     }
 }
