@@ -1,7 +1,7 @@
 @extends('kader.layouts.template')
 
 @section('content')
-<div class="grid md:grid-cols-3 mx-5 mt-5 sm:mb-5 md:mb-5 gap-5">
+<div class="grid lg:grid-cols-3 mx-5 mt-5 sm:mb-5 lg:mb-5 gap-5">
     @php
         $golongan = ['Bayi', 'Lansia'];
     @endphp
@@ -43,7 +43,7 @@
 <div class="grid grid-cols-3 mx-5 mt-5 mb-10 gap-5">
 
     {{-- Card Kunjungan Anggota --}}
-    <div class="flex flex-col col-span-3 md:col-span-1 w-full bg-white rounded-2xl pr-6 pl-7 md:mb-10 gap-9">
+    <div class="flex flex-col col-span-3 lg:col-span-1 w-full bg-white rounded-2xl pr-6 pl-7 lg:mb-10 gap-9">
         <div class="flex w-full justify-between pt-5">
             <p class="font-medium text-sm lg:text-base">Kunjungan Anggota</p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -56,9 +56,9 @@
     </div>
 
     {{-- Card Agenda Posyandu --}}
-    <div class="flex flex-col col-span-3 md:col-span-2 w-full bg-white rounded-2xl pr-6 pl-7 pb-9 gap-5 overflow-x-auto">
+    <div class="flex flex-col col-span-3 lg:col-span-2 w-full bg-white rounded-2xl pr-6 pl-7 pb-9 gap-5 overflow-x-auto">
         <div class="flex w-full justify-between pt-6 align-middle">
-            <p class="font-medium md:text-xl">Agenda Posyandu</p>
+            <p class="font-medium lg:text-xl">Agenda Posyandu</p>
             <div class="flex gap-4">
                 <x-input.search-input name="searchInput" placeholder="Cari nama atau tempat kegiatan"></x-input.search-input>
                 <div class="border flex items-center rounded-full py-1 px-2.5">

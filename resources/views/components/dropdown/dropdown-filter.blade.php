@@ -135,7 +135,7 @@
             </div>
             <div class="flex flex-col gap-2">
                 <p class="text-Neutral/100 text-sm font-medium">Hubungan Keluarga</p>
-                <div class="flex justify-between items-center gap-3">
+                <div class="lg:flex lg:flex-row flex-wrap  justify-between items-center gap-3">
                     <x-input.radio-input name="hubKeluarga" id="kepala_keluarga"
                                         value="Kepala Keluarga"
                                         checked="{{ request()->get('hubKeluarga') == 'Kepala Keluarga' }}" fn="a">
@@ -155,7 +155,7 @@
             </div>
             <div class="flex flex-col gap-2">
                 <p class="text-Neutral/100 text-sm font-medium">RT</p>
-                <div class="grid grid-cols-4 justify-between items-center gap-3">
+                <div class="grid grid-cols-2 lg:grid-cols-4 justify-between items-center gap-3">
                     @for($i = 1; $i < 7; $i++)
                         <x-input.radio-input name="rt" id="rt0{{$i}}"
                                             value="RT 0{{$i}}" checked="{{ request()->get('rt') == 'RT 0'.$i}}" fn="a">

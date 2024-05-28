@@ -6,33 +6,57 @@
             <p class="text-sm md:text-lg ml-5 md:ml-10">Daftar Penduduk</p>
             <a href="{{ route('penduduk.create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-5 md:mr-10 rounded">Tambah</a>
         </div>
-        {{-- <div class="flex mt-[30px] mx-10 "> --}}
-            <div class="flex w-fit h-full items-center align-middle gap-[20px] mx-10 mt-[30px]">
-                <x-dropdown.dropdown-filter>Filter</x-dropdown.dropdown-filter>
+        <div class="flex flex-col mt-[30px] mx-10 gap-[30px] relative">
+            <div class="flex flex-row w-fit h-full items-center align-middle gap-4">
+                <x-dropdown.dropdown-filter><span class="hidden lg:flex">Filter</span></x-dropdown.dropdown-filter>
+                <x-input.search-input name="search" placeholder="Cari nama bayi"></x-input.search-input>
+            </div>
+            <div class="flex w-full h-full justify-center items-center absolute" id="message">
+                @if(session('success'))
+                    <div class="flex w-full h-full items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
+                        <p class="mr-4"> <b>BERHASIL </b> {{ session('success') }}</p>
+                        <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                @elseif(session('error'))
+                    <div class="flex w-full h-full items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
+                        <p class="mr-4">{{ session('error') }}</p>
+                        <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                @endif
+            </div>
+        </div>
+        {{-- <div class="flex flex-col mt-[30px] mx-10 gap-[30px] relative">
+            <div class="flex flex-row w-fit h-full items-center align-middle gap-4">
+                <x-dropdown.dropdown-filter><span class="hidden lg:flex">Filter</span></x-dropdown.dropdown-filter>
                 <x-input.search-input name="search" placeholder="Cari nama anggota posyandu"></x-input.search-input>
             </div>
             @if(session('success'))
-                <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
-                    <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p>
+                <div class="flex w-full h-full items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
+                    <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p> 
                     <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
                         <span>&times;</span>
                     </button>
                 </div>
-            @elseif(session('error'))
-                <div class="flex items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
+                @elseif(session('error'))
+                <div class="flex w-full h-full items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
                     <p class="mr-4">{{ session('error') }}</p>
                     <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
                         <span>&times;</span>
                     </button>
                 </div>
             @endif
-
+        </div> --}}
+                
         <div class="mx-10 my-[30px]">
             <x-table.data-table :dt="$penduduks"
-                                :headers="['Nama', 'NIK', 'NKK', 'Tanggal Lahir', 'Jenis Kelamin', 'Hubungan Keluarga', 'Aksi']">
-                @php
+            :headers="['Nama', 'NIK', 'NKK', 'Tanggal Lahir', 'Jenis Kelamin', 'Hubungan Keluarga', 'Aksi']">
+            @php
                     $no = ($penduduks->currentPage() - 1) * $penduduks->perPage() + 1;
-                @endphp
+                    @endphp
                 @foreach ($penduduks as $pd)
                     <x-table.table-row>
                         <td class="tableBody">{{$pd->nama}}</td>
@@ -66,6 +90,7 @@
 @endsection
 
 @push('js')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
     function filterByKategori(kategori) {
         let url = `/penduduk?`;
@@ -267,5 +292,10 @@
             });
         }
     });
+    $(document).ready(function (){
+        setTimeout(function() {
+            $('#message').fadeOut('fast');
+        }, 3000);
+    })
 </script>
 @endpush

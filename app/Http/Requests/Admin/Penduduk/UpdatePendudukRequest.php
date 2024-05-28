@@ -73,7 +73,7 @@ class UpdatePendudukRequest extends FormRequest
             'pendapatan' => [
                 'bail',
                 'required',
-                Rule::in(['Belum Bekerja', 'Rp 0 - Rp 500.000', 'Rp 500.000 - Rp 1.000.000', 'Rp 1.000.000 - Rp 2.000.000', 'Rp 2.000.000 - Rp 3.000.000', 'Rp 3.000.000 - keatas'])
+                Rule::in(['Belum Bekerja', 'Rp 0 - Rp 500.000', 'Rp 500.000 - Rp 1.000.000', 'Rp 1.000.000 - Rp 2.000.000', 'Rp 2.000.000 - Rp 3.000.000', 'Rp 3.000.000 - Keatas'])
             ],
             'no_telp' =>[
                 'bail',
