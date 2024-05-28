@@ -51,7 +51,7 @@
             @endif
         </div> --}}
                 
-        <div class="mx-10 my-[30px]">
+        <div class="mx-10 my-[30px] overflow-x-auto">
             <x-table.data-table :dt="$penduduks"
             :headers="['Nama', 'NIK', 'NKK', 'Tanggal Lahir', 'Jenis Kelamin', 'Hubungan Keluarga', 'Aksi']">
             @php

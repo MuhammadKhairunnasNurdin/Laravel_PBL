@@ -22,3 +22,4 @@ Route::get('/lansia/search', [\App\Http\Controllers\Api\SearchController::class,
 Route::get('/bayi/search', [\App\Http\Controllers\Api\SearchController::class, 'searchBayi']);
 Route::get('/penduduk/search', [\App\Http\Controllers\Api\SearchController::class, 'searchPenduduk']);
 Route::get('/informasi/search', [\App\Http\Controllers\Api\SearchController::class, 'searchInformasi']);
+Route::get('/user/search', [\App\Http\Controllers\Api\SearchController::class, 'searchUser']);
