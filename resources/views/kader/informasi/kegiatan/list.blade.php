@@ -12,21 +12,23 @@
         <div class="flex w-full h-full items-center align-middle">
         </div>
     </div>
+    <div class="flex w-full justify-center items-center my-4" id="message">
         @if(session('success'))
-            <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
-                <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p>
+            <div class="flex w-3/4 h-full items-center p-2 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
+                <p class="mr-4"> <b>BERHASIL </b> {{ session('success') }}</p>
                 <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
                     <span>&times;</span>
                 </button>
             </div>
         @elseif(session('error'))
-            <div class="flex items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
+            <div class="flex w-3/4 h-full items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
                 <p class="mr-4">{{ session('error') }}</p>
                 <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
                     <span>&times;</span>
                 </button>
             </div>
         @endif
+    </div>
 
     <input type="hidden" name="model" id="model" value="{{encrypt('App\Models\Kegiatan')}}">
     <input type="hidden" name="url" id="url" value="{{encrypt('/kader/informasi/kegiatan/')}}">
@@ -68,7 +70,14 @@
 @endsection
 
 @push('js')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
+    $(document).ready(function (){
+        setTimeout(function() {
+            $('#message').fadeOut('fast');
+        }, 3000);
+    })
+
     function formatDate(dateString) {
         const date = new Date(dateString);
 
