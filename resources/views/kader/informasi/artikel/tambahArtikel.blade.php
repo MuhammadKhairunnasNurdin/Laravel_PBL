@@ -19,7 +19,7 @@
                         <div class="px-4 py-6 w-full h-fill gap-5 border border-stone-400 rounded-[5px]">
                             <div id="image-preview" class="w-full p-6 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
                                 <img src="" alt="" class="max-h-48 rounded-lg mx-auto" alt="Image preview" id="imageId">
-                                <input id="upload" type="file" name="foto_artikel" class="" accept=".jpeg, .jpg, .png, .gif, .svg" />
+                                <input id="upload" type="file" name="foto_artikel" class="hidden" accept=".jpeg, .jpg, .png, .gif, .svg" />
                                 <label for="upload" class="cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-tanda w-8 h-8 text-gray-700 mx-auto mb-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
@@ -137,7 +137,6 @@
             const reader = new FileReader();
             reader.onload = (e) => {
                 image.src = `${e.target.result}`;
-                uploadInput.classList.toggle('hidden');
                 text.forEach(e =>{
                     e.classList.toggle('hidden');
                 });

@@ -6,8 +6,8 @@
     <div class="grid max-md:grid-rows-2 lg:grid-cols-3 bg-white mx-5 mt-5 rounded-[15px] gap-0">
             <div class="flex flex-col items-center w-full pt-[30px] gap-[10px]">
                 <p class="text-lg font-bold ">Informasi Profile</p>
-                <div class=" w-[250px] h-fill gap-5 border border-stone-400 flex justify-center items-center rounded-[5px]">
-                    <div id="image-preview" class="w-full p-6 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg justify-center items-center mx-auto text-center cursor-pointer">
+                <div class=" w-[250px] h-fill gap-5  flex justify-center items-center rounded-[5px]">
+                    <div id="image-preview" class="w-full rounded-lg justify-center items-center mx-auto text-center cursor-pointer">
                         <img src="" alt="" class="w-full aspect-square rounded-[50px]" alt="Image preview" id="imageId">
                         <input id="upload" type="file" name="" class="hidden" accept="image/*" />
                         <label for="upload" class="cursor-pointer">
