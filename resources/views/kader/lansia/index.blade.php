@@ -21,7 +21,7 @@
                 @if(session('success'))
                     <div class="flex w-full h-full items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
                         <p class="mr-4"> <b>BERHASIL </b> {{ session('success') }}</p>
-                        <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
+ta                        <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
                             <span>&times;</span>
                         </button>
                     </div>

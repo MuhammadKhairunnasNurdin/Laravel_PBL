@@ -4,7 +4,15 @@
     <div class="grid grid-cols-3 bg-white mx-5 mt-5 rounded-[15px]">
         <div class="flex flex-col items-center w-full pt-[30px] gap-[10px]">
             <p class="text-lg font-bold ">Informasi Profile</p>
-            <img src="{{ asset('img/profile_picture.png')}}" alt="profile image" class="w-[250px] h-[250px] rounded-[50px] ">
+            <div class=" w-[250px] h-fill gap-5  flex justify-center items-center rounded-[5px]">
+                <div id="image-preview" class="w-full rounded-lg justify-center items-center mx-auto text-center cursor-pointer">
+                    <img src="" alt="" class="w-full aspect-square rounded-[50px]" alt="Image preview" id="imageId">
+                    <input id="upload" type="file" name="" class="hidden" accept="image/*" />
+                    <label for="upload" class="cursor-pointer">
+                    <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
+                    </label>
+                </div>
+            </div>
             <div class="w-100 text-center">
                 <p>{{$user['nama']}}</p>
                 <p>Admin Posyandu</p>
@@ -120,5 +128,69 @@
             passConfirmError.classList.add("hidden");
         }
     });
+
+    document.addEventListener('DOMContentLoaded', () => {
+    const uploadInput = document.getElementById('upload');
+    const filenameLabel = document.getElementById('filename');
+    let imagePreview = document.getElementById('image-preview');
+    let image = document.getElementById('imageId');
+    let text = document.querySelectorAll('.text-tanda')
+    let isEventListenerAdded = false;
+    
+    // Initialize the image preview if there's an existing image
+    const existingImageUrl = "{{ asset('img/profile_picture.png')}}"; // Make sure this variable is properly set in your server-side code
+
+    if (existingImageUrl) {
+        image.src = `${existingImageUrl}`;
+        text.forEach(e => {
+            e.classList.toggle('hidden');
+        })
+
+        // Add event listener for image preview only once
+        if (!isEventListenerAdded) {
+            imagePreview.addEventListener('click', () => {
+                uploadInput.click();
+            });
+            isEventListenerAdded = true;
+        }
+    }
+
+    uploadInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+
+        if (file) {
+            filenameLabel.textContent = file.name;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                image.src = `${e.target.result}`;
+
+                // Add event listener for image preview only once
+                if (!isEventListenerAdded) {
+                    imagePreview.addEventListener('click', () => {
+                        uploadInput.click();
+                    });
+                    isEventListenerAdded = true;
+                }
+            };
+            reader.readAsDataURL(file);
+        } else {
+            filenameLabel.textContent = '';
+            imagePreview.innerHTML = `<div class="bg-gray-200 h-48 rounded-lg flex items-center justify-center text-gray-500">No image preview</div>`;
+            imagePreview.classList.add('border-dashed', 'border-2', 'border-gray-400');
+
+            // Remove the event listener when there's no image
+            imagePreview.removeEventListener('click', () => {
+                uploadInput.click();
+            });
+
+            isEventListenerAdded = false;
+        }
+    });
+
+    uploadInput.addEventListener('click', (event) => {
+        event.stopPropagation();
+    });
+});
 </script>
 @endpush
