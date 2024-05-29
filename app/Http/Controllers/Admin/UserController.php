@@ -84,11 +84,11 @@ class UserController extends Controller
             'title' => 'Data User'
         ];
 
-        $activeMenu = 'user';
+        $activeMenu = 'users';
 
-        $user =  User::where('user_id', $id)->get();
+        // $users =  User::where('user_id', $id)->get();
         
-        return view('admin.user.detail', compact('breadcrumb', 'activeMenu', 'user'));
+        return view('admin.user.detail', compact('breadcrumb', 'activeMenu', 'users'));
     }
     
     /**
@@ -105,11 +105,11 @@ class UserController extends Controller
             'title' => 'Data User'
         ];
         
-        $activeMenu = 'user';
+        $activeMenu = 'users';
         
-        $user =  User::where('user_id', $id)->get();
+        $users =  User::where('user_id', $id)->get();
 
-        return view('admin.user.edit', compact('breadcrumb', 'activeMenu', 'user'));
+        return view('admin.user.edit', compact('breadcrumb', 'activeMenu', 'users'));
     }
 
     /**
