@@ -13,8 +13,8 @@
             </div>
         </form>
         {{-- Matriks Keputusan Awal --}}
-        <div class="mx-10 my-[30px]">
-            <table class="border-collapse w-full rounded-t-[10px] overflow-hidden">
+        <div class="mx-10 my-[30px] overflow-x-auto">
+            <table class="border-collapse w-full rounded-t-[10px]">
                 <thead class="bg-gray-200 border-b text-left py-5">
                         <th class="font-normal text-sm">Alternatif</th>
                         <th class="font-normal text-sm">Berat Badan</th>
@@ -43,8 +43,8 @@
         <div class="flex justify-between items-center w-full py-2 border-b">
             <p class="text-lg ml-10">Tabel Max Min</p>
         </div>
-        <div class="mx-10 my-[30px]">
-            <table class="border-collapse w-full rounded-t-[10px] overflow-hidden">
+        <div class="mx-10 my-[30px] overflow-x-auto">
+            <table class="border-collapse w-full rounded-t-[10px]">
                 <thead class="bg-gray-200 border-b text-left py-5">
                     <tr class=" text-stone-400">
                         <th class="font-normal text-sm">Kriteria</th>
@@ -71,8 +71,8 @@
         <div class="flex justify-between items-center w-full py-2 border-b">
             <p class="text-lg ml-10">Matriks Normalisasi</p>
         </div>
-        <div class="mx-10 my-[30px]">
-            <table class="border-collapse w-full rounded-t-[10px] overflow-hidden">
+        <div class="mx-10 my-[30px] overflow-x-auto">
+            <table class="border-collapse w-full rounded-t-[10px]">
                 <thead class="bg-gray-200 border-b text-left py-5">
                     <tr class=" text-stone-400">
                         <th class="font-normal text-sm">Alternatif</th>
@@ -102,8 +102,8 @@
         <div class="flex justify-between items-center w-full py-2 border-b">
             <p class="text-lg ml-10">Matriks Optimalisasi</p>
         </div>
-        <div class="mx-10 my-[30px]">
-            <table class="border-collapse w-full rounded-t-[10px] overflow-hidden">
+        <div class="mx-10 my-[30px] overflow-x-auto">
+            <table class="border-collapse w-full rounded-t-[10px]">
                 <thead class="bg-gray-200 border-b text-left py-5">
                     <tr class=" text-stone-400">
                         <th class="font-normal text-sm">Alternatif</th>
@@ -133,8 +133,8 @@
         <div class="flex justify-between items-center w-full py-2 border-b">
             <p class="text-lg ml-10">Matriks Area</p>
         </div>
-        <div class="mx-10 my-[30px]">
-            <table class="border-collapse w-full rounded-t-[10px] overflow-hidden">
+        <div class="mx-10 my-[30px] overflow-x-auto">
+            <table class="border-collapse w-full rounded-t-[10px]">
                 <thead class="bg-gray-200 border-b text-left py-5">
                     <tr class=" text-stone-400">
                         <th class="font-normal text-sm">Alternatif</th>
@@ -162,8 +162,8 @@
         <div class="flex justify-between items-center w-full py-2 border-b">
             <p class="text-lg ml-10">Matriks Jarak</p>
         </div>
-        <div class="mx-10 my-[30px]">
-            <table class="border-collapse w-full rounded-t-[10px] overflow-hidden">
+        <div class="mx-10 my-[30px] overflow-x-auto">
+            <table class="border-collapse w-full rounded-t-[10px]">
                 <thead class="bg-gray-200 border-b text-left py-5">
                     <tr class=" text-stone-400">
                         <th class="font-normal text-sm">Alternatif</th>
@@ -193,8 +193,8 @@
         <div class="flex justify-between items-center w-full py-2 border-b">
             <p class="text-lg ml-10">Tabel Rangking</p>
         </div>
-        <div class="mx-10 my-[30px]">
-            <table class="border-collapse w-full rounded-t-[10px] overflow-hidden">
+        <div class="mx-10 my-[30px] overflow-x-auto">
+            <table class="border-collapse w-full rounded-t-[10px]">
                 <thead class="bg-gray-200 border-b text-left py-5">
                     <tr class=" text-stone-400">
                         <th class="font-normal text-sm">Alternatif</th>

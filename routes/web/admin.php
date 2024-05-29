@@ -40,6 +40,7 @@ Route::group(
 
         Route::group(['prefix' => 'bantuan'], function () {
             Route::get('/', [BantuanController::class, 'index']);
+            Route::get('/kriteria/{kode}', [BantuanController::class, 'kriteriaDetail']);
             Route::get('/alternatif', [BantuanController::class, 'alternatif'])->name('bantuan.alternatif');
             Route::post('/saw', [BantuanController::class, 'saw'])->name('bantuan.saw');
             Route::post('/mabac', [BantuanController::class, 'mabac'])->name('bantuan.mabac');

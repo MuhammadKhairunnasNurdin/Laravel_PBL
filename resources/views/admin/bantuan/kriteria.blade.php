@@ -1,12 +1,9 @@
-<div>
-    <!-- Order your soul. Reduce your wants. - Augustine -->
-</div>
 @extends('admin.layouts.template')
 
 @section('content')
     <div class="flex flex-col bg-white mx-5 my-5 shadow-[0_-4px_0_0_rgba(29,78,216,1)] rounded-md">
         <div class="flex justify-between items-center w-full py-2 border-b">
-            <p class="text-sm md:text-lg ml-5 md:ml-10">Tampilan Alternatif Dari SPK</p>
+            <p class="text-sm md:text-lg ml-5 md:ml-10">Data Kriteria</p>
         </div>
             @if(session('success'))
                 <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
@@ -23,55 +20,55 @@
                     </button>
                 </div>
             @endif
-        <form action="{{route('bantuan.saw')}}" method="post">
-            @csrf
-            <div class="mx-10 my-[30px]">
-                <x-table.data-table :dt="$alternatifs"
-                                    :headers="['Pilih', 'Nama Balita', 'Berat Badan', 'Tinggi Badan', 'Lingkar Kepala', 'Lingkar Lengan', 'Total Pendapatan', 'Aksi']">
-                    @foreach ($alternatifs as $alt)
+
+        <div class="grid lg:grid-cols-3 mx-10 my-[30px]">
+            <div class="flex flex-col col-span-3 lg:col-span-1">
+                <table class="w-fit h-fit">
+                    <tbody>
+                        <tr>
+                            <td>Kode Kriteria</td>
+                            <td>:</td>
+                            <td>{{ $kriteria->kode }}</td>
+                        </tr>
+                        <tr>
+                            <td>Nama Kriteria</td>
+                            <td>:</td>
+                            <td>{{ $kriteria->nama }}</td>
+                        </tr>
+                        <tr>
+                            <td>Bobot Kriteria</td>
+                            <td>:</td>
+                            <td>{{ $kriteria->bobot }}</td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Kriteria</td>
+                            <td>:</td>
+                            <td>{{ $kriteria->jenis }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex flex-col col-span-3 lg:col-span-2 w-full rounded-2xl overflow-x-auto">
+                <x-table.data-table :dt="$rentangs"
+                                    :headers="['Kode Kriteria', 'Rentang Minimal', 'Rentang Maximal', 'Nilai']">
+                    @foreach ($rentangs as $rtg)
                         <x-table.table-row>
-                            <td class="tableBody">
-                                <input type="checkbox" name="penduduk_id[]" id="" value="{{$alt->penduduk_id}}">    
-                            </td>
-                            <td class="tableBody">
-                                {{$alt->nama}}
-                            </td>
-                            <td class="tableBody">{{$alt->berat_badan}}</td>
-                            <td class="tableBody">{{$alt->tinggi_badan}}</td>
-                            <td class="tableBody">{{$alt->lingkar_kepala}}</td>
-                            <td class="tableBody">{{$alt->lingkar_lengan}}</td>
-                            <td class="tableBody">Rp.300.000</td>
-                            <td class="tableBody">
-                                <a href="bantuan/{{$alt->kode}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
+                            <td class="tableBody">{{$rtg->kode}}</td>
+                            <td class="tableBody">{{number_format($rtg->rentang_min, 3)}}</td>
+                            <td class="tableBody">{{number_format($rtg->rentang_max, 3)}}</td>
+                            <td class="tableBody">{{$rtg->nilai}}</td>
                         </x-table.table-row>
-                        {{-- <x-table.table-row>
-                            <td class="tableBody">
-                                <input type="checkbox" name="penduduk_id[]" id="" value="{{$alt->penduduk_id}}">    
-                            </td>
-                            <td class="tableBody">
-                                {{$alt->penduduk->nama}}
-                            </td>
-                            <td class="tableBody">{{$alt->berat_badan}}</td>
-                            <td class="tableBody">{{$alt->tinggi_badan}}</td>
-                            <td class="tableBody">{{$alt->pemeriksaan_bayi->lingkar_kepala}}</td>
-                            <td class="tableBody">{{$alt->pemeriksaan_bayi->lingkar_lengan}}</td>
-                            <td class="tableBody">Rp.300.000</td>
-                            <td class="tableBody">
-                                <a href="bantuan/{{$alt->kode}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
-                        </x-table.table-row> --}}
                     @endforeach
                 </x-table.data-table>
             </div>
-            <div class="flex justify-end items-center w-full py-5 px-3 border-b">
-                <a href="{{ url('admin/bantuan') }}" class="bg-gray-300 text-sm text-neutral-950 font-bold py-2 px-4 mr-5 md:mr-10 rounded">Kembali</a>
-                <button type="submit" class="bg-blue-700 text-sm text-white font-bold py-2 px-4 mr-5 md:mr-10 rounded">Selanjutnya</button>
-            </div>
-        </form>
+        </div>
+        <div class="flex justify-end items-center w-full py-5 px-3 border-b">
+            <a href="{{ url('admin/bantuan') }}" class="bg-gray-300 text-sm text-black font-bold py-2 px-4 mr-5 md:mr-10 rounded">Kembali</a>
+        </div>
     </div>
 @endsection
 
 @push('js')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
     function clearTable() {
         const table = document.getElementById('dataTable');
@@ -144,20 +141,15 @@
         }
     }
 
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     let div = document.getElementById('message');
-    //     let button = document.getElementById('close');
+    document.addEventListener('DOMContentLoaded', function() {
+        let div = document.getElementById('message');
+        let button = document.getElementById('close');
 
-    //     if (div && button) {
-    //         button.addEventListener('click', function() {
-    //             div.classList.add('hidden');
-    //         });
-    //     }
-    // });
-    $(document).ready(function (){
-        setTimeout(function() {
-            $('#message').fadeOut('fast');
-        }, 3000);
-    })
+        if (div && button) {
+            button.addEventListener('click', function() {
+                div.classList.add('hidden');
+            });
+        }
+    });
 </script>
 @endpush

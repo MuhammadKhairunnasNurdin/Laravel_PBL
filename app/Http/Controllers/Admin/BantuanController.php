@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AuditBulananBayi;
 use App\Models\Kriteria;
 use App\Models\Pemeriksaan;
+use App\Models\RentangKriteria;
 use App\Services\MabacServices;
 use App\Services\SAWServices;
 use Illuminate\Http\Request;
@@ -29,6 +30,19 @@ class BantuanController extends Controller
         $kriterias = Kriteria::paginate(10);
 
         return view('admin.bantuan.index', compact('breadcrumb', 'activeMenu', 'kriterias'));
+    }
+    public function kriteriaDetail(string $code ) 
+    {
+        $breadcrumb = (object) [
+            'title' => 'Sistem Pengambilan Keputusan'
+        ];
+
+        $activeMenu = 'bantuan';
+
+        $kriteria = Kriteria::find($code);
+        $rentangs = RentangKriteria::where('kode', $code)->orderBy('nilai', 'asc')->paginate(10);
+
+        return view('admin.bantuan.kriteria', compact('breadcrumb', 'activeMenu', 'kriteria', 'rentangs'));
     }
     public function alternatif()
     {
