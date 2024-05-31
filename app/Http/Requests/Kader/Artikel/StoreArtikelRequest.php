@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Kader\Artikel;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
 
 class StoreArtikelRequest extends FormRequest
 {
@@ -45,7 +46,8 @@ class StoreArtikelRequest extends FormRequest
     {
         $image = $this->file('foto_artikel');
         $fileName = $image->hashName();
-        $image->move(public_path('artikel'), $fileName);
+        Storage::disk('artikel_img')->put($fileName, file_get_contents($image));
+
         $this->merge([
             'foto_artikel' => $fileName
         ]);
