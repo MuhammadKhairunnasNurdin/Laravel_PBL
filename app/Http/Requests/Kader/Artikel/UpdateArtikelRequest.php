@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Kader\Artikel;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Storage;
 
 class UpdateArtikelRequest extends FormRequest
 {
@@ -141,10 +142,11 @@ class UpdateArtikelRequest extends FormRequest
         $image = $this->file('foto_artikel');
         if (isset($image)) {
             $fileName = $image->hashName();
+            Storage::disk('artikel_img')->put($fileName, file_get_contents($image));
+
             $this->merge([
                 'foto_artikel' => $fileName
             ]);
-            $image->move(public_path('artikel'), $fileName);
         }
     }
 }

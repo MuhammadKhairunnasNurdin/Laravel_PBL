@@ -10,6 +10,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ArtikelResource extends Controller
 {
@@ -131,13 +132,17 @@ class ArtikelResource extends Controller
                          */
                         $foto_artikel = $artikel->foto_artikel;
                         /**
-                         * parseUrl from accessor that return asset() and remove trailing '/'
+                         * using parse_url to remove url like: http://127.0.0.1:8000 or PHP_URL_PATH
+                         *
+                         * using substr() with offset 9 to remove: /artikel/
+                         *
+                         * result from those logic: hashName.extension
                          */
-                        $foto_artikel = substr(parse_url($foto_artikel, PHP_URL_PATH), 1);
+                        $foto_artikel = substr(parse_url($foto_artikel, PHP_URL_PATH), 9);
                         /**
                          * delete image foto_artikel in public directory
                          */
-                        unlink($foto_artikel);
+                        Storage::disk('artikel_img')->delete($foto_artikel);
                     }
                     /**
                      * fill $isUpdated to use in checking update
@@ -192,14 +197,18 @@ class ArtikelResource extends Controller
                  */
                 $foto_artikel = $artikel->foto_artikel;
                 /**
-                 * parseUrl from accessor that return asset() and remove trailing '/'
+                 * using parse_url to remove url like: http://127.0.0.1:8000 or PHP_URL_PATH
+                 *
+                 * using substr() with offset 9 to remove: /artikel/
+                 *
+                 * result from those logic: hashName.extension
                  */
-                $foto_artikel = substr(parse_url($foto_artikel, PHP_URL_PATH), 1);
-                if (file_exists($foto_artikel)) {
+                $foto_artikel = substr(parse_url($foto_artikel, PHP_URL_PATH), 9);
+                if (Storage::disk('artikel_img')->exists($foto_artikel)) {
                     /**
                      * delete image foto_artikel in public directory
                      */
-                    unlink($foto_artikel);
+                    Storage::disk('artikel_img')->delete($foto_artikel);
                 }
 
                 /**
