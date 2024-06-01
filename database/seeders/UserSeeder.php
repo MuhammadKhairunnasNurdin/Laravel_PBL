@@ -18,35 +18,44 @@ class UserSeeder extends Seeder
             [
                 'username' => 'admin1',
                 'password' => Hash::make('Admin123'),
-                'level' => 'admin'
+                'level' => 'admin',
+                'foto_profil' => '16NtVyPHhGoEKybdPEjKHv76kuaL8W1MhWs9vaMu.jpg'
             ], [
                 'username' => 'ketua1',
                 'password' => Hash::make('Ketua123'),
-                'level' => 'ketua'
+                'level' => 'ketua',
+                'foto_profil' => '16NtVyPHhGoEKybdPEjKHv76kuaL8W1MhWs9vaMu.jpg'
             ], [
                 'username' => 'kader1',
                 'password' => Hash::make('Kader123'),
-                'level' => 'kader'
+                'level' => 'kader',
+                'foto_profil' => '16NtVyPHhGoEKybdPEjKHv76kuaL8W1MhWs9vaMu.jpg'
+
             ], [
                 'username' => 'kader2',
                 'password' => Hash::make('Kader234'),
-                'level' => 'kader'
+                'level' => 'kader',
+                'foto_profil' => '16NtVyPHhGoEKybdPEjKHv76kuaL8W1MhWs9vaMu.jpg'
             ], [
                 'username' => 'kader3',
                 'password' => Hash::make('Kader345'),
-                'level' => 'kader'
+                'level' => 'kader',
+                'foto_profil' => '16NtVyPHhGoEKybdPEjKHv76kuaL8W1MhWs9vaMu.jpg'
             ], [
                 'username' => 'kader4',
                 'password' => Hash::make('Kader456'),
-                'level' => 'kader'
+                'level' => 'kader',
+                'foto_profil' => '16NtVyPHhGoEKybdPEjKHv76kuaL8W1MhWs9vaMu.jpg'
             ], [
                 'username' => 'kader5',
                 'password' => Hash::make('Kader567'),
-                'level' => 'kader'
+                'level' => 'kader',
+                'foto_profil' => '16NtVyPHhGoEKybdPEjKHv76kuaL8W1MhWs9vaMu.jpg'
             ], [
                 'username' => 'admin2',
                 'password' => Hash::make('Admin234'),
-                'level' => 'admin'
+                'level' => 'admin',
+                'foto_profil' => '16NtVyPHhGoEKybdPEjKHv76kuaL8W1MhWs9vaMu.jpg'
             ],
         ];
 
