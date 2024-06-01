@@ -31,5 +31,8 @@ class Admin extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
-
+    public function penduduk(): BelongsTo
+    {
+        return $this->belongsTo(Penduduk::class, 'penduduk_id', 'penduduk_id');
+    }
 }

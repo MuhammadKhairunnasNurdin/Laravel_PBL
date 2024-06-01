@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Shared;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\User\UpdateUserRequest;
 use App\Models\Penduduk;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -67,7 +67,7 @@ class ProfileController extends Controller
      */
     private function indexData(string $relationship): array
     {
-        $user = User::with($relationship)->find(Auth::id())->only('username', 'foto_profil_path', $relationship);
+        $user = User::with($relationship)->find(Auth::id())->only('username', 'foto_profil', $relationship);
 
         if ($relationship === 'kaders') {
             $user['nama'] = Penduduk::find($user[$relationship][0]->penduduk_id)->only('nama')['nama'];
@@ -123,12 +123,11 @@ class ProfileController extends Controller
             ;
         }
 
-
         /**
          * update password if form password filled
          */
         if (!empty($request->password)) {
-            $user->password = Hash::make($request->password);
+            $user->password = $request->password;
         }
         /**
          * update username if form username change
@@ -144,7 +143,7 @@ class ProfileController extends Controller
 
         return redirect()
             ->intended($user->level . '/profile')
-            ->withInput(['success' => 'update user data success']);
-
+            ->withInput(['success' => 'update user data success'])
+        ;
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\User\StoreAdminKaderRequest;
 use App\Http\Requests\Admin\User\StoreUserRequest;
 use App\Http\Requests\Admin\User\UpdateUserRequest;
 use App\Models\User;
@@ -14,8 +15,9 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
-class UserController extends Controller
+class UserResource extends Controller
 {
     private FilterServices $filter;
 
@@ -53,18 +55,36 @@ class UserController extends Controller
 
         $activeMenu = 'users';
 
-        $users = User::all();
-        $penduduks = Penduduk::all();
+        $penduduks = Penduduk::whereDoesntHave('kaders')
+            ->whereDoesntHave('admins')
+            ->whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) >= 20')
+            ->whereRaw('TIMESTAMPDIFF(YEAR, tgl_lahir, CURDATE()) <= 50')
+            ->get();
 
-        return view('admin.user.tambah', compact('breadcrumb', 'activeMenu', 'users', 'penduduks'));
+        if ($penduduks === null) {
+            return redirect()->intended('admin/user' . session('urlPagination'))
+                ->with('error', 'Data penduduk(usia 20-50 tahun dan tidak punya akun) tidak tersedia untuk penambahan user');
+        }
+
+        return view('admin.user.tambah', compact('breadcrumb', 'activeMenu', 'penduduks'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUserRequest $request): RedirectResponse
+    public function store(StoreUserRequest $userRequest, StoreAdminKaderRequest $adminKaderRequest): RedirectResponse
     {
-        User::create($request->all());
+        $user = User::create($userRequest->input());
+        $adminKaderRequest->merge([
+            'user_id' => $user->user_id
+        ]);
+
+        if ($user->level === 'admin') {
+            Admin::create($adminKaderRequest->all());
+        }
+        if ($user->level === 'kader' || $user->level === 'ketua') {
+            Kader::create($adminKaderRequest->all());
+        }
 
         return redirect()->intended('admin/user' . session('urlPagination'))
             ->with('success', 'Data user berhasil ditambahkan');
@@ -86,11 +106,9 @@ class UserController extends Controller
 
         $activeMenu = 'users';
 
-        // $users =  User::where('user_id', $id)->get();
-        
         return view('admin.user.detail', compact('breadcrumb', 'activeMenu', 'users'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
@@ -100,13 +118,13 @@ class UserController extends Controller
         if ($users === null) {
             return redirect()->intended('admin/user' . session('urlPagination'))->with('error', 'Data user tidak ditemukan atau mungkin sudah dihapus admin lain');
         }
-        
+
         $breadcrumb = (object) [
             'title' => 'Data User'
         ];
-        
+
         $activeMenu = 'users';
-        
+
         $users =  User::where('user_id', $id)->get();
 
         return view('admin.user.edit', compact('breadcrumb', 'activeMenu', 'users'));
@@ -174,41 +192,46 @@ class UserController extends Controller
                  * lock and delete with queue users table
                  * to prevent database race condition
                  */
-                $users = User::lockForUpdate()->find($id);
-                if ($users === null) {
+                $user = User::lockForUpdate()->find($id);
+                if ($user === null) {
                     return redirect()->intended('admin/penduduk' . session('urlPagination'))->with('error', 'Data user tidak ditemukan');
                 }
 
                 /**
                  * check if other user is update our data when we do delete action
                  */
-                if ($users->updated_at > $request->input('updated_at')) {
+                if ($user->updated_at > $request->input('updated_at')) {
                     return redirect()->intended('admin/user' . session('urlPagination'))->with('error', 'Data user masih di update oleh admin lain, coba refresh dan lakukan hapus lagi');
                 }
 
                 /**
+                 * delete foto_profil that saved in public/user directory
+                 */
+                $foto_profil = $user->foto_profil;
+                /**
+                 * using parse_url to remove url like: http://127.0.0.1:8000 or PHP_URL_PATH
+                 *
+                 * using substr() with offset 6 to remove: /user/
+                 *
+                 * result from those logic: hashName.extension
+                 */
+                $foto_profil = substr(parse_url($foto_profil, PHP_URL_PATH), 6);
+                if (Storage::disk('user_img')->exists($foto_profil)) {
+                    /**
+                     * delete image foto_profil in public directory
+                     */
+                    Storage::disk('user_img')->delete($foto_profil);
+                }
+
+                /**
+                 * delete user that also delete admins data because cascadeOnDelete
+                 */
+                $user->delete();
+
+                /**
                  * if penduduk has an account either had role kader, ketua, or admin, will delete to
                  */
-                $kader = Kader::where('penduduk_id', $id)->get('user_id');
-                $admin = Admin::where('penduduk_id', $id)->get('user_id');
-                /**
-                 * we delete penduduk after we search query above in table kaders and admins
-                 *
-                 * because when penduduks table deleted, admins and kaders are deleted too in cascadeOnDelete function
-                 */
-                $users->delete();
-                /**
-                 * if penduduk is kader
-                 */
-                if ($kader->containsOneItem()) {
-                    User::find($kader[0]->user_id)->delete();
-                }
-                /**
-                 * if penduduk is admin
-                 */
-                if ($admin->containsOneItem()) {
-                    User::find($admin[0]->user_id)->delete();
-                }
+                Kader::where('user_id', $id)->update(['status' => 'tidak aktif']);
 
                 return redirect()->intended('admin/user' . session('urlPagination'))->with('success', 'Data penduduk berhasil dihapus');
             });
