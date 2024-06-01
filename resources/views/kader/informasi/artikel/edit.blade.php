@@ -29,8 +29,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                                 </svg>
                                 <h5 class="text-tanda mb-2 text-xl font-bold tracking-tight text-gray-700">Pilih foto artikel</h5>
-                                <p class="text-tanda font-normal text-sm text-gray-400 md:px-6">Ukuran file foto maksimal <b class="text-gray-600">5mb</b></p>
-                                <p class="text-tanda font-normal text-sm text-gray-400 md:px-6">dan harus memiliki format <b class="text-gray-600">JPG, JPEG, or PNG   </b></p>
+                                <p class="text-tanda font-normal text-sm text-gray-400 md:px-6">Ukuran file foto maksimal <b class="text-gray-600">700kb</b></p>
+                                <p class="text-tanda font-normal text-sm text-gray-400 md:px-6">dan harus memiliki format <b class="text-gray-600">JPG, JPEG,PNG,GIF, atau SVG   </b></p>
                                 <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
                                 </label>
                             </div>
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let image = document.getElementById('imageId');
     let text = document.querySelectorAll('.text-tanda')
     let isEventListenerAdded = false;
-    
+
     // Initialize the image preview if there's an existing image
     const existingImageUrl = '{{ $artikel->foto_artikel }}'; // Make sure this variable is properly set in your server-side code
 
