@@ -38,7 +38,7 @@
                         <td class="tableBody">{{$krt->jenis}}</td>
                         <td class="tableBody">
                             {{-- <form action="penduduk/{{$krt->penduduk_id}}" method="post" class="flex items-center gap-2"> --}}
-                                <a href="bantuan/{{$krt->kode}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
+                                <a href="bantuan/kriteria/{{$krt->kode}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
                                 {{-- <a href="penduduk/{{$krt->penduduk_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a> --}}
                                 {{-- @csrf --}}
                                 {{-- @method('DELETE') --}}

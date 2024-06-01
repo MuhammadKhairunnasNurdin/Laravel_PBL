@@ -56,6 +56,14 @@ return [
             'throw' => false,
         ],
 
+        'artikel_img' => [
+            'driver' => 'local',
+            'root' => public_path('artikel'),
+            'url' => env('APP_URL').'/artikel',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
     ],
 
     /*
