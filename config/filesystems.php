@@ -58,8 +58,15 @@ return [
 
         'artikel_img' => [
             'driver' => 'local',
-            'root' => public_path('artikel'),
+            'root' => storage_path('app/artikel'),
             'url' => env('APP_URL').'/artikel',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+        'user_img' => [
+            'driver' => 'local',
+            'root' => storage_path('app/user'),
+            'url' => env('APP_URL').'/user',
             'visibility' => 'public',
             'throw' => false,
         ],
@@ -78,7 +85,8 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('artikel') => storage_path('app/artikel'),
+        public_path('user') => storage_path('app/user'),
     ],
 
 ];

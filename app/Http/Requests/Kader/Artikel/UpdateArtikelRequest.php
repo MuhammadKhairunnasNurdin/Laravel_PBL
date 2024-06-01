@@ -75,7 +75,7 @@ class UpdateArtikelRequest extends FormRequest
                 'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
-                'max:5048'
+                'max:700'
             ]
         ];
     }
@@ -117,7 +117,7 @@ class UpdateArtikelRequest extends FormRequest
              */
             'foto_artikel.image' => 'foto artikel harus berupa file foto!',
             'foto_artikel.mimes' => "foto artikel hanya boleh mempunyai extension: .jpeg, .jpg, .png, .gif, .svg !",
-            'foto_artikel.max' => 'foto artikel maksimal berukuran 5 MegaBytes(MB) !'
+            'foto_artikel.max' => 'foto artikel maksimal berukuran 700 KiloBytes(KB) !'
         ];
     }
 
