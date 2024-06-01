@@ -28,9 +28,13 @@ class Penduduk extends Model
     /**
      * Eloquent Model Relationships
      */
-    public function kader(): HasOne
+    public function kaders(): HasMany
     {
-        return $this->hasOne(Kader::class, 'penduduk_id', 'penduduk_id');
+        return $this->hasMany(Kader::class, 'penduduk_id', 'penduduk_id');
+    }
+    public function admins(): HasMany
+    {
+        return $this->hasMany(Admin::class, 'penduduk_id', 'penduduk_id');
     }
     public function pemeriksaans(): HasMany
     {

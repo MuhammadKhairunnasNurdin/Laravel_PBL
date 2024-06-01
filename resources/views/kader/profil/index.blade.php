@@ -136,9 +136,9 @@
     let image = document.getElementById('imageId');
     let text = document.querySelectorAll('.text-tanda')
     let isEventListenerAdded = false;
-    
+
     // Initialize the image preview if there's an existing image
-    const existingImageUrl = "{{ asset('img/profile_picture.png')}}"; // Make sure this variable is properly set in your server-side code
+    const existingImageUrl = "{{$user['foto_profil']}}"; // Make sure this variable is properly set in your server-side code
 
     if (existingImageUrl) {
         image.src = `${existingImageUrl}`;

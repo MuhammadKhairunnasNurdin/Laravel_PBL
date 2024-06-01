@@ -13,11 +13,6 @@
                         <td>:</td>
                         <td>{{ $users->username }}</td>
                     </tr>
-                    {{-- <tr>
-                        <td>Password</td>
-                        <td>:</td>
-                        <td>{{ $users->password }}</td>
-                    </tr> --}}
                     <tr>
                         <td>Level</td>
                         <td>:</td>
@@ -27,7 +22,7 @@
                     <tr>
                         <td>Foto Profil</td>
                         <td>:</td>
-                        <td>{{ $users->foto_profil}}</td>
+                        <td><img src="{{ $users->foto_profil}}" alt="foto_profil"></td>
                     </tr>
                 </tbody>
             </table>

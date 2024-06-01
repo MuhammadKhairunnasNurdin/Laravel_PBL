@@ -36,7 +36,7 @@
             </div>
             @if(session('success'))
                 <div class="flex w-full h-full items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
-                    <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p> 
+                    <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p>
                     <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
                         <span>&times;</span>
                     </button>
@@ -50,7 +50,7 @@
                 </div>
             @endif
         </div> --}}
-                
+
         <div class="mx-10 my-[30px] overflow-x-auto">
             <x-table.data-table :dt="$users"
             :headers="['Username', 'Level', 'Foto', 'Aksi']">
@@ -64,6 +64,10 @@
                         <td class="tableBody"><img src="{{$user->foto_profil}}" alt=""></td>
                         <td class="tableBody">
                             <form action="user/{{$user->user_id}}" method="post" class="flex items-center gap-2">
+                                @php
+                                    $queryString = http_build_query(request()->query());
+                                    session(['urlPagination' => $queryString ? '?' . $queryString : '']);
+                                @endphp
                                 <a href="user/{{$user->user_id}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
                                 <a href="user/{{$user->user_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
                                 @csrf
