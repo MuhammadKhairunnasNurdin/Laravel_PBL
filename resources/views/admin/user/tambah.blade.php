@@ -51,22 +51,22 @@
                         @enderror
                     </div>
                     <div class="flex flex-col w-full gap-[20px]">
-                        <p class="text-base text-neutral-950">Username<span class="text-red-400">*</span></p>
-                        <input type="text" name="nama" value="{{old('nama')}}" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan username">
+                        <p class="text-base text-neutral-950">Username</p>
+                        <input type="text" name="nama" value="{{old('username')}}" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan username">
                         @error('nama')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="flex flex-col w-full gap-[20px]">
-                        <p class="text-base text-neutral-950">Password<span class="text-red-400">*</span></p>
-                        <input type="text" name="nama" value="{{old('nama')}}" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan password">
+                        <p class="text-base text-neutral-950">Password</p>
+                        <input type="text" name="nama" value="{{old('password')}}" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan password">
                         @error('nama')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
                     <div class="flex flex-col w-full gap-[20px] ">
-                        <p class="text-base text-neutral-950">Confirm Password<span class="text-red-400">*</span></p>
-                        <input type="text" name="tempat" value="{{old('tempat')}}" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan konfirmasi password">
+                        <p class="text-base text-neutral-950">Confirm Password</p>
+                        <input type="text" name="tempat" value="{{old('')}}" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan konfirmasi password">
                         @error('tempat')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
