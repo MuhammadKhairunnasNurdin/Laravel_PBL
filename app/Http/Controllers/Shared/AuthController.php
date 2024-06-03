@@ -44,7 +44,8 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        Auth::logoutOtherDevices($request->input('password'));
+        Auth::user()->session_id = session()->getId();
+        Auth::user()->save();
 
         return redirect()->intended(match (Auth::user()->level) {
             /**
@@ -68,6 +69,9 @@ class AuthController extends Controller
 
     public function logout(Request $request): RedirectResponse
     {
+        Auth::user()->session_id = null;
+        Auth::user()->save();
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

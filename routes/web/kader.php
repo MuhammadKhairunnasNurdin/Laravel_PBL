@@ -22,7 +22,7 @@ use App\Http\Controllers\Shared\ProfileController;
 |
 */
 Route::group([
-    'middleware' => ['auth', 'checkLevel:kader'],
+    'middleware' => ['auth', 'checkLevel:kader', 'preventMultipleLogin'],
     'prefix' => 'kader'
     ], function () {
         /**

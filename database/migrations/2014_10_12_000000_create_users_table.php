@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('password', 100);
             $table->enum('level', ['kader', 'ketua', 'admin']);
             $table->string('foto_profil')->nullable();
+            $table->string('session_id', 100)->nullable();
             $table->timestamps();
         });
     }
