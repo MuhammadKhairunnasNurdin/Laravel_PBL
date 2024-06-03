@@ -76,7 +76,7 @@ class PendudukResource extends Controller
     {
         $penduduk = Penduduk::find($id);
         if ($penduduk === null) {
-            return redirect()->intended('admin/penduduk' . session('urlPagination'))->with('error', 'Data penduduk tidak ditemukan atau mungkin sudah dihapus admin lain');
+            return redirect()->intended('admin/penduduk' . session('urlPagination'))->with('error', 'Data penduduk baru saja dihapus admin lain');
         }
 
         $breadcrumb = (object) [
@@ -95,7 +95,7 @@ class PendudukResource extends Controller
     {
         $penduduk = Penduduk::find($id);
         if ($penduduk === null) {
-            return redirect()->intended('admin/penduduk' . session('urlPagination'))->with('error', 'Data penduduk tidak ditemukan atau mungkin sudah dihapus admin lain');
+            return redirect()->intended('admin/penduduk' . session('urlPagination'))->with('error', 'Data penduduk baru saja dihapus admin lain');
         }
 
         $breadcrumb = (object) [
@@ -133,7 +133,13 @@ class PendudukResource extends Controller
                  * and check if use has change column in penduduks table
                  */
                 $penduduk = Penduduk::lockForUpdate()->find($id);
-                if ($request->all() !== [] and $penduduk !== null) {
+                /**
+                 * if update action lose race with delete action, return error message
+                 */
+                if ($penduduk === null) {
+                    return redirect()->intended('admin/penduduk' . session('urlPagination'))->with('error', 'Data penduduk sudah dihapus lebih dulu oleh admin');
+                }
+                if ($request->all() !== []) {
                     /**
                      * fill $isUpdated to use in checking update
                      * action
@@ -143,6 +149,10 @@ class PendudukResource extends Controller
 
                 return $isUpdated;
             });
+
+            if (!is_bool($isUpdated)){
+                return $isUpdated;
+            }
 
             return redirect()->intended('admin/penduduk' . session('urlPagination'))
                 ->with('success', $isUpdated ? 'Data penduduk berhasil diubah' : 'Namun Data penduduk tidak diubah');

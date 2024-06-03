@@ -99,7 +99,7 @@ class BayiResource extends Controller
 
         $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->find($id);
         if ($bayiData === null) {
-            return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data pemeriksaan bayi tidak ditemukan atau mungkin sudah dihapus kader lain');
+            return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data bayi baru saja dihapus kader lain');
         }
 
         $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
@@ -127,7 +127,8 @@ class BayiResource extends Controller
 
         $bayiData = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')->lockForUpdate()->find($id);
         if ($bayiData === null) {
-            return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data pemeriksaan bayi tidak ditemukan atau mungkin sudah dihapus');
+            return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data bayi baru saja dihapus kader lain');
+
         }
 
         $parentData = Penduduk::where('NKK', $bayiData->penduduk->NKK)
@@ -169,10 +170,12 @@ class BayiResource extends Controller
                  * and check if use has change column in pemeriksaans table
                  */
                 $pemeriksaan = Pemeriksaan::lockForUpdate()->find($id);
+                /**
+                 * if update action lose race with delete action, return error message
+                 */
                 if ($pemeriksaan === null) {
-                    return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data pemeriksaan bayi tidak ditemukan mungkin dihapus kader lain');
+                    return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data Bayi sudah dihapus lebih dulu oleh kader lain');
                 }
-
                 if ($pemeriksaanRequest->all() !== []) {
                     /**
                      * fill $isUpdated to use in checking update
@@ -247,14 +250,14 @@ class BayiResource extends Controller
                  */
                 $pemeriksaan = Pemeriksaan::lockForUpdate()->find($id);
                 if ($pemeriksaan === null) {
-                    return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data pemeriksaan bayi tidak ditemukan');
+                    return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data bayi tidak ditemukan');
                 }
 
                 /**
                  * check if other user is update our data when we do delete action
                  */
                 if ($pemeriksaan->updated_at > $request->input('updated_at')) {
-                    return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data Bayi masih di update oleh kader lain, coba refresh dan lakukan hapus lagi');
+                    return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data bayi masih di update oleh kader lain, coba refresh dan lakukan hapus lagi');
                 }
 
                 /**
@@ -262,12 +265,12 @@ class BayiResource extends Controller
                  */
                 $pemeriksaan->delete();
 
-                return redirect()->intended('kader/bayi' . session('urlPagination'))->with('success', 'Data pemeriksaan bayi berhasil dihapus');
+                return redirect()->intended('kader/bayi' . session('urlPagination'))->with('success', 'Data bayi berhasil dihapus');
             });
         } catch (QueryException) {
-            return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data pemeriksaan bayi gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
+            return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data bayi gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         } catch (\Throwable $e) {
-            return redirect()->intended('kader/bayi')->with('error', 'Terjadi Masalah Ketika menghapus Data Bayi: ' . $e->getMessage());
+            return redirect()->intended('kader/bayi')->with('error', 'Terjadi Masalah Ketika menghapus Data bayi: ' . $e->getMessage());
         }
     }
 }
