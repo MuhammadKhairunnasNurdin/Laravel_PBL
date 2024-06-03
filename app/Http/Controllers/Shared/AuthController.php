@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shared;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +15,9 @@ class AuthController extends Controller
         return view('login');
     }
 
+    /**
+     * @throws AuthenticationException
+     */
     public function authenticate(Request $request): RedirectResponse
     {
         /**
@@ -39,6 +43,8 @@ class AuthController extends Controller
         }
 
         $request->session()->regenerate();
+
+        Auth::logoutOtherDevices($request->input('password'));
 
         return redirect()->intended(match (Auth::user()->level) {
             /**
