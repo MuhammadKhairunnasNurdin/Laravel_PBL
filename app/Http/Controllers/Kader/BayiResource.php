@@ -169,7 +169,11 @@ class BayiResource extends Controller
                  * and check if use has change column in pemeriksaans table
                  */
                 $pemeriksaan = Pemeriksaan::lockForUpdate()->find($id);
-                if ($pemeriksaanRequest->all() !== [] and $pemeriksaan !== null) {
+                if ($pemeriksaan === null) {
+                    return redirect()->intended('kader/bayi' . session('urlPagination'))->with('error', 'Data pemeriksaan bayi tidak ditemukan mungkin dihapus kader lain');
+                }
+
+                if ($pemeriksaanRequest->all() !== []) {
                     /**
                      * fill $isUpdated to use in checking update
                      * action and clone pemeriksaan model data to
@@ -212,6 +216,10 @@ class BayiResource extends Controller
 
                 return $isUpdated;
             });
+
+            if (!is_bool($isUpdated)){
+                return $isUpdated;
+            }
 
             return redirect()->intended('kader/bayi' . session('urlPagination'))
                 ->with('success', $isUpdated ? 'Data Bayi berhasil diubah' : 'Namun Data Bayi tidak diubah');
