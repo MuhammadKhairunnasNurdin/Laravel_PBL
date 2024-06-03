@@ -54,7 +54,7 @@
                 <div class="md:col-span-1 flex flex-col gap-[23px]">
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_2">
                         <p class="text-base text-neutral-950 pr-[10px]">Tinggi Badan<span class="text-red-400">*</span></p>
-                        <input type="text" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ old('tinggi_badan', $bayiData->tinggi_badan) }}" placeholder="Masukkan tinggi badan" required>
+                        <input type="number" step="any" name="tinggi_badan" class="w-100 text-sm font-normal border border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" value="{{ old('tinggi_badan', $bayiData->tinggi_badan) }}" placeholder="Masukkan tinggi badan" required>
                         @error('tinggi_badan')
                             <span class="text-red-500">{{$message}}</span>
                         @enderror

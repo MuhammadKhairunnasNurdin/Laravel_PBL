@@ -53,7 +53,7 @@ class KegiatanResource extends Controller
     {
         Kegiatan::create($request->all());
         return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))
-            ->with('success', 'kegiatan berhasil ditambahkan');
+            ->with('success', 'Data kegiatan berhasil ditambahkan');
     }
 
     /**
@@ -73,7 +73,7 @@ class KegiatanResource extends Controller
         $kegiatan = Kegiatan::find($id);
         if ($kegiatan === null) {
             return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))
-                ->with('error', 'kegiatan tidak ditemukan atau mungki dihapus oleh kader lain');
+                ->with('error', 'Data kegiatan baru saja dihapus oleh kader lain');
         }
 
         return view('kader.informasi.kegiatan.edit', compact('breadcrumb', 'activeMenu', 'kegiatan'));
@@ -84,21 +84,49 @@ class KegiatanResource extends Controller
      */
     public function update(UpdateKegiatanRequest $request, string $id): RedirectResponse
     {
+        /**
+         * try database transaction, because we use sql type
+         * database(mysql), to prevent database race condition when
+         * update data, we use transaction to rollback if there are any
+         * error and catch that error mesasge to display in view
+         */
         try {
+            /**
+             * return $isUpdated for checking update data not just
+             * submit when not actually changes
+             */
             $isUpdated = DB::transaction(function () use ($request, $id) {
                 $isUpdated = false;
+
+                /**
+                 * lock and update with queue artikels table
+                 * to prevent database race condition
+                 *
+                 * and check if use has change column in artikels table
+                 */
                 $kegiatan = Kegiatan::lockForUpdate()->find($id);
-                if ($request->all() !== [] and $kegiatan !== null) {
+                /**
+                 * if update action lose race with delete action, return error message
+                 */
+                if ($kegiatan === null) {
+                    return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Data kegiatan sudah lebih dulu dihapus oleh kader lain');
+                }
+                if ($request->all() !== []) {
                     $isUpdated = $kegiatan->update($request->all());
                 }
+
                 return $isUpdated;
             });
+
+            if (!is_bool($isUpdated)){
+                return $isUpdated;
+            }
 
             return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))
                     ->with('success', $isUpdated ? 'Data Kegiatan berhasil diubah' : 'Namun Data Kegiatan tidak diubah');
         } catch (\Throwable $e) {
             return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))
-                ->with('error', 'Terjadi Masalah Ketika mengubah Data Kegiatan: ' . $e->getMessage());
+                ->with('error', 'Terjadi Masalah Ketika mengubah Data kegiatan: ' . $e->getMessage());
         }
     }
 
@@ -128,7 +156,7 @@ class KegiatanResource extends Controller
                  * check if other user is update our data when we do delete action
                  */
                 if ($kegiatan->updated_at > $request->input('updated_at')) {
-                    return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Data Kegiatan masih di update oleh kader lain, coba refresh dan lakukan hapus lagi');
+                    return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Data kegiatan masih di update oleh kader lain, coba refresh dan lakukan hapus lagi');
                 }
 
                 /**
@@ -141,7 +169,7 @@ class KegiatanResource extends Controller
         } catch (QueryException) {
             return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Data kegiatan gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
         } catch (\Throwable $e) {
-            return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Terjadi Masalah Ketika menghapus Data Kegiatan: ' . $e->getMessage());
+            return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Terjadi Masalah Ketika menghapus Data kegiatan: ' . $e->getMessage());
         }
     }
 }

@@ -61,7 +61,7 @@ class ArtikelResource extends Controller
     {
         $artikel = Artikel::find($id);
         if ($artikel === null) {
-            return redirect()->intended(route('artikel.index'))->with('error', 'Data artikel tidak ditemukan atau mungkin sudah dihapus kader lain');
+            return redirect()->intended(route('artikel.index'))->with('error', 'Data artikel baru saja dihapus kader lain');
         }
 
         $breadcrumb = (object) [
@@ -80,7 +80,7 @@ class ArtikelResource extends Controller
     {
         $artikel = Artikel::find($id);
         if ($artikel === null) {
-            return redirect()->intended(route('artikel.index'))->with('error', 'Data artikel tidak ditemukan atau mungkin sudah dihapus kader lain');
+            return redirect()->intended(route('artikel.index'))->with('error', 'Data artikel baru saja dihapus kader lain');
         }
 
         $breadcrumb = (object) [
@@ -122,7 +122,13 @@ class ArtikelResource extends Controller
                  * and check if use has change column in artikels table
                  */
                 $artikel = Artikel::lockForUpdate()->find($id);
-                if ($request->input() !== [] and $artikel !== null) {
+                /**
+                 * if update action lose race with delete action, return error message
+                 */
+                if ($artikel === null) {
+                    return redirect()->intended(route('artikel.index'))->with('error', 'Data artikel sudah dihapus lebih dulu oleh kader lain');
+                }
+                if ($request->input() !== []) {
                     /**
                      * delete image foto_artikel in public directory if user fill foto_artikel input
                      */
@@ -153,6 +159,10 @@ class ArtikelResource extends Controller
 
                 return $isUpdated;
             });
+
+            if (!is_bool($isUpdated)){
+                return $isUpdated;
+            }
 
             return redirect()->intended(route('artikel.index'))
                 ->with('success', $isUpdated ? 'Data artikel berhasil diubah' : 'Namun Data artikel tidak diubah');
