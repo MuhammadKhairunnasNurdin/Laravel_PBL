@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Shared;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +14,6 @@ class AuthController extends Controller
         return view('login');
     }
 
-    /**
-     * @throws AuthenticationException
-     */
     public function authenticate(Request $request): RedirectResponse
     {
         /**
@@ -44,9 +40,6 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        Auth::user()->session_id = session()->getId();
-        Auth::user()->save();
-
         return redirect()->intended(match (Auth::user()->level) {
             /**
              * if user has admin roles
@@ -69,9 +62,6 @@ class AuthController extends Controller
 
     public function logout(Request $request): RedirectResponse
     {
-        Auth::user()->session_id = null;
-        Auth::user()->save();
-
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
