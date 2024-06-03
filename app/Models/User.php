@@ -26,7 +26,6 @@ class User extends Authenticatable
         'password',
         'level',
         'foto_profil',
-        'session_id'
     ];
 
     /**

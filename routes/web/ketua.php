@@ -18,7 +18,7 @@ use App\Http\Controllers\Shared\ProfileController;
 |
 */
 Route::group([
-    'middleware' => ['auth', 'checkLevel:ketua', 'preventMultipleLogin'],
+    'middleware' => ['auth', 'checkLevel:ketua'],
     'prefix' => 'ketua'
     ], function () {
         /**

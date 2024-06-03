@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(
     [
-        'middleware' => ['auth', 'checkLevel:admin', 'preventMultipleLogin'],
+        'middleware' => ['auth', 'checkLevel:admin'],
         'prefix' => 'admin'
     ],
     function () {
