@@ -11,7 +11,12 @@
                 <tr>
                     <td>Kader Pengurus Data</td>
                     <td>:</td>
-                    <td>{{ $namaKader}}</td>
+                    <td>{{ $dataKader['nama'] }}</td>
+                </tr>
+                <tr>
+                    <td>NIK Kader</td>
+                    <td>:</td>
+                    <td>{{ $dataKader['NIK'] }}</td>
                 </tr>
                 <tr>
                     <td>Terahir data dirubah</td>

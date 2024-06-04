@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Kader\Artikel\StoreArtikelRequest;
 use App\Http\Requests\Kader\Artikel\UpdateArtikelRequest;
 use App\Models\Artikel;
+use App\Services\ImageLogic;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class ArtikelResource extends Controller
 {
@@ -134,21 +134,13 @@ class ArtikelResource extends Controller
                      */
                     if ($request->has('foto_artikel')) {
                         /**
-                         * delete foto_artikel that saved in public/artikel directory
+                         * retrieve old hashName foto_artikel
                          */
                         $foto_artikel = $artikel->foto_artikel;
                         /**
-                         * using parse_url to remove url like: http://127.0.0.1:8000 or PHP_URL_PATH
-                         *
-                         * using substr() with offset 9 to remove: /artikel/
-                         *
-                         * result from those logic: hashName.extension
+                         * delete old image in public/artikel directory
                          */
-                        $foto_artikel = substr(parse_url($foto_artikel, PHP_URL_PATH), 9);
-                        /**
-                         * delete image foto_artikel in public directory
-                         */
-                        Storage::disk('artikel_img')->delete($foto_artikel);
+                        ImageLogic::delete($foto_artikel, 9, 'artikel_img');
                     }
                     /**
                      * fill $isUpdated to use in checking update
@@ -207,24 +199,13 @@ class ArtikelResource extends Controller
                  */
                 $foto_artikel = $artikel->foto_artikel;
                 /**
-                 * using parse_url to remove url like: http://127.0.0.1:8000 or PHP_URL_PATH
-                 *
-                 * using substr() with offset 9 to remove: /artikel/
-                 *
-                 * result from those logic: hashName.extension
-                 */
-                $foto_artikel = substr(parse_url($foto_artikel, PHP_URL_PATH), 9);
-                if (Storage::disk('artikel_img')->exists($foto_artikel)) {
-                    /**
-                     * delete image foto_artikel in public directory
-                     */
-                    Storage::disk('artikel_img')->delete($foto_artikel);
-                }
-
-                /**
                  * delete artikel data in database
                  */
                 $artikel->delete();
+                /**
+                 * delete old image in public/artikel directory
+                 */
+                ImageLogic::delete($foto_artikel, 9, 'artikel_img');
 
                 return redirect()->intended(route('artikel.index'))->with('success', 'Data artikel berhasil dihapus');
             });

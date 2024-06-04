@@ -23,11 +23,11 @@ use function Symfony\Component\String\b;
 
 class BayiResource extends Controller
 {
-    private FilterServices $filter;
 
-    public function __construct(FilterServices $filter)
+    public function __construct(
+        private readonly FilterServices $filter
+    )
     {
-        $this->filter = $filter;
     }
     /**
      * Display a listing of the resource.
@@ -43,7 +43,6 @@ class BayiResource extends Controller
         /**
          * Retrieve data for filter feature
          */
-        // $penduduks = Pemeriksaan::with('penduduk', 'pemeriksaan_bayi')->where('golongan', 'bayi')->paginate(10);
         $penduduks = $this->filter->getFilteredDataBayi($request)->paginate(10);
         $penduduks->appends(request()->all());
 
@@ -108,10 +107,10 @@ class BayiResource extends Controller
         $ibu = $parentData->firstWhere('hubungan_keluarga', 'Istri')->nama ?? 'Tidak Ada Ibu';
         $ayah = $parentData->firstWhere('hubungan_keluarga', 'Kepala Keluarga')->nama ?? 'Tidak Ada Ayah';
 
-        $kader = Kader::find($bayiData->kader_id)->only('penduduk_id')['penduduk_id'];
-        $namaKader = Penduduk::find($kader)->only('nama')['nama'];
+        $kader = Kader::withTrashed()->find($bayiData->kader_id)->only('penduduk_id')['penduduk_id'];
+        $dataKader = Penduduk::find($kader)->only(['nama', 'NIK']);
 
-        return view('kader.bayi.detail', compact('breadcrumb', 'activeMenu', 'ibu', 'ayah', 'namaKader', 'bayiData'));
+        return view('kader.bayi.detail', compact('breadcrumb', 'activeMenu', 'ibu', 'ayah', 'dataKader', 'bayiData'));
     }
 
     /**

@@ -22,11 +22,10 @@ use Illuminate\Support\Facades\DB;
 
 class LansiaResource extends Controller
 {
-    private FilterServices $filter;
-
-    public function __construct(FilterServices $filter)
+    public function __construct(
+        private readonly FilterServices $filter
+    )
     {
-        $this->filter = $filter;
     }
 
     /**
@@ -43,7 +42,6 @@ class LansiaResource extends Controller
         /**
          * Retrieve data for filter feature
          */
-        // $penduduks = Pemeriksaan::with('penduduk')->where('golongan', 'lansia')->paginate(10);
         $penduduks = $this->filter->getFilteredDataLansia($request)->paginate(10);
         $penduduks->appends(request()->all());
 
@@ -93,8 +91,8 @@ class LansiaResource extends Controller
             return redirect()->intended('kader/lansia' . session('urlPagination'))->with('error', 'Data lansia baru saja dihapus kader lain');
         }
 
-        $kader = Kader::find($lansiaData->kader_id)->only('penduduk_id')['penduduk_id'];
-        $namaKader = Penduduk::find($kader)->only('nama')['nama'];
+        $kader = Kader::withTrashed()->find($lansiaData->kader_id)->only('penduduk_id')['penduduk_id'];
+        $dataKader = Penduduk::find($kader)->only(['nama', 'NIK']);
 
 
         $breadcrumb = (object)[
@@ -103,7 +101,7 @@ class LansiaResource extends Controller
 
         $activeMenu = 'lansia';
 
-        return view('kader.lansia.detail', compact('breadcrumb', 'activeMenu', 'lansiaData', 'namaKader'));
+        return view('kader.lansia.detail', compact('breadcrumb', 'activeMenu', 'lansiaData', 'dataKader'));
     }
 
     /**
