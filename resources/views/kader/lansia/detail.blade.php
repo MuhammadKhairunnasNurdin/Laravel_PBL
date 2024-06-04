@@ -14,7 +14,7 @@
                     <td>{{ $namaKader}}</td>
                 </tr>
                 <tr>
-                    <td>Terahir data dirubah</td>
+                    <td>Terahir Data Diubah</td>
                     <td>:</td>
                     <td>{{ now('Asia/Jakarta')->locale('id')->longRelativeToNowDiffForHumans($lansiaData->updated_at)}}</td>
                 </tr>
