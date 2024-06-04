@@ -11,7 +11,7 @@
                         <select name="penduduk_id" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none" required>
                             <option value="" disabled selected>Pilih nama penduduk</option>
                             @foreach ($penduduks as $p)
-                                <option value="{{$p->penduduk_id}}">{{ $p->nama }}</option>
+                                <option value="{{$p->penduduk_id}}" {{ old('penduduk_id') === strval($p->penduduk_id) ? 'selected' : '' }} >{{ $p->nama }}</option>
                             @endforeach
                         </select>
                         @error('penduduk_id')
@@ -43,8 +43,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
                                 </svg>
                                 <h5 class="text-tanda mb-2 text-xl font-bold tracking-tight text-gray-700">Pilih foto profil user</h5>
-                                <p class="text-tanda font-normal text-sm text-gray-400 md:px-6">Ukuran file foto maksimal <b class="text-gray-600">2mb</b></p>
-                                <p class="text-tanda font-normal text-sm text-gray-400 md:px-6">dan harus memiliki format <b class="text-gray-600">JPG, JPEG, PNG,GIF,SVG</b></p>
+                                <p class="text-tanda font-normal text-sm text-gray-400 md:px-6">Ukuran file foto maksimal <b class="text-gray-600">700kb</b></p>
+                                <p class="text-tanda font-normal text-sm text-gray-400 md:px-6">dan harus memiliki format <b class="text-gray-600">JPG, JPEG,PNG,GIF, atau SVG</b></p>
                                 <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
                                 </label>
                             </div>
@@ -62,12 +62,15 @@
                     </div>
                     <div class="flex flex-col w-full gap-[20px]">
                         <p class="text-base text-neutral-950">Password<span class="text-red-400">*</span></p>
-                        <input type="password" name="password" value="{{old('password')}}" id="password" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan password" required>
+                        <input type="password" name="password" id="password" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan password" required>
                         <span id="passwordError" class="text-red-500 hidden" style="grid-column: 2"></span>
+                        @error('password')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col w-full gap-[20px] ">
                         <p class="text-base text-neutral-950">Ulangi Password<span class="text-red-400">*</span></p>
-                        <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" id="password_confirm" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan konfirmasi password">
+                        <input type="password" name="password_confirmation" id="password_confirm" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan konfirmasi password">
                         <span id="passConfirmError" class="text-red-500 hidden" style="grid-column: 2"></span>
                     </div>
                 </div>

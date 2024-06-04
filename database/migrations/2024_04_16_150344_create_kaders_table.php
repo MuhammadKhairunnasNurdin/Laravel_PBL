@@ -29,9 +29,8 @@ return new class extends Migration
              */
             $table->unsignedBigInteger('user_id')->index()->nullable();
             $table->foreign('user_id')->references('user_id')->on('users')->nullOnDelete()->cascadeOnUpdate();
-
             $table->foreignId('penduduk_id')->constrained('penduduks', 'penduduk_id')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->enum('status', ['aktif', 'tidak aktif'])->default('aktif');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
