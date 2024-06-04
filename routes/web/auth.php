@@ -17,6 +17,7 @@ use App\Http\Controllers\Shared\PromosiController;
 |
 */
 Route::get('/', [PromosiController::class, 'landingpage']);
+Route::get('/read={id}', [PromosiController::class, 'read']);
 Route::get('/profil', [PromosiController::class, 'profil'])->name('profil');
 Route::get('/jadwal', [PromosiController::class, 'jadwal']);
 Route::post('/jadwal', [DataTablesController::class, 'list'])->name('jadwal.list');

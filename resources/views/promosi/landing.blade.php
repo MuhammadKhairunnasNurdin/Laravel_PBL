@@ -80,26 +80,14 @@
     </div>
     <div>
         <div class="grid grid-flow-col lg:grid-cols-4 gap-[22px] overflow-x-auto">
-            <div class="min-w-40 flex flex-col gap-[15px]">
-                <img src="{{ asset('img/image 1.png')}}" alt="" >
-                <p class="lg:text-[17px] font-semibold text-justify">Tingkatkan Masyarakat Sehat Sejahtera, Kader Panjang Baru adakan Posyandu Balita di Polehan</p>
-                <span class="text-red-400">Kegiatan</span>
-            </div>
-            <div class="min-w-40 flex flex-col gap-[15px]">
-                <img src="{{ asset('img/image 1.png')}}" alt="">
-                <p class="lg:text-[17px] font-semibold text-justify">Tingkatkan Masyarakat Sehat Sejahtera, Kader Panjang Baru adakan Posyandu Balita di Polehan</p>
-                <span class="text-red-400">Kegiatan</span>
-            </div>
-            <div class="min-w-40 flex flex-col gap-[15px]">
-                <img src="{{ asset('img/image 1.png')}}" alt="">
-                <p class="lg:text-[17px] font-semibold text-justify">Tingkatkan Masyarakat Sehat Sejahtera, Kader Panjang Baru adakan Posyandu Balita di Polehan</p>
-                <span class="text-red-400">Kegiatan</span>
-            </div>
-            <div class="min-w-40 flex flex-col gap-[15px]">
-                <img src="{{ asset('img/image 1.png')}}" alt="">
-                <p class="lg:text-[17px] font-semibold text-justify">Tingkatkan Masyarakat Sehat Sejahtera, Kader Panjang Baru adakan Posyandu Balita di Polehan</p>
-                <span class="text-red-400">Kegiatan</span>
-            </div>
+            @foreach ($artikels as $ar)
+            <a class="min-w-40 flex flex-col gap-[15px]" href="/read={{$ar->artikel_id}}">
+                {{-- <img src="{{ asset('img/image 1.png')}}" alt="" > --}}
+                <img src="{{$ar->foto_artikel}}" alt="" class="w-80 aspect-video">
+                <p class="lg:text-[17px] font-semibold text-justify">{{$ar->judul}}</p>
+                <span class="text-red-400 capitalize">{{implode(' ', explode('_',$ar->tag))}}</span>
+            </a>
+            @endforeach
         </div>
     </div>
 </div>
