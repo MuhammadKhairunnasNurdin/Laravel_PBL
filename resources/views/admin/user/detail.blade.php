@@ -9,21 +9,24 @@
             <table class="w-fit">
                 <tbody>
                     <tr>
+                        <td>Nama Penduduk</td>
+                        <td>:</td>
+                        <td>{{ $pendudukNama }}</td>
+                    </tr>
+                    <tr>
                         <td>Username</td>
                         <td>:</td>
-                        <td>{{ $users->username }}</td>
+                        <td>{{ $user->username }}</td>
                     </tr>
                     <tr>
                         <td>Level</td>
                         <td>:</td>
-                        <td>{{ $users->level}}</td>
+                        <td>{{ $user->level}}</td>
                     </tr>
-
                     <tr>
                         <td>Foto Profil</td>
                         <td>:</td>
-                        <p>{{$users->foto_profil}}</p>
-                        <td><img src="{{ $users->foto_profil }}" alt="foto_profil"></td>
+                        <td><img src="{{ $user->foto_profil }}" alt="foto_profil"></td>
                     </tr>
                 </tbody>
             </table>
