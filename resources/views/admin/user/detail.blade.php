@@ -22,7 +22,8 @@
                     <tr>
                         <td>Foto Profil</td>
                         <td>:</td>
-                        <td><img src="{{ $users->foto_profil}}" alt="foto_profil"></td>
+                        <p>{{$users->foto_profil}}</p>
+                        <td><img src="{{ $users->foto_profil }}" alt="foto_profil"></td>
                     </tr>
                 </tbody>
             </table>
