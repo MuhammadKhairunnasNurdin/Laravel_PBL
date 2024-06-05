@@ -21,34 +21,81 @@
                 </div>
             @endif
 
-        <div class="grid lg:grid-cols-3 mx-10 my-[30px]">
-            <div class="flex flex-col col-span-3 lg:col-span-1">
+        {{-- <div class="grid lg:grid-cols-3 mx-10 my-[30px]"> --}}
+        <form action="{{route('kriteria.store')}}" method="post">
+            @csrf
+            <div class="grid md:grid-cols-2 my-[30px] mx-10 gap-x-[101px]">
+                <div class="md:col-span-1 flex flex-col gap-[23px] order-2">
+                    {{-- KODE KRITERIA --}}
+                    <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
+                        <p class="text-base text-neutral-950 pr-[10px]">Kode Kriteria<span class="text-red-400">*</span></p>
+                        <input type="text" step="any" name="kode" value="{{old('kode')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan kode kriteria awali dengan huruf C" required>
+                        {{-- @if (session('kode'))
+                            <span class="text-red-500 message">{{$message}}</span>                            
+                        @else
+                            <span class="text-neutral-400 message">kode diawali dengan huruf C diikuti angka</span>                                
+                        @endif --}}
+                        @error('kode')
+                            <span class="text-red-500 message">{{$message}}</span>
+                        @enderror
+                    </div>
+                    
+                    {{-- NAMA KRITERIA --}}
+                    <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
+                        <p class="text-base text-neutral-950 pr-[10px]">Nama Kriteria<span class="text-red-400">*</span></p>
+                        <input type="text" step="any" name="nama" value="{{old('nama')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan nama kriteria" required>
+                        @error('nama')
+                            <span class="text-red-500 message">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="md:col-span-1 flex flex-col gap-[23px] order-2">
+                    {{-- BOBOT KRITERIA --}}
+                    <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
+                        <p class="text-base text-neutral-950 pr-[10px]">Bobot Kriteria<span class="text-red-400">*</span></p>
+                        <input type="number" step="any" name="bobot" value="{{old('bobot')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan bobot kritria" required>
+                        @error('bobot')
+                            <span class="text-red-500 message">{{$message}}</span>
+                        @enderror
+                    </div>
+                    {{-- BOBOT KRITERIA --}}
+                    <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
+                        <p class="text-base text-neutral-950 pr-[10px]">Jenis Kriteria<span class="text-red-400">*</span></p>
+                        <input type="text" step="any" name="jenis" value="{{old('jenis')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan jenis kriteria" required>
+                        @error('jenis')
+                            <span class="text-red-500 message">{{$message}}</span>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+            {{-- <div class="flex flex-col col-span-3 lg:col-span-1">
                 <table class="w-fit h-fit">
                     <tbody>
                         <tr>
                             <td>Kode Kriteria</td>
                             <td>:</td>
-                            <td>{{ $kriteria->kode }}</td>
+                            <td><input type="text" name="" id=""></td>
                         </tr>
                         <tr>
                             <td>Nama Kriteria</td>
                             <td>:</td>
-                            <td>{{ $kriteria->nama }}</td>
+                            <td><input type="text" name="" id=""></td>
                         </tr>
                         <tr>
                             <td>Bobot Kriteria</td>
                             <td>:</td>
-                            <td>{{ $kriteria->bobot }}</td>
+                            <td><input type="text" name="" id=""></td>
                         </tr>
                         <tr>
                             <td>Jenis Kriteria</td>
                             <td>:</td>
-                            <td>{{ $kriteria->jenis }}</td>
+                            <td><input type="text" name="" id=""></td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="flex flex-col col-span-3 lg:col-span-2 w-full rounded-2xl overflow-x-auto">
+            </div> --}}
+            {{-- <div class="flex flex-col col-span-3 lg:col-span-2 w-full rounded-2xl overflow-x-auto">
                 <x-table.data-table :dt="$rentangs"
                                     :headers="['Kode Kriteria', 'Rentang Minimal', 'Rentang Maximal', 'Nilai']">
                     @foreach ($rentangs as $rtg)
@@ -60,11 +107,20 @@
                         </x-table.table-row>
                     @endforeach
                 </x-table.data-table>
+            </div> --}}
+        {{-- </div> --}}
+            {{-- <div class="flex justify-end items-center w-full py-5 px-3 border-b">
+                <a href="{{ url('admin/bantuan') }}" class="bg-gray-300 text-sm text-black font-bold py-2 px-4 mr-5 md:mr-10 rounded">Kembali</a>
+            </div> --}}
+            <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
+                <span id="page_1" class="col-span-1 hidden md:hidden"></span>
+                <div class="col-span-2 flex justify-end items-center gap-[26px] pt-10 w-full" id="">
+                    <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
+                    <a href="{{ route('kriteria.index') }}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
+                    <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_2">Simpan Data</button>
+                </div>
             </div>
-        </div>
-        <div class="flex justify-end items-center w-full py-5 px-3 border-b">
-            <a href="{{ url('admin/bantuan') }}" class="bg-gray-300 text-sm text-black font-bold py-2 px-4 mr-5 md:mr-10 rounded">Kembali</a>
-        </div>
+        </form>
     </div>
 @endsection
 

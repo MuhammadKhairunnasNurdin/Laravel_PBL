@@ -1,62 +1,69 @@
-<div>
-    <!-- Order your soul. Reduce your wants. - Augustine -->
-</div>
 @extends('admin.layouts.template')
 
 @section('content')
     <div class="flex flex-col bg-white mx-5 my-5 shadow-[0_-4px_0_0_rgba(29,78,216,1)] rounded-md">
         <div class="flex justify-between items-center w-full py-2 border-b">
             <p class="text-sm md:text-lg ml-5 md:ml-10">Data Kriteria</p>
-            <a href="{{ route('kriteria.create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-5 lg:mr-10 rounded hidden">Tambah</a>
         </div>
-        @if(session('success'))
-            <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
-                <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p>
-                <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
-                    <span>&times;</span>
-                </button>
-            </div>
-        @elseif(session('error'))
-            <div class="flex items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
-                <p class="mr-4">{{ session('error') }}</p>
-                <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
-                    <span>&times;</span>
-                </button>
-            </div>
-        @endif
+            @if(session('success'))
+                <div class="flex items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
+                    <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p>
+                    <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
+                        <span>&times;</span>
+                    </button>
+                </div>
+            @elseif(session('error'))
+                <div class="flex items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
+                    <p class="mr-4">{{ session('error') }}</p>
+                    <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
+                        <span>&times;</span>
+                    </button>
+                </div>
+            @endif
 
-        <div class="mx-10 my-[30px]">
-            <x-table.data-table :dt="$kriterias"
-                                :headers="['Kode Kriteria', 'Nama Kriteria', 'Bobot', 'Jenis', 'Aksi']">
-                {{-- @php
-                    $no = ($kriterias->currentPage() - 1) * $kriterias->perPage() + 1;
-                @endphp --}}
-                @foreach ($kriterias as $krt)
-                    <x-table.table-row>
-                        <td class="tableBody">{{$krt->kode}}</td>
-                        <td class="tableBody">{{$krt->nama}}</td>
-                        <td class="tableBody">{{$krt->bobot}}</td>
-                        <td class="tableBody">{{$krt->jenis}}</td>
-                        <td class="tableBody">
-                            <form action="kriteria/{{$krt->kode}}" method="post" class="flex items-center gap-2">
-                                <a href="kriteria/{{$krt->kode}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
-                                <a href="kriteria/{{$krt->kode}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="updated_at" value="{{ $krt->updated_at }}">
-                                <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" class="hidden bg-red-400 text-[12px] text-neutral-950 py-[6px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</button>
-                            </form>
-                        </td>
-                    </x-table.table-row>
-                    {{-- @php
-                        $no++;
-                    @endphp --}}
-                @endforeach
-            </x-table.data-table>
+        <div class="grid lg:grid-cols-3 mx-10 my-[30px]">
+            <div class="flex flex-col col-span-3 lg:col-span-1">
+                <table class="w-fit h-fit">
+                    <tbody>
+                        <tr>
+                            <td>Kode Kriteria</td>
+                            <td>:</td>
+                            <td>{{ $kriteria->kode }}</td>
+                        </tr>
+                        <tr>
+                            <td>Nama Kriteria</td>
+                            <td>:</td>
+                            <td>{{ $kriteria->nama }}</td>
+                        </tr>
+                        <tr>
+                            <td>Bobot Kriteria</td>
+                            <td>:</td>
+                            <td>{{ $kriteria->bobot }}</td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Kriteria</td>
+                            <td>:</td>
+                            <td>{{ $kriteria->jenis }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="flex flex-col col-span-3 lg:col-span-2 w-full rounded-2xl overflow-x-auto">
+                <x-table.data-table :dt="$rentangs"
+                                    :headers="['Kode Kriteria', 'Rentang Minimal', 'Rentang Maximal', 'Nilai']">
+                    @foreach ($rentangs as $rtg)
+                        <x-table.table-row>
+                            <td class="tableBody">{{$rtg->kode}}</td>
+                            <td class="tableBody">{{number_format($rtg->rentang_min, 3)}}</td>
+                            <td class="tableBody">{{number_format($rtg->rentang_max, 3)}}</td>
+                            <td class="tableBody">{{$rtg->nilai}}</td>
+                        </x-table.table-row>
+                    @endforeach
+                </x-table.data-table>
+            </div>
         </div>
         <div class="flex justify-end items-center w-full py-5 px-3 border-b">
-            {{-- <p class="text-sm md:text-lg ml-5 md:ml-10">Data Kriteria</p> --}}
-            <a href="{{ route('bantuan.alternatif') }}" class="bg-blue-700 text-sm text-white font-bold py-2 px-4 mr-5 md:mr-10 rounded">Selanjutnya</a>
+            <a href="{{ route('kriteria.index') }}" class="bg-gray-300 text-sm text-black font-bold py-2 px-4 mr-5 md:mr-10 rounded">Kembali</a>
         </div>
     </div>
 @endsection
