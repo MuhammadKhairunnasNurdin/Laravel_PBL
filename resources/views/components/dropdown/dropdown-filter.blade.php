@@ -54,14 +54,14 @@
             <div class="flex flex-col gap-2">
                 <p class="text-Neutral/100 text-sm font-medium">Golongan Umur</p>
                 <div class="flex justify-between items-center gap-3">
-                    <x-input.radio-input name="golUmur" id="baduta"
-                                        value="baduta" checked="{{ request()->get('golUmur') == 'baduta'}}" fn="a">
-                        Baduta
+                    <x-input.radio-input name="golUmur" id="bayi"
+                                        value="bayi" checked="{{ request()->get('golUmur') == 'bayi'}}" fn="a">
+                        Bayi
                     </x-input.radio-input>
-                    <x-input.radio-input name="golUmur" id="batita"
+                    {{-- <x-input.radio-input name="golUmur" id="batita"
                                         value="batita" checked="{{ request()->get('golUmur') == 'batita'}}" fn="a">
                         Batita
-                    </x-input.radio-input>
+                    </x-input.radio-input> --}}
                     <x-input.radio-input name="golUmur" id="balita"
                                         value="balita" checked="{{ request()->get('golUmur') == 'balita'}}" fn="a">
                         Balita

@@ -98,7 +98,7 @@ class StoreBayiRequest extends FormRequest
                 'bail',
                 'required',
                 'string',
-                Rule::in(['baduta', 'batita', 'balita'])
+                Rule::in(['bayi', 'balita'])
             ]
         ];
     }
@@ -134,7 +134,7 @@ class StoreBayiRequest extends FormRequest
              */
             'kategori_golongan.required' => 'kategori golongan harus di isi!',
             'kategori_golongan.string' => 'kategori golongan harus berupa string!',
-            'kategori_golongan.in' => "kategori golongan hanya boleh berisi: 'baduta','batita' dan 'balita' saja",
+            'kategori_golongan.in' => "kategori golongan hanya boleh berisi: 'bayi' atau 'balita' saja",
         ];
     }
 }

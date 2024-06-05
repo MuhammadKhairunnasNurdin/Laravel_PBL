@@ -19,7 +19,7 @@ class PemeriksaanBayiSeeder extends Seeder
                 'lingkar_kepala' => 13.3,
                 'lingkar_lengan' => 5.1,
                 'asi' => 'iya',
-                'kategori_golongan' => 'batita',
+                'kategori_golongan' => 'bayi',
                 'created_at' => '2024-04-15',
                 'updated_at' => '2024-04-15',
             ], [
@@ -27,7 +27,7 @@ class PemeriksaanBayiSeeder extends Seeder
                 'lingkar_kepala' => 14.3,
                 'lingkar_lengan' => 6.5,
                 'asi' => 'iya',
-                'kategori_golongan' => 'batita',
+                'kategori_golongan' => 'bayi',
                 'created_at' => '2024-05-15',
                 'updated_at' => '2024-05-15',
             ], [
@@ -35,7 +35,7 @@ class PemeriksaanBayiSeeder extends Seeder
                 'lingkar_kepala' => 10.3,
                 'lingkar_lengan' => 7.3,
                 'asi' => 'tidak',
-                'kategori_golongan' => 'baduta',
+                'kategori_golongan' => 'bayi',
                 'created_at' => '2024-04-15',
                 'updated_at' => '2024-04-15',
             ], [
@@ -43,7 +43,7 @@ class PemeriksaanBayiSeeder extends Seeder
                 'lingkar_kepala' => 11.3,
                 'lingkar_lengan' => 8.3,
                 'asi' => 'tidak',
-                'kategori_golongan' => 'baduta',
+                'kategori_golongan' => 'bayi',
                 'created_at' => '2024-05-15',
                 'updated_at' => '2024-05-15',
             ], [
@@ -51,7 +51,7 @@ class PemeriksaanBayiSeeder extends Seeder
                 'lingkar_kepala' => 12.7,
                 'lingkar_lengan' => 8.1,
                 'asi' => 'tidak',
-                'kategori_golongan' => 'batita',
+                'kategori_golongan' => 'bayi',
                 'created_at' => '2024-04-15',
                 'updated_at' => '2024-04-15',
             ], [
@@ -59,7 +59,7 @@ class PemeriksaanBayiSeeder extends Seeder
                 'lingkar_kepala' => 13.3,
                 'lingkar_lengan' => 9.1,
                 'asi' => 'iya',
-                'kategori_golongan' => 'batita',
+                'kategori_golongan' => 'bayi',
                 'created_at' => '2024-05-15',
                 'updated_at' => '2024-05-15',
             ], [
@@ -99,7 +99,7 @@ class PemeriksaanBayiSeeder extends Seeder
                 'lingkar_kepala' => 17.3,
                 'lingkar_lengan' => 8.3,
                 'asi' => 'tidak',
-                'kategori_golongan' => 'batita',
+                'kategori_golongan' => 'bayi',
                 'created_at' => '2024-03-15',
                 'updated_at' => '2024-03-15',
             ], [
@@ -107,7 +107,7 @@ class PemeriksaanBayiSeeder extends Seeder
                 'lingkar_kepala' => 17.7,
                 'lingkar_lengan' => 9.3,
                 'asi' => 'tidak',
-                'kategori_golongan' => 'batita',
+                'kategori_golongan' => 'bayi',
                 'created_at' => '2024-04-15',
                 'updated_at' => '2024-04-15',
             ], [
@@ -115,7 +115,7 @@ class PemeriksaanBayiSeeder extends Seeder
                 'lingkar_kepala' => 18.7,
                 'lingkar_lengan' => 10.1,
                 'asi' => 'tidak',
-                'kategori_golongan' => 'batita',
+                'kategori_golongan' => 'bayi',
                 'created_at' => '2024-05-15',
                 'updated_at' => '2024-05-15',
             ],
