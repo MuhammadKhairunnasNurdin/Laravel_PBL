@@ -6,6 +6,7 @@ use App\Models\Penduduk;
 use App\Models\Pemeriksaan;
 use App\Models\PemeriksaanBayi;
 use App\Models\PemeriksaanLansia;
+use App\Models\AuditBulananBayi;
 use Illuminate\Http\Request;
 
 Class FilterServices
@@ -79,6 +80,23 @@ Class FilterServices
 
         if ($request->has('kelamin')) {
             $query->where('jenis_kelamin', $request->input('kelamin'));
+        }
+
+        return $query;
+    }
+    public function getFilteredAlternatif(Request $request)
+    {
+        $query = AuditBulananBayi::join('pemeriksaans', 'audit_bulanan_bayis.bulan_id', '=', 'pemeriksaans.pemeriksaan_id')
+        ->join('penduduks', 'audit_bulanan_bayis.penduduk_id', '=', 'penduduks.penduduk_id')
+        ->select('audit_bulanan_bayis.*', 'pemeriksaans.tgl_pemeriksaan', 'pemeriksaans.golongan', 'penduduks.NKK', 'penduduks.nama', 'penduduks.tgl_lahir');
+
+        $tanggal = $request->input('tanggal');
+        if (isset($tanggal)) {
+            list($tahun, $bulan) = explode('-', $tanggal);
+        }
+        if($request->has('tanggal')) {
+            $query->whereMonth('audit_bulanan_bayis.created_at', '=', $bulan)
+                    ->whereYear('audit_bulanan_bayis.created_at', '=', $tahun);
         }
 
         return $query;

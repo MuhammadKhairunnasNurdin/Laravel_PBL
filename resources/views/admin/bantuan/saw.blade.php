@@ -9,19 +9,21 @@
                     <input type="hidden" name="penduduk_id[]" value="{{$bayi}}">
                 @endforeach
                 <p class="text-lg ml-10">Perhitungan Dengan Metode SAW</p>
-                <button type="submit" class="bg-blue-700 text-sm text-white font-bold py-2 px-4 mr-5 md:mr-10 rounded">Mabac</button>
+                <div class="flex justify-end">
+                    <a href="{{ url('admin/bantuan/alternatif') }}" class="bg-gray-300 text-sm text-neutral-950 font-bold py-2 px-4 mr-1 md:mr-3 rounded">Kembali</a>
+                    <button type="submit" class="bg-blue-700 text-sm text-white font-bold py-2 px-4 mr-5 md:mr-10 rounded">Mabac</button>
+                </div>
             </div>
         </form>
         {{-- Matriks Keputusan Awal --}}
         <div class="mx-10 my-[30px] overflow-x-auto">
             <table class="border-collapse w-full rounded-t-[10px]">
                 <thead class="bg-gray-200 border-b text-left py-5">
+                    <tr class="text-black-400">
                         <th class="font-normal text-sm">Alternatif</th>
-                        <th class="font-normal text-sm">Berat Badan</th>
-                        <th class="font-normal text-sm">Tinggi Badan</th>
-                        <th class="font-normal text-sm">Lingkar Kepala</th>
-                        <th class="font-normal text-sm">Lingkar Lengan</th>
-                        <th class="font-normal text-sm">Penghasilan Orang Tua</th>
+                        @foreach ($kriteria as $krt)
+                            <th class="font-normal text-sm">{{$krt->nama}}</th>
+                        @endforeach
                     </tr>
                 </thead>
                 <tbody class="">
@@ -46,7 +48,7 @@
         <div class="mx-10 my-[30px] overflow-x-auto">
             <table class="border-collapse w-full rounded-t-[10px]">
                 <thead class="bg-gray-200 border-b text-left py-5">
-                    <tr class=" text-stone-400">
+                    <tr class="text-black-400">
                         <th class="font-normal text-sm">Kriteria</th>
                         <th class="font-normal text-sm">Max</th>
                         <th class="font-normal text-sm">Min</th>
@@ -74,13 +76,11 @@
         <div class="mx-10 my-[30px] overflow-x-auto">
             <table class="border-collapse w-full rounded-t-[10px]">
                 <thead class="bg-gray-200 border-b text-left py-5">
-                    <tr class=" text-stone-400">
+                    <tr class="text-black-400">
                         <th class="font-normal text-sm">Alternatif</th>
-                        <th class="font-normal text-sm">Berat Badan</th>
-                        <th class="font-normal text-sm">Tinggi Badan</th>
-                        <th class="font-normal text-sm">Lingkar Kepala</th>
-                        <th class="font-normal text-sm">Lingkar Lengan</th>
-                        <th class="font-normal text-sm">Penghasilan Orang Tua</th>
+                        @foreach ($kriteria as $krt)
+                            <th class="font-normal text-sm">{{$krt->nama}}</th>
+                        @endforeach
                     </tr>
                 </thead>
                 <tbody class="">
@@ -105,13 +105,11 @@
         <div class="mx-10 my-[30px] overflow-x-auto">
             <table class="border-collapse w-full rounded-t-[10px]">
                 <thead class="bg-gray-200 border-b text-left py-5">
-                    <tr class=" text-stone-400">
+                    <tr class="text-black-400">
                         <th class="font-normal text-sm">Alternatif</th>
-                        <th class="font-normal text-sm">Berat Badan</th>
-                        <th class="font-normal text-sm">Tinggi Badan</th>
-                        <th class="font-normal text-sm">Lingkar Kepala</th>
-                        <th class="font-normal text-sm">Lingkar Lengan</th>
-                        <th class="font-normal text-sm">Penghasilan Orang Tua</th>
+                        @foreach ($kriteria as $krt)
+                            <th class="font-normal text-sm">{{$krt->nama}}</th>
+                        @endforeach
                     </tr>
                 </thead>
                 <tbody class="">
@@ -136,18 +134,32 @@
         <div class="mx-10 my-[30px] overflow-x-auto">
             <table class="border-collapse w-full rounded-t-[10px]">
                 <thead class="bg-gray-200 border-b text-left py-5">
-                    <tr class=" text-stone-400">
+                    <tr class="text-black-400">
+                        <th class="font-normal text-sm">Rangking</th>
                         <th class="font-normal text-sm">Alternatif</th>
                         <th class="font-normal text-sm">Hasil Perhitungan</th>
                     </tr>
                 </thead>
                 <tbody class="">
-                    @for ($i = 0; $i < count($rank); $i++)
+                    @php
+                        $i = 1;    
+                    @endphp
+                    @foreach ($rank as $key => $r)
+                        <tr class="text-neutral-950 text-left">
+                            <td class="font-normal text-sm">{{$i}}</td>
+                            <td class="font-normal text-sm">A{{$key+1}}</td>
+                            <td class="font-normal text-sm">{{number_format($r, 3)}}</td>
+                        </tr>
+                        @php
+                            $i++;
+                        @endphp
+                    @endforeach
+                    {{-- @for ($i = 0; $i < count($rank); $i++)
                         <tr class="text-neutral-950 text-left">
                             <td class="font-normal text-sm">A{{$i+1}}</td>
                             <td class="font-normal text-sm">{{number_format($rank[$i], 3)}}</td>
                         </tr>
-                    @endfor
+                    @endfor --}}
                 </tbody>
             </table>
         </div>
