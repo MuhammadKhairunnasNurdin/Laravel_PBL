@@ -20,8 +20,11 @@ class Kriteria extends Model
      *
      * @var array<int, string>
      */
-    protected $guarded = [
-        'kode'
+    protected $fillable = [
+        'kode',
+        'nama',
+        'bobot',
+        'jenis',
     ];
     protected $casts = [
         'kode' => 'string',

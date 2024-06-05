@@ -16,29 +16,14 @@ class SAWServices
             $alt = $alternatif->firstWhere('penduduk_id', $bayiId);
 
             if ($alt) {
-                $parents = Penduduk::where('NKK', $alt->NKK)
-                    ->where('hubungan_keluarga', '!=', 'Anak')
-                    ->get();
-
-                $incomeDad = $parents->where('hubungan_keluarga', 'Kepala Keluarga')
-                    ->first()
-                    ->pendapatan ?? 0;
-
-                $incomeMom = $parents->where('hubungan_keluarga', 'Istri')
-                    ->first()
-                    ->pendapatan ?? 0;
-
-                $incomeDad = (float) str_replace(['Rp', '.'], '', explode(' - ', $incomeDad)[0]);
-                $incomeMom = (float) str_replace(['Rp', '.'], '', explode(' - ', $incomeMom)[0]);
-                
-                $sumIncome = $incomeDad + $incomeMom;
+                $bayisAge = now()->diffInMonths($alt->tgl_lahir);
 
                 $values[$index] = [
                     $this->getRangeValue($ranges, 'C1', $alt->berat_badan),
                     $this->getRangeValue($ranges, 'C2', $alt->tinggi_badan),
                     $this->getRangeValue($ranges, 'C3', $alt->lingkar_kepala),
                     $this->getRangeValue($ranges, 'C4', $alt->lingkar_lengan),
-                    $this->getRangeValue($ranges, 'C5', $sumIncome),
+                    $this->getRangeValue($ranges, 'C5', $bayisAge),
                 ];
             }
         }
@@ -98,6 +83,29 @@ class SAWServices
             }
             $rangking[$i] = round($sum, 3);
         }
+
+        $indices = [];
+        foreach ($rangking as $key => $value) {
+            foreach ($rangking as $innerKey => $innerValue) {
+                if ($key != $innerKey && abs($value - $innerValue) < 0.0001) {
+                    if (!isset($indices[$value])) {
+                        $indices[$value] = [];
+                    }
+                    if (!in_array($key, $indices[$value])) {
+                        $indices[$value][] = $key;
+                    }
+                    if (!in_array($innerKey, $indices[$value])) {
+                        $indices[$value][] = $innerKey;
+                    }
+                }
+            }
+        }
+        // dump($indices);
+        $duplicate = array_filter($indices, function($count) {
+            return count($count) > 1;
+        });
+        // dd($duplicate);
+
         return $rangking;
     }
 }

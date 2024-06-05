@@ -41,7 +41,7 @@ class KriteriaSeeder extends Seeder
             ],
             [
                 'kode' => 'C5',
-                'nama' => 'Total Pendapatan',
+                'nama' => 'Umur',
                 'bobot' => 0.2,
                 'jenis' => 'cost',
             ],
