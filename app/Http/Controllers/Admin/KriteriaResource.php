@@ -11,15 +11,12 @@ use App\Services\FilterServices;
 use DB;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 
 class KriteriaResource extends Controller
 {
-    // private FilterServices $filter;
-
     public function __construct( private readonly FilterServices $filter)
     {
-        // $this->filter = $filter;
+        // 
     }
     public function index(Request $request)
     {
@@ -30,8 +27,6 @@ class KriteriaResource extends Controller
         $activeMenu = 'bantuan';
 
         $kriterias = Kriteria::paginate(10);
-        // $kriterias = $this->filter->getFilteredData($request)->paginate(10);
-        // $kriterias->appends(request()->all());
 
         return view('admin.bantuan.index', compact('breadcrumb', 'activeMenu', 'kriterias'));
     }
@@ -63,9 +58,7 @@ class KriteriaResource extends Controller
         $activeMenu = 'bantuan';
 
         $kriteria = Kriteria::find($code);
-        $rentang = RentangKriteria::groupBy('kode')->get('kode');
         $rentangs = RentangKriteria::where('kode', $code)->orderBy('nilai', 'asc')->paginate(10);
-        // dd($rentang);
 
         return view('admin.bantuan.detail', compact('breadcrumb', 'activeMenu', 'kriteria', 'rentangs'));
     }
@@ -103,6 +96,19 @@ class KriteriaResource extends Controller
                  * and check if use has change column in pemeriksaans table
                  */
                 $kriteria = Kriteria::lockForUpdate()->find($id);
+                /**
+                 * if $kriteriaRequest has new bobot value
+                 * it will update bobot $otherKriteria
+                 */
+                if ($kriteriaRequest->bobot !== null) {
+                    $otherKriteria = Kriteria::where('kode', '!=', $id)->get();
+                    $diffBobot = ($kriteria->bobot - $kriteriaRequest->bobot) / count($otherKriteria);
+                    foreach ($otherKriteria as $krt) {
+                        $newBobot = $krt->bobot + $diffBobot;
+                        $krt->update(['bobot' => $newBobot]);
+                    }
+                }
+
                 if ($kriteriaRequest->all() !== [] and $kriteria !== null) {
                     /**
                      * fill $isUpdated to use in checking update
@@ -110,7 +116,6 @@ class KriteriaResource extends Controller
                      * retrieve original data before update also use
                      * that data in event
                      */
-                    // dd($kriteriaRequest, $kriteria);
                     $isUpdated = $kriteria->update($kriteriaRequest->all());
                 }
 
@@ -120,11 +125,11 @@ class KriteriaResource extends Controller
             return redirect()->intended('admin/kriteria')
                 ->with('success', $isUpdated ? 'Data Kriteria berhasil diubah' : 'Namun Data Kriteria tidak diubah');
         } catch (\Throwable $e) {
-            return redirect()->intended('admin/kritria')
+            return redirect()->intended('admin/kriteria')
                 ->with('error', 'Terjadi Masalah Ketika mengubah Data Kriteria: ' . $e->getMessage());
         }
     }
-    public function destroy(string $code, Request $request) : RedirectResponse
+    public function destroy(string $code) : RedirectResponse
     {
         $kriteria = Kriteria::destroy($code);
         return redirect()->intended('admin/kriteria')->with('success', 'Data kriteria berhasil dihapus');
