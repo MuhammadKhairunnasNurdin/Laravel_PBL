@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
@@ -52,12 +53,19 @@ class User extends Authenticatable
     public function getFotoProfilAttribute(): string
     {
         if ($this->attributes['foto_profil'] === null) {
-            return '';
+            return asset('img/default_foto_user.jpeg');
         }
 
         return asset('user/' . $this->attributes['foto_profil']);
     }
 
+    /**
+     * Define an accessor for the 'created_at' attribute
+     */
+    public function getCreatedAtAttribute($value): string
+    {
+        return Carbon::parse($value)->format('d-m-Y');
+    }
 
     /**
      * Eloquent Model Relationships
@@ -66,7 +74,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Admin::class, 'user_id', 'user_id');
     }
-
     public function kaders(): HasMany
     {
         return $this->hasMany(Kader::class, 'user_id', 'user_id');

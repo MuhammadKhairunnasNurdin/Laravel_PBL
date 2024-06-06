@@ -40,7 +40,9 @@ class UserResource extends Controller
         /**
          * Retrieve data for filter feature
          */
-        $users = User::paginate(5);
+        $users = $this->filter->getFilteredUser($request)->paginate(5);
+        $users->appends(request()->all());
+
         /**
          * delete data that trashed in soft deleted kader
          */
@@ -118,15 +120,15 @@ class UserResource extends Controller
             return redirect()->intended('admin/user' . session('urlPagination'))->with('error', 'Data user tidak ditemukan atau mungkin sudah dihapus admin lain');
         }
 
-        $pendudukNama = User::with(['admins', 'kaders'])->findOrFail($id);
+        $penduduk = User::with(['admins', 'kaders'])->findOrFail($id);
 
-        if ($pendudukNama->kaders->isNotEmpty()) {
-            $pendudukNama = $pendudukNama->kaders->first()->penduduk->nama;
-        }else if ($pendudukNama->admins->isNotEmpty()) {
-            $pendudukNama = $pendudukNama->admins->first()->penduduk->nama;
+        if ($penduduk->kaders->isNotEmpty()) {
+            $penduduk = $penduduk->kaders->first()->penduduk;
+        }else if ($penduduk->admins->isNotEmpty()) {
+            $penduduk = $penduduk->admins->first()->penduduk;
         }
 
-        return view('admin.user.detail', compact('breadcrumb', 'activeMenu', 'user', 'pendudukNama'));
+        return view('admin.user.detail', compact('breadcrumb', 'activeMenu', 'user', 'penduduk'));
     }
 
     /**
@@ -236,7 +238,6 @@ class UserResource extends Controller
                          * delete foto_profil that saved in public/user directory
                          */
                         ImageLogic::delete($foto_profil, 6, 'user_img');
-
                     }
 
                     $isUpdated = $user->update($request->input());

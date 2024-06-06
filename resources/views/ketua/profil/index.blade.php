@@ -1,26 +1,34 @@
 @extends('ketua.layouts.template')
 
 @section('content')
-<form method="POST" action="{{route('ketua.profile.update')}}" id="profile-form">
+<form method="POST" action="{{route('ketua.profile.update', auth()->user()->user_id)}}" id="profile-form" enctype="multipart/form-data">
     @csrf
+    <!--add 'PUT' method, because we use Route::put() for update-->
+    {!! method_field('PUT') !!}
+
+    <input type="hidden" name="level" value="{{ auth()->user()->level }}">
+    <input type="hidden" name="user" value="{{ json_encode(encrypt($user)) }}" >
     <div class="grid max-md:grid-rows-2 lg:grid-cols-3 bg-white mx-5 mt-5 rounded-[15px] gap-0">
         <div class="flex flex-col items-center w-full pt-[30px] gap-[10px]">
             <p class="text-lg font-bold ">Informasi Profile</p>
             <div class=" w-[250px] h-fill gap-5  flex justify-center items-center rounded-[5px]">
                 <div id="image-preview" class="w-full rounded-lg justify-center items-center mx-auto text-center cursor-pointer">
                     <img src="" alt="" class="w-full aspect-square rounded-[50px]" alt="Image preview" id="imageId">
-                    <input id="upload" type="file" name="" class="hidden" accept="image/*" />
+                    <input id="upload" type="file" name="foto_profil" class="hidden" accept="image/*" />
                     <label for="upload" class="cursor-pointer">
                     <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
                     </label>
                 </div>
             </div>
+            @error('foto_profil')
+            <span class="text-red-500">{{$message}}</span>
+            @enderror
             <div class="w-full text-center">
                 <p>{{$user['nama']}}</p>
                 <p>Ketua Posyandu</p>
             </div>
             <div class="flex gap-[30px] font-bold">
-                <a href="" class="bg-red-600 text-white py-[10px] px-[17px] rounded-[5px]">Hapus</a>
+                <a href="{{'foto/' . auth()->user()->user_id . '/' . $user['updated_at'] }}" class="bg-red-600 text-white py-[10px] px-[17px] rounded-[5px]">Hapus</a>
                 <label for="upload" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px] cursor-pointer">Ubah</a>
             </div>
         </div>
@@ -29,25 +37,33 @@
                     <div class="grid grid-cols-1 pt-0 lg:grid-cols-2 justify-between px-[20px] lg:px-[61px]">
                         <p>Username</p>
                         <input type="text" class="w-full py-1 px-2 rounded-[4px]" name="username" value="{{old('username', $user['username'])}}" id="username" required>
+                        @error('username')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="grid grid-cols-1 pt-0 md:grid-cols-2 justify-between px-[20px] md:px-[61px]">
                         <p>Password</p>
-                        <input type="password" class="w-full py-1 px-2 rounded-[4px]" name="password" id="password">
+                        <input type="password" class="w-full py-1 px-2 rounded-[4px]" name="password" id="password" autocomplete="new-password">
                         <span id="passwordError" class="text-red-500 hidden" style="grid-column: 2"></span>
+                        <span class="text-neutral-500" style="grid-column: 2">kosongkan jika tidak ingin memperbarui</span>
+                        @error('password')
+                        <span class="text-red-500">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="grid grid-cols-1 pt-0 md:grid-cols-2 justify-between px-[20px] md:px-[61px]">
                         <p>Ulangi Password</p>
                         <input type="password" class="w-full py-1 px-2 rounded-[4px]" name="password_confirmation" id="password_confirm">
+                        <span class="text-neutral-500" style="grid-column: 2">kosongkan jika tidak ingin memperbarui</span>
                         <span id="passConfirmError" class="text-red-500 hidden" style="grid-column: 2"></span>
                     </div>
                 </div>
-            </div>
-            <div class="flex flex-col col-span-3 lg:flex-row justify-end w-full px-[20px] md:pr-[51px] pb-[30px] gap-[15px] lg:gap-[30px]">
-                <a href="{{ url('ketua/') }}" class="bg-gray-300 py-[10px] px-[17px] rounded-[5px] text-center">Kembali</a>
-                <button type="submit" id="submit" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px]">Simpan Data</button>
-            </div>
-        </form>
+        </div>
+        <div class="flex flex-col col-span-3 lg:flex-row justify-end w-full px-[20px] md:pr-[51px] pb-[30px] gap-[15px] lg:gap-[30px]">
+            <a href="{{ url()->previous() }}" class="bg-gray-300 py-[10px] px-[17px] rounded-[5px] text-center">Kembali</a>
+            <button type="submit" id="submit" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px]">Simpan Data</button>
+        </div>
     </div>
+</form>
 @endsection
 
 @push('css')
@@ -136,9 +152,9 @@
     let image = document.getElementById('imageId');
     let text = document.querySelectorAll('.text-tanda')
     let isEventListenerAdded = false;
-    
+
     // Initialize the image preview if there's an existing image
-    const existingImageUrl = "{{ asset('img/profile_picture.png')}}"; // Make sure this variable is properly set in your server-side code
+    const existingImageUrl = "{{ $user['foto_profil'] }}"; // Make sure this variable is properly set in your server-side code
 
     if (existingImageUrl) {
         image.src = `${existingImageUrl}`;

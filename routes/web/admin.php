@@ -31,7 +31,8 @@ Route::group(
          */
         Route::get('/', [DashboardController::class, 'indexAdmin']);
         Route::get('/profile', [ProfileController::class, 'indexAdmin'])->name('admin.profile');
-        Route::post('/profile', [ProfileController::class, 'update'])->name('admin.profile.update');
+        Route::put('/profile/{user}', [ProfileController::class, 'update'])->name('admin.profile.update');
+        Route::get('/foto/{id}/{updated_at}', [ProfileController::class, 'delete'])->name('admin.foto.delete');
 
         /**
          * routes for data penduduk feature in admin
@@ -60,6 +61,9 @@ Route::group(
             Route::get('/alternatif', [BantuanController::class, 'alternatif'])->name('bantuan.alternatif');
             Route::post('/saw', [BantuanController::class, 'saw'])->name('bantuan.saw');
             Route::post('/mabac', [BantuanController::class, 'mabac'])->name('bantuan.mabac');
+            Route::fallback(function () {
+                return redirect()->intended('admin/kriteria');
+            });
         });
 
         /**

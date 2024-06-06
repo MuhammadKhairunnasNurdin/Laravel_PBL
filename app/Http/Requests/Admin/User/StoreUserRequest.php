@@ -5,7 +5,6 @@ namespace App\Http\Requests\Admin\User;
 use App\Services\ImageLogic;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
@@ -85,6 +84,44 @@ class StoreUserRequest extends FormRequest
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:700'
             ]
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            /**
+             * costum message for username column or field input
+             */
+            'username.required' => 'username harus di isi!',
+            'username.string' => 'username harus berupa string!',
+            'username.regex' => 'username minimal 3 dan maximal 100 serta harus dimulai dari huruf dan untuk karakter _ atau angka harus setelah huruf!',
+            'username.unique' => 'username sudah terdaftar!',
+            /**
+             * costum message for password column or field input
+             */
+            'password.required' => 'password harus di isi!',
+            'password.string' => 'password harus berupa string!',
+            'password.regex' => "password minimal 8 karakter serta harus mempunyai minimal 1 huruf kapital dan angka!",
+            'password.confirmed' => 'password tidak sama dengan konfirmasi password!',
+            /**
+             * costum message for level column or field input
+             */
+            'level.required' => 'level harus di isi!',
+            'level.string' => 'level harus berupa string!',
+            'level.regex' => "level hanya boleh berisi: 'kader' , 'ketua' atau 'admin' saja!",
+            /**
+             * costum message for foto_profil column or field input
+             */
+            'foto_profil.required' => 'foto profil harus di isi!',
+            'foto_profil.image' => 'foto profil harus berupa file foto!',
+            'foto_profil.mimes' => "foto profil hanya boleh mempunyai extension: .jpeg, .jpg, .png, .gif, .svg !",
+            'foto_profil.max' => 'foto profil maksimal berukuran 700 KiloBytes(KB) !'
         ];
     }
 

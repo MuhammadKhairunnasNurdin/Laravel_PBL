@@ -11,7 +11,22 @@
                     <tr>
                         <td>Nama Penduduk</td>
                         <td>:</td>
-                        <td>{{ $pendudukNama }}</td>
+                        <td>{{ $penduduk->nama }}</td>
+                    </tr>
+                    <tr>
+                        <td>NIK Penduduk</td>
+                        <td>:</td>
+                        <td>{{ $penduduk->NIK }}</td>
+                    </tr>
+                    <tr>
+                        <td>NKK Penduduk</td>
+                        <td>:</td>
+                        <td>{{ $penduduk->NKK }}</td>
+                    </tr>
+                    <tr>
+                        <td>Jenis Kelamin Penduduk</td>
+                        <td>:</td>
+                        <td>{{ $penduduk->jenis_kelamin }}</td>
                     </tr>
                     <tr>
                         <td>Username</td>

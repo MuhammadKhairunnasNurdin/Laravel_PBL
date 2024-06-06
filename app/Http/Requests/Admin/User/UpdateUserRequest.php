@@ -3,11 +3,8 @@
 namespace App\Http\Requests\Admin\User;
 
 use App\Services\ImageLogic;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
@@ -68,7 +65,8 @@ class UpdateUserRequest extends FormRequest
                  * must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number
                  * Can contain special characters
                  */
-                'regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,100}$/'
+                'regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,100}$/',
+                'confirmed'
             ],
             'level' => [
                 'bail',
@@ -76,7 +74,7 @@ class UpdateUserRequest extends FormRequest
                 'string',
                 Rule::in(['kader', 'ketua', 'admin']),
                 function ($attribute, $value, $fail) {
-                    if ($value === 'ketua' and DB::table('users')->where('level', $value)->exists()) {
+                    if ($value === 'ketua' and DB::table('users')->where('level', $value)->where('user_id', '!=', $this->route('user'))->exists()) {
                         $fail('Ketua maksimal 1 dan sudah ada datanya!');
                     }
                 }
@@ -88,6 +86,42 @@ class UpdateUserRequest extends FormRequest
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:700'
             ]
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages(): array
+    {
+        return [
+            /**
+             * costum message for username column or field input
+             */
+            'username.required' => 'username harus di isi!',
+            'username.string' => 'username harus berupa string!',
+            'username.regex' => 'username minimal 3 dan maximal 100 serta harus dimulai dari huruf dan untuk karakter _ atau angka harus setelah huruf!',
+            'username.unique' => 'username sudah terdaftar!',
+            /**
+             * costum message for password column or field input
+             */
+            'password.string' => 'password harus berupa string!',
+            'password.regex' => "password minimal 8 karakter serta harus mempunyai minimal 1 huruf kapital dan 1 angka!",
+            'password.confirmed' => 'password tidak sama dengan konfirmasi password!',
+            /**
+             * costum message for level column or field input
+             */
+            'level.required' => 'level harus di isi!',
+            'level.string' => 'level harus berupa string!',
+            'level.regex' => "level hanya boleh berisi: 'kader' , 'ketua' atau 'admin' saja!",
+            /**
+             * costum message for foto_profil column or field input
+             */
+            'foto_profil.image' => 'foto profil harus berupa file foto!',
+            'foto_profil.mimes' => "foto profil hanya boleh mempunyai extension: .jpeg, .jpg, .png, .gif, .svg !",
+            'foto_profil.max' => 'foto profil maksimal berukuran 700 KiloBytes(KB) !'
         ];
     }
 
