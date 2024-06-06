@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Kader\Artikel;
 
+use App\Services\ImageLogic;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Storage;
 
@@ -45,11 +46,8 @@ class StoreArtikelRequest extends FormRequest
     protected function passedValidation(): void
     {
         $image = $this->file('foto_artikel');
-        $fileName = $image->hashName();
-        Storage::disk('artikel_img')->put($fileName, file_get_contents($image));
-
         $this->merge([
-            'foto_artikel' => $fileName
+            'foto_artikel' => ImageLogic::upload($image, 'artikel_img')
         ]);
     }
 

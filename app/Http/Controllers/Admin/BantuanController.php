@@ -3,23 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Kriteria\StoreKriteriaRequest;
 use App\Models\AuditBulananBayi;
 use App\Models\Kriteria;
 use App\Models\Pemeriksaan;
 use App\Models\RentangKriteria;
 use App\Services\MabacServices;
 use App\Services\SAWServices;
+use App\Services\FilterServices;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class BantuanController extends Controller
 {
+    private FilterServices $filter;
     private MabacServices $mabac;
     private SAWServices $saw;
-    public function __construct(MabacServices $mabac, SAWServices $saw) {
+    public function __construct(MabacServices $mabac, SAWServices $saw, FilterServices $filter) {
         $this->mabac = $mabac;
         $this->saw = $saw;
+        $this->filter = $filter;
     }
-    public function index()
+    public function alternatif(Request $request)
     {
         $breadcrumb = (object) [
             'title' => 'Sistem Pengambilan Keputusan'
@@ -27,36 +32,8 @@ class BantuanController extends Controller
 
         $activeMenu = 'bantuan';
 
-        $kriterias = Kriteria::paginate(10);
-
-        return view('admin.bantuan.index', compact('breadcrumb', 'activeMenu', 'kriterias'));
-    }
-    public function kriteriaDetail(string $code ) 
-    {
-        $breadcrumb = (object) [
-            'title' => 'Sistem Pengambilan Keputusan'
-        ];
-
-        $activeMenu = 'bantuan';
-
-        $kriteria = Kriteria::find($code);
-        $rentangs = RentangKriteria::where('kode', $code)->orderBy('nilai', 'asc')->paginate(10);
-
-        return view('admin.bantuan.kriteria', compact('breadcrumb', 'activeMenu', 'kriteria', 'rentangs'));
-    }
-    public function alternatif()
-    {
-        $breadcrumb = (object) [
-            'title' => 'Sistem Pengambilan Keputusan'
-        ];
-
-        $activeMenu = 'bantuan';
-
-        $alternatifs = AuditBulananBayi::join('pemeriksaans', 'audit_bulanan_bayis.bulan_id', '=', 'pemeriksaans.pemeriksaan_id')
-            ->join('penduduks', 'audit_bulanan_bayis.penduduk_id', '=', 'penduduks.penduduk_id')
-            ->select('audit_bulanan_bayis.*', 'pemeriksaans.tgl_pemeriksaan', 'pemeriksaans.golongan', 'penduduks.NKK', 'penduduks.nama')
-            ->where('tgl_pemeriksaan', '2024-05-15')
-            ->paginate(10);
+        $alternatifs = $this->filter->getFilteredAlternatif($request)->paginate(10);
+        $alternatifs->appends(request()->all());
 
         $bayisData = Pemeriksaan::with('penduduk', 'pemeriksaan_bayi')->where('golongan', 'bayi')->where('tgl_pemeriksaan', '2024-05-15')->paginate(10);
 
@@ -72,7 +49,7 @@ class BantuanController extends Controller
 
         $bayis = AuditBulananBayi::join('pemeriksaans', 'audit_bulanan_bayis.bulan_id', '=', 'pemeriksaans.pemeriksaan_id')
             ->join('penduduks', 'audit_bulanan_bayis.penduduk_id', '=', 'penduduks.penduduk_id')
-            ->select('audit_bulanan_bayis.*', 'pemeriksaans.tgl_pemeriksaan', 'pemeriksaans.golongan', 'penduduks.NKK', 'penduduks.nama')
+            ->select('audit_bulanan_bayis.*', 'pemeriksaans.tgl_pemeriksaan', 'pemeriksaans.golongan', 'penduduks.NKK', 'penduduks.nama', 'penduduks.tgl_lahir')
             ->where('tgl_pemeriksaan', '2024-05-15')
             ->get();
 
@@ -88,6 +65,7 @@ class BantuanController extends Controller
         $normalize = $this->saw->normalizedSaw($values, $maxMin, $kriteria);
         $optimalize = $this->saw->optimalizedSaw($values, $normalize, $kriteria);
         $rank = $this->saw->rankSaw($values, $optimalize, $kriteria);
+        arsort($rank);
         return view('admin.bantuan.saw', compact('breadcrumb', 'activeMenu', 'bayis', 'kriteria', 'countBayi', 'values', 'maxMin', 'normalize', 'optimalize', 'rank'));
     }
     public function mabac(Request $request)
@@ -100,7 +78,7 @@ class BantuanController extends Controller
 
         $bayis = AuditBulananBayi::join('pemeriksaans', 'audit_bulanan_bayis.bulan_id', '=', 'pemeriksaans.pemeriksaan_id')
             ->join('penduduks', 'audit_bulanan_bayis.penduduk_id', '=', 'penduduks.penduduk_id')
-            ->select('audit_bulanan_bayis.*', 'pemeriksaans.tgl_pemeriksaan', 'pemeriksaans.golongan', 'penduduks.NKK', 'penduduks.nama')
+            ->select('audit_bulanan_bayis.*', 'pemeriksaans.tgl_pemeriksaan', 'pemeriksaans.golongan', 'penduduks.NKK', 'penduduks.nama', 'penduduks.tgl_lahir')
             ->where('tgl_pemeriksaan', '2024-05-15')
             ->get();
 
@@ -118,6 +96,7 @@ class BantuanController extends Controller
         $areas = $this->mabac->areaMabac($values, $weighted, $kriteria);
         $distance = $this->mabac->distanceMabac($values, $weighted, $areas, $kriteria);
         $rank = $this->mabac->rankMabac($values, $distance, $kriteria);
+        arsort($rank);
         return view('admin.bantuan.mabac', compact('breadcrumb', 'activeMenu', 'bayis', 'kriteria', 'countBayi', 'values', 'maxMin', 'normalize', 'weighted', 'areas', 'distance', 'rank'));
     }
 }

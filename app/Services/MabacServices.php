@@ -16,29 +16,14 @@ class MabacServices
             $alt = $alternatif->firstWhere('penduduk_id', $bayiId);
 
             if ($alt) {
-                $parents = Penduduk::where('NKK', $alt->NKK)
-                    ->where('hubungan_keluarga', '!=', 'Anak')
-                    ->get();
-
-                $incomeDad = $parents->where('hubungan_keluarga', 'Kepala Keluarga')
-                    ->first()
-                    ->pendapatan ?? 0;
-
-                $incomeMom = $parents->where('hubungan_keluarga', 'Istri')
-                    ->first()
-                    ->pendapatan ?? 0;
-
-                $incomeDad = (float) str_replace(['Rp', '.'], '', explode(' - ', $incomeDad)[0]);
-                $incomeMom = (float) str_replace(['Rp', '.'], '', explode(' - ', $incomeMom)[0]);
-                
-                $sumIncome = $incomeDad + $incomeMom;
+                $bayisAge = now()->diffInMonths($alt->tgl_lahir);
 
                 $values[$index] = [
                     $this->getRangeValue($ranges, 'C1', $alt->berat_badan),
                     $this->getRangeValue($ranges, 'C2', $alt->tinggi_badan),
                     $this->getRangeValue($ranges, 'C3', $alt->lingkar_kepala),
                     $this->getRangeValue($ranges, 'C4', $alt->lingkar_lengan),
-                    $this->getRangeValue($ranges, 'C5', $sumIncome),
+                    $this->getRangeValue($ranges, 'C5', $bayisAge),
                 ];
             }
         }

@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Prunable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @mixin IdeHelperKader
  */
 class Kader extends Model
 {
+    use SoftDeletes, Prunable;
+
     /**
      * The attribute that became primary key
      */
@@ -24,6 +29,11 @@ class Kader extends Model
     protected $guarded = [
         'kader_id'
     ];
+
+    public function prunable(): Builder
+    {
+        return static::whereNotNull('deleted_at')->where('deleted_at', '<=',  now()->subMonth())->whereDoesntHave('pemeriksaans');
+    }
 
     /**
      * Eloquent Model Relationships

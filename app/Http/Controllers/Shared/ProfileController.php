@@ -69,11 +69,7 @@ class ProfileController extends Controller
     {
         $user = User::with($relationship)->find(Auth::id())->only('username', 'foto_profil', $relationship);
 
-        if ($relationship === 'kaders') {
-            $user['nama'] = Penduduk::find($user[$relationship][0]->penduduk_id)->only('nama')['nama'];
-        } else {
-            $user['nama'] = $user[$relationship][0]->nama;
-        }
+        $user['nama'] = Penduduk::find($user[$relationship][0]->penduduk_id)->only('nama')['nama'];
 
         unset($user[$relationship]);
 
