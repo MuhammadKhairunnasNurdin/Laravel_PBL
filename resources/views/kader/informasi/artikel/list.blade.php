@@ -25,21 +25,6 @@
                 <img src="{{ $artikel->foto_artikel}}" alt="" class="w-[327px] h-[225px] rounded-[7.5px]">
                 <h3 class="font-bold text-[15px] text-justify">{{ $artikel->judul}}</h3>
                 <p class="text-[15px] text-justify">{{ substr($artikel->isi, 0, 200) }} {{ strlen($artikel->isi) > 100 ? '...' : '' }}</p>
-                {{-- <form action="artikel/{{$artikel->artikel_id}}" method="post" class="flex items-center gap-2">
-                    <div class="flex w-full justify-center gap-[10px] pt-[13px]">
-                        @php
-                            session(['urlArtikel' => '']);
-                        @endphp
-                        <a href="artikel/{{$artikel->artikel_id}}"
-                           class="bg-gray-300 text-[15px] py-[10px] px-[30px] rounded-[5px]">Lihat</a>
-                        <a href="artikel/{{$artikel->artikel_id}}/edit"
-                           class="bg-blue-700 text-[15px] text-white py-[10px] px-[30px] rounded-[5px]">Edit</a>
-                        @csrf
-                        @method('DELETE')
-                        <input type="hidden" name="updated_at" value="{{ $artikel->updated_at }}">
-                        <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[15px] py-[10px] px-[30px] rounded-[5px] hover:bg-red-600 hover:text-white">Hapus</button>
-                    </div>
-                </form> --}}
 
                 <form id="delete-form-{{$artikel->artikel_id}}" action="artikel/{{$artikel->artikel_id}}" method="post" class="flex items-center gap-2">
                     @php
@@ -54,7 +39,7 @@
                     <input type="hidden" name="updated_at" value="{{ $artikel->updated_at }}">
                     <button type="button" data-id="{{$artikel->artikel_id}}" data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="delete-btn bg-red-400 text-[15px] py-[10px] px-[30px] rounded-[5px] hover:bg-red-600 hover:text-white">Hapus</button>
                 </form>
-                
+
                 <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden top-0 left-0 fixed z-50 justify-center items-center w-full md:inset-0 h-screen">
                     <div class="absolute p-4 w-full h-screen flex justify-center items-center backdrop-blur-sm">
                         <div class="relative bg-white rounded-lg shadow-md dark:bg-gray-700">
@@ -76,7 +61,7 @@
                             </div>
                         </div>
                     </div>
-                </div>   
+                </div>
             </div>
         @endforeach
     </div>
@@ -88,13 +73,13 @@
         document.addEventListener('DOMContentLoaded', function() {
             const deleteButtons = document.querySelectorAll('.delete-btn');
             let deleteFormId;
-    
+
             deleteButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     deleteFormId = this.getAttribute('data-id');
                 });
             });
-    
+
             document.getElementById('confirm-delete').addEventListener('click', function() {
                 document.getElementById('delete-form-' + deleteFormId).submit();
             });
@@ -127,12 +112,12 @@
             });
         });
     });
-                            
+
 
         $(document).ready(function (){
             setTimeout(function() {
                 $('#message').fadeOut('fast');
-            }, 3000);
+            }, 5000);
         })
 
         document.addEventListener('DOMContentLoaded', function() {

@@ -9,7 +9,7 @@
         <div class="flex flex-col mt-[30px] mx-10 gap-[30px] relative">
             <div class="flex flex-row w-fit h-full items-center align-middle gap-4">
                 <x-dropdown.dropdown-filter><span class="hidden lg:flex">Filter</span></x-dropdown.dropdown-filter>
-                <x-input.search-input name="search" placeholder="Cari nama bayi"></x-input.search-input>
+                <x-input.search-input name="search" placeholder="Cari nama penduduk"></x-input.search-input>
             </div>
             <div class="flex w-full h-full justify-center items-center absolute" id="message">
                 @if(session('success'))
@@ -29,28 +29,6 @@
                 @endif
             </div>
         </div>
-        {{-- <div class="flex flex-col mt-[30px] mx-10 gap-[30px] relative">
-            <div class="flex flex-row w-fit h-full items-center align-middle gap-4">
-                <x-dropdown.dropdown-filter><span class="hidden lg:flex">Filter</span></x-dropdown.dropdown-filter>
-                <x-input.search-input name="search" placeholder="Cari nama anggota posyandu"></x-input.search-input>
-            </div>
-            @if(session('success'))
-                <div class="flex w-full h-full items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
-                    <p class="mr-4"> <b>BERHASIL</b> {{ session('success') }}</p> 
-                    <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
-                        <span>&times;</span>
-                    </button>
-                </div>
-                @elseif(session('error'))
-                <div class="flex w-full h-full items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
-                    <p class="mr-4">{{ session('error') }}</p>
-                    <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
-                        <span>&times;</span>
-                    </button>
-                </div>
-            @endif
-        </div> --}}
-                
         <div class="mx-10 my-[30px] overflow-x-auto">
             <x-table.data-table :dt="$penduduks"
             :headers="['Nama', 'NIK', 'NKK', 'Tanggal Lahir', 'Jenis Kelamin', 'Hubungan Keluarga', 'Aksi']">
@@ -66,19 +44,6 @@
                         <td class="tableBody">{{$pd->jenis_kelamin}}</td>
                         <td class="tableBody">{{$pd->hubungan_keluarga}}</td>
                         <td class="tableBody">
-                            {{-- <form action="penduduk/{{$pd->penduduk_id}}" method="post" class="flex items-center gap-2">
-                                @php
-                                    $queryString = http_build_query(request()->query());
-                                    session(['urlPagination' => $queryString ? '?' . $queryString : '']);
-                                @endphp
-                                <a href="penduduk/{{$pd->penduduk_id}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
-                                <a href="penduduk/{{$pd->penduduk_id}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="updated_at" value="{{ $pd->updated_at }}">
-                                <button type="submit" onclick="return confirm('Apakah anda yakin ingin menghapus data?')" class="bg-red-400 text-[12px] text-neutral-950 py-[6px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</button>
-                            </form> --}}
-
                             <form id="delete-form-{{$pd->penduduk_id}}" action="penduduk/{{$pd->penduduk_id}}" method="post" class="flex items-center gap-2">
                                 @php
                                     $queryString = http_build_query(request()->query());
@@ -91,7 +56,7 @@
                                 <input type="hidden" name="updated_at" value="{{ $pd->updated_at }}">
                                 <button type="button" data-id="{{$pd->penduduk_id}}" data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="delete-btn bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</button>
                             </form>
-                            
+
                             <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden top-0 left-0 fixed z-50 justify-center items-center w-full md:inset-0 h-screen">
                                 <div class="relative p-4 w-full h-screen flex justify-center items-center backdrop-blur-sm">
                                     <div class="relative bg-white rounded-lg shadow-md dark:bg-gray-700">
@@ -132,13 +97,13 @@
 document.addEventListener('DOMContentLoaded', function() {
             const deleteButtons = document.querySelectorAll('.delete-btn');
             let deleteFormId;
-    
+
             deleteButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     deleteFormId = this.getAttribute('data-id');
                 });
             });
-    
+
             document.getElementById('confirm-delete').addEventListener('click', function() {
                 document.getElementById('delete-form-' + deleteFormId).submit();
             });
@@ -375,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $(document).ready(function (){
         setTimeout(function() {
             $('#message').fadeOut('fast');
-        }, 3000);
+        }, 5000);
     })
 </script>
 @endpush

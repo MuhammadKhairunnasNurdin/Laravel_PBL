@@ -26,7 +26,7 @@
         <span id="count" class="hidden rounded-full bg-red-600 h-[1.2rem] w-[1.2rem] text-[0.6875rem] text-white transition ease-in-out duration-200"></span>
     </button>
 
-    
+
 
     @if (Request::is('kader/bayi'))
         <form tabindex="0" action="{{ route('bayi.index') }}" method="GET"
@@ -54,21 +54,21 @@
             <div class="flex flex-col gap-2">
                 <p class="text-Neutral/100 text-sm font-medium">Golongan Umur</p>
                 <div class="flex justify-between items-center gap-3">
-                    <x-input.radio-input name="golUmur" id="baduta"
-                                        value="baduta" checked="{{ request()->get('golUmur') == 'baduta'}}" fn="a">
-                        Baduta
+                    <x-input.radio-input name="golUmur" id="bayi"
+                                        value="bayi" checked="{{ request()->get('golUmur') == 'bayi'}}" fn="a">
+                        Bayi
                     </x-input.radio-input>
-                    <x-input.radio-input name="golUmur" id="batita"
+                    {{-- <x-input.radio-input name="golUmur" id="batita"
                                         value="batita" checked="{{ request()->get('golUmur') == 'batita'}}" fn="a">
                         Batita
-                    </x-input.radio-input>
+                    </x-input.radio-input> --}}
                     <x-input.radio-input name="golUmur" id="balita"
                                         value="balita" checked="{{ request()->get('golUmur') == 'balita'}}" fn="a">
                         Balita
                     </x-input.radio-input>
                 </div>
             </div>
-            
+
             <button type="submit" class="transition-all ease-in-out duration-200 py-3 px-7 bg-red-500 text-white rounded-[6.25rem] text-center xl:text-base lg:text-sm font-medium ">
                 Terapkan
             </button>
@@ -117,7 +117,7 @@
                     </x-input.radio-input>
                 </div>
             </div>
-            
+
             <button type="submit" class="transition-all ease-in-out duration-200 py-3 px-7 bg-blue-700 text-white rounded-[6.25rem] text-center xl:text-base lg:text-sm font-medium ">
                 Terapkan
             </button>
@@ -160,7 +160,7 @@
                         <x-input.radio-input name="rt" id="rt0{{$i}}"
                                             value="RT 0{{$i}}" checked="{{ request()->get('rt') == 'RT 0'.$i}}" fn="a">
                             RT 0{{$i}}
-                        </x-input.radio-input>                        
+                        </x-input.radio-input>
                     @endfor
                 </div>
             </div>
@@ -177,11 +177,51 @@
                     </x-input.radio-input>
                 </div>
             </div>
-            
+
             <button type="submit" class="transition-all ease-in-out duration-200 py-3 px-7 bg-blue-700 text-white rounded-[6.25rem] text-center xl:text-base lg:text-sm font-medium ">
                 Terapkan
             </button>
         </form>
+    {{--dropdown for data user feature , FAUZI help me for fix that !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!--}}
+   {{-- @elseif (Request::is('admin/user'))
+        <form tabindex="0" action="{{ route('user.index') }}" method="GET"
+              class="dropdown-filter-bayi absolute transition ease-in-out duration-200 opacity-0 transform scale-95 hidden z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
+            <div class="flex justify-between items-center">
+                <p class="text-Neutral/100 font-medium 2xl:text-xl lg:text-sm">Filter</p>
+                <span onclick="resetInput()"
+                      class="cursor-pointer font-semibold xl:text-sm lg:text-xs text-[#E14942]">Reset</span>
+            </div>
+            <div class="flex flex-col gap-2">
+                <p class="text-Neutral/100 text-sm font-medium">Level</p>
+                <div class="lg:flex lg:flex-row flex-wrap  justify-between items-center gap-3">
+                    <x-input.radio-input name="level" id="admin"
+                                         value="admin"
+                                         checked="{{ request()->get('level') == 'admin' }}" fn="a">
+                        Admin
+                    </x-input.radio-input>
+                    <x-input.radio-input name="level" id="ketua"
+                                         value="ketua"
+                                         checked="{{ request()->get('level') == 'ketua'}}" fn="a">
+                        Ketua
+                    </x-input.radio-input>
+                    <x-input.radio-input name="level" id="kader"
+                                         value="kader"
+                                         checked="{{ request()->get('level') == 'kader'}}" fn="a">
+                        Kader
+                    </x-input.radio-input>
+                </div>
+            </div>
+            <div class="flex flex-col gap-2">
+                <p class="text-Neutral/100 text-sm font-medium">Tanggal Dibuat</p>
+                <div class="lg:flex lg:flex-row flex-wrap  justify-between items-center gap-3">
+                    <input type="month" name="tanggal" id="tanggal">
+                </div>
+            </div>
+
+            <button type="submit" class="transition-all ease-in-out duration-200 py-3 px-7 bg-blue-700 text-white rounded-[6.25rem] text-center xl:text-base lg:text-sm font-medium ">
+                Terapkan
+            </button>
+        </form--}}
     @elseif (Request::is('admin/bantuan/alternatif'))
         <form tabindex="0" action="{{ route('bantuan.alternatif') }}" method="GET"
             class="dropdown-filter-bayi absolute transition ease-in-out duration-200 opacity-0 transform scale-95 hidden z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
@@ -194,29 +234,9 @@
                 <p class="text-Neutral/100 text-sm font-medium">Tanggal</p>
                 <div class="lg:flex lg:flex-row flex-wrap  justify-between items-center gap-3">
                     <input type="month" name="tanggal" id="tanggal">
-                    {{-- <select name="tanggal" id="tanggal">
-                        <option value="" selected disabled>Tanggal</option>
-                        @for ($i = 1; $i <= 31; $i++)
-                        <option value="{{$i}}" id="{{$i}}" >{{$i}}</option>
-                        @endfor
-                    </select>
-                    
-                    <select name="bulan" id="bulan"> Bulan
-                        <option value="" selected disabled>Bulan</option>
-                        @for ($i = 1; $i <= 12; $i++)
-                        <option value="{{$i}}" id="{{$i}}" >{{$i}}</option>
-                        @endfor
-                    </select>
-                    
-                    <select name="tahun" id="tahun"> Tahun
-                        <option value="" selected disabled>Tahun</option>
-                        @for ($i = 2020; $i <= 2030; $i++)
-                            <option value="{{$i}}" id="{{$i}}" >{{$i}}</option>
-                        @endfor
-                    </select> --}}
                 </div>
             </div>
-            
+
             <button type="submit" class="transition-all ease-in-out duration-200 py-3 px-7 bg-blue-700 text-white rounded-[6.25rem] text-center xl:text-base lg:text-sm font-medium ">
                 Terapkan
             </button>

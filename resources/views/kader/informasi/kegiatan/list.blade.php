@@ -70,7 +70,7 @@
                         <input type="hidden" name="updated_at" value="{{ $kd->updated_at }}">
                         <button type="button" data-id="{{$kd->kegiatan_id}}" data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="delete-btn bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</button>
                     </form>
-                    
+
                     <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden top-0 left-0 fixed z-50 justify-center items-center w-full md:inset-0 h-screen">
                         <div class="relative p-4 w-full h-screen flex justify-center items-center backdrop-blur-sm">
                             <div class="relative bg-white rounded-lg shadow-md dark:bg-gray-700">
@@ -110,13 +110,13 @@
             document.addEventListener('DOMContentLoaded', function() {
             const deleteButtons = document.querySelectorAll('.delete-btn');
             let deleteFormId;
-    
+
             deleteButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     deleteFormId = this.getAttribute('data-id');
                 });
             });
-    
+
             document.getElementById('confirm-delete').addEventListener('click', function() {
                 document.getElementById('delete-form-' + deleteFormId).submit();
             });
@@ -153,7 +153,7 @@
     $(document).ready(function (){
         setTimeout(function() {
             $('#message').fadeOut('fast');
-        }, 3000);
+        }, 5000);
     })
 
     function formatDate(dateString) {

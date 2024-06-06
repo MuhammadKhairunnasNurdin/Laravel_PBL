@@ -6,11 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UpdateUserRequest;
 use App\Models\Penduduk;
 use App\Models\User;
+use App\Services\ImageLogic;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
@@ -67,7 +66,7 @@ class ProfileController extends Controller
      */
     private function indexData(string $relationship): array
     {
-        $user = User::with($relationship)->find(Auth::id())->only('username', 'foto_profil', $relationship);
+        $user = User::with($relationship)->find(Auth::id())->only('username', 'foto_profil', 'updated_at', $relationship);
 
         $user['nama'] = Penduduk::find($user[$relationship][0]->penduduk_id)->only('nama')['nama'];
 
@@ -77,69 +76,100 @@ class ProfileController extends Controller
     }
 
     /**
-     * for updating username or password user
+     * for updating username, password or foto profil user
      */
-    public function update(Request $request): RedirectResponse
+    public function update(UpdateUserRequest $request, string $id): RedirectResponse
     {
         /**
-         * Retrieve authenticate user that want to update password and username or one of them
+         * try database transaction, because we use sql type
+         * database(mysql), to prevent database race condition when
+         * update data, we use transaction to rollback if there are any
+         * error and catch that error mesasge to display in view
          */
-        $user = Auth::user();
+        try {
+            /**
+             * return $isUpdated for checking update data not just
+             * submit when not actually changes
+             */
+            $isUpdated =  DB::transaction(function () use ($request, $id) {
+                $isUpdated = false;
 
-        /**
-         * make username null when not updated
-         */
-        if ($request->username === $user->username) {
-            $request->merge(['username' => null]);
+                /**
+                 * lock and update with queue users table
+                 * to prevent database race condition
+                 *
+                 * and check if user is found or not
+                 */
+                $user = User::lockForUpdate()->find($id);
+                if ($user === null) {
+                    return redirect()
+                        ->intended( Auth::user()->level. '/profile')
+                        ->with('error', 'data user tidak ditemukan');
+                }
+
+                if ($request->input() !== []) {
+                    $isUpdated = $user->update($request->input());
+                }
+
+                return $isUpdated;
+            });
+
+            if (!is_bool($isUpdated)){
+                return $isUpdated;
+            }
+
+            return redirect()->intended( Auth::user()->level . '/profile')
+                ->with('success', $isUpdated ? 'Data user berhasil diubah' : 'Namun Data user tidak diubah');
+        } catch (\Throwable $e) {
+            return redirect()->intended(Auth::user()->level . '/profile')
+                ->with('error', 'Terjadi Masalah Ketika mengubah Data user: ' . $e->getMessage());
         }
+    }
 
+    public function delete(string $id, $updated_at): RedirectResponse
+    {
         /**
-         * make Validator object for validate request input and retrieve errors message when fail7
+         * try database transaction, because we use sql type
+         * database(mysql), to prevent database race condition when
+         * delete data, we use transaction to rollback if there are any
+         * error and catch that error mesasge to display in view
          */
-        $validator = Validator::make($request->all(), [
-            'username' => [
-                'bail',
-                'required_without_all:password',
-                Rule::when($request->username !== null, ['unique:users', 'string', 'max:100'])
-            ],
-            'password' => [
-                'bail',
-                'required_without_all:username',
-                Rule::when($request->password !== null, ['string', 'max:100'])
-            ],
-        ]);
+        try {
+            return DB::transaction(function () use ($id, $updated_at) {
+                /**
+                 * lock and delete with queue users table
+                 * to prevent database race condition
+                 */
+                $user = User::lockForUpdate()->find($id);
+                if ($user === null) {
+                    return redirect()->intended(Auth::user()->level . '/profile')->with('error', 'Data user tidak ditemukan');
+                }
 
-        /**
-         * if validate fails, return error messages from Validator class errors() function
-         */
-        if ($validator->fails()) {
-            return redirect()
-                ->intended($user->level . '/profile')
-                ->withErrors($validator->errors(), 'errors')
-            ;
+                /**
+                 * check if other user is update our data when we do delete action
+                 */
+                if ($user->updated_at > $updated_at) {
+                    return redirect()->intended(Auth::user()->level . '/profile')->with('error', 'Data user masih di update pada beda device, coba refresh dan lakukan hapus lagi');
+                }
+
+                /**
+                 * retrieve old hashName foto_profil
+                 */
+                $foto_profil = $user->foto_profil;
+                /**
+                 * delete foto_profil that saved in public/user directory
+                 */
+                ImageLogic::delete($foto_profil, 6, 'user_img');
+
+                /**
+                 * give value null to hashName foto that saved in database
+                 */
+                $user->update(['foto_profil' => null]);
+
+                return redirect()->intended(Auth::user()->level . '/profile')->with('success', 'Foto profil berhasil dihapus');
+            });
+        } catch (\Throwable $e) {
+            return redirect()->intended('admin/user' . session('urlPagination'))->with('error', 'Terjadi Masalah Ketika menghapus Foto Profil: ' . $e->getMessage());
         }
-
-        /**
-         * update password if form password filled
-         */
-        if (!empty($request->password)) {
-            $user->password = $request->password;
-        }
-        /**
-         * update username if form username change
-         */
-        if (!empty($request->username)) {
-            $user->username = $request->username;
-        }
-
-        /**
-         * save user updated data to database
-         */
-        $user->save();
-
-        return redirect()
-            ->intended($user->level . '/profile')
-            ->withInput(['success' => 'update user data success'])
-        ;
     }
 }

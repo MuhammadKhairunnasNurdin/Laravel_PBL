@@ -26,7 +26,8 @@ Route::group([
          */
         Route::get('/', [DashboardController::class, 'indexKetua'])->name('dashboard');
         Route::get('/profile', [ProfileController::class, 'indexKetua'])->name('ketua.profile');
-        Route::post('/profile', [ProfileController::class, 'update'])->name('ketua.profile.update');
+        Route::put('/profile/{user}', [ProfileController::class, 'update'])->name('ketua.profile.update');
+        Route::get('/foto/{id}/{updated_at}', [ProfileController::class, 'delete'])->name('ketua.foto.delete');
 
         /**
          * routes for bantuan and penerima feature

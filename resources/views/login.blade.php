@@ -53,7 +53,7 @@
                 @enderror
                 @if(session('success'))
                     <div class="pl-5 py-[15px] bg-green-200 w-full fade show" role="alert">
-                        <span class="alert-inner-text"><strong>Berhasil!</strong> {{ session('success') }}</span>
+                        <span class="alert-inner-text"><strong>Berhasil</strong> {{ session('success') }}</span>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         {{--<span aria-hidden="true">&times;</span>--}}
                         </button>

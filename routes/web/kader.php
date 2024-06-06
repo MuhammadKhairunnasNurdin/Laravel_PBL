@@ -9,7 +9,6 @@ use App\Http\Controllers\Kader\KegiatanResource;
 use App\Http\Controllers\Kader\LansiaResource;
 use App\Http\Controllers\Shared\AuthController;
 use App\Http\Controllers\Shared\DashboardController;
-use App\Http\Controllers\Shared\DataTablesController;
 use App\Http\Controllers\Shared\ProfileController;
 
 /*
@@ -30,16 +29,14 @@ Route::group([
          */
         Route::get('/', [DashboardController::class, 'indexKader'])->name('dashboard');
         Route::get('/profile', [ProfileController::class, 'indexKader'])->name('kader.profile');
-        Route::post('/profile', [ProfileController::class, 'update'])->name('kader.profile.update');
+        Route::put('/profile/{user}', [ProfileController::class, 'update'])->name('kader.profile.update');
+        Route::get('/foto/{id}/{updated_at}', [ProfileController::class, 'delete'])->name('kader.foto.delete');
 
         /**
          * routes for pemeriksaan bayi and pemeriksaan lansia feature
          */
         Route::resource('bayi', BayiResource::class);
-        Route::post('bayi/list', [DataTablesController::class, 'list'])->name('bayi.list');
         Route::resource('lansia', LansiaResource::class);
-        Route::post('lansia/list', [DataTablesController::class, 'list'])->name('lansia.list');
-
 
         /**
          * routes for informasi feature
@@ -47,7 +44,6 @@ Route::group([
         Route::group(['prefix' => 'informasi'], function () {
             Route::get('/', InformasiController::class);
             Route::resource('kegiatan', KegiatanResource::class)->except('show');
-            Route::post('kegiatan/list', [DataTablesController::class, 'list'])->name('kegiatan.list');
             Route::resource('artikel', ArtikelResource::class);
         });
 

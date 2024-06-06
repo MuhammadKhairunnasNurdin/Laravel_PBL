@@ -16,7 +16,7 @@ return new class extends Migration
             $table->float('lingkar_kepala', 6, 3);
             $table->float('lingkar_lengan', 6, 3);
             $table->enum('asi', ['iya', 'tidak']);
-            $table->enum('kategori_golongan', ['baduta', 'batita', 'balita']);
+            $table->enum('kategori_golongan', ['bayi', 'balita']);
             $table->timestamps();
         });
     }

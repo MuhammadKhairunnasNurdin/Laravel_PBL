@@ -66,7 +66,7 @@
                         <p class="text-base text-neutral-950">Password</p>
                         <input type="password" name="password" value="{{old('password')}}" id="password" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan password">
                         <span id="passwordError" class="text-red-500 hidden" style="grid-column: 2"></span>
-                        <span class="text-neutral-500" style="grid-column: 2">biarkan kosong jika tidak ingin memperbarui password</span>
+                        <span class="text-neutral-500" style="grid-column: 2">kosongkan jika tidak ingin memperbarui</span>
                         @error('password')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -75,7 +75,7 @@
                         <p class="text-base text-neutral-950">Ulangi Password</p>
                         <input type="password" name="password_confirmation" value="{{ old('password_confirmation') }}" id="password_confirm" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan konfirmasi password">
                         <span id="passConfirmError" class="text-red-500 hidden" style="grid-column: 2"></span>
-                        <span class="text-neutral-500" style="grid-column: 2">biarkan kosong jika tidak ingin memperbarui password</span>
+                        <span class="text-neutral-500" style="grid-column: 2">kosongkan jika tidak ingin memperbarui</span>
                     </div>
                 </div>
             </div>

@@ -15,7 +15,7 @@
                 @if(session('success'))
                     <div class="flex w-full h-full items-center p-1 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
                         <p class="mr-4"> <b>BERHASIL </b> {{ session('success') }}</p>
-ta                        <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
+                        <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
                             <span>&times;</span>
                         </button>
                     </div>
@@ -69,7 +69,7 @@ ta                        <button id="close" class="ml-auto bg-transparent text-
                                 <input type="hidden" name="updated_at" value="{{ $pd->updated_at }}">
                                 <button type="button" data-id="{{$pd->pemeriksaan_id}}" data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="delete-btn bg-red-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-red-600 hover:text-white">Hapus</button>
                             </form>
-                            
+
                             <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden top-0 left-0 fixed z-50 justify-center items-center w-full md:inset-0 h-screen">
                                 <div class="relative p-4 w-full h-screen flex justify-center items-center backdrop-blur-sm">
                                     <div class="relative bg-white rounded-lg shadow-md dark:bg-gray-700">
@@ -148,7 +148,7 @@ ta                        <button id="close" class="ml-auto bg-transparent text-
             });
         });
     });
-                            
+
     document.addEventListener('DOMContentLoaded', function() {
         var div = document.getElementById('message');
         var button = document.getElementById('close');
@@ -363,7 +363,7 @@ ta                        <button id="close" class="ml-auto bg-transparent text-
     $(document).ready(function (){
         setTimeout(function() {
             $('#message').fadeOut('fast');
-        }, 3000);
+        }, 5000);
     })
 </script>
 @endpush
