@@ -2,11 +2,10 @@
 
 namespace App\Services;
 
-use App\Models\Penduduk;
-use App\Models\Pemeriksaan;
-use App\Models\PemeriksaanBayi;
-use App\Models\PemeriksaanLansia;
 use App\Models\AuditBulananBayi;
+use App\Models\Pemeriksaan;
+use App\Models\Penduduk;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 Class FilterServices
@@ -21,13 +20,13 @@ Class FilterServices
 
         if ($request->has('golUmur')) {
             $query->whereHas('pemeriksaan_bayi', function($query) use ($request) {
-                $query->where('kategori_golongan', $request->input('golUmur'));  
+                $query->where('kategori_golongan', $request->input('golUmur'));
             });
         }
 
         return $query;
     }
-    
+
     public function getFilteredDataLansia(Request $request)
     {
         $query = Pemeriksaan::with('penduduk', 'pemeriksaan_lansia')->where('golongan', 'lansia');
@@ -44,13 +43,13 @@ Class FilterServices
             $query->whereHas('pemeriksaan_lansia', function($query) use ($indikasi, $gula, $asam_urat, $kolesterol, $request) {
                 if($indikasi === 'asam_urat')
                 {
-                    $query->where('asam_urat', '>', $asam_urat);  
-                } 
+                    $query->where('asam_urat', '>', $asam_urat);
+                }
                 elseif($indikasi === 'gula')
                 {
                     $query->where('gula_darah', '>', $gula);
-                } 
-                elseif($indikasi === 'kolesterol') 
+                }
+                elseif($indikasi === 'kolesterol')
                 {
                     $query->where('kolesterol', '>', $kolesterol);
                 }
@@ -59,7 +58,7 @@ Class FilterServices
 
         return $query;
     }
-    
+
     public function getFilteredData(Request $request)
     {
         $query = Penduduk::orderBy('NIK', 'asc');
@@ -70,7 +69,7 @@ Class FilterServices
 
         if ($request->has('golUmur')) {
             $query->whereHas('pemeriksaan_bayi', function($query) use ($request) {
-                $query->where('kategori_golongan', $request->input('golUmur'));  
+                $query->where('kategori_golongan', $request->input('golUmur'));
             });
         }
 
@@ -91,12 +90,28 @@ Class FilterServices
         ->select('audit_bulanan_bayis.*', 'pemeriksaans.tgl_pemeriksaan', 'pemeriksaans.golongan', 'penduduks.NKK', 'penduduks.nama', 'penduduks.tgl_lahir');
 
         $tanggal = $request->input('tanggal');
-        if (isset($tanggal)) {
+        if (isset($tanggal) and $request->has('tanggal')) {
             list($tahun, $bulan) = explode('-', $tanggal);
-        }
-        if($request->has('tanggal')) {
             $query->whereMonth('audit_bulanan_bayis.created_at', '=', $bulan)
-                    ->whereYear('audit_bulanan_bayis.created_at', '=', $tahun);
+                  ->whereYear('audit_bulanan_bayis.created_at', '=', $tahun);
+        }
+
+        return $query;
+    }
+
+    public function getFilteredUser(Request $request)
+    {
+        $query = User::orderBy('created_at', 'desc');
+
+        if ($request->has('level')) {
+            $query->where('level', '=', $request->input('level'));
+        }
+
+        $tanggal = $request->input('tanggal');
+        if (isset($tanggal) and $request->has('tanggal')) {
+            list($tahun, $bulan) = explode('-', $tanggal);
+            $query->whereYear('created_at', '=', $tahun)
+                  ->whereMonth('created_at', '=', $bulan);
         }
 
         return $query;

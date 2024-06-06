@@ -26,8 +26,7 @@
         <div class="col-span-1 hidden lg:flex"></div>
         <div class="w-full md:col-span-5">
             <div class="flex text-base px-5 md:text-2xl pt-5">
-                {{-- @include('kader.layouts.breadcrumb') --}}
-                <p>SPK</p>
+                 @include('kader.layouts.breadcrumb')
             </div>
             @yield('content')
         </div>
