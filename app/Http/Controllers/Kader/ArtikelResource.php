@@ -101,6 +101,7 @@ class ArtikelResource extends Controller
      */
     public function update(UpdateArtikelRequest $request, string $id): RedirectResponse
     {
+        dd($request->input());
         /**
          * try database transaction, because we use sql type
          * database(mysql), to prevent database race condition when

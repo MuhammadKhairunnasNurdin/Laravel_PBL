@@ -9,6 +9,7 @@
                     <div class="flex flex-col w-full gap-[20px]">
                         <p class="text-base text-neutral-950">Nama Kegiatan</p>
                         <input type="text" name="nama" value="{{old('nama')}}" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan nama kegiatan">
+                        <p class="text-xs font-normal text-stone-400 mt-[-10px]" id="counter">Nama kegiatan minimal 5 huruf - maximal 100 huruf</p>
                         @error('nama')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
@@ -16,6 +17,7 @@
                     <div class="flex flex-col w-full gap-[20px] ">
                         <p class="text-base text-neutral-950">Tempat</p>
                         <input type="text" name="tempat" value="{{old('tempat')}}" class="w-100 text-sm font-normal border border-stone-400 lg:pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan tempat pelaksanaan">
+                        <p class="text-xs font-normal text-stone-400 mt-[-10px]" id="counter">Tempat Kegiatan minimal 5 huruf - maximal 200 huruf</p>
                         @error('tempat')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror

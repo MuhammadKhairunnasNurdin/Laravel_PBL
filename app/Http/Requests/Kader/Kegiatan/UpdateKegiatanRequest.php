@@ -23,13 +23,13 @@ class UpdateKegiatanRequest extends FormRequest
     protected function prepareForValidation(): void
     {
         $this->merge([
-            'kader_id' => auth()->user()->kaders[0]->kader_id,
+            /*'kader_id' => auth()->user()->kaders[0]->kader_id,*/
             'jam_mulai' => Carbon::make($this->input('jam_mulai'))->format('H:i:s'),
         ]);
 
         $this->request->replace(
             $this->only([
-                'kader_id',
+                /*'kader_id',*/
                 'nama',
                 'tgl_kegiatan',
                 'jam_mulai',
@@ -47,12 +47,12 @@ class UpdateKegiatanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'kader_id' => [
+            /*'kader_id' => [
                 'bail',
                 'required',
                 'integer',
                 'exists:kaders,kader_id',
-            ],
+            ],*/
             'nama' => [
                 'bail',
                 'required',
@@ -89,9 +89,9 @@ class UpdateKegiatanRequest extends FormRequest
             /**
              * costum message for kader_id column or field input
              */
-            'kader_id.required' => 'kader ID harus di isi!',
+           /* 'kader_id.required' => 'kader ID harus di isi!',
             'kader_id.integer' => 'kader ID harus angka bulat!',
-            'kader_id.exists' => 'kader ID tidak ada!',
+            'kader_id.exists' => 'kader ID tidak ada!',*/
             /**
              * costum message for nama column or field input
              */

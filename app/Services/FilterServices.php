@@ -12,7 +12,7 @@ Class FilterServices
 {
     public function getFilteredDataBayi(Request $request)
     {
-        $query = Pemeriksaan::with('penduduk', 'pemeriksaan_bayi')->where('golongan', 'bayi');
+        $query = Pemeriksaan::with('penduduk', 'pemeriksaan_bayi')->where('golongan', 'bayi')->orderBy('created_at', 'desc');
 
         if ($request->has('statusKes')) {
             $query->where('status', $request->input('statusKes'));
@@ -29,7 +29,7 @@ Class FilterServices
 
     public function getFilteredDataLansia(Request $request)
     {
-        $query = Pemeriksaan::with('penduduk', 'pemeriksaan_lansia')->where('golongan', 'lansia');
+        $query = Pemeriksaan::with('penduduk', 'pemeriksaan_lansia')->where('golongan', 'lansia')->orderBy('created_at', 'desc');
         $indikasi = $request->input('indikasi');
         $asam_urat = 6.5;
         $gula = 140.0;
@@ -61,7 +61,7 @@ Class FilterServices
 
     public function getFilteredData(Request $request)
     {
-        $query = Penduduk::orderBy('NIK', 'asc');
+        $query = Penduduk::orderBy('created_at', 'desc');
 
         if ($request->has('hubKeluarga')) {
             $query->where('hubungan_keluarga', $request->input('hubKeluarga'));
