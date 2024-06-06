@@ -118,6 +118,14 @@ class PemeriksaanBayiSeeder extends Seeder
                 'kategori_golongan' => 'bayi',
                 'created_at' => '2024-05-15',
                 'updated_at' => '2024-05-15',
+            ], [
+                'pemeriksaan_id' => 25,
+                'lingkar_kepala' => 19.7,
+                'lingkar_lengan' => 11.1,
+                'asi' => 'tidak',
+                'kategori_golongan' => 'bayi',
+                'created_at' => '2024-05-10',
+                'updated_at' => '2024-05-10',
             ],
         ];
 
