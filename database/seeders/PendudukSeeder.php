@@ -278,6 +278,42 @@ class PendudukSeeder extends Seeder
                 "hubungan_keluarga"=> "Kepala Keluarga",
                 "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 05 RW 06",
                 "RT"=> "RT 05"
+            ], [
+                "NIK"=> "351001100220220562",
+                "NKK"=> "351001231654324860",
+                "nama"=> "Sukardi",
+                "tgl_lahir"=> "1995-07-15",
+                "pendapatan"=> "Rp 0 - Rp 500.000",
+                "no_telp"=> "081234567894",
+                "jenis_kelamin"=> "L",
+                "pendidikan"=> "SD",
+                "hubungan_keluarga"=> "Kepala Keluarga",
+                "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 06 RW 06",
+                "RT"=> "RT 06"
+            ], [
+                "NIK"=> "351001100220220489",
+                "NKK"=> "351001231654324860",
+                "nama"=> "Siti",
+                "tgl_lahir"=> "1997-05-10",
+                "pendapatan"=> "Rp 0 - Rp 500.000",
+                "no_telp"=> "081234567895",
+                "jenis_kelamin"=> "P",
+                "pendidikan"=> "SD",
+                "hubungan_keluarga"=> "Istri",
+                "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 06 RW 06",
+                "RT"=> "RT 06"
+            ], [
+                "NIK"=> "351001100220220148",
+                "NKK"=> "351001231654324860",
+                "nama"=> "Fauzi Riski",
+                "tgl_lahir"=> "2024-01-20",
+                "pendapatan"=> "Belum Bekerja",
+                "no_telp"=> "081234567896",
+                "jenis_kelamin"=> "L",
+                "pendidikan"=> "Belum Sekolah",
+                "hubungan_keluarga"=> "Anak",
+                "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 06 RW 06",
+                "RT"=> "RT 06"
             ]
         ];
         DB::table('penduduks')->insert($data);

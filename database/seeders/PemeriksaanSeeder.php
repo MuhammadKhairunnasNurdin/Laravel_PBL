@@ -254,6 +254,16 @@ class PemeriksaanSeeder extends Seeder
                 'status' => 'sehat',
                 'created_at' => '2024-05-15',
                 'updated_at' => '2024-05-15',
+            ], [
+                'kader_id' => 2,
+                'penduduk_id' => 25,
+                'tgl_pemeriksaan' => '2024-05-10',
+                'golongan' => 'bayi',
+                'berat_badan' => 30.6,
+                'tinggi_badan' => 78.4,
+                'status' => 'sehat',
+                'created_at' => '2024-05-10',
+                'updated_at' => '2024-05-10',
             ], 
         ];
 
