@@ -6,7 +6,6 @@
     <div class="relative h-56 overflow-hidden rounded-lg md:h-[600px]">
          <!-- Item 1 -->
          <div class="hidden duration-700 ease-in-out h-full  " data-carousel-item>
-            {{-- <img src="/docs/images/carousel/carousel-1.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="..."> --}}
             <div class="absolute w-full -translate-x-1/2 -translate-y-1/2 bg-posyandu top-1/2 left-1/2 grid grid-cols-2 px-[15px] lg:px-[131px] h-full items-center lg:gap-[235px]">
                 <div class="col-span-1 gap-[30px] lg:pr-10 justify-center">
                     <h2 class="font-bold text-[14px] lg:text-[40px]">Posyandu Delima Merah</h2>
@@ -16,17 +15,18 @@
                 <img class=" py-[39px] pl-10" src="{{ asset('img/logo_posyandu.png') }}" alt="logo posyandu">
             </div>
         </div>
-        <div class="hidden duration-700 ease-in-out h-full  " data-carousel-item>
-            
-            <div class="absolute w-full -translate-x-1/2 -translate-y-1/2 bg-posyandu top-1/2 left-1/2 grid grid-cols-2 px-[15px] lg:px-[131px] h-full items-center lg:gap-[235px]">
-                <div class="col-span-1 gap-[30px] lg:pr-10 justify-center">
-                    <h2 class="font-bold text-[14px] lg:text-[40px]">Posyandu Delima Merah</h2>
-                    <p class="lg:text-[30px] text-[14px] text-justify tracking-[10%] mb-[35px]">Pelayanan kesehatan untuk mewujudkan masyarakat sehat</p>
-                    <a href="{{ url('profil')}}" class="px-[15px] lg:px-[30px] py-[7.5px] lg:py-[15px] rounded-[5px] text-[12px] lg:text-[25px] border border-neutral-950 bg-transparent">Pelajari Selengkapnya</a>
+        @foreach ($artikels as $ar)
+            <div class="hidden duration-700 ease-in-out h-full  " data-carousel-item> 
+                <div class="absolute w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 grid grid-cols-2 px-[15px] lg:px-[131px] h-full items-center lg:gap-[235px] bg-cover bg-no-repeat" style="background-image: url({{$ar->foto_artikel}}); @apply ">
+                    <div class="col-span-1 gap-[30px] lg:pr-10 justify-center">
+                        <h2 class="font-bold text-[14px] lg:text-[40px]">{{$ar->judul}}</h2>
+                        <p class="lg:text-[30px] text-[14px] text-justify tracking-[10%] mb-[35px]">Pelayanan kesehatan untuk mewujudkan masyarakat sehat</p>
+                        <a href="{{ url('profil')}}" class="px-[15px] lg:px-[30px] py-[7.5px] lg:py-[15px] rounded-[5px] text-[12px] lg:text-[25px] border border-neutral-950 bg-transparent">Pelajari Selengkapnya</a>
+                    </div>
+                    {{-- <img class=" py-[39px] pl-10" src="{{ asset('img/logo_posyandu.png') }}" alt="logo posyandu"> --}}
                 </div>
-                <img class=" py-[39px] pl-10" src="{{ asset('img/logo_posyandu.png') }}" alt="logo posyandu">
-            </div>
-        </div>
+            </div>    
+        @endforeach
         <!-- Item 2 -->
         
     </div>
@@ -79,7 +79,7 @@
         </div>
     </div>
     <div>
-        <div class="grid grid-flow-col lg:grid-cols-4 gap-[22px] overflow-x-auto">
+        <div class="grid grid-flow-col gap-[22px] overflow-x-scroll">
             @foreach ($artikels as $ar)
             <a class="min-w-40 flex flex-col gap-[15px]" href="/read={{$ar->artikel_id}}">
                 {{-- <img src="{{ asset('img/image 1.png')}}" alt="" > --}}
