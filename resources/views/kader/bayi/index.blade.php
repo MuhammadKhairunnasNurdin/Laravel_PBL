@@ -6,7 +6,7 @@
             <p class="text-sm md:text-lg ml-10">Daftar pemeriksaan bayi</p>
             <a href="{{ url('kader/bayi/create') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-5 lg:mr-10 rounded">Tambah</a>
         </div>
-        <div class="flex flex-row justify-between mt-[30px] mx-10 gap-[30px] relative">
+        <div class="flex flex-row justify-between mt-[30px] mx-5 lg:mx-10 gap-[30px] relative">
             <div class="flex flex-row w-fit h-full items-center align-middle gap-4">
                 <x-dropdown.dropdown-filter><span class="hidden lg:flex">Filter</span></x-dropdown.dropdown-filter>
                 <x-input.search-input name="search" placeholder="Cari nama bayi"></x-input.search-input>
