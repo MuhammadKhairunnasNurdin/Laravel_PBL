@@ -5,7 +5,7 @@
     <div class="flex justify-between items-center w-full py-2 border-b">
         <p class="text-lg ml-10">Detail lansia</p>
     </div>
-    <div class="flex flex-col gap-[15px] py-10 px-[30px]">
+    <div class="flex flex-col gap-[15px] py-10 px-[15px] lg:px-[30px]">
         <table class="w-fit">
             <tbody>
                 <tr>

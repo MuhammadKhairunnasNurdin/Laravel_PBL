@@ -8,7 +8,7 @@
 
     <input type="hidden" name="level" value="{{ auth()->user()->level }}">
     <input type="hidden" name="user" value="{{ json_encode(encrypt($user)) }}" >
-    <div class="grid max-md:grid-rows-2 lg:grid-cols-3 bg-white mx-5 mt-5 rounded-[15px] gap-0">
+    <div class="flex flex-col lg:grid max-md:grid-rows-1 lg:grid-cols-3 bg-white mx-5 mt-5 rounded-[15px] gap-0">
             <div class="flex flex-col items-center w-full pt-[30px] gap-[10px]">
                 <p class="text-lg font-bold ">Informasi Profile</p>
                 <div class=" w-[250px] h-fill gap-5  flex justify-center items-center rounded-[5px]">
@@ -32,16 +32,16 @@
                     <label for="upload" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px] cursor-pointer">Ubah</a>
                 </div>
             </div>
-            <div class="col-span-2 w-full h-full py-10 pt-2">
+            <div class="col-span-2 w-full h-full lg:py-10 pt-2">
                 <div class="flex flex-col my-[30px] lg:my-[55px] lg:py-[55px] mr-0 md:mr-[51px] lg:bg-gray-200 lg:rounded-[15px] gap-[15px] lg:gap-[60px]">
-                    <div class="grid grid-cols-1 pt-0 lg:grid-cols-2 justify-between px-[20px] lg:px-[61px]">
+                    <div class="flex flex-col lg:grid pt-0 lg:grid-cols-2 justify-between px-[20px] lg:px-[61px]">
                         <p>Username</p>
                         <input type="text" class="w-full py-1 px-2 rounded-[4px]" name="username" value="{{old('username', $user['username'])}}" id="username" required>
                         @error('username')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
-                    <div class="grid grid-cols-1 pt-0 md:grid-cols-2 justify-between px-[20px] md:px-[61px]">
+                    <div class="flex flex-col lg:grid pt-0 md:grid-cols-2 justify-between px-[20px] md:px-[61px]">
                         <p>Password</p>
                         <input type="password" class="w-full py-1 px-2 rounded-[4px]" name="password" id="password" autocomplete="new-password">
                         <span id="passwordError" class="text-red-500 hidden" style="grid-column: 2"></span>
@@ -50,7 +50,7 @@
                         <span class="text-red-500">{{$message}}</span>
                         @enderror
                     </div>
-                    <div class="grid grid-cols-1 pt-0 md:grid-cols-2 justify-between px-[20px] md:px-[61px]">
+                    <div class="flex flex-col lg:grid pt-0 md:grid-cols-2 justify-between px-[20px] md:px-[61px]">
                         <p>Ulangi Password</p>
                         <input type="password" class="w-full py-1 px-2 rounded-[4px]" name="password_confirmation" id="password_confirm">
                         <span id="passConfirmError" class="text-red-500 hidden" style="grid-column: 2"></span>
