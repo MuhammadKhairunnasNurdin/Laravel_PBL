@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Kader;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Kader\Kegiatan\StoreKegiatanRequest;
 use App\Http\Requests\Kader\Kegiatan\UpdateKegiatanRequest;
+use App\Http\Requests\Shared\OptimisticLockingRequest;
 use App\Models\Kegiatan;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
@@ -82,7 +83,7 @@ class KegiatanResource extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateKegiatanRequest $request, string $id): RedirectResponse
+    public function update(UpdateKegiatanRequest $request, OptimisticLockingRequest $lockingRequest, string $id): RedirectResponse
     {
         /**
          * try database transaction, because we use sql type
@@ -95,7 +96,7 @@ class KegiatanResource extends Controller
              * return $isUpdated for checking update data not just
              * submit when not actually changes
              */
-            $isUpdated = DB::transaction(function () use ($request, $id) {
+            $isUpdated = DB::transaction(function () use ($request, $lockingRequest, $id) {
                 $isUpdated = false;
 
                 /**
@@ -111,6 +112,14 @@ class KegiatanResource extends Controller
                 if ($kegiatan === null) {
                     return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Data kegiatan sudah lebih dulu dihapus oleh kader lain');
                 }
+
+                /**
+                 * implement optimistic locking, to prevent other kader update kegiatan in same time
+                 */
+                if ($kegiatan->updated_at > $lockingRequest->input('updated_at')) {
+                    return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Data kegiatan masih di update oleh kader lain, coba refresh dan lakukan update lagi');
+                }
+
                 if ($request->all() !== []) {
                     $isUpdated = $kegiatan->update($request->all());
                 }
