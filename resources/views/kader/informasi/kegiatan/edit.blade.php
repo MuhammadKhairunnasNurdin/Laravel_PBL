@@ -7,6 +7,7 @@
         {!! method_field('PUT') !!}
 
         <input type="hidden" name="kegiatan" value="{{json_encode($kegiatan)}}">
+        <input type="hidden" name="updated_at" value="{{$kegiatan->updated_at}}">
         <div class="flex flex-col bg-white mx-5 my-5 rounded-md">
             <div class="flex flex-col lg:grid lg:grid-cols-2 my-[30px] mx-5 lg:mx-10 lg:gap-x-[101px] gap-[23px]">
                 <div class="col-span-1 flex flex-col gap-[23px]">
