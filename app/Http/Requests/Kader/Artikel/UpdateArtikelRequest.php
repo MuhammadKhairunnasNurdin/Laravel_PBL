@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\Kader\Artikel;
 
-use App\Services\ImageLogic;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Storage;
 
 class UpdateArtikelRequest extends FormRequest
 {
@@ -143,7 +141,7 @@ class UpdateArtikelRequest extends FormRequest
         $image = $this->file('foto_artikel');
         if (isset($image)) {
             $this->merge([
-                'foto_artikel' => ImageLogic::upload($image, 'artikel_img')
+                'foto_artikel' => $image
             ]);
         }
     }

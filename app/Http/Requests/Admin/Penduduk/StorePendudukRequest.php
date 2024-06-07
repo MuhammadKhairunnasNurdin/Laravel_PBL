@@ -49,14 +49,14 @@ class StorePendudukRequest extends FormRequest
                 'bail',
                 'required',
                 'string',
-                'regex:/^\w{1,20}$/',
+                'regex:/^\w{18,20}$/',
                 'unique:penduduks,NIK'
             ],
             'NKK'=> [
                 'bail',
                 'required',
                 'string',
-                'regex:/^\w{1,20}$/',
+                'regex:/^\w{18,20}$/',
             ],
             'nama' => [
                 'bail',
@@ -72,7 +72,7 @@ class StorePendudukRequest extends FormRequest
             'pendapatan' => [
                 'bail',
                 'required',
-                Rule::in(['Belum Bekerja', 'Rp 0 - Rp 500.000', 'Rp 500.000 - Rp 1.000.000', 'Rp 1.000.000 - Rp 2.000.000', 'Rp 2.000.000 - Rp 3.000.000', 'Rp 3.000.000 - keatas'])
+                Rule::in(['Belum Bekerja', 'Rp 0 - Rp 500.000', 'Rp 500.000 - Rp 1.000.000', 'Rp 1.000.000 - Rp 2.000.000', 'Rp 2.000.000 - Rp 3.000.000', 'Rp 3.000.000 - Keatas'])
             ],
             'no_telp' =>[
                 'bail',
@@ -123,14 +123,14 @@ class StorePendudukRequest extends FormRequest
              */
             'NIK.required' => 'NIK harus di isi!',
             'NIK.string' => 'NIK harus berupa string!',
-            'NIK.regex' => 'NIK maksimal 20 angka!',
+            'NIK.regex' => 'NIK minimal 18 dan maksimal 20 angka!',
             'NIK.unique' => 'NIK harus unik antara penduduk lain!',
             /**
              * costum message for NKK column or field input
              */
             'NKK.required' => 'NKK harus di isi!',
             'NKK.string' => 'NKK harus berupa string!',
-            'NKK.regex' => 'NKK maksimal 20 angka!',
+            'NKK.regex' => 'NKK minimal 18 dan maksimal 20 angka!',
             /**
              * costum message for nama column or field input
              */

@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Admin\User;
 
-use App\Services\ImageLogic;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -151,7 +150,7 @@ class UpdateUserRequest extends FormRequest
 
         if (isset($image)) {
             $this->merge([
-                'foto_profil' => ImageLogic::upload($image, 'user_img')
+                'foto_profil' => $image,
             ]);
         }
     }

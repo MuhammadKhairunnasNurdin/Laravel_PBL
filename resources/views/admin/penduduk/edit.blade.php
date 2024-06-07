@@ -7,6 +7,7 @@
         {!! method_field('PUT') !!}
 
         <input type="hidden" name="penduduk" value="{{json_encode($penduduk->toArray())}}">
+        <input type="hidden" name="updated_at" value="{{$penduduk->updated_at}}">
 
         <div class="flex flex-col bg-white  mx-5 my-5 shadow-[0_-4px_0_0_rgba(29,78,216,1)] rounded-md">
             <div class="flex justify-between items-center w-full py-2 border-b">

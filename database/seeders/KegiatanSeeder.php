@@ -20,18 +20,24 @@ class KegiatanSeeder extends Seeder
                 'tgl_kegiatan' => '2024-04-15',
                 'jam_mulai' => '07:30:00',
                 'tempat' => 'Kediaman Bapak Sujito',
+                'created_at' => '2024-04-10',
+                'updated_at' => '2024-04-10',
             ], [
                 'kader_id'=> 2,
                 'nama' => 'Pemeriksaan Kesehatan Gratis: Layanan Utama Posyandu Delima Merah',
                 'tgl_kegiatan' => '2024-04-20',
                 'jam_mulai' => '08:00:00',
                 'tempat' => 'Ruang Posyandu Delima Merah',
+                'created_at' => '2024-04-10',
+                'updated_at' => '2024-04-10',
             ], [
                 'kader_id'=> 2,
                 'nama' => 'Penyuluhan Ibu Hamil: Mendukung Kehamilan Sehat dan Bahagia',
                 'tgl_kegiatan' => '2024-04-25',
                 'jam_mulai' => '09:00:00',
                 'tempat' => 'Aula Desa Manukwari',
+                'created_at' => '2024-04-10',
+                'updated_at' => '2024-04-10',
             ],
         ];
 

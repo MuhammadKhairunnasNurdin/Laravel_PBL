@@ -21,7 +21,7 @@ class OptimisticLockingRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-       $this->replace(
+       $this->request->replace(
            $this->only([
                 'updated_at'
             ])

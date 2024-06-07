@@ -4,16 +4,18 @@ namespace App\Http\Controllers\Shared;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\UpdateUserRequest;
+use App\Http\Requests\Shared\OptimisticLockingRequest;
 use App\Models\Penduduk;
 use App\Models\User;
 use App\Services\ImageLogic;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
-    public function indexKader()
+    public function indexKader(): View
     {
         $breadcrumb = (object) [
             'title' => 'Manajemen Profil',
@@ -26,10 +28,10 @@ class ProfileController extends Controller
          */
         $user = $this->indexData('kaders');
 
-        return view('kader.profil.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'user' => $user]);
+        return view('kader.profil.index', compact('breadcrumb', 'activeMenu', 'user'));
     }
 
-    public function indexKetua()
+    public function indexKetua(): View
     {
         $breadcrumb = (object) [
             'title' => 'Manajemen Profil',
@@ -42,10 +44,10 @@ class ProfileController extends Controller
          */
         $user = $this->indexData('kaders');
 
-        return view('ketua.profil.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'user' => $user]);
+        return view('ketua.profil.index', compact('breadcrumb', 'activeMenu', 'user'));
     }
 
-    public function indexAdmin()
+    public function indexAdmin(): View
     {
         $breadcrumb = (object) [
             'title' => 'Manajemen Profil',
@@ -58,7 +60,7 @@ class ProfileController extends Controller
          */
         $user = $this->indexData('admins');
 
-        return view('admin.profil.index', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'user' => $user]);
+        return view('admin.profil.index', compact('breadcrumb', 'activeMenu', 'user'));
     }
 
     /**
@@ -78,7 +80,7 @@ class ProfileController extends Controller
     /**
      * for updating username, password or foto profil user
      */
-    public function update(UpdateUserRequest $request, string $id): RedirectResponse
+    public function update(UpdateUserRequest $request, OptimisticLockingRequest $lockingRequest, string $id): RedirectResponse
     {
         /**
          * try database transaction, because we use sql type
@@ -91,9 +93,12 @@ class ProfileController extends Controller
              * return $isUpdated for checking update data not just
              * submit when not actually changes
              */
-            $isUpdated =  DB::transaction(function () use ($request, $id) {
+            $isUpdated =  DB::transaction(function () use ($request, $lockingRequest, $id) {
+                /**
+                 * return $isUpdated for checking update data not just
+                 * submit when not actually changes
+                 */
                 $isUpdated = false;
-
                 /**
                  * lock and update with queue users table
                  * to prevent database race condition
@@ -106,7 +111,15 @@ class ProfileController extends Controller
                         ->intended( Auth::user()->level. '/profile')
                         ->with('error', 'data user tidak ditemukan');
                 }
-
+                /**
+                 * implement optimistic locking, to prevent other user update profile in same time
+                 */
+                if ($request->updated_at > $lockingRequest->input('updated_at')) {
+                    return redirect()->intended(Auth::user()->level . '/profile')->with('error', 'Data user masih diubah pada beda device, coba refresh dan lakukan ubah lagi');
+                }
+                /**
+                 * check if user has change column in pemeriksaans table
+                 */
                 if ($request->input() !== []) {
                     $isUpdated = $user->update($request->input());
                 }
@@ -114,15 +127,18 @@ class ProfileController extends Controller
                 return $isUpdated;
             });
 
+            /**
+             * if inside transaction had any redirect return
+             */
             if (!is_bool($isUpdated)){
                 return $isUpdated;
             }
 
             return redirect()->intended( Auth::user()->level . '/profile')
                 ->with('success', $isUpdated ? 'Data user berhasil diubah' : 'Namun Data user tidak diubah');
-        } catch (\Throwable $e) {
+        } catch (\Throwable) {
             return redirect()->intended(Auth::user()->level . '/profile')
-                ->with('error', 'Terjadi Masalah Ketika mengubah Data user: ' . $e->getMessage());
+                ->with('error', 'Terjadi Masalah Ketika mengubah Data user');
         }
     }
 
@@ -144,14 +160,12 @@ class ProfileController extends Controller
                 if ($user === null) {
                     return redirect()->intended(Auth::user()->level . '/profile')->with('error', 'Data user tidak ditemukan');
                 }
-
                 /**
                  * check if other user is update our data when we do delete action
                  */
                 if ($user->updated_at > $updated_at) {
-                    return redirect()->intended(Auth::user()->level . '/profile')->with('error', 'Data user masih di update pada beda device, coba refresh dan lakukan hapus lagi');
+                    return redirect()->intended(Auth::user()->level . '/profile')->with('error', 'Data user masih diubah pada beda device, coba refresh dan lakukan hapus lagi');
                 }
-
                 /**
                  * retrieve old hashName foto_profil
                  */
@@ -160,7 +174,6 @@ class ProfileController extends Controller
                  * delete foto_profil that saved in public/user directory
                  */
                 ImageLogic::delete($foto_profil, 6, 'user_img');
-
                 /**
                  * give value null to hashName foto that saved in database
                  */
@@ -168,8 +181,8 @@ class ProfileController extends Controller
 
                 return redirect()->intended(Auth::user()->level . '/profile')->with('success', 'Foto profil berhasil dihapus');
             });
-        } catch (\Throwable $e) {
-            return redirect()->intended('admin/user' . session('urlPagination'))->with('error', 'Terjadi Masalah Ketika menghapus Foto Profil: ' . $e->getMessage());
+        } catch (\Throwable) {
+            return redirect()->intended('admin/user' . session('urlPagination'))->with('error', 'Terjadi Masalah Ketika menghapus Foto Profil');
         }
     }
 }
