@@ -46,7 +46,7 @@
                     <h2 class="font-bold text-lg">Data Pemeriksaan</h2>
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="page_1">
                         <p class="text-base text-neutral-950">Tanggal Pemeriksaan</p>
-                        <p>{{ now()->day }}-{{ now()->format('F') }}-{{ now()->year }}</p>
+                        <p>{{ now('Asia/Jakarta')->locale('id')->day }} - {{ now('Asia/Jakarta')->locale('id')->translatedFormat('F') }} - {{ now('Asia/Jakarta')->locale('id')->year }}</p>
                     </div>
 
                     <div class="flex flex-col w-full h-fill gap-[20px] hidden" id="page_1">

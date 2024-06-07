@@ -26,6 +26,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Kepala Keluarga',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 06 RW 06',
                 'RT' => 'RT 06',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351008251219950564',
                 'NKK' => '351008231654326548',
@@ -38,6 +40,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Istri',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 06 RW 06',
                 'RT' => 'RT 06',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351001021019990756',
                 'NKK' => '351001231654324857',
@@ -50,6 +54,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Kepala Keluarga',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 05 RW 06',
                 'RT' => 'RT 05',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351001200819980752',
                 'NKK' => '351001231654324800',
@@ -62,6 +68,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Istri',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 05 RW 06',
                 'RT' => 'RT 05',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351001231654324856',
                 'NKK' => '351001231654324856',
@@ -74,6 +82,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Kepala Keluarga',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06',
                 'RT' => 'RT 02',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351001231654324857',
                 'NKK' => '351001231654324856',
@@ -86,6 +96,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Istri',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06',
                 'RT' => 'RT 02',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351001100220220011',
                 'NKK' => '351001231654324856',
@@ -98,6 +110,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Anak',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06',
                 'RT' => 'RT 02',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351001150820240011',
                 'NKK' => '351001231654324856',
@@ -110,6 +124,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Anak',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06',
                 'RT' => 'RT 02',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351001150819720011',
                 'NKK' => '351001231654324836',
@@ -122,6 +138,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Kepala Keluarga',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 01 RW 06',
                 'RT' => 'RT 01',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351001150819720012',
                 'NKK' => '351001231654324836',
@@ -134,6 +152,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Istri',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 01 RW 06',
                 'RT' => 'RT 01',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351001231654324123',
                 'NKK' => '351001231654324123',
@@ -146,6 +166,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Kepala Keluarga',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06',
                 'RT' => 'RT 03',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351001231654324124',
                 'NKK' => '351001231654324123',
@@ -158,6 +180,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Istri',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06',
                 'RT' => 'RT 03',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351001100220220125',
                 'NKK' => '351001231654324123',
@@ -170,6 +194,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Anak',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06',
                 'RT' => 'RT 03',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ],[
                 'NIK' => '351001231654324894',
                 'NKK' => '351001231654324888',
@@ -182,6 +208,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Istri',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06',
                 'RT' => 'RT 03',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 'NIK' => '351001100220220155',
                 'NKK' => '351001231654324856',
@@ -194,6 +222,8 @@ class PendudukSeeder extends Seeder
                 'hubungan_keluarga' => 'Anak',
                 'alamat' => 'Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06',
                 'RT' => 'RT 03',
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 "NIK"=> "351001100220220156",
                 "NKK"=> "351001231654324889",
@@ -205,7 +235,9 @@ class PendudukSeeder extends Seeder
                 "pendidikan"=> "SMA",
                 "hubungan_keluarga"=> "Kepala Keluarga",
                 "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06",
-                "RT"=> "RT 02"
+                "RT"=> "RT 02",
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 "NIK"=> "351001100220220157",
                 "NKK"=> "351001231654324889",
@@ -217,7 +249,9 @@ class PendudukSeeder extends Seeder
                 "pendidikan"=> "SMA",
                 "hubungan_keluarga"=> "Istri",
                 "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06",
-                "RT"=> "RT 02"
+                "RT"=> "RT 02",
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 "NIK"=> "351001100220220158",
                 "NKK"=> "351001231654324857",
@@ -229,7 +263,9 @@ class PendudukSeeder extends Seeder
                 "pendidikan"=> 'Belum Sekolah',
                 "hubungan_keluarga"=> "Anak",
                 "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06",
-                "RT"=> "RT 02"
+                "RT"=> "RT 02",
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 "NIK"=> "351001100220220159",
                 "NKK"=> "351001231654324857",
@@ -241,7 +277,9 @@ class PendudukSeeder extends Seeder
                 "pendidikan"=> 'Belum Sekolah',
                 "hubungan_keluarga"=> "Anak",
                 "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 02 RW 06",
-                "RT"=> "RT 02"
+                "RT"=> "RT 02",
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 "NIK"=> "351001100220220160",
                 "NKK"=> "351001231654324858",
@@ -253,7 +291,9 @@ class PendudukSeeder extends Seeder
                 "pendidikan"=> "SD",
                 "hubungan_keluarga"=> "Kepala Keluarga",
                 "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 03 RW 06",
-                "RT"=> "RT 03"
+                "RT"=> "RT 03",
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 "NIK"=> "351001100220220161",
                 "NKK"=> "351001231654324859",
@@ -265,7 +305,9 @@ class PendudukSeeder extends Seeder
                 "pendidikan"=> "SD",
                 "hubungan_keluarga"=> "Istri",
                 "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 04 RW 06",
-                "RT"=> "RT 04"
+                "RT"=> "RT 04",
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 "NIK"=> "351001100220220162",
                 "NKK"=> "351001231654324860",
@@ -277,7 +319,9 @@ class PendudukSeeder extends Seeder
                 "pendidikan"=> "SD",
                 "hubungan_keluarga"=> "Kepala Keluarga",
                 "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 05 RW 06",
-                "RT"=> "RT 05"
+                "RT"=> "RT 05",
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 "NIK"=> "351001100220220562",
                 "NKK"=> "351001231654324860",
@@ -289,7 +333,9 @@ class PendudukSeeder extends Seeder
                 "pendidikan"=> "SD",
                 "hubungan_keluarga"=> "Kepala Keluarga",
                 "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 06 RW 06",
-                "RT"=> "RT 06"
+                "RT"=> "RT 06",
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 "NIK"=> "351001100220220489",
                 "NKK"=> "351001231654324860",
@@ -301,7 +347,9 @@ class PendudukSeeder extends Seeder
                 "pendidikan"=> "SD",
                 "hubungan_keluarga"=> "Istri",
                 "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 06 RW 06",
-                "RT"=> "RT 06"
+                "RT"=> "RT 06",
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ], [
                 "NIK"=> "351001100220220148",
                 "NKK"=> "351001231654324860",
@@ -313,7 +361,9 @@ class PendudukSeeder extends Seeder
                 "pendidikan"=> "Belum Sekolah",
                 "hubungan_keluarga"=> "Anak",
                 "alamat"=> "Desa Manukwari Dusun Manukdoro Kecamatan Manukan RT 06 RW 06",
-                "RT"=> "RT 06"
+                "RT"=> "RT 06",
+                'created_at' => '2024-01-10',
+                'updated_at' => '2024-01-10',
             ]
         ];
         DB::table('penduduks')->insert($data);

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('pemeriksaan_id');
             $table->foreignId('kader_id')->constrained('kaders', 'kader_id')->cascadeOnUpdate();
             $table->foreignId('penduduk_id')->constrained('penduduks', 'penduduk_id')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->date('tgl_pemeriksaan')->default(now());
+            $table->date('tgl_pemeriksaan')->default(now('Asia/Jakarta')->locale('id'));
             $table->enum('golongan', ['bayi', 'lansia']);
             $table->float('berat_badan', 6, 3);
             $table->float('tinggi_badan', 6, 3);

@@ -9,6 +9,8 @@
 
         <input type="hidden" name="level" value="{{ auth()->user()->level }}">
         <input type="hidden" name="user" value="{{ json_encode(encrypt($user)) }}">
+        <input type="hidden" name="updated_at" value="{{ $user['updated_at'] }}">
+
         <div class="grid max-md:grid-rows-2 lg:grid-cols-3 bg-white mx-5 mt-5 rounded-[15px] gap-0">
             <div class="flex flex-col items-center w-full pt-[30px] gap-[10px]">
                 <p class="text-lg font-bold ">Informasi Profile</p>
