@@ -8,7 +8,7 @@
             <p class="text-lg mx-10">Form Data Penduduk</p>
         </div>
 
-        <div class="grid md:grid-cols-2 my-[30px] mx-10 gap-x-[101px]">
+        <div class="grid md:grid-cols-2 my-[10px] lg:my-[30px] mx-10 gap-x-[101px]">
 
             {{-- KOLOM KANAN --}}
             <div class="md:col-span-1 flex flex-col gap-[23px] order-2">
@@ -70,7 +70,7 @@
                 {{-- ALAMAT --}}
                 <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                     <p class="text-base text-neutral-950 pr-[10px]">Alamat<span class="text-red-400">*</span></p>
-                    <textarea class="text-sm font-normal border border-stone-400 px-[15px] py-[15px] rounded-[5px] focus:outline-none placeholder:text-gray-300" name="alamat" id="alamat" rows="1" maxlength="200" placeholder="Masukkan Alamat" required>{{old('alamat')}}</textarea>
+                    <textarea class="text-sm font-normal border border-stone-400 px-[15px] py-[15px] rounded-[5px] focus:outline-none placeholder:text-gray-300" name="alamat" id="alamat" rows="2.5" maxlength="200" placeholder="Masukkan Alamat" required>{{old('alamat')}}</textarea>
                     @error('alamat')
                         <span class="text-red-500">{{$message}}</span>
                     @enderror
@@ -168,7 +168,7 @@
             </div>
             {{-- END KOLOM KIRI --}}
         </div>
-        <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px]">
+        <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px] pt-6">
             <div class="col-span-2 flex justify-end items-center gap-[26px] w-full" id="">
                 <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
                 <a href="{{url('admin/penduduk' . session('urlPagination'))}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>

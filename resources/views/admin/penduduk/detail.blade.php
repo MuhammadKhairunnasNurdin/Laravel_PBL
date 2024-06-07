@@ -5,7 +5,7 @@
         <div class="flex justify-between items-center w-full py-2 border-b">
             <p class="text-lg ml-10">Detail Penduduk</p>
         </div>
-        <div class="flex flex-col gap-[15px] py-10 px-[30px]">
+        <div class="flex flex-col gap-[15px] py-10 px-[10px] lg:px-[30px]">
             <table class="w-fit">
                 <tbody>
                     <tr>
@@ -70,7 +70,7 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="flex justify-end">
+            <div class="flex justify-end px-2">
                 <a href="{{url('admin/penduduk' . session('urlPagination'))}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]">Kembali</a>
             </div>
         </div>

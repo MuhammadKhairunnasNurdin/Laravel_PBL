@@ -8,7 +8,7 @@
                 <p class="text-lg mx-10">Form Pemeriksaan Lansia</p>
             </div>
 
-            <div class="grid md:grid-cols-2 my-[30px] mx-10 gap-x-[101px]">
+            <div class="grid md:grid-cols-2 my-[30px] mx-5 lg:mx-10 gap-x-[101px]">
                 <div class="md:col-span-1 flex flex-col gap-[23px]">
                     <h2 class="font-bold text-lg">Data Lansia</h2>
                     <div class="flex border border-stone-400 rounded-md px-2 py-2">

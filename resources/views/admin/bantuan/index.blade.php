@@ -21,7 +21,7 @@
             </div>
         @endif
 
-        <div class="mx-10 my-[30px]">
+        <div class="mx-10 my-[30px] overflow-x-auto">
             <x-table.data-table :dt="$kriterias"
                                 :headers="['Kode Kriteria', 'Nama Kriteria', 'Bobot', 'Jenis', 'Aksi']">
                 @foreach ($kriterias as $krt)
@@ -31,8 +31,10 @@
                         <td class="tableBody">{{number_format($krt->bobot, 3)}}</td>
                         <td class="tableBody">{{$krt->jenis}}</td>
                         <td class="tableBody">
-                            <a href="kriteria/{{$krt->kode}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
-                            <a href="kriteria/{{$krt->kode}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
+                            <div class="flex items-center gap-2">
+                                <a href="kriteria/{{$krt->kode}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
+                                <a href="kriteria/{{$krt->kode}}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
+                            </div>
                         </td>
                     </x-table.table-row>
                 @endforeach
