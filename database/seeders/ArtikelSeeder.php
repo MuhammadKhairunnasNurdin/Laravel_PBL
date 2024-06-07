@@ -30,6 +30,7 @@ class ArtikelSeeder extends Seeder
                 'tag' => '"kegiatan,informasi',
                 'foto_artikel' => 'DAsCsDBnMKIDUDoGUOAA5uKHppcHCmqlpEsQJ6Ls.jpg',
                 'created_at' => '2024-04-17',
+                'updated_at' => '2024-04-17',
             ], [
                 'kader_id'=> 2,
                 'judul' => 'Manfaat Imunisasi Rutin bagi Anak-Anak: Pilar Penting dalam Peningkatan Kesehatan Masyarakat',
@@ -40,6 +41,7 @@ class ArtikelSeeder extends Seeder
                 'tag' => 'balita,ibu_menyusui,ibu_hamil',
                 'foto_artikel' => '16NtVyPHhGoEKybdPEjKHv76kuaL8W1MhWs9vaMu.jpg',
                 'created_at' => '2024-04-22',
+                'updated_at' => '2024-04-22',
             ], [
                 'kader_id'=> 2,
                 'judul' => 'Peran Posyandu dalam Pemberdayaan Masyarakat: Membangun Kesadaran akan Kesehatan Keluarga',
@@ -50,6 +52,7 @@ class ArtikelSeeder extends Seeder
                 'tag' => 'informasi,edukasi',
                 'foto_artikel' => 'ZOqhuG56ATKk12u2HRl8Jx9liTaPR31T4BVIu0c2.jpg',
                 'created_at' => '2024-05-06',
+                'updated_at' => '2024-05-06',
             ], [
                 'kader_id'=> 2,
                 'judul' => 'Penyuluhan Gizi Seimbang: Kunci Utama Menuju Keluarga Sehat dan Bahagia',
@@ -60,6 +63,7 @@ class ArtikelSeeder extends Seeder
                 'tag' => 'informasi,edukasi,ibu_menyusui,ibu_hamil',
                 'foto_artikel' => 'OV0Cd2b2K1BoTBPMMdTNkFijFot0glkB6jCouRXp.jpg',
                 'created_at' => '2024-05-17',
+                'updated_at' => '2024-05-17',
             ],
 
         ];

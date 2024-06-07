@@ -7,9 +7,9 @@ use App\Http\Requests\Kader\Kegiatan\StoreKegiatanRequest;
 use App\Http\Requests\Kader\Kegiatan\UpdateKegiatanRequest;
 use App\Http\Requests\Shared\OptimisticLockingRequest;
 use App\Models\Kegiatan;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class KegiatanResource extends Controller
@@ -17,7 +17,7 @@ class KegiatanResource extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         $breadcrumb = (object) [
             'title' => 'Kelola Informasi'
@@ -36,7 +36,7 @@ class KegiatanResource extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         $breadcrumb = (object) [
             'title' => 'Kelola Informasi'
@@ -60,7 +60,7 @@ class KegiatanResource extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View|RedirectResponse
     {
         $breadcrumb = (object) [
             'title' => 'Kelola Informasi'
@@ -69,7 +69,7 @@ class KegiatanResource extends Controller
         $activeMenu = 'info';
 
         /**
-         * Retrieve data for filter feature
+         * check if data available or deleted in same time
          */
         $kegiatan = Kegiatan::find($id);
         if ($kegiatan === null) {
@@ -97,29 +97,31 @@ class KegiatanResource extends Controller
              * submit when not actually changes
              */
             $isUpdated = DB::transaction(function () use ($request, $lockingRequest, $id) {
-                $isUpdated = false;
-
                 /**
-                 * lock and update with queue artikels table
+                 * fill $isUpdated to use in checking update
+                 * action
+                 */
+                $isUpdated = false;
+                /**
+                 * lock and update with queue kegiatan table
                  * to prevent database race condition
-                 *
-                 * and check if use has change column in artikels table
                  */
                 $kegiatan = Kegiatan::lockForUpdate()->find($id);
                 /**
-                 * if update action lose race with delete action, return error message
+                 * if update action lose race with delete action or data isn't available, return error message
                  */
                 if ($kegiatan === null) {
                     return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Data kegiatan sudah lebih dulu dihapus oleh kader lain');
                 }
-
                 /**
                  * implement optimistic locking, to prevent other kader update kegiatan in same time
                  */
                 if ($kegiatan->updated_at > $lockingRequest->input('updated_at')) {
                     return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Data kegiatan masih di update oleh kader lain, coba refresh dan lakukan update lagi');
                 }
-
+                /**
+                 * check if user has change column in kegiatan table
+                 */
                 if ($request->all() !== []) {
                     $isUpdated = $kegiatan->update($request->all());
                 }
@@ -127,22 +129,25 @@ class KegiatanResource extends Controller
                 return $isUpdated;
             });
 
+            /**
+             * if inside transaction had any redirect return
+             */
             if (!is_bool($isUpdated)){
                 return $isUpdated;
             }
 
             return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))
                     ->with('success', $isUpdated ? 'Data Kegiatan berhasil diubah' : 'Namun Data Kegiatan tidak diubah');
-        } catch (\Throwable $e) {
+        } catch (\Throwable) {
             return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))
-                ->with('error', 'Terjadi Masalah Ketika mengubah Data kegiatan: ' . $e->getMessage());
+                ->with('error', 'Terjadi Masalah Ketika mengubah Data kegiatan');
         }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id, Request $request): RedirectResponse
+    public function destroy(string $id, OptimisticLockingRequest $request): RedirectResponse
     {
         /**
          * try database transaction, because we use sql type
@@ -157,17 +162,18 @@ class KegiatanResource extends Controller
                  * to prevent database race condition
                  */
                 $kegiatan = Kegiatan::lockForUpdate()->find($id);
+                /**
+                 * if delete action lose race with delete action or data isn't available, return error message
+                 */
                 if ($kegiatan === null) {
-                    return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Data kegiatan tidak ditemukan');
+                    return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Data kegiatan sudah lebih dulu dihapus oleh kader lain');
                 }
-
                 /**
                  * check if other user is update our data when we do delete action
                  */
                 if ($kegiatan->updated_at > $request->input('updated_at')) {
                     return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Data kegiatan masih di update oleh kader lain, coba refresh dan lakukan hapus lagi');
                 }
-
                 /**
                  * delete kegiatan data in database
                  */
@@ -177,8 +183,8 @@ class KegiatanResource extends Controller
             });
         } catch (QueryException) {
             return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Data kegiatan gagal dihapus karena masih terdapat tabel lain yang terkait dengan data ini');
-        } catch (\Throwable $e) {
-            return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Terjadi Masalah Ketika menghapus Data kegiatan: ' . $e->getMessage());
+        } catch (\Throwable) {
+            return redirect()->intended('kader/informasi/kegiatan' . session('urlPagination'))->with('error', 'Terjadi Masalah Ketika menghapus Data kegiatan');
         }
     }
 }

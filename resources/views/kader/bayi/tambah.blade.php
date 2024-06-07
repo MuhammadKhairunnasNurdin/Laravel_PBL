@@ -16,7 +16,7 @@
 
                     <div class="flex flex-col w-full h-fill gap-[20px]" id="">
                         <p class="text-base text-neutral-950">Tanggal Pemeriksaan</p>
-                        <p>{{ now()->day }} - {{ now()->format('F') }} - {{ now()->year }}</p>
+                        <p>{{ now('Asia/Jakarta')->locale('id')->day }} - {{ now('Asia/Jakarta')->locale('id')->translatedFormat('F') }} - {{ now('Asia/Jakarta')->locale('id')->year }}</p>
                     </div>
 
                     {{-- LINGKAR KEPALA --}}
