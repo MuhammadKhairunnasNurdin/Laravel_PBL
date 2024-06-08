@@ -91,7 +91,7 @@ class SearchController extends Controller
     {
         $search = $request->input('search', '');
 
-        $informasi = User::where('username', 'like', "%{$search}%")
+        $informasi = User::whereRaw('LOWER(username) LIKE ?', ['%' . strtolower($search) . '%'])
         ->paginate(10);
 
         if ($informasi->isEmpty()) {

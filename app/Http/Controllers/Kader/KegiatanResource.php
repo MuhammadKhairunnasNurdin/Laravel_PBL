@@ -10,7 +10,9 @@ use App\Models\Kegiatan;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class KegiatanResource extends Controller
 {
@@ -147,7 +149,7 @@ class KegiatanResource extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id, OptimisticLockingRequest $request): RedirectResponse
+    public function destroy(string $id, Request $request): RedirectResponse
     {
         /**
          * try database transaction, because we use sql type
@@ -155,6 +157,8 @@ class KegiatanResource extends Controller
          * delete data, we use transaction to rollback if there are any
          * error and catch that error mesasge to display in view
          */
+        $request->merge(['updated_at' => Carbon::make($request->input('updated_at'), 'Asia/Jakarta')->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')]);
+
         try {
             return DB::transaction(function () use ($id, $request) {
                 /**
