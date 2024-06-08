@@ -154,24 +154,8 @@
                 `;
             }
         }
+        document.getElementById('searchInput').addEventListener('keyup', searchFunction);
     </script>
     <script src="{{ $chart->cdn() }}"></script>
     {{$chart->script() }}
 @endpush
-
-{{-- @push('css')
-<style>
-    th, td {
-        padding-inline: 20px;
-        padding-block: 8px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
-    }
-</style>
-@endpush
-
-@push('js')
-<script src="{{ $chart->cdn() }}"></script>
-{{$chart->script() }}
-
-@endpush --}}

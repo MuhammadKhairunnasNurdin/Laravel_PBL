@@ -154,6 +154,7 @@
                 `;
             }
         }
+        document.getElementById('searchInput').addEventListener('keyup', searchFunction);
     </script>
     <script src="{{ $chart->cdn() }}"></script>
     {{$chart->script() }}
