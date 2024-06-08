@@ -17,7 +17,7 @@
     </style>
     @stack('css')
 </head>
-<body class="bg-gray-200 w-full md:h-screen">
+<body class="bg-gray-200 w-full md:h-screen scrollbar">
     @include('ketua.layouts.header')
     <div class="flex lg:grid lg:grid-cols-6 h-full mt-[50px] md:mt-[88px]">
         <div id="sidebar" class="fixed z-20 h-full -translate-x-[999px] transform transition ease-in-out duration-500 sm:duration-700 col-span-1 lg:translate-x-0 ">

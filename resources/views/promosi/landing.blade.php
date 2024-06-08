@@ -66,7 +66,7 @@
     <p class="text-xs text-stone-400 -mt-[30px] pl-[55px]">Data diatas adalah data kunjungan bulan April 2024</p>
 </div>
 
-<div class="bg-gray-300 gap-8 pr-6 pl-7 mb-10 rounded-[5px] mx-[22.5px] lg:mx-[55px] py-5 my-[30px] lg:my-[60px]">
+{{-- <div class="bg-gray-300 gap-8 pr-6 pl-7 mb-10 rounded-[5px] mx-[22.5px] lg:mx-[55px] py-5 my-[30px] lg:my-[60px]">
     <div class="flex justify-between flex-col gap-5">
         <div class="flex w-full justify-between">
             <span class="text-lg lg:text-[26px] font-bold lg:-mt-[10px]">Kegiatan</span>
@@ -79,10 +79,9 @@
         </div>
     </div>
     <div>
-        <div class="grid grid-flow-col gap-[22px] overflow-x-scroll">
-            @foreach ($artikels as $ar)
+        <div class="grid grid-flow-col grid-cols-4 grid-rows-1 gap-[22px] overflow-x-scroll">
+            @foreach ($kegiatans as $ar)
             <a class="min-w-40 flex flex-col gap-[15px]" href="/read={{$ar->artikel_id}}">
-                {{-- <img src="{{ asset('img/image 1.png')}}" alt="" > --}}
                 <img src="{{$ar->foto_artikel}}" alt="" class="w-80 aspect-video">
                 <p class="lg:text-[17px] font-semibold text-justify">{{$ar->judul}}</p>
                 <span class="text-red-400 capitalize">{{implode(' ', explode('_',$ar->tag))}}</span>
@@ -90,9 +89,9 @@
             @endforeach
         </div>
     </div>
-</div>
+</div> --}}
 
-<div class="bg-white gap-8 pr-6 pl-7 mb-10 rounded-[5px] mx-[22.5px] lg:mx-[55px] py-5 my:[30px] lg:my-[60px]">
+{{-- <div class="bg-white gap-8 pr-6 pl-7 mb-10 rounded-[5px] mx-[22.5px] lg:mx-[55px] py-5 my:[30px] lg:my-[60px]">
     <div class="flex justify-between flex-col gap-5">
         <div class="flex w-full justify-between">
             <span class="text-lg lg:text-[26px] font-bold lg:-mt-[10px]">Edukasi</span>
@@ -105,30 +104,41 @@
         </div>
     </div>
     <div>
-        <div class="grid grid-flow-col lg:grid-cols-4 gap-[22px] overflow-x-auto">
-            <div class="min-w-40 flex flex-col gap-[15px]">
-                <img src="{{ asset('img/image 2.png')}}" alt="" class="w-full h-auto">
-                <p class="text-[17px] font-semibold text-justify">Pengaruh Keharmonisan Keluarga Terhadap Perkembangan Anak</p>
-                <span class="text-red-400">Edukasi</span>
-            </div>
-            <div class="min-w-40 flex flex-col gap-[15px]">
-                <img src="{{ asset('img/image 2.png')}}" alt="">
-                <p class="text-[17px] font-semibold text-justify">Pengaruh Keharmonisan Keluarga Terhadap Perkembangan Anak</p>
-                <span class="text-red-400">Edukasi</span>
-            </div>
-            <div class="min-w-40 flex flex-col gap-[15px]">
-                <img src="{{ asset('img/image 2.png')}}" alt="">
-                <p class="text-[17px] font-semibold text-justify">Pengaruh Keharmonisan Keluarga Terhadap Perkembangan Anak</p>
-                <span class="text-red-400">Edukasi</span>
-            </div>
-            <div class="min-w-40 flex flex-col gap-[15px]">
-                <img src="{{ asset('img/image 2.png')}}" alt="">
-                <p class="text-[17px] font-semibold text-justify">Pengaruh Keharmonisan Keluarga Terhadap Perkembangan Anak</p>
-                <span class="text-red-400">Edukasi</span>
-            </div>
+        <div class="grid grid-flow-col grid-cols-4 grid-rows-1 gap-[22px] overflow-x-scroll">
+            @foreach ($edukasi as $ar)
+            <a class="min-w-40 flex flex-col gap-[15px]" href="/read={{$ar->artikel_id}}">
+                <img src="{{$ar->foto_artikel}}" alt="" class="w-80 aspect-video">
+                <p class="lg:text-[17px] font-semibold text-justify">{{$ar->judul}}</p>
+                <span class="text-red-400 capitalize">{{implode(' ', explode('_',$ar->tag))}}</span>
+            </a>
+            @endforeach
         </div>
     </div>
-</div>
+</div> --}}
+
+@if ($informasi !== null)
+ <x-berita.landing-page title="Informasi" :items="$informasi"></x-berita.landing-page>
+@endif
+
+@if ($kegiatans !== null)
+  <x-berita.landing-page title="Kegiatan" :items="$kegiatans"></x-berita.landing-page>
+@endif
+
+@if ($edukasi !== null)
+  <x-berita.landing-page title="Edukasi" :items="$edukasi"></x-berita.landing-page>
+@endif
+
+@if ($balita !== null)
+  <x-berita.landing-page title="Balita" :items="$balita"></x-berita.landing-page>
+@endif
+
+@if ($ibuHamil !== null)
+  <x-berita.landing-page title="Ibu Hamil" :items="$ibuHamil"></x-berita.landing-page>
+@endif
+
+@if ($ibuMenyusui !== null)
+  <x-berita.landing-page title="Ibu Menyusui" :items="$ibuMenyusui"></x-berita.landing-page>
+@endif
 
 @endsection
 

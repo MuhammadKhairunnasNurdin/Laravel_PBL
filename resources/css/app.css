@@ -26,3 +26,23 @@
 .tableBody{
     @apply px-5 lg:px-6 border-b py-2 lg:py-2 bg-white text-xs lg:text-base;
 }
+
+@layer utilities {
+    .scrollbar::-webkit-scrollbar {
+      @apply w-[15px] h-[15px]
+    }
+  
+    .scrollbar::-webkit-scrollbar-track {
+      @apply rounded-full bg-gray-100
+    }
+  
+    .scrollbar::-webkit-scrollbar-thumb {
+      /* border: 3px solid #f6f7ed; */
+      @apply bg-neutral-400 rounded-full border-solid border-[#f7f4ed]
+    }
+  
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #c0a0b9;
+      @apply bg-neutral-700
+    }
+  }
