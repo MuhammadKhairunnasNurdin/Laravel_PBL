@@ -16,6 +16,24 @@ class RentangKriteriaSeeder extends Seeder
         $data = [
             [
                 'kode' => 'C1',
+                'rentang_min' => -20.1,
+                'rentang_max' => -4.0,
+                'nilai' => 9,
+            ],
+            [
+                'kode' => 'C1',
+                'rentang_min' => -4.0,
+                'rentang_max' => -2.1,
+                'nilai' => 8,
+            ],
+            [
+                'kode' => 'C1',
+                'rentang_min' => -2.0,
+                'rentang_max' => -0.1,
+                'nilai' => 7,
+            ],
+            [
+                'kode' => 'C1',
                 'rentang_min' => 0.0,
                 'rentang_max' => 2.0,
                 'nilai' => 6,
@@ -49,6 +67,24 @@ class RentangKriteriaSeeder extends Seeder
                 'rentang_min' => 10.1,
                 'rentang_max' => 12.0,
                 'nilai' => 1,
+            ],
+            [
+                'kode' => 'C2',
+                'rentang_min' => -20.1,
+                'rentang_max' => -4.0,
+                'nilai' => 9,
+            ],
+            [
+                'kode' => 'C2',
+                'rentang_min' => -4.0,
+                'rentang_max' => -2.1,
+                'nilai' => 8,
+            ],
+            [
+                'kode' => 'C2',
+                'rentang_min' => -2.0,
+                'rentang_max' => -0.1,
+                'nilai' => 7,
             ],
             [
                 'kode' => 'C2',
@@ -88,6 +124,24 @@ class RentangKriteriaSeeder extends Seeder
             ],
             [
                 'kode' => 'C3',
+                'rentang_min' => -20.1,
+                'rentang_max' => -4.0,
+                'nilai' => 9,
+            ],
+            [
+                'kode' => 'C3',
+                'rentang_min' => -4.0,
+                'rentang_max' => -2.1,
+                'nilai' => 8,
+            ],
+            [
+                'kode' => 'C3',
+                'rentang_min' => -2.0,
+                'rentang_max' => -0.1,
+                'nilai' => 7,
+            ],
+            [
+                'kode' => 'C3',
                 'rentang_min' => 0.0,
                 'rentang_max' => 2.0,
                 'nilai' => 6,
@@ -121,6 +175,24 @@ class RentangKriteriaSeeder extends Seeder
                 'rentang_min' => 10.1,
                 'rentang_max' => 12.0,
                 'nilai' => 1,
+            ],
+            [
+                'kode' => 'C4',
+                'rentang_min' => -20.1,
+                'rentang_max' => -4.0,
+                'nilai' => 9,
+            ],
+            [
+                'kode' => 'C4',
+                'rentang_min' => -4.0,
+                'rentang_max' => -2.1,
+                'nilai' => 8,
+            ],
+            [
+                'kode' => 'C4',
+                'rentang_min' => -2.0,
+                'rentang_max' => -0.1,
+                'nilai' => 7,
             ],
             [
                 'kode' => 'C4',
@@ -160,39 +232,57 @@ class RentangKriteriaSeeder extends Seeder
             ],
             [
                 'kode' => 'C5',
-                'rentang_min' => 51.0,
+                'rentang_min' => 48.6,
                 'rentang_max' => 60.0,
                 'nilai' => 1,
             ],
             [
                 'kode' => 'C5',
-                'rentang_min' => 41.0,
-                'rentang_max' => 50.0,
+                'rentang_min' => 42.6,
+                'rentang_max' => 48.5,
                 'nilai' => 2,
             ],
             [
                 'kode' => 'C5',
-                'rentang_min' => 31.0,
-                'rentang_max' => 40.0,
+                'rentang_min' => 36.6,
+                'rentang_max' => 42.5,
                 'nilai' => 3,
             ],
             [
                 'kode' => 'C5',
-                'rentang_min' => 21.0,
-                'rentang_max' => 30.0,
+                'rentang_min' => 30.6,
+                'rentang_max' => 36.5,
                 'nilai' => 4,
             ],
             [
                 'kode' => 'C5',
-                'rentang_min' => 11.0,
-                'rentang_max' => 20.0,
+                'rentang_min' => 24.6,
+                'rentang_max' => 30.5,
                 'nilai' => 5,
             ],
             [
                 'kode' => 'C5',
-                'rentang_min' => 0.0,
-                'rentang_max' => 10.0,
+                'rentang_min' => 18.6,
+                'rentang_max' => 24.5,
                 'nilai' => 6,
+            ],
+            [
+                'kode' => 'C5',
+                'rentang_min' => 12.6,
+                'rentang_max' => 18.5,
+                'nilai' => 7,
+            ],
+            [
+                'kode' => 'C5',
+                'rentang_min' => 6.6,
+                'rentang_max' => 12.5,
+                'nilai' => 8,
+                ],
+            [
+                'kode' => 'C5',
+                'rentang_min' => 0.0,
+                'rentang_max' => 6.5,
+                'nilai' => 9,
             ],
         ];
 
