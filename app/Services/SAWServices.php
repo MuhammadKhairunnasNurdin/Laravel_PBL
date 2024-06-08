@@ -53,10 +53,12 @@ class SAWServices
         for ($i = 0; $i < count($value); $i++) {
             for ($j = 0; $j < count($kriteria); $j++) {
                 if ($kriteria[$j]['jenis'] === 'benefit') {
-                    $normalizedMatrix[$i][$j] = round($value[$i][$j] / $maxMin[$j][0], 3);
+                    $difference = $maxMin[$j][0] - $maxMin[$j][1];
+                    $normalizedMatrix[$i][$j] = ($difference === 0 )? 0 : round(($value[$i][$j] - $maxMin[$j][1]) / $difference, 3);
                 }
                 if ($kriteria[$j]['jenis'] === 'cost') {
-                    $normalizedMatrix[$i][$j] = round($maxMin[$j][1] / $value[$i][$j], 3);
+                    $difference = $maxMin[$j][1] - $maxMin[$j][0];
+                    $normalizedMatrix[$i][$j] = ($difference === 0 )? 0 : round(($value[$i][$j] - $maxMin[$j][0]) / $difference, 3);
                 }
             }
         }

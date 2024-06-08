@@ -96,6 +96,11 @@ class BantuanController extends Controller
         $kriteria = Kriteria::all();
         $countBayi = $request->penduduk_id;
 
+        if ($countBayi === null) {
+            return redirect()->intended('ketua/bantuan/penerima')
+            ->with('error', 'Pilih setidaknya satu alternatif');
+        }
+
         $count = array_count_values($countBayi);
         foreach ($count as $key) {
             if ($key > 1) {
