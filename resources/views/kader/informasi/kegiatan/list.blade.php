@@ -235,7 +235,6 @@
                                 $queryString = http_build_query(request()->query());
                                 session(['urlPagination' => $queryString ? '?' . $queryString : '']);
                             @endphp
-                            <a href="kegiatan/${item.kegiatan_id}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
                             <a href="kegiatan/${item.kegiatan_id}/edit" class="bg-yellow-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-yellow-300">Ubah</a>
                             @csrf
                             @method('DELETE')

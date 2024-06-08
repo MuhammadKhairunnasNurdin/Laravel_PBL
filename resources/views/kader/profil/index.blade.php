@@ -61,8 +61,14 @@
                 </div>
             </div>
             <div class="flex flex-col col-span-3 lg:flex-row justify-end w-full px-[20px] md:pr-[51px] pb-[30px] gap-[15px] lg:gap-[30px]">
-                <a href="{{ url()->previous() }}" class="bg-gray-300 py-[10px] px-[17px] rounded-[5px] text-center">Kembali</a>
-                <button type="submit" id="submit" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px]">Simpan Data</button>
+                @php
+                    $previous = url()->previous();
+                    if(Request::url() === $previous) 
+                    {
+                        $previous = url('kader');
+                    }
+                @endphp
+            <a href="{{ $previous }}" class="bg-gray-300 py-[10px] px-[17px] rounded-[5px] text-center">Kembali</a>                <button type="submit" id="submit" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px]">Simpan Data</button>
             </div>
     </div>
 </form>

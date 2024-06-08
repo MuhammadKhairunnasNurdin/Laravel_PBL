@@ -93,6 +93,63 @@
             {{-- KOLOM KIRI --}}
             <div class="md:col-span-1 flex flex-col gap-[23px] max-md:mt-[23px] order-1">
 
+                {{-- <div class="flex flex-col w-full h-fill gap-[20px]" id="page_">
+                    <h2 class="font-bold text-lg">Data Bayi</h2>
+                    <div class="flex border border-stone-400 rounded-md px-2 py-2">
+                        <table class="w-fit capitalize">
+                            <tbody>
+                                <tr>
+                                    <td>Nama Bayi</td>
+                                    <td>:</td>
+                                    <td>
+                                        <select name="penduduk_id" id="penduduk_id" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
+                                            <option value="0" class="text-gray-300" id="params">Masukkan nama bayi</option>
+                                            @foreach($penduduk as $pd)
+                                                <option value="{{ $pd->penduduk_id }}" class="text-neutral-950" {{ old('penduduk_id') === strval($pd->penduduk_id) ? 'selected' : '' }}>{{ $pd->nama }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Usia</td>
+                                    <td>:</td>
+                                    <td><input type="text" value="" class="border-none" id="usia" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>Golongan Usia</td>
+                                    <td>:</td>
+                                    <td><input type="text" value="" class="border-none" id="golongan" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>Nama Ibu</td>
+                                    <td>:</td>
+                                    <td><input type="text" value="" class="border-none" id="ibu" disabled></td>
+                                </tr>
+                                <tr>
+                                    <td>Nama Ayah</td>
+                                    <td>:</td>
+                                    <td><input type="text" value="" class="border-none" id="ayah" disabled></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> --}}
+
+                {{-- NAMA --}}
+                <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
+                    <p class="text-base text-neutral-950 pr-[10px]">Anggota Keluarga Dari</p>
+                    <select name="penduduk_id" id="penduduk_id" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
+                        <option value="0" class="text-gray-300" id="params">Pilih Kepala Keluarga</option>
+                        @foreach($penduduk as $pd)
+                            <option value="{{ $pd->penduduk_id }}" id="kepalaKeluarga" data-id="{{$pd->NKK}}|{{$pd->alamat}}|{{$pd->RT}}" class="text-neutral-950" {{ old('penduduk_id') === strval($pd->penduduk_id) ? 'selected' : '' }}>{{ $pd->nama }}</option>
+                        @endforeach
+                    </select>
+                    <p class="text-xs lg:text-sm font-normal text-stone-400 mt-[-10px]">Kosongi jika penduduk yang akan ditambahkan adalah kepala keluarga.</p>
+                    @error('nama')
+                        <span class="text-red-500">{{$message}}</span>
+                    @enderror
+                </div>
+                {{-- END NAMA --}}
 
                 {{-- NAMA --}}
                 <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
@@ -117,7 +174,7 @@
                 {{-- NKK --}}
                 <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                     <p class="text-base text-neutral-950 pr-[10px]">NKK<span class="text-red-400">*</span></p>
-                    <input type="number" name="NKK" value="{{old('NKK')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan NKK" required>
+                    <input type="number" name="NKK" id="NKK" value="{{old('NKK')}}" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan NKK" required>
                     @error('NKK')
                         <span class="text-red-500">{{$message}}</span>
                     @enderror
@@ -170,7 +227,7 @@
         </div>
         <div class="grid md:grid-cols-2 mx-10 gap-x-[101px] pb-[30px] pt-6">
             <div class="col-span-2 flex justify-end items-center gap-[26px] w-full" id="">
-                <p class="text-xs"><span class="text-red-400">*</span>Wajib diisi</p>
+                <p class="text-xs lg:text-sm"><span class="text-red-400">*</span>Wajib diisi</p>
                 <a href="{{url('admin/penduduk' . session('urlPagination'))}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
                 <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_2">Simpan Data</button>
             </div>
@@ -185,5 +242,22 @@
     date.onchange = function () {
         date.classList.toggle('text-gray-300');
     }
+    
+    document.getElementById('penduduk_id').addEventListener('change', function(){
+        let selectElement = document.getElementById('penduduk_id');
+        let selectedOption = selectElement.options[selectElement.selectedIndex];
+        let dataPenduduk = selectedOption.getAttribute('data-id');
+        const [NKK, alamat, RT] = dataPenduduk.split('|');
+        console.log(NKK, alamat, RT);
+        document.getElementById('NKK').value = NKK;
+        document.getElementById('alamat').value = alamat;
+        let rtSelect = document.getElementById('RT');
+        for (let i = 0; i < rtSelect.options.length; i++) {
+            if (rtSelect.options[i].value === RT) {
+                rtSelect.selectedIndex = i;
+                break;
+            }
+        }
+    });
 </script>
 @endpush
