@@ -20,6 +20,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class LansiaResource extends Controller
@@ -258,7 +259,7 @@ class LansiaResource extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id, OptimisticLockingRequest $request): RedirectResponse
+    public function destroy(string $id, Request $request): RedirectResponse
     {
         /**
          * try database transaction, because we use sql type
@@ -266,6 +267,14 @@ class LansiaResource extends Controller
          * delete data, we use transaction to rollback if there are any
          * error and catch that error mesasge to display in view
          */
+        $pemeriksaan = Pemeriksaan::find($id);
+        // $update = $request->input('updated_at');
+        // $date = Carbon::make( $update, 'Asia/Jakarta');
+        // $date->setTimezone('id');
+        $request->merge(['updated_at' => Carbon::make($request->input('updated_at'), 'Asia/Jakarta')->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')]);
+        // $request->merge(['updated_at' => $date]);
+        // dd($pemeriksaan->updated_at, json_decode($request->input('updated_at')));
+        // dd($pemeriksaan->updated_at, $request->input('updated_at'));
         try {
             return DB::transaction(function () use ($id, $request) {
                 /**
