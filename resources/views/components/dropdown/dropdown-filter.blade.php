@@ -73,9 +73,6 @@
                 Terapkan
             </button>
         </form>
-        <script>
-            console.log('url kader/bayi');
-        </script>
 
     @elseif (Request::is('kader/lansia'))
         <form tabindex="0" action="{{ route('lansia.index') }}" method="GET"
@@ -122,9 +119,6 @@
                 Terapkan
             </button>
         </form>
-        <script>
-            console.log('salah');
-        </script>
     @elseif (Request::is('admin/penduduk'))
         <form tabindex="0" action="{{ route('penduduk.index') }}" method="GET"
             class="dropdown-filter-bayi absolute transition ease-in-out duration-200 opacity-0 transform scale-95 hidden z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
@@ -183,9 +177,11 @@
             </button>
         </form>
     {{--dropdown for data user feature , FAUZI help me for fix that !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!--}}
-   {{-- @elseif (Request::is('admin/user'))
+
+    {{-- nah, i've fixed it (reza) --}}
+   @elseif (Request::is('admin/user'))
         <form tabindex="0" action="{{ route('user.index') }}" method="GET"
-              class="dropdown-filter-bayi absolute transition ease-in-out duration-200 opacity-0 transform scale-95 hidden z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
+            class="dropdown-filter-bayi absolute transition ease-in-out duration-200 opacity-0 transform scale-95 hidden z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
             <div class="flex justify-between items-center">
                 <p class="text-Neutral/100 font-medium 2xl:text-xl lg:text-sm">Filter</p>
                 <span onclick="resetInput()"
@@ -193,7 +189,7 @@
             </div>
             <div class="flex flex-col gap-2">
                 <p class="text-Neutral/100 text-sm font-medium">Level</p>
-                <div class="lg:flex lg:flex-row flex-wrap  justify-between items-center gap-3">
+                <div class="lg:flex lg:flex-row justify-between items-center gap-3">
                     <x-input.radio-input name="level" id="admin"
                                          value="admin"
                                          checked="{{ request()->get('level') == 'admin' }}" fn="a">
@@ -221,7 +217,7 @@
             <button type="submit" class="transition-all ease-in-out duration-200 py-3 px-7 bg-blue-700 text-white rounded-[6.25rem] text-center xl:text-base lg:text-sm font-medium ">
                 Terapkan
             </button>
-        </form--}}
+        </form>
     @elseif (Request::is('admin/bantuan/alternatif'))
         <form tabindex="0" action="{{ route('bantuan.alternatif') }}" method="GET"
             class="dropdown-filter-bayi absolute transition ease-in-out duration-200 opacity-0 transform scale-95 hidden z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
