@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 | In here, auth process like login process and pages that displayed before auth user login
 |
 */
+/**
+ * route for fallback kader routes
+ */
+Route::fallback(function () {
+    return view('404');
+});
+
+/**
+ * routes for landing page and authenticate process
+ */
 Route::get('/', [PromosiController::class, 'landingpage']);
 Route::get('/read={id}', [PromosiController::class, 'read']);
 Route::get('/profil', [PromosiController::class, 'profil'])->name('profil');

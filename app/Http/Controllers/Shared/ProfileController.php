@@ -121,6 +121,28 @@ class ProfileController extends Controller
                  * check if user has change column in pemeriksaans table
                  */
                 if ($request->input() !== []) {
+                    /**
+                     * check if user updated foto_profil
+                     */
+                    if ($request->has('foto_profil')) {
+                        /**
+                         * retrieve old hashName foto_profil
+                         */
+                        $foto_profil = $user->foto_profil;
+                        /**
+                         * delete foto_profil that saved in public/user directory
+                         */
+                        ImageLogic::delete($foto_profil, 6, 'user_img');
+                        /**
+                         * save updated foto_profil in public/user directory
+                         *
+                         * and change uploaded file value to string hashName in foto_profil
+                         */
+                        $request->merge([
+                            'foto_profil' => ImageLogic::upload($request->input('foto_profil'), 'user_img')
+                        ]);
+                    }
+
                     $isUpdated = $user->update($request->input());
                 }
 
