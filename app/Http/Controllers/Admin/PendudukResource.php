@@ -56,7 +56,9 @@ class PendudukResource extends Controller
 
         $activeMenu = 'penduduk';
 
-        return view('admin.penduduk.tambah', compact('breadcrumb', 'activeMenu'));
+        $penduduk = Penduduk::where('hubungan_keluarga', 'Kepala Keluarga')->get();
+
+        return view('admin.penduduk.tambah', compact('breadcrumb', 'activeMenu', 'penduduk'));
     }
 
     /**
