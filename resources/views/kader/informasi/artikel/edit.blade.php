@@ -37,6 +37,7 @@
                                 </label>
                             </div>
                         </div>
+                        <p class="text-xs font-normal text-stone-400 mt-[-10px]">Klik pada foto untuk mengubahnya</p>
                         @error('foto_artikel')
                         <span class="text-red-500">{{$message}}</span>
                         @enderror

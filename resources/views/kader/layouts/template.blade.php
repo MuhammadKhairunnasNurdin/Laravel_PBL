@@ -33,6 +33,21 @@
             @yield('content')
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+           // Select all number inputs
+           const numberInputs = document.querySelectorAll('input[type="number"]');
+
+           // Add event listener to each number input
+           numberInputs.forEach(input => {
+               input.addEventListener('input', function (e) {
+                   if (e.target.value < 0) {
+                       e.target.value = 0;
+                   }
+               });
+           });
+       });
+   </script>
     @stack('js')
 </body>
 </html>
