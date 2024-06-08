@@ -4,6 +4,7 @@
 namespace App\Charts;
 
 use App\Models\Pemeriksaan;
+use App\Models\Penduduk;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use ArielMejiaDev\LarapexCharts\LineChart;
 use Carbon\Carbon;
@@ -18,14 +19,16 @@ class SelisihChart
 
     public function build(string $id): LineChart
     {
-        $Kriteria = Pemeriksaan::with('pemeriksaan_bayi')
+        $kriteria = Pemeriksaan::with('pemeriksaan_bayi', 'penduduk')
         ->where('penduduk_id',$id)
         ->get();
+
+        $kriteriaData = Penduduk::all();
 
         $databulan = [];
         $datatotalKriteria = [];
 
-        foreach ($Kriteria as $data) {
+        foreach ($kriteria as $data) {
             $datatotalKriteria[] = [
                 'Berat Badan' => $data->berat_badan,
                 'Tinggi Badan' => $data->tinggi_badan,
@@ -38,6 +41,7 @@ class SelisihChart
 
         return $this->chart->lineChart()
         ->setTitle('Kontrol Data Perkembangan Bayi')
+        ->settitle("Kontrol Data Perkembangan Bayi ".implode(', ', $kriteriaData->where('penduduk_id', $id)->pluck('nama')->all()))
         ->addData('Berat Badan', array_column($datatotalKriteria, 'Berat Badan'))
         ->addData('Tinggi Badan', array_column($datatotalKriteria, 'Tinggi Badan'))
         ->addData('Lingkar Lengan', array_column($datatotalKriteria, 'Lingkar Lengan'))
