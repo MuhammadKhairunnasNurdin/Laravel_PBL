@@ -12,10 +12,13 @@
         </div>
         <div class="container px-4 mx-auto">
 
-            <div class="p-6 m-20 bg-white rounded shadow">
-                {!! $chart->container() !!}
+        <div class="p-6 m-20 bg-white rounded shadow">
+            {!! $chart->container() !!}
+            <div class="flex justify-end">
+                <a href="{{ url('ketua/bantuan/penerima') }}" class="bg-gray-300 text-sm text-neutral-950 font-bold py-2 px-4 mr-1 md:mr-3 rounded">Kembali</a>
             </div>
         </div>
+    </div>
 
 @endsection
 

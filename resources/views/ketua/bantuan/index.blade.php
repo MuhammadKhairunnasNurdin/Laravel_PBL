@@ -4,7 +4,7 @@
     <div class="flex flex-col bg-white mx-5 mt-5 shadow-[0_-4px_0_0_rgba(29,78,216,1)] rounded-md">
         <div class="flex justify-between items-center w-full py-2 border-b">
             <p class="text-lg ml-10">Daftar Rekomendasi Rujukan</p>
-            <a href="{{ url('ketua/bantuan/penerima') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-10 rounded">Tambah</a>
+            <a href="{{ url('ketua/bantuan/penerima') }}" class="bg-blue-700 text-sm text-white font-bold py-1 px-4 mr-10 rounded">Detail</a>
         </div>
         <div class="mx-10 my-[30px] overflow-x-auto">
             <x-table.data-table :dt="$bayis" :headers="['Nama Bayi', 'Nama Ibu', 'Nama Ayah', 'Periode Bantuan', 'Jenis Bantuan']">
@@ -12,7 +12,7 @@
                     $no = ($bayis->currentPage() - 1) * $bayis->perPage() + 1;
                 @endphp
                 @foreach ($bayis as $bayi)
-                    <x-table.table-row>
+                    <x-table.table-row> 
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">{{ $bayi->nama }}</td>
                         <td class="px-6 2xl:py-6 lg:py-5 border-b bg-white">
                             @php
