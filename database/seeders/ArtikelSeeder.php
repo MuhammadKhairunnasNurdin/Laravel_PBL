@@ -53,17 +53,6 @@ class ArtikelSeeder extends Seeder
                 'foto_artikel' => 'ZOqhuG56ATKk12u2HRl8Jx9liTaPR31T4BVIu0c2.jpg',
                 'created_at' => '2024-05-06',
                 'updated_at' => '2024-05-06',
-            ], [
-                'kader_id'=> 2,
-                'judul' => 'Penyuluhan Gizi Seimbang: Kunci Utama Menuju Keluarga Sehat dan Bahagia',
-                'isi' => 'Gizi seimbang adalah pondasi utama bagi kesehatan keluarga. Melalui penyuluhan gizi yang efektif,
-                masyarakat dapat memahami pentingnya konsumsi makanan bergizi untuk menjaga kesehatan tubuh. Posyandu Delima Merah dan
-                kader-kader kesehatannya memainkan peran vital dalam menyebarkan informasi tentang pola makan sehat dan
-                membantu masyarakat dalam mencapai gaya hidup yang lebih sehat.',
-                'tag' => 'informasi,edukasi,ibu_menyusui,ibu_hamil',
-                'foto_artikel' => 'OV0Cd2b2K1BoTBPMMdTNkFijFot0glkB6jCouRXp.jpg',
-                'created_at' => '2024-05-17',
-                'updated_at' => '2024-05-17',
             ],
 
         ];
