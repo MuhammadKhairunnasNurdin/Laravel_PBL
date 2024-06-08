@@ -31,7 +31,7 @@
         </div>
         <div class="mx-10 my-[30px] overflow-x-auto">
             <x-table.data-table :dt="$penduduks"
-            :headers="['Nama', 'NIK', 'NKK', 'Tanggal Lahir', 'Jenis Kelamin', 'Hubungan Keluarga', 'Aksi']">
+            :headers="['Nama', 'NIK', 'NKK', 'Tanggal Lahir', 'Jenis Kelamin', 'Hubungan Keluarga', 'Dibuat', 'Aksi']">
             @php
                     $no = ($penduduks->currentPage() - 1) * $penduduks->perPage() + 1;
                     @endphp
@@ -43,6 +43,7 @@
                         <td class="tableBody text-nowrap">{{$pd->tgl_lahir}}</td>
                         <td class="tableBody">{{$pd->jenis_kelamin}}</td>
                         <td class="tableBody">{{$pd->hubungan_keluarga}}</td>
+                        <td class="tableBody">{{ date('d-M-Y H:i', strtotime($pd->created_at))}}</td>
                         <td class="tableBody">
                             <form id="delete-form-{{$pd->penduduk_id}}" action="penduduk/{{$pd->penduduk_id}}" method="post" class="flex items-center gap-2">
                                 @php
@@ -211,6 +212,18 @@
             window.location.href = '/admin/penduduk';
         }
 
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+
+            const day = date.getDate().toString().padStart(2, '0'); // Pad single digit days with a leading zero
+            const month = date.toLocaleString('en-US', { month: 'short' }); // Get short month name
+            const year = date.getFullYear();
+            const hour = date.getHours().toString().padStart(2, '0'); // Pad single digit hours with a leading zero
+            const minute = date.getMinutes().toString().padStart(2, '0'); // Pad single digit minutes with a leading zero
+
+            return `${day}-${month}-${year} ${hour}:${minute}`;
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
         deleteData();
         openModal();
@@ -347,6 +360,7 @@
                     <td class="px-6 lg:py-2 text-nowrap border-b bg-white">${item.tgl_lahir}</td>
                     <td class="tableBody">${item.jenis_kelamin}</td>
                     <td class="tableBody">${item.hubungan_keluarga}</td>
+                    <td class="tableBody">${formatDate(item.created_at)}</td>
                     <td class="tableBody">
                         <form id="delete-form-${item.penduduk_id}" action="penduduk/${item.penduduk_id}" method="post" class="flex items-center gap-2">
                             @php
