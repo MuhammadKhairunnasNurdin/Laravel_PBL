@@ -19,7 +19,7 @@
     {{-- @include('kader.layouts.datatables') --}}
     @stack('css')
 </head>
-<body class="bg-gray-200 w-full md:h-screen">
+<body class="bg-gray-200 w-full md:h-screen scrollbar">
     @include('kader.layouts.header')
     <div class="flex h-full mt-[50px] lg:grid lg:grid-cols-6 md:mt-[88px]">
         <div id="sidebar" class="fixed z-20 h-full -translate-x-[999px] transform transition ease-in-out duration-500 sm:duration-700 col-span-1 lg:translate-x-0">
@@ -48,6 +48,16 @@
            });
        });
    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     @stack('js')
+    <script>
+        $(document).ready(function(){
+            $('#page_2').click(function(){
+                $(this).prop('disabled', true);
+                $(this).html('Please wait...');
+                $('form').submit();
+            });
+        });
+    </script>
 </body>
 </html>

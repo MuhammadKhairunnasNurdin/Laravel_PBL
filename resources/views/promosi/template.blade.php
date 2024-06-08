@@ -13,7 +13,7 @@
     <title>Sistem Informasi Posyandu</title>
     @stack('css')
 </head>
-<body class="bg-gray-200 w-full">
+<body class="bg-gray-200 w-full scrollbar">
     @include('promosi.header')
     <div class="h-full">
         @yield('content')

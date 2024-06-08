@@ -109,23 +109,7 @@
 @endsection
 
 @push('js')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     const deleteButtons = document.querySelectorAll('.delete-btn');
-    //     let deleteFormId;
-
-    //     deleteButtons.forEach(button => {
-    //         button.addEventListener('click', function() {
-    //             deleteFormId = this.getAttribute('data-id');
-    //         });
-    //     });
-
-    //     document.getElementById('confirm-delete').addEventListener('click', function() {
-    //         document.getElementById('delete-form-' + deleteFormId).submit();
-    //     });
-    // });
-
     document.addEventListener('DOMContentLoaded', function() {
         var div = document.getElementById('message');
         var button = document.getElementById('close');
@@ -137,43 +121,6 @@
             });
         }
     });
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     const modalToggles = document.querySelectorAll('[data-modal-toggle]');
-    //     const modals = document.querySelectorAll('.fixed');
-
-    //     modalToggles.forEach(toggle => {
-    //         toggle.addEventListener('click', function () {
-    //             const modalId = toggle.getAttribute('data-modal-target');
-    //             const modal = document.getElementById(modalId);
-    //             if (modal.classList.contains('hidden')) {
-    //                 modal.classList.remove('hidden');
-    //             } else {
-    //                 modal.classList.add('hidden');
-    //             }
-    //         });
-    //     });
-
-    //     const modalHides = document.querySelectorAll('[data-modal-hide]');
-    //     modalHides.forEach(hide => {
-    //         hide.addEventListener('click', function () {
-    //             const modalId = hide.getAttribute('data-modal-hide');
-    //             const modal = document.getElementById(modalId);
-    //             if (!modal.classList.contains('hidden')) {
-    //                 modal.classList.add('hidden');
-    //             }
-    //         });
-    //     });
-    // });
-
-
-
-    // document.addEventListener('DOMContentLoaded', function(button) {
-    //     console.log('test id');
-    //     button.addEventListener('click', function() {
-    //         div.classList.add('hidden');
-    //         console.log('test button');
-    //     });
-    // });
 
     function filterByKategori(kategori) {
         let url = `/bayi?`;
@@ -296,14 +243,9 @@
 
         function calculateAge(ttl){
             let birth = new Date(ttl);
-
-            // Get the current date
             let today = new Date();
-
-            // Calculate the age based on the year difference
             let age = today.getFullYear() - birth.getFullYear();
 
-            // Adjust the age if the birth date hasn't occurred yet this year
             let monthDifference = today.getMonth() - birth.getMonth();
             if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birth.getDate())) {
                 age--;
