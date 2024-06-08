@@ -22,6 +22,13 @@ Route::group([
     'prefix' => 'ketua'
     ], function () {
         /**
+         * route for fallback kader routes
+         */
+        Route::fallback(function () {
+            return view('404');
+        });
+
+        /**
          * routes for dasboard and profile ketua
          */
         Route::get('/', [DashboardController::class, 'indexKetua'])->name('dashboard');

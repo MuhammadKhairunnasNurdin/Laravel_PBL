@@ -5,23 +5,21 @@ namespace App\Charts;
 
 use App\Models\Pemeriksaan;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
-use App\Models\AuditBulananBayi;
+use ArielMejiaDev\LarapexCharts\LineChart;
+use Carbon\Carbon;
 
 class SelisihChart
 {
-    protected LarapexChart $chart;
-
-    public function __construct(LarapexChart $chart)
+    public function __construct(
+        protected LarapexChart $chart
+    )
     {
-        $this->chart = $chart;
     }
 
-    public function build(string $id): \ArielMejiaDev\LarapexCharts\LineChart
+    public function build(string $id): LineChart
     {
-        $Kriteria = AuditBulananBayi::
-        join('pemeriksaans', 'audit_bulanan_bayis.bulan_id', '=', 'pemeriksaans.pemeriksaan_id')
-        ->select('audit_bulanan_bayis.*', 'pemeriksaans.tgl_pemeriksaan', 'pemeriksaans.golongan')
-        ->where('audit_bulanan_bayis.penduduk_id',$id)
+        $Kriteria = Pemeriksaan::with('pemeriksaan_bayi')
+        ->where('penduduk_id',$id)
         ->get();
 
         $databulan = [];
@@ -31,11 +29,11 @@ class SelisihChart
             $datatotalKriteria[] = [
                 'Berat Badan' => $data->berat_badan,
                 'Tinggi Badan' => $data->tinggi_badan,
-                'Lingkar Lengan' => $data->lingkar_lengan,
-                'Lingkar Kepala' => $data->lingkar_kepala,
+                'Lingkar Lengan' => $data->pemeriksaan_bayi->lingkar_lengan,
+                'Lingkar Kepala' => $data->pemeriksaan_bayi->lingkar_kepala,
             ];
-            $tgl_pemeriksaan = \Carbon\Carbon::parse($data->tgl_pemeriksaan);
-            $databulan[] = $tgl_pemeriksaan->format('M Y');
+            $tgl_pemeriksaan = Carbon::parse($data->tgl_pemeriksaan);
+            $databulan[] = $tgl_pemeriksaan->locale('id')->translatedFormat('F Y');
         }
 
         return $this->chart->lineChart()

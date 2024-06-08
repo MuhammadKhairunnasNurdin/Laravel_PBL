@@ -27,6 +27,13 @@ Route::group(
     ],
     function () {
         /**
+         * route for fallback kader routes
+         */
+        Route::fallback(function () {
+            return view('404');
+        });
+
+        /**
          * routes for dashsboard and profile ketua
          */
         Route::get('/', [DashboardController::class, 'indexAdmin']);

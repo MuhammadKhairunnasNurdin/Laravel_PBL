@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Penduduk;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class UpdatePendudukRequest extends FormRequest
@@ -50,14 +51,14 @@ class UpdatePendudukRequest extends FormRequest
                 'bail',
                 'required',
                 'string',
-                'regex:/^\w{1,20}$/',
+                'regex:/^\w{16,20}$/',
                 'unique:penduduks,NIK, '.$this->route('penduduk').',penduduk_id',
             ],
             'NKK'=> [
                 'bail',
                 'required',
                 'string',
-                'regex:/^\w{1,20}$/',
+                'regex:/^\w{16,20}$/',
             ],
             'nama' => [
                 'bail',
@@ -94,7 +95,19 @@ class UpdatePendudukRequest extends FormRequest
             'hubungan_keluarga' => [
                 'bail',
                 'required',
-                Rule::in(['Kepala Keluarga', 'Istri', 'Anak'])
+                Rule::in(['Kepala Keluarga', 'Istri', 'Anak']),
+                function ($attribute, $value, $fail) {
+                    if (
+                        $value !== 'Anak'and
+                        DB::table('penduduks')
+                            ->where('hubungan_keluarga', $value)
+                            ->where('NKK', '=', $this->input('NKK'))
+                            ->where('penduduk_id', '!=', $this->route('penduduk'))
+                            ->exists()
+                    ) {
+                        $fail("$value dalam satu KK maksimal 1 dan sudah ada datanya!");
+                    }
+                }
             ],
             'alamat' => [
                 'bail',
@@ -123,14 +136,14 @@ class UpdatePendudukRequest extends FormRequest
              */
             'NIK.required' => 'NIK harus di isi!',
             'NIK.string' => 'NIK harus berupa string!',
-            'NIK.regex' => 'NIK maksimal 20 angka!',
+            'NIK.regex' => 'NIK minimal 16 dan maksimal 20 angka!',
             'NIK.unique' => 'NIK harus unik antara penduduk lain!',
             /**
              * costum message for NKK column or field input
              */
             'NKK.required' => 'NKK harus di isi!',
             'NKK.string' => 'NKK harus berupa string!',
-            'NKK.regex' => 'NKK maksimal 20 angka!',
+            'NKK.regex' => 'NKK minimal 16 dan maksimal 20 angka!',
             /**
              * costum message for nama column or field input
              */
@@ -145,7 +158,6 @@ class UpdatePendudukRequest extends FormRequest
             /**
              * costum message for no_telp column or field input
              */
-            'no_telp.required' => 'nomor telepon harus di isi!',
             'no_telp.string' => 'nomor telepon harus berupa string!',
             'no_telp.regex' => 'nomor telepon maksimal 14 angka!',
             /**

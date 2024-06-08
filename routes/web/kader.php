@@ -25,6 +25,13 @@ Route::group([
     'prefix' => 'kader'
     ], function () {
         /**
+         * route for fallback kader routes
+         */
+        Route::fallback(function () {
+            return view('404');
+        });
+
+        /**
          * routes for dashsboard and profile kader
          */
         Route::get('/', [DashboardController::class, 'indexKader'])->name('dashboard');

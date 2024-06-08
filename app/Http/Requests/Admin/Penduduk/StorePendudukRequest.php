@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\Penduduk;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class StorePendudukRequest extends FormRequest
@@ -49,14 +50,14 @@ class StorePendudukRequest extends FormRequest
                 'bail',
                 'required',
                 'string',
-                'regex:/^\w{18,20}$/',
+                'regex:/^\w{16,20}$/',
                 'unique:penduduks,NIK'
             ],
             'NKK'=> [
                 'bail',
                 'required',
                 'string',
-                'regex:/^\w{18,20}$/',
+                'regex:/^\w{16,20}$/',
             ],
             'nama' => [
                 'bail',
@@ -93,7 +94,18 @@ class StorePendudukRequest extends FormRequest
             'hubungan_keluarga' => [
                 'bail',
                 'required',
-                Rule::in(['Kepala Keluarga', 'Istri', 'Anak'])
+                Rule::in(['Kepala Keluarga', 'Istri', 'Anak']),
+                function ($attribute, $value, $fail) {
+                    if (
+                        $value !== 'Anak' and
+                        DB::table('penduduks')
+                            ->where('hubungan_keluarga', $value)
+                            ->where('NKK', '=', $this->input('NKK'))
+                            ->exists()
+                    ) {
+                        $fail("$value dalam satu KK maksimal 1 dan sudah ada datanya!");
+                    }
+                }
             ],
             'alamat' => [
                 'bail',
@@ -123,14 +135,14 @@ class StorePendudukRequest extends FormRequest
              */
             'NIK.required' => 'NIK harus di isi!',
             'NIK.string' => 'NIK harus berupa string!',
-            'NIK.regex' => 'NIK minimal 18 dan maksimal 20 angka!',
+            'NIK.regex' => 'NIK minimal 16 dan maksimal 20 angka!',
             'NIK.unique' => 'NIK harus unik antara penduduk lain!',
             /**
              * costum message for NKK column or field input
              */
             'NKK.required' => 'NKK harus di isi!',
             'NKK.string' => 'NKK harus berupa string!',
-            'NKK.regex' => 'NKK minimal 18 dan maksimal 20 angka!',
+            'NKK.regex' => 'NKK minimal 16 dan maksimal 20 angka!',
             /**
              * costum message for nama column or field input
              */

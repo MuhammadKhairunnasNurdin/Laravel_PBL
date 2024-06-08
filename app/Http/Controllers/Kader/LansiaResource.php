@@ -268,13 +268,7 @@ class LansiaResource extends Controller
          * error and catch that error mesasge to display in view
          */
         $pemeriksaan = Pemeriksaan::find($id);
-        // $update = $request->input('updated_at');
-        // $date = Carbon::make( $update, 'Asia/Jakarta');
-        // $date->setTimezone('id');
         $request->merge(['updated_at' => Carbon::make($request->input('updated_at'), 'Asia/Jakarta')->timezone('Asia/Jakarta')->format('Y-m-d H:i:s')]);
-        // $request->merge(['updated_at' => $date]);
-        // dd($pemeriksaan->updated_at, json_decode($request->input('updated_at')));
-        // dd($pemeriksaan->updated_at, $request->input('updated_at'));
         try {
             return DB::transaction(function () use ($id, $request) {
                 /**
