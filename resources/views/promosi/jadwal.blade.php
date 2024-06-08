@@ -21,7 +21,7 @@
         <input type="hidden" name="filterName" id="filterName" value="{{ encrypt('kegiatan_id') }}">
 
         <div class="mx-4 my-5 overflow-x-auto">
-            <x-table.data-table :dt="$kegiatans" :headers="['Nama Kegiatan', 'Tanggal Kegiatan', 'Pukul', 'Tempat Pelaksanaan', 'Aksi']">
+            <x-table.data-table :dt="$kegiatans" :headers="['Nama Kegiatan', 'Tanggal Kegiatan', 'Pukul', 'Tempat Pelaksanaan']">
                 @php
                     $no = ($kegiatans->currentPage() - 1) * $kegiatans->perPage() + 1;
                 @endphp
@@ -31,9 +31,6 @@
                         <td class="tableBody">{{$kgt->tgl_kegiatan}}</td>
                         <td class="tableBody">{{$kgt->jam_mulai}} - selesai</td>
                         <td class="tableBody">{{$kgt->tempat}}</td>
-                        <td class="tableBody">
-                            <a href="jadwal/kegiatan/{{$kgt->kegiatan_id}}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
-                        </td>
                     </x-table.table-row>
                     @php
                         $no++;
@@ -97,12 +94,8 @@
                         <td class="tableBody">${formatDate(item.tgl_kegiatan)}</td>
                         <td class="tableBody">${formatTime(item.jam_mulai)} - Selesai</td>
                         <td class="tableBody">${item.tempat}</td>
-                        <td class="tableBody">
-                            <a href="jadwal/kegiatan/${item.kegiatan_id}" class="bg-blue-400 text-[12px] text-neutral-950 py-[5px] px-2 rounded-sm hover:bg-blue-600 hover:text-white">Detail</a>
-                        </td>
                     </x-table.table-row>
     `;
-
         }
 
         async function searchFunction() {
