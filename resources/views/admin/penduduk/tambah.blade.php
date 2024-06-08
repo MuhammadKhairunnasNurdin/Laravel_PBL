@@ -16,7 +16,7 @@
                 {{-- PENDIDIKAN --}}
                 <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                     <p class="text-base text-neutral-950 pr-[10px]">Pendidikan<span class="text-red-400">*</span></p>
-                    <select name="pendidikan" id="pendidikan" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
+                    <select name="pendidikan" id="pendidikan" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none" required>
                         @php
                             $options = ['Belum Sekolah', 'Tidak Terpelajar', 'SD', 'SMP', 'SMA/SMK', 'D4/S1', 'S2 Keatas'];
                         @endphp
@@ -34,7 +34,7 @@
                 {{-- HUBUNGAN KELUARGA --}}
                 <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                     <p class="text-base text-neutral-950 pr-[10px]">Hubungan Keluarga<span class="text-red-400">*</span></p>
-                    <select name="hubungan_keluarga" id="hubungan_keluarga" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
+                    <select name="hubungan_keluarga" id="hubungan_keluarga" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none" required>
                         @php
                             $options = ['Kepala Keluarga', 'Istri', 'Anak'];
                         @endphp
@@ -52,7 +52,7 @@
                 {{-- RT --}}
                 <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                     <p class="text-base text-neutral-950 pr-[10px]">RT<span class="text-red-400">*</span></p>
-                    <select name="RT" id="RT" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
+                    <select name="RT" id="RT" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none" required>
                         @php
                             $options = ['RT 01', 'RT 02', 'RT 03', 'RT 04', 'RT 05', 'RT 06'];
                         @endphp
@@ -155,6 +155,7 @@
                 <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                     <p class="text-base text-neutral-950 pr-[10px]">Nama<span class="text-red-400">*</span></p>
                     <input type="text" step="any" value="{{old('nama')}}" name="nama" class="w-100 text-sm font-normal border-stone-400 pl-[10px] py-[10px] rounded-[5px] focus:outline-none placeholder:text-gray-300" placeholder="Masukkan Nama Penduduk" required>
+                    <p class="text-xs font-normal text-stone-400 mt-[-10px]" id="counter">Nama penduduk harus huruf dan maksimal 100</p>
                     @error('nama')
                         <span class="text-red-500">{{$message}}</span>
                     @enderror
@@ -194,7 +195,7 @@
                 {{-- PENDAPATAN --}}
                 <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                     <p class="text-base text-neutral-950 pr-[10px]">Pendapatan<span class="text-red-400">*</span></p>
-                    <select name="pendapatan" id="pendapatan" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
+                    <select name="pendapatan" id="pendapatan" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none" required>
                         @php
                             $options = ['Belum Bekerja', 'Rp 0 - Rp 500.000', 'Rp 500.000 - Rp 1.000.000', 'Rp 1.000.000 - Rp 2.000.000', 'Rp 2.000.000 - Rp 3.000.000', 'Rp 3.000.000 - Keatas'];
                         @endphp
@@ -242,7 +243,7 @@
     date.onchange = function () {
         date.classList.toggle('text-gray-300');
     }
-    
+
     document.getElementById('penduduk_id').addEventListener('change', function(){
         let selectElement = document.getElementById('penduduk_id');
         let selectedOption = selectElement.options[selectElement.selectedIndex];
@@ -255,6 +256,13 @@
         for (let i = 0; i < rtSelect.options.length; i++) {
             if (rtSelect.options[i].value === RT) {
                 rtSelect.selectedIndex = i;
+                break;
+            }
+        }
+        let hubKeluargaSelect = document.getElementById('hubungan_keluarga');
+        for (let i = 0; i < hubKeluargaSelect.options.length; i++) {
+            if (hubKeluargaSelect.options[i].value === 'Kepala Keluarga') {
+                hubKeluargaSelect.remove(i);
                 break;
             }
         }

@@ -27,7 +27,7 @@ class ArtikelSeeder extends Seeder
                 dukungan dari pemerintah setempat, serta kerjasama antara tenaga kesehatan dan masyarakat. Dengan demikian,
                 peningkatan angka pengunjung ini menjadi cerminan dari komitmen bersama untuk meningkatkan kualitas hidup dan
                 kesehatan keluarga di wilayah tersebut.',
-                'tag' => '"kegiatan,informasi',
+                'tag' => 'kegiatan,informasi',
                 'foto_artikel' => 'DAsCsDBnMKIDUDoGUOAA5uKHppcHCmqlpEsQJ6Ls.jpg',
                 'created_at' => '2024-04-17',
                 'updated_at' => '2024-04-17',

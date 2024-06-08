@@ -96,7 +96,7 @@ Class FilterServices
                   ->whereYear('audit_bulanan_bayis.created_at', '=', $tahun);
         }
 
-        return $query;
+        return $query->orderBy('audit_bulanan_bayis.created_at', 'desc');
     }
 
     public function getFilteredUser(Request $request)
