@@ -90,7 +90,7 @@ class UpdatePendudukRequest extends FormRequest
             'pendidikan' => [
                 'bail',
                 'required',
-                Rule::in(['Belum Sekolah', 'Tidak Terpelajar', 'SD', 'SMP', 'SMA', 'D4/S1', 'S2 Keatas'])
+                Rule::in(['Belum Sekolah', 'Tidak Terpelajar', 'SD', 'SMP', 'SMA/SMK', 'D4/S1', 'S2 Keatas'])
             ],
             'hubungan_keluarga' => [
                 'bail',
@@ -149,7 +149,7 @@ class UpdatePendudukRequest extends FormRequest
              */
             'nama.required' => 'nama harus di isi!',
             'nama.string' => 'nama harus berupa string!',
-            'nama.regex' => 'nama maksimal 100 serta hanya boleh huruf!',
+            'nama.regex' => 'nama maksimal 100 serta hanya boleh huruf dan tanda .!',
             /**
              * costum message for tgl_lahir column or field input
              */

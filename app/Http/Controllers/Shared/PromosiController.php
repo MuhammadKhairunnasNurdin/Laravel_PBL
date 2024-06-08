@@ -18,7 +18,7 @@ class PromosiController extends Controller
         ];
 
         $activeMenu = 'jadwal';
-        $kegiatans = Kegiatan::paginate(10);
+        $kegiatans = Kegiatan::orderBy('created_at', 'desc')->paginate(10);
 
         return view('promosi.jadwal', ['breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'kegiatans' => $kegiatans]);
     }
@@ -56,7 +56,7 @@ class PromosiController extends Controller
         return view('promosi.landing', ['chart' => $chart->build(), 'breadcrumb' => $breadcrumb, 'activeMenu' => $activeMenu, 'imageUrl' => $imageUrl, 'artikels' => $artikels, 'kegiatans' => $kegiatans, 'informasi' => $informasi, 'edukasi' => $edukasi, 'balita' => $balita, 'ibuHamil' => $ibuHamil, 'ibuMenyusui' => $ibuMenyusui]);
     }
 
-    
+
     public function read(string $id)
     {
         $artikels = Artikel::find($id);

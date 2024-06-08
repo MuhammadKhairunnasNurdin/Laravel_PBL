@@ -30,7 +30,7 @@ class KegiatanResource extends Controller
         /**
          * Retrieve data for filter feature
          */
-        $kegiatans = Kegiatan::paginate(10);
+        $kegiatans = Kegiatan::orderBy('created_at', 'desc')->paginate(10);
 
         return view('kader.informasi.kegiatan.list', compact('breadcrumb', 'activeMenu', 'kegiatans'));
     }
