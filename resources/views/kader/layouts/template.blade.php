@@ -48,6 +48,16 @@
            });
        });
    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     @stack('js')
+    <script>
+        $(document).ready(function(){
+            $('#page_2').click(function(){
+                $(this).prop('disabled', true);
+                $(this).html('Please wait...');
+                $('form').submit();
+            });
+        });
+    </script>
 </body>
 </html>
