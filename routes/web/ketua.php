@@ -34,8 +34,10 @@ Route::group([
          */
         Route::group(['prefix' => 'bantuan'], function () {
             Route::get('/', [BantuanController::class, 'index']);
-            Route::get('/penerima', [BantuanController::class, 'tambah']);
+            Route::get('/penerima', [BantuanController::class, 'tambah'])->name('ketua.penerima');
             Route::post('/konfirmasi', [BantuanController::class, 'konfirmasi'])->name('ketua.konfirmasi');
+            Route::get('/detail/{id}', [BantuanController::class, 'detail'])->name('ketua.bantuan.detail');
+            Route::get('/detail/update', [BantuanController::class, 'indexbantuan'])->name('ketua.detail.update');
         });
         Route::group(['prefix' => 'penerima'], function () {
             Route::get('/', [PenerimaController::class, 'index']);

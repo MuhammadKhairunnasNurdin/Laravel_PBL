@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\Kriteria\StoreKriteriaRequest;
 use App\Models\AuditBulananBayi;
 use App\Models\Kriteria;
 use App\Models\Pemeriksaan;
-use App\Models\RentangKriteria;
 use App\Services\MabacServices;
 use App\Services\SAWServices;
 use App\Services\FilterServices;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class BantuanController extends Controller
@@ -50,7 +47,6 @@ class BantuanController extends Controller
         $bayis = AuditBulananBayi::join('pemeriksaans', 'audit_bulanan_bayis.bulan_id', '=', 'pemeriksaans.pemeriksaan_id')
             ->join('penduduks', 'audit_bulanan_bayis.penduduk_id', '=', 'penduduks.penduduk_id')
             ->select('audit_bulanan_bayis.*', 'pemeriksaans.tgl_pemeriksaan', 'pemeriksaans.golongan', 'penduduks.NKK', 'penduduks.nama', 'penduduks.tgl_lahir')
-            ->where('tgl_pemeriksaan', '2024-05-15')
             ->get();
 
         if ($request->penduduk_id === null) {
@@ -79,7 +75,6 @@ class BantuanController extends Controller
         $bayis = AuditBulananBayi::join('pemeriksaans', 'audit_bulanan_bayis.bulan_id', '=', 'pemeriksaans.pemeriksaan_id')
             ->join('penduduks', 'audit_bulanan_bayis.penduduk_id', '=', 'penduduks.penduduk_id')
             ->select('audit_bulanan_bayis.*', 'pemeriksaans.tgl_pemeriksaan', 'pemeriksaans.golongan', 'penduduks.NKK', 'penduduks.nama', 'penduduks.tgl_lahir')
-            ->where('tgl_pemeriksaan', '2024-05-15')
             ->get();
 
         if ($request->penduduk_id === null) {

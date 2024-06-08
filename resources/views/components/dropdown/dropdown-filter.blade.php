@@ -241,7 +241,25 @@
                 Terapkan
             </button>
         </form>
-    {{-- @elseif (Request::is('ketua/spk')) --}}
+    @elseif (Request::is('ketua/bantuan/penerima'))
+        <form tabindex="0" action="{{ route('ketua.penerima') }}" method="GET"
+            class="dropdown-filter-bayi absolute transition ease-in-out duration-200 opacity-0 transform scale-95 hidden z-[1] menu p-5 mt-2 shadow bg-white rounded-[1.25rem] lg:w-[35vw] 2xl:w-[30vw] flex flex-col gap-5 justify-center border border-Neutral/30">
+            <div class="flex justify-between items-center">
+                <p class="text-Neutral/100 font-medium 2xl:text-xl lg:text-sm">Filter</p>
+                <span onclick="resetInput()"
+                    class="cursor-pointer font-semibold xl:text-sm lg:text-xs text-[#E14942]">Reset</span>
+            </div>
+            <div class="flex flex-col gap-2">
+                <p class="text-Neutral/100 text-sm font-medium">Tanggal</p>
+                <div class="lg:flex lg:flex-row flex-wrap  justify-between items-center gap-3">
+                    <input type="month" name="tanggal" id="tanggal">
+                </div>
+            </div>
+
+            <button type="submit" class="transition-all ease-in-out duration-200 py-3 px-7 bg-blue-700 text-white rounded-[6.25rem] text-center xl:text-base lg:text-sm font-medium ">
+                Terapkan
+            </button>
+        </form>
     @endif
 
 </div>
