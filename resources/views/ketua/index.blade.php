@@ -1,6 +1,25 @@
 @extends('ketua.layouts.template')
 
 @section('content')
+<div class="flex flex-col mt-[30px] mx-10 gap-[30px] relative hidden" id="messageContainer">
+    <div class="flex w-full h-full justify-center items-center absolute" >
+        @if(session('success'))
+            <div class="flex w-full h-full items-center p-4 mb-4 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
+                <p class="mr-4"> <b>BERHASIL </b> {{ session('success') }}</p>
+                <button id="close" class="ml-auto bg-transparent text-green-700 hover:text-green-900">
+                    <span>&times;</span>
+                </button>
+            </div>
+        @elseif(session('error'))
+            <div class="flex w-full h-full items-center p-4 mb-4 border-2 border-red-500 bg-red-100 text-red-700 rounded-md" id="message">
+                <p class="mr-4">{{ session('error') }}</p>
+                <button id="close" class="ml-auto bg-transparent text-red-700 hover:text-red-900">
+                    <span>&times;</span>
+                </button>
+            </div>
+        @endif
+    </div>
+</div>
 <div class="grid lg:grid-cols-3 mx-5 mt-5 sm:mb-5 lg:mb-5 gap-5">
     @php
         $golongan = ['Lansia', 'Bayi'];
@@ -154,7 +173,40 @@
                 `;
             }
         }
-        document.getElementById('searchInput').addEventListener('keyup', searchFunction);
+
+    document.getElementById('searchInput').addEventListener('keyup', searchFunction);
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const messageContainer = document.getElementById('messageContainer');
+        const message = document.getElementById('message');
+        const closeButton = document.getElementById('close');
+
+        if (message) {
+            messageContainer.classList.remove('hidden');
+            
+            // Hide message after 5 seconds
+            setTimeout(function() {
+                messageContainer.classList.add('hidden');
+                message.classList.add('hidden');
+            }, 3000);
+            
+            // Hide message on close button click
+            closeButton.addEventListener('click', function() {
+                messageContainer.classList.add('hidden');
+                message.classList.add('hidden');
+            });
+        }
+    });
+
+    // jQuery to handle fade out effect after 5 seconds
+    $(document).ready(function (){
+        setTimeout(function() {
+            $('#message').fadeOut('fast', function() {
+                $(this).addClass('hidden');
+                $('#messageContainer').addClass('hidden');
+            });
+        }, 3000);
+    });
     </script>
     <script src="{{ $chart->cdn() }}"></script>
     {{$chart->script() }}

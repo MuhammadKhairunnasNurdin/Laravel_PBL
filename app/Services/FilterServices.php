@@ -24,6 +24,13 @@ Class FilterServices
             });
         }
 
+        $tanggal = $request->input('tanggal');
+        if (isset($tanggal) and $request->has('tanggal')) {
+            list($tahun, $bulan) = explode('-', $tanggal);
+            $query->whereMonth('created_at', '=', $bulan)
+                  ->whereYear('created_at', '=', $tahun);
+        }
+
         return $query;
     }
 
@@ -54,6 +61,13 @@ Class FilterServices
                     $query->where('kolesterol', '>', $kolesterol);
                 }
             });
+        }
+
+        $tanggal = $request->input('tanggal');
+        if (isset($tanggal) and $request->has('tanggal')) {
+            list($tahun, $bulan) = explode('-', $tanggal);
+            $query->whereMonth('created_at', '=', $bulan)
+                  ->whereYear('created_at', '=', $tahun);
         }
 
         return $query;

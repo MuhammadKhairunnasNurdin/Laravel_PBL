@@ -93,48 +93,6 @@
             {{-- KOLOM KIRI --}}
             <div class="md:col-span-1 flex flex-col gap-[23px] max-md:mt-[23px] order-1">
 
-                {{-- <div class="flex flex-col w-full h-fill gap-[20px]" id="page_">
-                    <h2 class="font-bold text-lg">Data Bayi</h2>
-                    <div class="flex border border-stone-400 rounded-md px-2 py-2">
-                        <table class="w-fit capitalize">
-                            <tbody>
-                                <tr>
-                                    <td>Nama Bayi</td>
-                                    <td>:</td>
-                                    <td>
-                                        <select name="penduduk_id" id="penduduk_id" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
-                                            <option value="0" class="text-gray-300" id="params">Masukkan nama bayi</option>
-                                            @foreach($penduduk as $pd)
-                                                <option value="{{ $pd->penduduk_id }}" class="text-neutral-950" {{ old('penduduk_id') === strval($pd->penduduk_id) ? 'selected' : '' }}>{{ $pd->nama }}</option>
-                                            @endforeach
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Usia</td>
-                                    <td>:</td>
-                                    <td><input type="text" value="" class="border-none" id="usia" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td>Golongan Usia</td>
-                                    <td>:</td>
-                                    <td><input type="text" value="" class="border-none" id="golongan" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td>Nama Ibu</td>
-                                    <td>:</td>
-                                    <td><input type="text" value="" class="border-none" id="ibu" disabled></td>
-                                </tr>
-                                <tr>
-                                    <td>Nama Ayah</td>
-                                    <td>:</td>
-                                    <td><input type="text" value="" class="border-none" id="ayah" disabled></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div> --}}
-
                 {{-- NAMA --}}
                 <div class="flex flex-col w-full h-fill gap-[20px] " id="page_1">
                     <p class="text-base text-neutral-950 pr-[10px]">Anggota Keluarga Dari</p>
@@ -230,7 +188,7 @@
             <div class="col-span-2 flex justify-end items-center gap-[26px] w-full" id="">
                 <p class="text-xs lg:text-sm"><span class="text-red-400">*</span>Wajib diisi</p>
                 <a href="{{url('admin/penduduk' . session('urlPagination'))}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
-                <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_2">Simpan Data</button>
+                <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="simpan">Simpan Data</button>
             </div>
         </div>
     </div>

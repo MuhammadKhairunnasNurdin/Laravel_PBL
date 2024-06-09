@@ -87,7 +87,7 @@
                 <div class="col-span-3 flex justify-end items-end gap-[26px] w-full h-full max-md:pt-[23px]">
                     <p class="text-2xs"><span class="text-red-400">*</span>Wajib diisi</p>
                     <a href="{{ url('kader/informasi/artikel/' . session('urlArtikel'))}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[10px] px-[10px] rounded-[5px]">Kembali</a>
-                    <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[10px] px-[10px] rounded-[5px]">Simpan</button>
+                    <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[10px] px-[10px] rounded-[5px]" id="simpan">Simpan</button>
                 </div>
             </div>
         </div>

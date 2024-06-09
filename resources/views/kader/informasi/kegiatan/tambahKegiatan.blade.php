@@ -49,7 +49,7 @@
             </div>
             <div class="flex justify-end items-end gap-[26px] px-[50px] pb-10 w-full h-full">
                 <a href="{{ url('kader/informasi')}}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[10px] px-[10px] rounded-[5px]">Kembali</a>
-                <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[10px] px-[10px] rounded-[5px]">Simpan</button>
+                <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[10px] px-[10px] rounded-[5px]" id="simpan">Simpan</button>
             </div>
         </div>
     </form>
