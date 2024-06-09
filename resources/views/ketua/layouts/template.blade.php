@@ -24,7 +24,7 @@
             @include('ketua.layouts.sidebar')
         </div>
         <div class="col-span-1 hidden lg:flex"></div>
-        <div class="flex h-full mt-[50px] lg:grid lg:grid-cols-6 2xl:grid-cols-8 md:mt-[88px]">
+        <div class="w-full lg:col-span-5 2xl:col-span-7 lg:flex lg:flex-col lg:items-stretch">
             <div class="flex text-base px-5 md:text-2xl pt-5">
                  @include('kader.layouts.breadcrumb')
             </div>
