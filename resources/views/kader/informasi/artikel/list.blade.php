@@ -1,7 +1,7 @@
 @extends('kader.layouts.template')
 
 @section('content')
-<div class="flex w-full justify-center items-center my:2 lg:my-4" id="message">
+<div class="flex w-full justify-center items-center my:2 lg:my-4 hidden" id="messageContainer">
     @if(session('success'))
         <div class="flex w-3/4 h-full items-center p-2 mb-1 border-2 border-green-500 bg-green-100 text-green-700 rounded-md" id="message">
             <p class="mr-4"> <b>BERHASIL </b> {{ session('success') }}</p>
@@ -112,22 +112,36 @@
         });
     });
 
+    document.addEventListener("DOMContentLoaded", function() {
+        const messageContainer = document.getElementById('messageContainer');
+        const message = document.getElementById('message');
+        const closeButton = document.getElementById('close');
 
-        $(document).ready(function (){
+        if (message) {
+            messageContainer.classList.remove('hidden');
+            
+            // Hide message after 5 seconds
             setTimeout(function() {
-                $('#message').fadeOut('fast');
-            }, 5000);
-        })
-
-        document.addEventListener('DOMContentLoaded', function() {
-        let div = document.getElementById('message');
-        let button = document.getElementById('close');
-
-        if (div && button) {
-            button.addEventListener('click', function() {
-            div.classList.add('hidden');
+                messageContainer.classList.add('hidden');
+                message.classList.add('hidden');
+            }, 3000);
+            
+            // Hide message on close button click
+            closeButton.addEventListener('click', function() {
+                messageContainer.classList.add('hidden');
+                message.classList.add('hidden');
             });
         }
     });
+
+        // jQuery to handle fade out effect after 5 seconds
+        $(document).ready(function (){
+            setTimeout(function() {
+                $('#message').fadeOut('fast', function() {
+                    $(this).addClass('hidden');
+                    $('#messageContainer').addClass('hidden');
+                });
+            }, 3000);
+        });
     </script>
 @endpush

@@ -87,7 +87,7 @@
                 <div class="col-span-2 flex justify-end items-center gap-[26px] pt-10 w-full" id="">
                     <p class="text-base"><span class="text-red-400">*</span>Wajib diisi</p>
                     <a href="{{ url('admin/user' . session('urlPagination')) }}" class="bg-gray-300 text-neutral-950 font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_1">Kembali</a>
-                    <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="page_2">Simpan Data</button>
+                    <button type="submit" class="bg-blue-700 text-white font-bold text-base py-[5px] px-[19px] rounded-[5px]" id="simpan">Simpan Data</button>
                 </div>
             </div>
         </div>

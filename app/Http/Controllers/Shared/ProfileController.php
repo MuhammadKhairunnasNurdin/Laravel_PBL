@@ -156,7 +156,7 @@ class ProfileController extends Controller
                 return $isUpdated;
             }
 
-            return redirect()->intended( Auth::user()->level . '/profile')
+            return redirect()->intended( Auth::user()->level . '/')
                 ->with('success', $isUpdated ? 'Data user berhasil diubah' : 'Namun Data user tidak diubah');
         } catch (\Throwable) {
             return redirect()->intended(Auth::user()->level . '/profile')
