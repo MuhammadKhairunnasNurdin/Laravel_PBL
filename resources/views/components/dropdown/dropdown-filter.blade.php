@@ -69,6 +69,13 @@
                 </div>
             </div>
 
+            <div class="flex flex-col gap-2">
+                <p class="text-Neutral/100 text-sm font-medium">Bulan Pemeriksaan</p>
+                <div class="lg:flex lg:flex-row flex-wrap  justify-between items-center gap-3">
+                    <input type="month" name="tanggal" id="tanggal" class="rounded-2xl">
+                </div>
+            </div>
+
             <button type="submit" class="transition-all ease-in-out duration-200 py-3 px-7 bg-red-500 text-white rounded-[6.25rem] text-center xl:text-base lg:text-sm font-medium ">
                 Terapkan
             </button>
@@ -112,6 +119,13 @@
                                         value="asam_urat" checked="{{ request()->get('indikasi') == 'asam_urat'}}" fn="a">
                         Asam Urat Tinggi
                     </x-input.radio-input>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <p class="text-Neutral/100 text-sm font-medium">Bulan Pemeriksaan</p>
+                <div class="lg:flex lg:flex-row flex-wrap  justify-between items-center gap-3">
+                    <input type="month" name="tanggal" id="tanggal" class="rounded-2xl">
                 </div>
             </div>
 
@@ -229,7 +243,7 @@
             <div class="flex flex-col gap-2">
                 <p class="text-Neutral/100 text-sm font-medium">Tanggal</p>
                 <div class="lg:flex lg:flex-row flex-wrap  justify-between items-center gap-3">
-                    <input type="month" name="tanggal" id="tanggal">
+                    <input type="month" name="tanggal" id="tanggal" class="rounded-2xl">
                 </div>
             </div>
 
@@ -248,7 +262,7 @@
             <div class="flex flex-col gap-2">
                 <p class="text-Neutral/100 text-sm font-medium">Tanggal</p>
                 <div class="lg:flex lg:flex-row flex-wrap  justify-between items-center gap-3">
-                    <input type="month" name="tanggal" id="tanggal">
+                    <input type="month" name="tanggal" id="tanggal"class="rounded-2xl">
                 </div>
             </div>
 
