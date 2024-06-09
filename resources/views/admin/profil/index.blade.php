@@ -74,7 +74,8 @@
                         $previous = url('admin');
                     }
                 @endphp
-            <a href="{{ $previous }}" class="bg-gray-300 py-[10px] px-[17px] rounded-[5px] text-center">Kembali</a>                <button type="submit" id="submit" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px]">Simpan Data</button>
+            <a href="{{ $previous }}" class="bg-gray-300 py-[10px] px-[17px] rounded-[5px] text-center">Kembali</a>
+            <button type="submit" id="submit" class="bg-blue-700 text-white py-[10px] px-[17px] rounded-[5px]" id="simpan">Simpan Data</button>
             </div>
         </div>
     </form>
