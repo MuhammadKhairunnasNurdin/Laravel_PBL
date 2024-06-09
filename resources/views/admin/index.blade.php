@@ -97,6 +97,10 @@
             </x-table.data-table>
     </div>
 </div>
+
+<div class="grid grid-cols-3 mx-5 mt-5 mb-10 gap-5">
+    <iframe  class="w-full h-[600px] col-span-3" src="https://lookerstudio.google.com/embed/reporting/fcb8674d-d125-4e3f-8e8b-3475dcc76775/page/9Jj2D" frameborder="0" style="border:0" allowfullscreen sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"></iframe>
+</div>
 @endsection
 
 @push('js')
