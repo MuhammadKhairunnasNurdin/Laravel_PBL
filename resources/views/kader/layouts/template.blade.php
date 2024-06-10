@@ -21,12 +21,12 @@
 </head>
 <body class="bg-gray-200 w-full md:h-screen scrollbar">
     @include('kader.layouts.header')
-    <div class="flex h-full mt-[50px] lg:grid lg:grid-cols-6 2xl:grid-cols-8 md:mt-[88px]">
+    <div class="flex h-full mt-[50px] lg:grid lg:grid-cols-6 2xl:grid-cols-6 min-[1920px]:grid-cols-8 md:mt-[88px]">
         <div id="sidebar" class="fixed z-20 h-full -translate-x-[999px] transform transition ease-in-out duration-500 sm:duration-700 col-span-1 lg:translate-x-0">
             @include('kader.layouts.sidebar')
         </div>
         <div class="col-span-1 hidden lg:flex"></div>
-        <div class="w-full lg:col-span-5 2xl:col-span-7 lg:flex lg:flex-col lg:items-stretch">
+        <div class="w-full lg:col-span-5 2xl:col-span-5 min-[1920px]:col-span-7 lg:flex lg:flex-col lg:items-stretch">
             <div class="flex text-base px-5 md:text-2xl pt-5">
                 @include('kader.layouts.breadcrumb')
             </div>
