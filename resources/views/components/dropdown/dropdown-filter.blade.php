@@ -241,7 +241,7 @@
                     class="cursor-pointer font-semibold xl:text-sm lg:text-xs text-[#E14942]">Reset</span>
             </div>
             <div class="flex flex-col gap-2">
-                <p class="text-Neutral/100 text-sm font-medium">Tanggal</p>
+                <p class="text-Neutral/100 text-sm font-medium">Bulan</p>
                 <div class="lg:flex lg:flex-row flex-wrap  justify-between items-center gap-3">
                     <input type="month" name="tanggal" id="tanggal" class="rounded-2xl">
                 </div>
@@ -260,7 +260,7 @@
                     class="cursor-pointer font-semibold xl:text-sm lg:text-xs text-[#E14942]">Reset</span>
             </div>
             <div class="flex flex-col gap-2">
-                <p class="text-Neutral/100 text-sm font-medium">Tanggal</p>
+                <p class="text-Neutral/100 text-sm font-medium">Bulan</p>
                 <div class="lg:flex lg:flex-row flex-wrap  justify-between items-center gap-3">
                     <input type="month" name="tanggal" id="tanggal"class="rounded-2xl">
                 </div>
