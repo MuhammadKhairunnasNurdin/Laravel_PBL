@@ -118,7 +118,7 @@ class UpdatePendudukRequest extends FormRequest
             'RT' => [
                 'bail',
                 'required',
-                Rule::in(['RT 01', 'RT 02', 'RT 03', 'RT 04', 'RT 05', 'RT 06'])
+                Rule::in(['RT 01', 'RT 02', 'RT 03', 'RT 04', 'RT 05', 'RT 06', 'RT 07', 'RT 08'])
             ]
         ];
     }
