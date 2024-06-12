@@ -1,10 +1,5 @@
 @extends('ketua.layouts.detailtemplate')
 
-@section('js2')
-<script src="{{ $chart->cdn() }}"></script>
-
-{{ $chart->script() }}
-@endsection
 @section('content')
     <div class="flex flex-col bg-white mx-5 mt-5 shadow-[0_-4px_0_0_rgba(29,78,216,1)] rounded-md">
         <div class="flex justify-between items-center w-full py-2 border-b">
@@ -22,7 +17,7 @@
 
 @endsection
 
-{@push('css')
+@push('css')
 <style>
     th, td {
         padding-inline: 20px;
@@ -32,4 +27,8 @@
     }
 </style>
 @endpush
-}
+@push('js')
+<script src="{{ $chart->cdn() }}"></script>
+
+{{ $chart->script() }}
+@endpush
