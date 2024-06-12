@@ -30,7 +30,7 @@ return new class extends Migration
             $table->enum('pendidikan', ['Belum Sekolah', 'Tidak Terpelajar','SD', 'SMP', 'SMA', 'D4/S1', 'S2 Keatas']);
             $table->enum('hubungan_keluarga', ['Kepala Keluarga', 'Istri', 'Anak']);
             $table->string('alamat', 200);
-            $table->enum('RT', ['RT 01', 'RT 02', 'RT 03', 'RT 04', 'RT 05', 'RT 06']);
+            $table->enum('RT', ['RT 01', 'RT 02', 'RT 03', 'RT 04', 'RT 05', 'RT 06', 'RT 07', 'RT 08']);
             $table->timestamps();
         });
     }

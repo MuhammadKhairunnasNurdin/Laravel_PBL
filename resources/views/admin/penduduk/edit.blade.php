@@ -58,7 +58,7 @@
                         <p class="text-base text-neutral-950 pr-[10px]">RT<span class="text-red-400">*</span></p>
                         <select name="RT" id="RT" class="w-100 border border-stone-400 text-sm font-normal pl-[10px] py-[10px] rounded-[5px] focus:outline-none">
                             @php
-                                $options = ['RT 01', 'RT 02', 'RT 03', 'RT 04', 'RT 05', 'RT 06'];
+                                $options = ['RT 01', 'RT 02', 'RT 03', 'RT 04', 'RT 05', 'RT 06', 'RT 07', 'RT 08'];
                             @endphp
                             @foreach ($options as $option)
                                 <option value="{{ $option }}" {{ old('RT', $penduduk->RT) == $option ? 'selected' : '' }}>{{ $option }}</option>
