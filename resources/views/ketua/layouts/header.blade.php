@@ -1,4 +1,4 @@
-<nav class="grid grid-cols-3 md:grid-cols-4 py-2 lg:grid-cols-6 w-screen md:w-full h-fit md:py-5 bg-white shadow-md fixed top-0 z-50">
+<nav class="grid grid-cols-3 md:grid-cols-4 py-2 lg:grid-cols-6 min-[1920px]:grid-cols-8 w-screen md:w-full h-fit md:py-5 bg-white shadow-md fixed top-0 z-50">
     <div class="flex w-fit col-span-1 px-5 items-center gap-2 lg:gap-0">
         <div class="flex lg:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" id="show">
@@ -11,7 +11,7 @@
             <p class="text-neutral-950 text-2xl font-bold">Posyandu</p class="">
         </div>
     </div>
-    <div class="flex col-span-2 md:col-span-3 justify-between align-middle px-5 lg:col-span-5">
+    <div class="flex col-span-2 md:col-span-3 justify-between align-middle px-5 lg:col-span-5 min-[1920px]:col-span-7">
         <div class="flex flex-col hidden md:flex">
             <p class="text-neutral-950 text-xs">Halo, {{auth()->user()->username}}</p>
             <p class="text-neutral-950 text-xl">{{ now('Asia/Jakarta')->locale('id')->translatedFormat('d F Y') }}</p>
